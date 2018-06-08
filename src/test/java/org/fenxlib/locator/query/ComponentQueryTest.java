@@ -10,9 +10,12 @@ import javafx.scene.layout.BorderPane;
 import com.legyver.fenxlib.factory.AccordionMenuFactory;
 import com.legyver.fenxlib.factory.BladeFactory;
 import com.legyver.fenxlib.factory.BorderPaneFactory;
+import com.legyver.fenxlib.factory.ListViewFactory;
+import com.legyver.fenxlib.factory.PaneRegionFactory;
 import com.legyver.fenxlib.factory.TextFieldFactory;
 import com.legyver.fenxlib.factory.TitledPaneFactory;
 import com.legyver.fenxlib.factory.TopRegionFactory;
+import com.legyver.fenxlib.factory.WebViewFactory;
 import com.legyver.fenxlib.factory.menu.CenterOptions;
 import com.legyver.fenxlib.factory.menu.LeftMenuOptions;
 import com.legyver.fenxlib.factory.menu.MenuFactory;
@@ -23,6 +26,9 @@ import com.legyver.fenxlib.factory.options.BorderPaneInitializationOptions;
 import com.legyver.fenxlib.factory.options.NameListClickOption;
 import com.legyver.fenxlib.util.DefaultApplicationOptions;
 import com.legyver.fenxlib.util.GuiUtil;
+import java.io.IOException;
+import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -32,8 +38,7 @@ public class ComponentQueryTest extends ApplicationTest {
 
 	@Test
 	public void findOnlyMenuBarComponent() throws Exception {
-		DefaultComponentRegistry defaultComponentRegistry = new DefaultComponentRegistry();
-		GuiUtil.init(new DefaultApplicationOptions(null, defaultComponentRegistry, null));
+		DefaultComponentRegistry defaultComponentRegistry = initComponentRegistry();
 
 		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
 				.top()
@@ -60,8 +65,7 @@ public class ComponentQueryTest extends ApplicationTest {
 
 	@Test
 	public void findBladeFieldComponent() throws Exception {
-		DefaultComponentRegistry defaultComponentRegistry = new DefaultComponentRegistry();
-		GuiUtil.init(new DefaultApplicationOptions(null, defaultComponentRegistry, null));
+		DefaultComponentRegistry defaultComponentRegistry = initComponentRegistry();
 
 		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
 				.left("Controls")
@@ -78,6 +82,26 @@ public class ComponentQueryTest extends ApplicationTest {
 				.named("Sources").execute();
 		assertTrue(node.isPresent());
 		assertTrue(node.get() instanceof ListView);
+	}
+
+	@Test
+	public void findByType() throws Exception {
+		DefaultComponentRegistry defaultComponentRegistry = initComponentRegistry();
+
+		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
+				.center().factory(new PaneRegionFactory(new ListViewFactory(true))).up().build();
+		BorderPane root = new BorderPaneFactory(options).makeBorderPane();
+		Optional<ListView> node = new ComponentQuery.QueryBuilder(defaultComponentRegistry)
+				.inRegion(BorderPaneInitializationOptions.REGION_CENTER)
+				.type(ListView.class).execute();
+		assertTrue(node.isPresent());
+		assertTrue(node.get() instanceof ListView);
+	}
+
+	private DefaultComponentRegistry initComponentRegistry() throws IOException {
+		DefaultComponentRegistry defaultComponentRegistry = new DefaultComponentRegistry();
+		GuiUtil.init(new DefaultApplicationOptions(null, defaultComponentRegistry, null));
+		return defaultComponentRegistry;
 	}
 
 

@@ -8,9 +8,9 @@ import javafx.scene.Node;
 
 import static com.legyver.fenxlib.locator.visitor.LocationKeyVisitor.KEY_SEPARATOR;
 
-public class ComponentQuery<T extends Node> {
+public abstract class ComponentQuery<T extends Node> {
 	private final String queryString;
-	private final QueryableComponentRegistry registry;
+	protected final QueryableComponentRegistry registry;
 
 	public ComponentQuery(String queryString, QueryableComponentRegistry registry) {
 		this.queryString = queryString;
@@ -21,13 +21,44 @@ public class ComponentQuery<T extends Node> {
 		return queryString;
 	}
 
-	public Optional<T> execute() {
-		return Optional.ofNullable((T) registry.get(queryString));
+	public abstract Optional<T> execute();
+
+	public static class NamedComponentQuery<T extends Node> extends ComponentQuery<T> {
+
+		public NamedComponentQuery(String queryString, QueryableComponentRegistry registry) {
+			super(queryString, registry);
+		}
+
+		@Override
+		public Optional<T> execute() {
+			return Optional.ofNullable((T) registry.get(this));
+		}
+	}
+
+	public static class TypedComponentQuery<T extends Node> extends ComponentQuery<T> {
+
+		private final Class type;
+
+		protected TypedComponentQuery(String queryString, Class type, QueryableComponentRegistry registry) {
+			super(queryString, registry);
+			this.type = type;
+		}
+
+		public Class getType() {
+			return type;
+		}
+
+		@Override
+		public Optional<T> execute() {
+			return Optional.ofNullable((T) registry.get(this));
+		}
 	}
 
 	protected static abstract class AbstractQueryBuilder {
 		protected String name;
 		abstract protected ComponentQuery build(Deque<String> stack);
+
+		abstract protected ComponentQuery build(Deque<String> stack, Class type);
 	}
 
 	public static class QueryBuilder extends AbstractQueryBuilder {
@@ -48,7 +79,15 @@ public class ComponentQuery<T extends Node> {
 			stack.push(name);
 			stack.stream().collect(Collectors.joining(KEY_SEPARATOR));
 
-			return new ComponentQuery(stack.stream().collect(Collectors.joining(KEY_SEPARATOR)), registry);
+			return new NamedComponentQuery(stack.stream().collect(Collectors.joining(KEY_SEPARATOR)), registry);
+		}
+
+		@Override
+		protected ComponentQuery build(Deque<String> stack, Class type) {
+			stack.push(name);
+			stack.stream().collect(Collectors.joining(KEY_SEPARATOR));
+
+			return new TypedComponentQuery(stack.stream().collect(Collectors.joining(KEY_SEPARATOR)), type, registry);
 		}
 	}
 
@@ -70,6 +109,10 @@ public class ComponentQuery<T extends Node> {
 			stack.push(name);
 			return build(stack);
 		}
+
+		public ComponentQuery type(Class type) {
+			return build(new ArrayDeque<>(), type);
+		}
 	}
 
 	public static class RegionQueryBuilder<T extends AbstractQueryBuilder> extends ChildQueryBuilder<T, RegionQueryBuilder> {
@@ -89,6 +132,14 @@ public class ComponentQuery<T extends Node> {
 				stack.push(name);
 			}
 			return parent.build(stack);
+		}
+
+		@Override
+		protected ComponentQuery build(Deque<String> stack, Class type) {
+			if (name != null) {
+				stack.push(name);
+			}
+			return parent.build(stack, type);
 		}
 
 	}

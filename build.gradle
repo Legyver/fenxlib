@@ -23,6 +23,7 @@ repositories {
 dependencies {
 	//exception
 	compile group: 'com.legyver', name: 'core', version: '1.0+'
+	compile group: 'com.legyver', name: 'utils', version: '1.0+'
 	
 	//ui
 	compile group: 'com.jfoenix', name: 'jfoenix', version: '8.0.2'

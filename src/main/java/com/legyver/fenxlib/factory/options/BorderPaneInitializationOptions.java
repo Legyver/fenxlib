@@ -8,17 +8,24 @@ public class BorderPaneInitializationOptions {
 	public static final String REGION_BOTTOM = "bottom";
 	public static final String REGION_LEFT = "left";
 	public static final String REGION_RIGHT = "right";
+	public static final String REGION_CENTER = "center";
 
+	private final RegionInitializationOptions centerOptions;
 	private final RegionInitializationOptions leftOptions;
 	private final RegionInitializationOptions rightOptions;
 	private final SideAwareRegionInitializationOptions bottomOptions;
 	private final RegionInitializationOptions topOptions;
 
-	public BorderPaneInitializationOptions(RegionInitializationOptions leftOptions, RegionInitializationOptions rightOptions, SideAwareRegionInitializationOptions bottomOptions, RegionInitializationOptions topOptions) {
+	public BorderPaneInitializationOptions(RegionInitializationOptions centerOptions, RegionInitializationOptions leftOptions, RegionInitializationOptions rightOptions, SideAwareRegionInitializationOptions bottomOptions, RegionInitializationOptions topOptions) {
+		this.centerOptions = centerOptions;
 		this.leftOptions = leftOptions;
 		this.rightOptions = rightOptions;
 		this.bottomOptions = bottomOptions;
 		this.topOptions = topOptions;
+	}
+
+	public RegionInitializationOptions getCenterOptions() {
+		return centerOptions;
 	}
 
 	public RegionInitializationOptions getLeftOptions() {
@@ -39,6 +46,7 @@ public class BorderPaneInitializationOptions {
 
 	public static class Builder {
 
+		private final RegionInitializationOptions.Builder<Builder> centerOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_CENTER);
 		private final RegionInitializationOptions.Builder<Builder> leftOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_LEFT);
 		private final RegionInitializationOptions.Builder<Builder> rightOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_RIGHT);
 		private final RegionInitializationOptions.SideAwareBuilder<Builder> bottomOptionsBuilder = new RegionInitializationOptions.SideAwareBuilder<>(this, REGION_BOTTOM);
@@ -49,7 +57,11 @@ public class BorderPaneInitializationOptions {
 			RegionInitializationOptions leftOptions = leftOptionsBuilder.build();
 			RegionInitializationOptions rightOptions = rightOptionsBuilder.build();
 			SideAwareRegionInitializationOptions bottomOptions = bottomOptionsBuilder.build(leftOptions.isDisplayContentByDefault(), rightOptions.isDisplayContentByDefault());
-			return new BorderPaneInitializationOptions(leftOptions, rightOptions, bottomOptions, topOptionsBuilder.build());
+			return new BorderPaneInitializationOptions(centerOptionsBuilder.build(), leftOptions, rightOptions, bottomOptions, topOptionsBuilder.build());
+		}
+
+		public RegionInitializationOptions.Builder<Builder> center() {
+			return centerOptionsBuilder;
 		}
 
 		public RegionInitializationOptions.Builder<Builder> top() {
