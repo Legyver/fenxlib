@@ -56,9 +56,8 @@ public class SplitPaneFactory implements NodeFactory<SplitPane> {
 		if (firstNode == null) {
 			VBox.setVgrow(original, Priority.NEVER);
 			firstNode = original;
-		} else {
-			HBox.setHgrow(original, Priority.SOMETIMES);
 		}
+		HBox.setHgrow(original, Priority.SOMETIMES);
 
 		return original;
 	}

@@ -12,13 +12,14 @@ import static com.legyver.core.exception.CoreException.unwrap;
 import static com.legyver.core.exception.CoreException.wrap;
 
 public class BorderPaneFactory {
-
+	private FactoryAction centerFactory;
 	private FactoryAction topFactory;
 	private FactoryAction bottomFactory;
 	private FactoryAction leftFactory;
 	private FactoryAction rightFactory;
 
 	public BorderPaneFactory(BorderPaneInitializationOptions options) {
+		this.centerFactory = new FactoryAction(options.getCenterOptions(), (pane, region) -> pane.setCenter(region));
 		this.topFactory = new FactoryAction(options.getTopOptions(), (pane, region) -> pane.setTop(region));
 		this.bottomFactory = new FactoryAction(options.getBottomOptions(), (pane, region) -> pane.setBottom(region));
 		this.leftFactory = new FactoryAction(options.getLeftOptions(), (pane, region) -> pane.setLeft(region));
@@ -27,7 +28,7 @@ public class BorderPaneFactory {
 
 	public BorderPane makeBorderPane() throws CoreException {
 		BorderPane borderPane = new BorderPane();
-		unwrap(() -> Stream.of(topFactory, leftFactory, rightFactory, bottomFactory)//order matters, since bottomFactory calls getLeft()/getRight()
+		unwrap(() -> Stream.of(centerFactory, topFactory, leftFactory, rightFactory, bottomFactory)//order matters, since bottomFactory calls getLeft()/getRight()
 				.forEach(f -> wrap(() -> f.execute(borderPane))));
 		return borderPane;
 	}
