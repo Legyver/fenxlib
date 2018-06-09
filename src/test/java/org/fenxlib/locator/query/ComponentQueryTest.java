@@ -11,7 +11,7 @@ import com.legyver.fenxlib.factory.AccordionMenuFactory;
 import com.legyver.fenxlib.factory.BladeFactory;
 import com.legyver.fenxlib.factory.BorderPaneFactory;
 import com.legyver.fenxlib.factory.ListViewFactory;
-import com.legyver.fenxlib.factory.PaneRegionFactory;
+import com.legyver.fenxlib.factory.StackPaneRegionFactory;
 import com.legyver.fenxlib.factory.TextFieldFactory;
 import com.legyver.fenxlib.factory.TitledPaneFactory;
 import com.legyver.fenxlib.factory.TopRegionFactory;
@@ -89,7 +89,7 @@ public class ComponentQueryTest extends ApplicationTest {
 		DefaultComponentRegistry defaultComponentRegistry = initComponentRegistry();
 
 		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
-				.center().factory(new PaneRegionFactory(new ListViewFactory(true))).up().build();
+				.center().factory(new StackPaneRegionFactory(new ListViewFactory(true))).up().build();
 		BorderPane root = new BorderPaneFactory(options).makeBorderPane();
 		Optional<ListView> node = new ComponentQuery.QueryBuilder(defaultComponentRegistry)
 				.inRegion(BorderPaneInitializationOptions.REGION_CENTER)
