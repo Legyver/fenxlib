@@ -1,14 +1,22 @@
 package com.legyver.fenxlib.factory.options;
 
-public class IconOptions {
+import javafx.scene.effect.BlendMode;
+
+public abstract class IconOptions implements IconWidgetOptions {
 	private final String icon;
 	private final String iconColor;
 	private final double iconSize;
+	private final BlendMode blendMode;
 
-	public IconOptions(String icon, String iconColor, double iconSize) {
+	public IconOptions(String icon, String iconColor, double iconSize, BlendMode blendMode) {
 		this.icon = icon;
 		this.iconColor = iconColor;
 		this.iconSize = iconSize;
+		this.blendMode = blendMode;
+	}
+
+	public BlendMode getBlendMode() {
+		return blendMode;
 	}
 
 	public String getIcon() {
