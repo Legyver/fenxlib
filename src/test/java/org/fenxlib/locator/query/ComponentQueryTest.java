@@ -51,9 +51,7 @@ public class ComponentQueryTest extends ApplicationTest {
 								)
 						),
 						new CenterOptions(new TextFieldFactory(false)),
-						new RightMenuOptions(
-								new MenuFactory("Help", new PopupMenuItemFactory("About"))
-						))).up()
+						new RightMenuOptions())).up()
 				.build();
 		BorderPane root = new BorderPaneFactory(options).makeBorderPane();
 		Optional<Node> node = new ComponentQuery.QueryBuilder(defaultComponentRegistry)
@@ -89,7 +87,7 @@ public class ComponentQueryTest extends ApplicationTest {
 		DefaultComponentRegistry defaultComponentRegistry = initComponentRegistry();
 
 		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
-				.center().factory(new StackPaneRegionFactory(new ListViewFactory(true))).up().build();
+				.center().factory(new StackPaneRegionFactory(true, new ListViewFactory(true))).up().build();
 		BorderPane root = new BorderPaneFactory(options).makeBorderPane();
 		Optional<ListView> node = new ComponentQuery.QueryBuilder(defaultComponentRegistry)
 				.inRegion(BorderPaneInitializationOptions.REGION_CENTER)

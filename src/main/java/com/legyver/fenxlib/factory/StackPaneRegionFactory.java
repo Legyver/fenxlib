@@ -2,32 +2,28 @@ package com.legyver.fenxlib.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.factory.options.RegionInitializationOptions;
-import java.util.stream.Stream;
+import com.legyver.fenxlib.util.GuiUtil;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 
-import static com.legyver.core.exception.CoreException.unwrap;
-import static com.legyver.core.exception.CoreException.wrap;
+public class StackPaneRegionFactory extends AbstractWrappingFactory implements RegionFactory<StackPane, RegionInitializationOptions> {
+	private final boolean shouldRegister;
 
-public class StackPaneRegionFactory implements RegionFactory<StackPane, RegionInitializationOptions> {
-
-	private final NodeFactory[] nodeFactories;
-
-	public StackPaneRegionFactory(NodeFactory... nodeFactories) {
-		this.nodeFactories = nodeFactories;
+	public StackPaneRegionFactory(boolean shouldRegister, NodeFactory... nodeFactories) {
+		super(nodeFactories);
+		this.shouldRegister = shouldRegister;
 	}
 
 	@Override
 	public StackPane makeRegion(BorderPane borderPane, RegionInitializationOptions regionInitOptions) throws CoreException {
 		StackPane content = new StackPane();
-		if (nodeFactories != null) {
-			unwrap(() -> Stream.of(nodeFactories)
-					.map(f -> wrap(() -> f.makeNode(regionInitOptions.getLocationContext())))
-					.forEach(n -> content.getChildren().add(n)));
+		if (shouldRegister) {
+			GuiUtil.getComponentRegistry().register(regionInitOptions.getLocationContext(), content);
 		}
+		addChildren(content.getChildren(), regionInitOptions.getLocationContext());
 		ObservableList<Node> childs = content.getChildren();
 		if (childs.size() == 1) {
 			Node node = childs.get(0);

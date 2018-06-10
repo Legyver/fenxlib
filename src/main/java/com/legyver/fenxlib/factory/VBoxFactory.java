@@ -5,25 +5,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import com.legyver.fenxlib.locator.LocationContext;
 
-import static com.legyver.core.exception.CoreException.unwrap;
-import static com.legyver.core.exception.CoreException.wrap;
-
-public class VBoxFactory {
-
-	private final HBoxFactory[] hboxFactories;
+public class VBoxFactory extends AbstractWrappingFactory<HBox> implements NodeFactory<VBox> {
 
 	public VBoxFactory(HBoxFactory...hboxFactories) {
-		this.hboxFactories = hboxFactories;
+		super(hboxFactories);
 	}
 
 	public VBox makeVBox(LocationContext locationContext) throws CoreException {
-		List<HBox> entries = unwrap(() -> Stream.of(hboxFactories)
-				.map(factory -> wrap(() -> factory.makeHBox(locationContext)))
-				.collect(Collectors.toList()));
+		List<HBox> entries = makeChildren(locationContext);
 		return new VBox(entries.toArray(new HBox[entries.size()]));
+	}
+
+	@Override
+	public VBox makeNode(LocationContext locationContext) throws CoreException {
+		return makeVBox(locationContext);
 	}
 }

@@ -21,6 +21,9 @@ import com.legyver.fenxlib.factory.menu.LeftMenuOptions;
 import com.legyver.fenxlib.factory.menu.MenuFactory;
 import com.legyver.fenxlib.factory.menu.RightMenuOptions;
 
+import static com.legyver.core.exception.CoreException.unwrap;
+import static com.legyver.core.exception.CoreException.wrap;
+
 public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 	private final LeftMenuOptions leftOptions;
 	private final CenterOptions centerOptions;
@@ -60,12 +63,12 @@ public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 		return spaceNodes(leftBar, rightBar);
 	}
 
-	private MenuBar getMenuBar(MenuFactory[] menuFactories) {
+	private MenuBar getMenuBar(MenuFactory[] menuFactories) throws CoreException {
 		MenuBar bar = new MenuBar();
 		if (menuFactories != null) {
-			List<Menu> menus = Stream.of(menuFactories)
-					.map(f -> f.makeMenu())
-					.collect(Collectors.toList());
+			List<Menu> menus = unwrap(() -> Stream.of(menuFactories)
+					.map(f -> wrap(() -> f.makeMenu()))
+					.collect(Collectors.toList()));
 			bar.getMenus().addAll(menus);
 		}
 		return bar;
