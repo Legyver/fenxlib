@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import com.legyver.fenxlib.locator.LocationContext;
 import com.legyver.fenxlib.locator.LocationContextDecorator;
 
-public class TitledPaneFactory<T extends Pane> {
+public class TitledPaneFactory<T extends Pane> implements NodeFactory<TitledPane> {
 	private final String title;
 	private final TitledPaneContentFactory<T> contentFactory;
 
@@ -29,5 +29,10 @@ public class TitledPaneFactory<T extends Pane> {
 		grid.getChildren().add(spacer);
 		TitledPane history = new TitledPane(title, grid);
 		return history;
+	}
+
+	@Override
+	public TitledPane makeNode(LocationContext locationContext) throws CoreException {
+		return makeTitlePane(locationContext);
 	}
 }
