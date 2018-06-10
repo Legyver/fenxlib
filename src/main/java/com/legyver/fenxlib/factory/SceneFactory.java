@@ -13,10 +13,14 @@ import javafx.stage.Stage;
 public class SceneFactory {
 	private final URL[] stylesheetUrls;
 	private final Stage stage;
+	private final double width;
+	private final double height;
 
-	public SceneFactory(Stage stage, URL... stylesheetUrls) {
+	public SceneFactory(Stage stage, double width, double height, URL... stylesheetUrls) {
 		this.stylesheetUrls = stylesheetUrls;
 		this.stage = stage;
+		this.width = width;
+		this.height = height;
 	}
 
 	public Scene makeScene(BorderPane root) {
@@ -28,7 +32,7 @@ public class SceneFactory {
 		});
 		decorator.setCustomMaximize(true);
 
-		Scene scene = new Scene(decorator, 900, 750);
+		Scene scene = new Scene(decorator, width, height);
 		if (stylesheetUrls != null) {
 			Stream.of(stylesheetUrls).map(url -> url.toExternalForm())
 					.forEach(styleSheet -> scene.getStylesheets().add(styleSheet));
