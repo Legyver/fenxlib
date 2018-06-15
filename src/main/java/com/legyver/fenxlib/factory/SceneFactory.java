@@ -24,7 +24,6 @@ public class SceneFactory {
 	}
 
 	public Scene makeScene(BorderPane root) {
-
 		JFXDecorator decorator = new JFXDecorator(stage, root);
 		decorator.setOnCloseButtonAction(() -> {
 			GuiUtil.executeHook(LifecycleHook.PRE_SHUTDOWN);
