@@ -1,10 +1,11 @@
 package com.legyver.fenxlib.factory.options.visitor;
 
+import com.legyver.fenxlib.factory.options.blade.NameDatePickerOption;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import com.legyver.fenxlib.factory.options.NameFieldButtonOption;
-import com.legyver.fenxlib.factory.options.NameFieldOption;
-import com.legyver.fenxlib.factory.options.NameListClickOption;
+import com.legyver.fenxlib.factory.options.blade.NameFieldButtonOption;
+import com.legyver.fenxlib.factory.options.blade.AbstractNameFieldOption;
+import com.legyver.fenxlib.factory.options.blade.NameListClickOption;
 import com.legyver.fenxlib.locator.LocationContext;
 
 public class BladeOptionSpacer extends AbstractGridPaneLayoutVisitor {
@@ -19,7 +20,7 @@ public class BladeOptionSpacer extends AbstractGridPaneLayoutVisitor {
 	}
 
 	@Override
-	public void visit(NameFieldOption nameFieldOption, int row) {
+	public void visit(AbstractNameFieldOption nameFieldOption, int row) {
 		gp.add(getSpacer(), row, 3);
 	}
 
@@ -32,6 +33,11 @@ public class BladeOptionSpacer extends AbstractGridPaneLayoutVisitor {
 		Region spacer = new Region();
 		spacer.setMinSize(10, 36);
 		return spacer;
+	}
+
+	@Override
+	public void visit(NameDatePickerOption nameDatePickerOption, int row) {
+		gp.add(getSpacer(), row, 3);
 	}
 
 }

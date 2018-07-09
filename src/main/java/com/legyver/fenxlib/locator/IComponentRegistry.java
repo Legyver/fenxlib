@@ -4,5 +4,6 @@ import javafx.scene.Node;
 
 public interface IComponentRegistry {
 
-	public void register(LocationContext context, Node node);
+	void register(LocationContext context, Node node);
+	void deregister(LocationContext context);
 }

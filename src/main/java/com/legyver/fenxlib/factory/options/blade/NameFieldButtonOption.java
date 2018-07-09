@@ -1,6 +1,7 @@
-package com.legyver.fenxlib.factory.options;
+package com.legyver.fenxlib.factory.options.blade;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.factory.options.TooltipIconOptions;
 import com.legyver.fenxlib.factory.options.visitor.AbstractGridPaneLayoutVisitor;
 import javafx.beans.property.StringProperty;
 
@@ -9,15 +10,20 @@ import javafx.beans.property.StringProperty;
  *  label: [field] ([icon])
  *
  */
-public class NameFieldButtonOption implements BladeOption<StringProperty> {
+public class NameFieldButtonOption extends AbstractBladeGridLayout implements BladeOption<StringProperty> {
 	private final String label;
 	private final TooltipIconOptions iconOptions;
 	private final boolean readOnly;
 
-	public NameFieldButtonOption(String label, TooltipIconOptions iconOptions, boolean readOnly) {
+	public NameFieldButtonOption(String label, TooltipIconOptions iconOptions, int labelSpan, boolean readOnly) {
+		super(labelSpan, GRID_COLS - labelSpan - 1);
 		this.label = label;
 		this.iconOptions = iconOptions;
 		this.readOnly = readOnly;
+	}
+
+	public NameFieldButtonOption(String label, TooltipIconOptions iconOptions, boolean readOnly) {
+		this(label, iconOptions, 1, readOnly);
 	}
 
 	public String getLabel() {

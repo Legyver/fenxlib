@@ -12,6 +12,7 @@ import com.legyver.util.nippe.Base;
 import com.legyver.util.nippe.Step;
 
 public class DefaultComponentRegistry implements IComponentRegistry, QueryableComponentRegistry {
+
 	private final Map<String, Node> nodes = new HashMap<>();
 	private final Map<String, TypedCtx> typedNodes = new HashMap<>();
 
@@ -37,6 +38,16 @@ public class DefaultComponentRegistry implements IComponentRegistry, QueryableCo
 	@Override
 	public Node get(NamedComponentQuery query) {
 		return nodes.get(query.getQueryString());
+	}
+
+	@Override
+	public void deregister(LocationContext context) {
+		String key = context.accept(new LocationKeyVisitor());
+		Node node = nodes.remove(key);
+		TypedCtx typed = typedNodes.get(key);
+		if (typed != null && node != null) {
+			typed.typedNodes.remove(node.getClass());
+		}
 	}
 
 	private class TypedCtx {

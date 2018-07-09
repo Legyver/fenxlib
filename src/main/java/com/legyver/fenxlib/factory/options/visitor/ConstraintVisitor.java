@@ -1,8 +1,9 @@
 package com.legyver.fenxlib.factory.options.visitor;
 
-import com.legyver.fenxlib.factory.options.NameFieldButtonOption;
-import com.legyver.fenxlib.factory.options.NameFieldOption;
-import com.legyver.fenxlib.factory.options.NameListClickOption;
+import com.legyver.fenxlib.factory.options.blade.NameDatePickerOption;
+import com.legyver.fenxlib.factory.options.blade.NameFieldButtonOption;
+import com.legyver.fenxlib.factory.options.blade.AbstractNameFieldOption;
+import com.legyver.fenxlib.factory.options.blade.NameListClickOption;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -20,7 +21,7 @@ public class ConstraintVisitor extends AbstractGridPaneLayoutVisitor {
 	}
 
 	@Override
-	public void visit(NameFieldOption nameFieldOption, int row) {
+	public void visit(AbstractNameFieldOption nameFieldOption, int row) {
 		setColumnConstraints(row);
 	}
 
@@ -39,6 +40,11 @@ public class ConstraintVisitor extends AbstractGridPaneLayoutVisitor {
 			ColumnConstraints columnConstraintsFieldB = new ColumnConstraints(30, 50, 100);
 			gp.getColumnConstraints().addAll(columnConstraintLabel, columnConstraintsFieldL, columnConstraintsFieldM, columnConstraintsFieldR, columnConstraintsFieldB);
 		}
+	}
+
+	@Override
+	public void visit(NameDatePickerOption nameDatePickerOption, int row) {
+		setColumnConstraints(row);
 	}
 
 
