@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.factory.options.BladeOption;
+import com.legyver.fenxlib.factory.options.blade.BladeOption;
 import com.legyver.fenxlib.factory.options.visitor.CenterItemVisitor;
 import com.legyver.fenxlib.factory.options.visitor.ConstraintVisitor;
 import com.legyver.fenxlib.factory.options.visitor.LeftItemVisitor;

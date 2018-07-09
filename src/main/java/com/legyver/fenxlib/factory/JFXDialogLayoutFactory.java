@@ -1,18 +1,10 @@
 package com.legyver.fenxlib.factory;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.locator.LocationContext;
-import java.util.stream.Stream;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-
-import static com.legyver.core.exception.CoreException.unwrap;
-import static com.legyver.core.exception.CoreException.wrap;
+import javafx.scene.layout.VBox;
 
 /**
  * <JFXDialogLayout>
@@ -43,8 +35,10 @@ public class JFXDialogLayoutFactory extends AbstractWrappingFactory implements N
 	public JFXDialogLayout makeNode(LocationContext locationContext) throws CoreException {
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setHeading(new Label(title));
+		VBox vbox = new VBox();
+		layout.getBody().add(vbox);
 
-		addChildren(layout.getBody(), locationContext);
+		addChildren(vbox.getChildren(), locationContext);
 		return layout;
 	}
 
