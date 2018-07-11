@@ -8,7 +8,7 @@ import javafx.scene.control.Skin;
 
 public class NameFieldPercentageOption extends AbstractNameFieldOption {
 
-	public NameFieldPercentageOption(String label, boolean readOnly, int labelSpan) {
+	public NameFieldPercentageOption(String label, boolean readOnly,int labelSpan) {
 		super(label, readOnly, labelSpan);
 	}
 

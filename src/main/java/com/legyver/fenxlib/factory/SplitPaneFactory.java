@@ -32,6 +32,7 @@ public class SplitPaneFactory extends AbstractWrappingFactory<Region> implements
 			VBox.setVgrow(firstNode, Priority.NEVER);
 			//Constrain max size of top component:
 			firstNode.maxHeightProperty().bind(splitPane.heightProperty().multiply(topPercentage));
+			firstNode.minWidthProperty().bind(splitPane.maxWidthProperty());
 		}
 
 		if (nodes.size() == 2) {

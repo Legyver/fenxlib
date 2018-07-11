@@ -6,7 +6,7 @@ import com.legyver.fenxlib.locator.LocationContext;
 public class LabelFactory implements NodeFactory<Label> {
 
 	private final String text;
-
+	
 	public LabelFactory(String text) {
 		this.text = text;
 	}
