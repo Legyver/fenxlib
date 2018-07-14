@@ -15,11 +15,13 @@ import com.legyver.fenxlib.factory.StackPaneRegionFactory;
 import com.legyver.fenxlib.factory.TextFieldFactory;
 import com.legyver.fenxlib.factory.TitledPaneFactory;
 import com.legyver.fenxlib.factory.TopRegionFactory;
+import com.legyver.fenxlib.factory.menu.file.OpenFileDecorator;
 import com.legyver.fenxlib.factory.menu.CenterOptions;
 import com.legyver.fenxlib.factory.menu.LeftMenuOptions;
 import com.legyver.fenxlib.factory.menu.MenuFactory;
-import com.legyver.fenxlib.factory.menu.OpenZipFileMenuFactory;
+import com.legyver.fenxlib.factory.menu.file.ZipFileMenuFactory;
 import com.legyver.fenxlib.factory.menu.RightMenuOptions;
+import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
 import com.legyver.fenxlib.factory.options.BorderPaneInitializationOptions;
 import com.legyver.fenxlib.factory.options.blade.NameListClickOption;
 import com.legyver.fenxlib.util.GuiUtil;
@@ -40,7 +42,7 @@ public class ComponentQueryTest extends ApplicationTest {
 				.factory(new TopRegionFactory(
 						new LeftMenuOptions(
 								new MenuFactory("File",
-										new OpenZipFileMenuFactory("Open", "Select File", file -> {//noop
+										new OpenFileDecorator("Open", "Select File", new ZipFileMenuFactory(new WorkingFileConfig()), file -> {//noop
 										})
 								)
 						),

@@ -1,28 +1,35 @@
 package com.legyver.fenxlib.factory;
 
+import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
 import java.io.File;
 import java.util.stream.Stream;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.stage.FileChooser;
 
 public class FileOptionsChooserFactory {
 
-	private final String title;
-	private final String initialDirectory;
+	private final ObjectProperty<File> initialDirectory;
+	private final StringProperty initialFileName;
 
-	public FileOptionsChooserFactory(String title, String initialDirectory) {
-		this.title = title;
+	public FileOptionsChooserFactory(ObjectProperty<File> initialDirectory, StringProperty initialFileName) {
 		this.initialDirectory = initialDirectory;
+		this.initialFileName = initialFileName;
 	}
 
-	public FileOptionsChooserFactory(String title) {
-		this(title, null);
+	public FileOptionsChooserFactory(WorkingFileConfig workingFileConfig) {
+		this(workingFileConfig != null ? workingFileConfig.initialDirectory() : null, workingFileConfig != null ? workingFileConfig.initialFileName() : null);
 	}
-	
-	public FileChooser makeFileChooser(FileChooser.ExtensionFilter...filters) {
+
+	public FileChooser makeFileChooser(String title, FileChooser.ExtensionFilter... filters) {
 		final FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(title);
+
 		if (initialDirectory != null) {
-			fileChooser.setInitialDirectory(new File(initialDirectory));
+			fileChooser.initialDirectoryProperty().bind(initialDirectory);
+		}
+		if (initialFileName != null) {
+			fileChooser.initialFileNameProperty().bind(initialFileName);
 		}
 		if (filters != null) {
 			Stream.of(filters).forEach(f -> fileChooser.getExtensionFilters().add(f));
@@ -30,9 +37,4 @@ public class FileOptionsChooserFactory {
 		return fileChooser;
 	}
 
-	public FileChooser makeZipFileChooser() {
-		return makeFileChooser(new FileChooser.ExtensionFilter("ZIP", "*.zip"));
-	}
-	
-	
 }
