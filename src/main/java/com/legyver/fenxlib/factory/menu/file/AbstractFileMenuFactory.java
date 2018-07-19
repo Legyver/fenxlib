@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.factory.menu.file;
 
-import com.legyver.fenxlib.factory.FileOptionsChooserFactory;
 import com.legyver.fenxlib.util.GuiUtil;
 import java.io.File;
 import java.util.function.Consumer;

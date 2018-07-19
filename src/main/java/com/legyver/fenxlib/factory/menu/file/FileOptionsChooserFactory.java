@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.factory;
+package com.legyver.fenxlib.factory.menu.file;
 
 import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
 import java.io.File;

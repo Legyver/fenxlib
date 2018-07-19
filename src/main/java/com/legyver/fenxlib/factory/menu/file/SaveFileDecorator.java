@@ -3,7 +3,7 @@ package com.legyver.fenxlib.factory.menu.file;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.factory.menu.file.AbstractFileMenuFactory.Action;
 import com.legyver.fenxlib.factory.menu.IMenuItemFactory;
-import com.legyver.fenxlib.factory.options.FileOptions;
+import com.legyver.fenxlib.uimodel.FileOptions;
 import java.io.File;
 import java.util.function.Consumer;
 import javafx.scene.control.MenuItem;

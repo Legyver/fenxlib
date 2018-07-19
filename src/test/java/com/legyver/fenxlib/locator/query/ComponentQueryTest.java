@@ -1,4 +1,4 @@
-package org.fenxlib.locator.query;
+package com.legyver.fenxlib.locator.query;
 
 import com.legyver.fenxlib.locator.query.ComponentQuery;
 import com.legyver.fenxlib.locator.query.DefaultComponentRegistry;
