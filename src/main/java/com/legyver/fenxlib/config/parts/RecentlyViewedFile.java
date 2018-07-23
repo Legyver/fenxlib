@@ -1,41 +1,49 @@
 package com.legyver.fenxlib.config.parts;
 
+import com.legyver.util.mapqua.mapbacked.MapBackedLocalDateTime;
+import com.legyver.util.mapqua.mapbacked.MapBackedString;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class RecentlyViewedFile {
-
-	private LocalDateTime lastAccessed; 
-	private String name;
-	private String path;
-
+	private final MapBackedString name;
+	private final MapBackedString path;
+	private final MapBackedLocalDateTime lastAccessed;
+	
+	public RecentlyViewedFile(Map sourceMap) {
+		this.name = new MapBackedString(sourceMap, "name");
+		this.path = new MapBackedString(sourceMap, "path");
+		this.lastAccessed = new MapBackedLocalDateTime(sourceMap, "lastAccessed", LocalDateTime.MIN);//if unknown, make a long time ago
+	}
 	
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
 	}
 
 	public String getPath() {
-		return path;
+		return path.get();
 	}
 
 	public void setPath(String path) {
-		this.path = path;
+		this.path.set(path);
 	}
 
 	public void setLastAccessed(LocalDateTime lastAccessed) {
-		this.lastAccessed = lastAccessed;
+		this.lastAccessed.set(lastAccessed);
 	}
 	
 	public LocalDateTime getLastAccessed() {
-		return lastAccessed;
+		return lastAccessed.get();
 	}
 	
 	public static RecentlyViewedFile parse(String newValue) {
-		RecentlyViewedFile recentValue = new RecentlyViewedFile();
+		RecentlyViewedFile recentValue = new RecentlyViewedFile(new LinkedHashMap<>());
 		recentValue.setPath(newValue);
 		File file = new File(newValue);
 		recentValue.setName(file.getName());

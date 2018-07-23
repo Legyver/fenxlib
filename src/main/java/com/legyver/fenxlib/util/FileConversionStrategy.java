@@ -1,7 +1,6 @@
 package com.legyver.fenxlib.util;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Converts a model to/from a String

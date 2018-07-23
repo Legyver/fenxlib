@@ -1,5 +1,8 @@
 package com.legyver.fenxlib.uimodel;
 
-public interface RecentFileAware extends IUiModel {
-	FileOptions getFileOptions();
+import java.util.List;
+
+public interface RecentFileAware extends WorkingFileAware {
+
+	List<FileOptions> getRecentFiles();
 }

@@ -1,12 +1,12 @@
 package com.legyver.fenxlib.util;
 
+import com.legyver.fenxlib.config.GsonApplicationConfig;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 import org.apache.commons.io.FileUtils;
 
 public class FileIOUtil {
-	private FileConversionStrategy strategy = new JsonFileConversionStrategy();
+	private FileConversionStrategy strategy = new DecoratedMapConversionStrategy(map -> new GsonApplicationConfig(map));
 
 	public void setStrategy(FileConversionStrategy strategy) {
 		this.strategy = strategy;
@@ -20,11 +20,11 @@ public class FileIOUtil {
 		writeFileFromString(context.getFile(), strategy.fromModel(model, context));
 	}
 	
-	private String loadFileToString(File file) throws IOException {
+	protected String loadFileToString(File file) throws IOException {
 		return FileUtils.readFileToString(file, "UTF-8");
 	}
 	
-	private void writeFileFromString(File file, String string) throws IOException {
+	protected void writeFileFromString(File file, String string) throws IOException {
 		FileUtils.write(file, string, "UTF-8");
 	}
 

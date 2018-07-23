@@ -1,28 +1,14 @@
 package com.legyver.fenxlib.config;
 
-import com.legyver.fenxlib.config.parts.LastOpened;
-import com.legyver.fenxlib.config.parts.RecentlyModified;
-import com.legyver.fenxlib.util.ForwardCompatibleModel;
+import com.legyver.fenxlib.config.parts.ILastOpened;
+import com.legyver.fenxlib.config.parts.IRecentlyModified;
 
-public class ApplicationConfig extends ForwardCompatibleModel {
-	private RecentlyModified recentlyModified = new RecentlyModified();
-	private LastOpened lastOpened = new LastOpened();
+public abstract class ApplicationConfig<M extends IRecentlyModified, O extends ILastOpened> implements RawMapAware {
 
-	public RecentlyModified getRecentlyModified() {
-		return recentlyModified;
-	}
+	abstract public M getRecentlyModified();
+	abstract public void setRecentlyModified(M recentlyModified);
 
-	public void setRecentlyModified(RecentlyModified recentlyModified) {
-		this.recentlyModified = recentlyModified;
-	}
+	abstract public O getLastOpened();
+	abstract public void setLastOpened(O lastOpened);
 
-	public LastOpened getLastOpened() {
-		return lastOpened;
-	}
-
-	public void setLastOpened(LastOpened lastOpened) {
-		this.lastOpened = lastOpened;
-	}
-	
-	
 }

@@ -1,56 +1,54 @@
 package com.legyver.fenxlib.config;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.legyver.fenxlib.util.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.util.FileIOUtil;
-import com.legyver.fenxlib.util.JsonFileContext;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
-public class ApplicationConfigHandler {
+public class ApplicationConfigHandler<T extends ApplicationConfig> {
 	private final String userHome;
 	private final String configDirName;
 	private final String configFileName;
 	private final FileIOUtil fileIoUtil;
-	private final TypeReference type;
-	
+	private final ApplicationConfigInstantiator<T> instantiator;
 	private File configFile;
-	private ApplicationConfig config;
+	private T config;
 
 	/**
 	 * @param appName
-	 * @param type: The Class of your config
 	 */
-	public ApplicationConfigHandler(String appName, FileIOUtil fileIoUtil, TypeReference type) {
+	public ApplicationConfigHandler(String appName, FileIOUtil fileIoUtil, ApplicationConfigInstantiator<T> instantiator) {
 		userHome = System.getProperty("user.home");
 		configDirName = userHome + File.separator + appName;
 		configFileName = configDirName + File.separator + "config.json";
 		this.fileIoUtil = fileIoUtil;
-		this.type = type;
+		this.instantiator = instantiator;
 	}
-
+	
 	public void loadOrInitConfig() throws IOException, IllegalAccessException {
 		if (config == null) {
-			File configDir = new File(configDirName);
-			if (!configDir.exists()) {
-				configDir.mkdirs();
-			}
 			configFile = new File(configFileName);
 			if (configFile.exists()) {
-				config = (ApplicationConfig) fileIoUtil.readModel(new JsonFileContext(configFile, type));
+				config = (T) fileIoUtil.readModel(new FileInstantiationContext(configFile, instantiator));
 			} else {
+				File configDir = new File(configDirName);
+				if (!configDir.exists()) {
+					configDir.mkdirs();
+				}
 				configFile.createNewFile();
-				config = new ApplicationConfig();
+				config = instantiator.init(new LinkedHashMap());
 			}
 		}
 	}
 	
-	public ApplicationConfig getConfig() {
+	public T getConfig() {
 		return config;
 	}
 
 	public void saveConfig() throws IOException, IllegalAccessException {
 		if (config != null) {
-			fileIoUtil.saveModel(config, new JsonFileContext(configFile, type));
+			fileIoUtil.saveModel(config, new FileInstantiationContext(configFile, instantiator));
 		}
 	}
 }
