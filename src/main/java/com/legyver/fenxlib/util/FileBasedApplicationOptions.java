@@ -4,17 +4,16 @@ import com.legyver.fenxlib.config.ApplicationConfig;
 import com.legyver.fenxlib.config.ApplicationConfigHandler;
 import com.legyver.fenxlib.config.parts.ILastOpened;
 import com.legyver.fenxlib.config.parts.IRecentlyModified;
-import com.legyver.fenxlib.uimodel.WorkingFileAware;
 import com.legyver.fenxlib.config.parts.RecentlyViewedFile;
 import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
 import com.legyver.fenxlib.uimodel.DefaultFileOptions;
 import com.legyver.fenxlib.uimodel.FileOptions;
 import com.legyver.fenxlib.uimodel.RecentFileAware;
 import com.legyver.fenxlib.util.hook.LifecycleHook;
+import com.legyver.util.nippe.Base;
+import com.legyver.util.nippe.Step;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -63,7 +62,7 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	 */
 	public FileBasedApplicationOptions(String configDirName, ApplicationConfigInstantiator instantiator, Stage primaryStage, T uiModel) throws IOException, IllegalAccessException {
 		this(primaryStage, uiModel, new ApplicationConfigHandler(configDirName, new FileIOUtil(), instantiator));
-	} 
+	}
 	
 	public File getDefaultWorkingDir() {
 		File workingDir = getLastModifiedParentDir();
@@ -78,13 +77,13 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	
 	public File getLastModifiedParentDir() {
 		File workingDir = null;
-		ILastOpened lastOpened = applicationConfig.getLastOpened();
-		String lastDir = lastOpened.getLastDirectory();
-		if (lastDir != null) {
-			File file = new File(lastDir);
-			if (file.exists() || !validateFileExistence) {
-				workingDir = file;
-			}
+		File file = new Step<>(new Step<>(new Base<>(applicationConfig.getLastOpened()),
+				last -> last.getLastDirectory()),
+				dir -> new File(dir)
+		).execute();
+
+		if ((file != null && file.exists()) || !validateFileExistence) {
+			workingDir = file;
 		}
 		return workingDir;
 	}

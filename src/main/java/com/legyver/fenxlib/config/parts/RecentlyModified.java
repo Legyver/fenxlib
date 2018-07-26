@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class RecentlyModified implements IRecentlyModified  {	
 	private final MapBackedInteger limit;
-	private final MapBackedCollection<List, RecentlyViewedFile> values;
+	private final MapBackedCollection<List<RecentlyViewedFile>, RecentlyViewedFile> values;
 	
 	public RecentlyModified(Map sourceMap) {
 		this.limit = new MapBackedInteger(sourceMap, "limit", 5);
@@ -28,7 +28,7 @@ public class RecentlyModified implements IRecentlyModified  {
 
 	@Override
 	public List<RecentlyViewedFile> getValues() {
-		return (List<RecentlyViewedFile>) values.get();
+		return values.get();
 	}
 
 	@Override

@@ -24,6 +24,9 @@ public class DecoratedMapConversionStrategy<U extends RawMapAware> implements Fi
 		Type type = new TypeToken<Map>() {
 		}.getType();
 		LinkedTreeMap<String, Map> map = new Gson().fromJson(contents, type);
+		if (map == null) {
+			map = new LinkedTreeMap<>();
+		}
 		return instantiator.init(map);
 	}
 
