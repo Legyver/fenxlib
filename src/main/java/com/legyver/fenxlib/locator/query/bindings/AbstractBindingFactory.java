@@ -7,26 +7,32 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import com.legyver.fenxlib.locator.query.ComponentQuery;
+import java.time.LocalDate;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.control.DatePicker;
 
 public abstract class AbstractBindingFactory {
 
 	protected void bindTextField(StringProperty property, ComponentQuery.RegionQueryBuilder query, String named) {
-		Optional<TextField> text;
-		if (named == null) {
-			text = query.only().execute();
-		} else {
-			text = query.named(named).execute();
-		}
+		Optional<TextField> text = finalizeQuery(query, named).execute();
 		text.get().textProperty().bind(property);
 	}
 
-	protected void bindListView(Consumer<ObservableList<String>> setter, ComponentQuery.RegionQueryBuilder query, String named) {
-		Optional<ListView> listView;
+	private ComponentQuery finalizeQuery(ComponentQuery.RegionQueryBuilder query, String named) {
 		if (named == null) {
-			listView = query.only().execute();
+			return query.only();
 		} else {
-			listView = query.named(named).execute();
+			return query.named(named);
 		}
+	}
+
+	protected void bindDatePicker(ObjectProperty<LocalDate> property, ComponentQuery.RegionQueryBuilder query, String named) {
+		Optional<DatePicker> picker = finalizeQuery(query, named).execute();;
+		picker.get().valueProperty().bind(property);
+	}
+
+	protected void bindListView(Consumer<ObservableList<String>> setter, ComponentQuery.RegionQueryBuilder query, String named) {
+		Optional<ListView> listView = finalizeQuery(query, named).execute();
 		setter.accept(listView.get().getItems());
 	}
 
