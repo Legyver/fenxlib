@@ -2,60 +2,40 @@ package com.legyver.fenxlib.config;
 
 import com.legyver.fenxlib.config.parts.LastOpened;
 import com.legyver.fenxlib.config.parts.RecentlyModified;
-import com.legyver.util.mapqua.MapQuery;
-import java.util.LinkedHashMap;
+import com.legyver.util.mapqua.mapbacked.MapBackedEntity;
+import com.legyver.util.mapqua.mapbacked.RawMapAware;
 import java.util.Map;
-import java.util.Optional;
 
 public class GsonApplicationConfig extends ApplicationConfig<RecentlyModified, LastOpened> implements RawMapAware {
 	private final Map rawMap;
-	private RecentlyModified recentlyModified;
-	private LastOpened lastOpened;
-	
+	private final MapBackedEntity<RecentlyModified> recentlyModified;
+	private final MapBackedEntity<LastOpened> lastOpened;
+
 	public GsonApplicationConfig(Map map) {
 		this.rawMap = map;
+		this.recentlyModified = new MapBackedEntity<>(map, "recentlyModified", (m) -> new RecentlyModified(m));
+		this.lastOpened = new MapBackedEntity<>(map, "lastOpened", (m) -> new LastOpened(m));
 	}
 
 	@Override
 	public RecentlyModified getRecentlyModified() {
-		if (recentlyModified == null) {
-			Optional<Object> rmOption = new MapQuery.Query().object("recentlyModified").execute(rawMap);
-			if (rmOption.isPresent()) {
-				recentlyModified = new RecentlyModified((Map) rmOption.get());
-			} else {
-				recentlyModified = new RecentlyModified(new LinkedHashMap());
-			}
-		}
-		
-		return recentlyModified;
-	}
-
-	@Override
-	public void setRecentlyModified(RecentlyModified recentlyModified) {
-		this.recentlyModified = recentlyModified;
-		new MapQuery.Query().merge("recentlyModified", recentlyModified).execute(rawMap);
+		return recentlyModified.get();
 	}
 
 	@Override
 	public LastOpened getLastOpened() {
-		if (lastOpened == null) {
-			Optional<Object> rmOption = new MapQuery.Query().object("lastOpened").execute(rawMap);
-			if (rmOption.isPresent()) {
-				lastOpened = new LastOpened((Map) rmOption.get());
-			}
-		}
-		
-		return lastOpened;
-	}
-
-	@Override
-	public void setLastOpened(LastOpened lastOpened) {
-//		this.lastOpened.set(lastOpened);
+		return lastOpened.get();
 	}
 
 	@Override
 	public Map getRawMap() {
 		return rawMap;
+	}
+
+	@Override
+	public void sync() {
+		getRecentlyModified().sync();
+		getLastOpened().sync();//technically not needed, since it doesn't contain a collection
 	}
 
 }

@@ -2,15 +2,23 @@ package com.legyver.fenxlib.uimodel;
 
 import com.legyver.fenxlib.factory.menu.MenuItemOptions;
 import java.io.File;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
 public interface FileOptions extends MenuItemOptions {
 
-	public void setFile(File dir);
-	
-	public void setFileName(String name);
+	void setFile(File dir);
+	File getFile();
 
-	public void setFilePath(String absolutePath);
+	void setNewFile(boolean newFile);
+	boolean isNewFile();
+	BooleanProperty newFileProperty();
 
-	public StringProperty filePathProperty();
+	void setFileName(String name);
+
+	void setFilePath(String absolutePath);
+
+	StringProperty filePathProperty();
+	StringProperty fileNameProperty();
+
 }

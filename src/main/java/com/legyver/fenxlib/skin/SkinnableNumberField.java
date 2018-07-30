@@ -7,7 +7,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 public class SkinnableNumberField extends JFXTextField {
-	private ObjectProperty<BigDecimal> value = new SimpleObjectProperty<BigDecimal>(this, "value");
+	private final ObjectProperty<BigDecimal> value = new SimpleObjectProperty<>(this, "value");
 
 	private Predicate<String> replaceText;
 

@@ -6,18 +6,26 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 public class FileIOUtil {
-	private FileConversionStrategy strategy = new DecoratedMapConversionStrategy(map -> new GsonApplicationConfig(map));
-
-	public void setStrategy(FileConversionStrategy strategy) {
+	private final FileConversionStrategy strategy;
+	
+	public FileIOUtil(FileConversionStrategy strategy) {
 		this.strategy = strategy;
 	}
 	
-	public Object readModel(FileContext context) throws IOException, IllegalAccessException {
-		return strategy.toModel(loadFileToString(context.getFile()), context);
+	public FileIOUtil(MapDecoratorPojoInstantiator instantiator) {
+		this(new DecoratedMapConversionStrategy(instantiator));
 	}
 	
-	public void saveModel(Object model, FileContext context) throws IOException, IllegalAccessException {
-		writeFileFromString(context.getFile(), strategy.fromModel(model, context));
+	public FileIOUtil() {
+		this(map -> new GsonApplicationConfig(map));
+	}
+	
+	public Object readModel(File file) throws IOException, IllegalAccessException {
+		return strategy.toModel(loadFileToString(file));
+	}
+	
+	public void saveModel(Object model, File file) throws IOException, IllegalAccessException {
+		writeFileFromString(file, strategy.fromModel(model));
 	}
 	
 	protected String loadFileToString(File file) throws IOException {

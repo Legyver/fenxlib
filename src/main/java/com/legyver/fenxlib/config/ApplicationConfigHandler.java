@@ -30,7 +30,7 @@ public class ApplicationConfigHandler<T extends ApplicationConfig> {
 		if (config == null) {
 			configFile = new File(configFileName);
 			if (configFile.exists()) {
-				config = (T) fileIoUtil.readModel(new FileInstantiationContext(configFile, instantiator));
+				config = (T) fileIoUtil.readModel(configFile);
 			} else {
 				File configDir = new File(configDirName);
 				if (!configDir.exists()) {
@@ -48,7 +48,7 @@ public class ApplicationConfigHandler<T extends ApplicationConfig> {
 
 	public void saveConfig() throws IOException, IllegalAccessException {
 		if (config != null) {
-			fileIoUtil.saveModel(config, new FileInstantiationContext(configFile, instantiator));
+			fileIoUtil.saveModel(config, configFile);
 		}
 	}
 }

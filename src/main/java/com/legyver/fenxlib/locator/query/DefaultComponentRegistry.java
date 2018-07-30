@@ -10,6 +10,7 @@ import com.legyver.fenxlib.locator.query.ComponentQuery.TypedComponentQuery;
 import com.legyver.fenxlib.locator.visitor.LocationKeyVisitor;
 import com.legyver.util.nippe.Base;
 import com.legyver.util.nippe.Step;
+import java.util.UUID;
 
 public class DefaultComponentRegistry implements IComponentRegistry, QueryableComponentRegistry {
 
@@ -27,6 +28,14 @@ public class DefaultComponentRegistry implements IComponentRegistry, QueryableCo
 			typedNodes.put(key, typed);
 		}
 		typed.typedNodes.put(node.getClass(), node);
+	}
+	
+	public void register(UUID guid, Node node) {
+		nodes.put(guid.toString(), node);
+	}
+	
+	public Node get(UUID guid) {
+		return nodes.get(guid.toString());
 	}
 
 	@Override

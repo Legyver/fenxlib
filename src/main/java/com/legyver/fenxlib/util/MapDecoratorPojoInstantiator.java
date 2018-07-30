@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.util;
 
-import com.legyver.fenxlib.config.RawMapAware;
+import com.legyver.util.mapqua.mapbacked.RawMapAware;
 import java.util.Map;
 
 @FunctionalInterface

@@ -4,6 +4,7 @@ import com.legyver.fenxlib.config.ApplicationConfig;
 import com.legyver.fenxlib.config.ApplicationConfigHandler;
 import com.legyver.fenxlib.config.parts.ILastOpened;
 import com.legyver.fenxlib.config.parts.IRecentlyModified;
+import com.legyver.fenxlib.config.parts.RecentlyModified;
 import com.legyver.fenxlib.config.parts.RecentlyViewedFile;
 import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
 import com.legyver.fenxlib.uimodel.DefaultFileOptions;
@@ -14,7 +15,9 @@ import com.legyver.util.nippe.Base;
 import com.legyver.util.nippe.Step;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
@@ -29,7 +32,7 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	private boolean validateFileExistence = true;
 
 	/**
-	 * 
+	 *
 	 * @param primaryStage
 	 * @param uiModel
 	 * @param handler: the class responsible for loading/saving/accessing your IApplicationConfig
@@ -45,17 +48,18 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 			if (workingFileConfig.getInitialDirectory() != null) {
 				ILastOpened lastOpened = applicationConfig.getLastOpened();
 				lastOpened.setLastDirectory(workingFileConfig.getInitialDirectory().getAbsolutePath());
-				try {
-					handler.saveConfig();
-				} catch (IOException|IllegalAccessException  ex) {
-					System.out.println(ex);//FIXME
-				}
+			}
+			try {
+				applicationConfig.sync();
+				handler.saveConfig();
+			} catch (IOException|IllegalAccessException  ex) {
+				System.out.println(ex);//FIXME
 			}
 		});
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param configDirName: The name of the directory where you want the config files stored.  It will end up in {user.home}/<YOUR_CONFIG_DIR_NAME>
 	 * @param primaryStage
 	 * @param uiModel
@@ -63,7 +67,7 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	public FileBasedApplicationOptions(String configDirName, ApplicationConfigInstantiator instantiator, Stage primaryStage, T uiModel) throws IOException, IllegalAccessException {
 		this(primaryStage, uiModel, new ApplicationConfigHandler(configDirName, new FileIOUtil(), instantiator));
 	}
-	
+
 	public File getDefaultWorkingDir() {
 		File workingDir = getLastModifiedParentDir();
 		if (workingDir == null) {
@@ -74,7 +78,7 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 		}
 		return workingDir;
 	}
-	
+
 	public File getLastModifiedParentDir() {
 		File workingDir = null;
 		File file = new Step<>(new Step<>(new Base<>(applicationConfig.getLastOpened()),
@@ -99,22 +103,29 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	public File getUserHomeDir() {
 		return new File(System.getProperty("user.home"));
 	}
-	
+
 	private void initWorkingFileConfig(FileOptions workingFile) {
-		workingFileConfig.initialFileName().bind(workingFile.filePathProperty());
-		workingFileConfig.initialFileName().addListener(new ChangeListener<String>() {
+		workingFileConfig.initialFileName().bind(workingFile.fileNameProperty());
+		workingFile.fileNameProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue != null && !newValue.equalsIgnoreCase(oldValue)) {
 					IRecentlyModified recentConfig = applicationConfig.getRecentlyModified();
-					if (recentConfig.getValues().stream().anyMatch(m -> newValue.equalsIgnoreCase(m.getPath()))) {
-						RecentlyViewedFile recentValue = RecentlyViewedFile.parse(newValue);
-						recentConfig.addValue(recentValue); 
+					Optional<RecentlyViewedFile> option = recentConfig.getValues().stream()
+							.filter((m -> newValue.equalsIgnoreCase(m.getPath())))
+							.findFirst();
+					if (option.isPresent()) {//update the timestamp
+						RecentlyViewedFile recentValue = option.get();
+						recentValue.setLastAccessed(LocalDateTime.now());
+					} else {
+						File file = workingFile.getFile();
+						RecentlyViewedFile recentValue = RecentlyViewedFile.parse(file);
+						recentConfig.addValue(recentValue);
 					}
 				}
 			}
 		});
-			
+
 		File workingDir = getDefaultWorkingDir();
 		if (workingDir != null) {
 			workingFileConfig.setInitialDirectory(workingDir);
@@ -153,5 +164,5 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 			}
 		}
 	}
-	
+
 }

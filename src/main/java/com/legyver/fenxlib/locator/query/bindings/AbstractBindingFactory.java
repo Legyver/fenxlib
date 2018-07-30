@@ -1,21 +1,25 @@
 package com.legyver.fenxlib.locator.query.bindings;
 
+import com.legyver.fenxlib.locator.query.ComponentQuery;
+import com.legyver.fenxlib.skin.SkinnableNumberField;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.Consumer;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import com.legyver.fenxlib.locator.query.ComponentQuery;
-import java.time.LocalDate;
-import javafx.beans.property.ObjectProperty;
-import javafx.scene.control.DatePicker;
 
 public abstract class AbstractBindingFactory {
 
 	protected void bindTextField(StringProperty property, ComponentQuery.RegionQueryBuilder query, String named) {
 		Optional<TextField> text = finalizeQuery(query, named).execute();
-		text.get().textProperty().bind(property);
+		String value = property.get();
+		property.bind(text.get().textProperty());
+		text.get().setText(value);
 	}
 
 	private ComponentQuery finalizeQuery(ComponentQuery.RegionQueryBuilder query, String named) {
@@ -26,9 +30,22 @@ public abstract class AbstractBindingFactory {
 		}
 	}
 
+	protected void bindTextField(ObjectProperty<BigDecimal> property, ComponentQuery.RegionQueryBuilder query, String named) {
+		Optional<TextField> text = finalizeQuery(query, named).execute();
+		TextField textField = text.get();
+		if (textField instanceof SkinnableNumberField) {
+			SkinnableNumberField numberField = (SkinnableNumberField) textField;
+			BigDecimal value = property.get();
+			property.bind(numberField.valueProperty());
+			numberField.setValue(value);
+		}
+	}
+
 	protected void bindDatePicker(ObjectProperty<LocalDate> property, ComponentQuery.RegionQueryBuilder query, String named) {
-		Optional<DatePicker> picker = finalizeQuery(query, named).execute();;
-		picker.get().valueProperty().bind(property);
+		Optional<DatePicker> picker = finalizeQuery(query, named).execute();
+		LocalDate value = property.get();
+		property.bind(picker.get().valueProperty());
+		picker.get().setValue(value);
 	}
 
 	protected void bindListView(Consumer<ObservableList<String>> setter, ComponentQuery.RegionQueryBuilder query, String named) {
