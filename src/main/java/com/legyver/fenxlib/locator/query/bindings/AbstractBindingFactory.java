@@ -18,8 +18,12 @@ public abstract class AbstractBindingFactory {
 	protected void bindTextField(StringProperty property, ComponentQuery.RegionQueryBuilder query, String named) {
 		Optional<TextField> text = finalizeQuery(query, named).execute();
 		String value = property.get();
-		property.bind(text.get().textProperty());
-		text.get().setText(value);
+		property.bindBidirectional(text.get().textProperty());
+		if (value == null) {
+			text.get().clear();
+		} else {
+			text.get().setText(value);
+		}
 	}
 
 	private ComponentQuery finalizeQuery(ComponentQuery.RegionQueryBuilder query, String named) {
@@ -36,7 +40,7 @@ public abstract class AbstractBindingFactory {
 		if (textField instanceof SkinnableNumberField) {
 			SkinnableNumberField numberField = (SkinnableNumberField) textField;
 			BigDecimal value = property.get();
-			property.bind(numberField.valueProperty());
+			property.bindBidirectional(numberField.valueProperty());
 			numberField.setValue(value);
 		}
 	}

@@ -51,7 +51,9 @@ public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 			if (center instanceof TextField) {
 				TextField textField = (TextField) center;
 				textField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-					textField.setPrefWidth(textField.getText().length() * 4); //an assumption of width of character in pixels
+					if (newValue != null) {
+						textField.setPrefWidth(textField.getText().length() * 4); //an assumption of width of character in pixels
+					}
 				});
 				textField.setAlignment(Pos.CENTER);
 			}

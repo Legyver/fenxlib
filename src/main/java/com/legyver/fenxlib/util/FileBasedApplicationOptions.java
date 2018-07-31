@@ -109,10 +109,12 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 		workingFile.fileNameProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue != null && !newValue.equalsIgnoreCase(oldValue)) {
+				if (newValue != null) {
 					IRecentlyModified recentConfig = applicationConfig.getRecentlyModified();
 					Optional<RecentlyViewedFile> option = recentConfig.getValues().stream()
-							.filter((m -> newValue.equalsIgnoreCase(m.getPath())))
+							.filter(m -> {
+								return newValue.equalsIgnoreCase(m.getName());
+							})
 							.findFirst();
 					if (option.isPresent()) {//update the timestamp
 						RecentlyViewedFile recentValue = option.get();

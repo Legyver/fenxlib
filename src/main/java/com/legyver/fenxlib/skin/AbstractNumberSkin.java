@@ -7,7 +7,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Locale;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.geometry.Pos;
 
@@ -29,11 +28,8 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 
 		// Whenever the text of the textField changes, we may need to
 		// update the value.
-		skinnable.textProperty().addListener(new InvalidationListener() {
-			@Override
-			public void invalidated(Observable observable) {
-				updateValue();
-			}
+		skinnable.textProperty().addListener((Observable observable) -> {
+			updateValue();
 		});
 
 		// Make sure the text is updated to the initial state of the MoneyField value
@@ -41,6 +37,7 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 		symbol = getSymbol(formatter);
 		extractor = new BigDecimalSkinnedNumberExtractor(formatter, symbol, leadingSymbol);
 		updateText();
+		skinnable.setNumberSkin(this);
 	}
 
 	protected void updateText() {
@@ -83,9 +80,7 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 			text = text.substring(0, text.length() - 1).trim();
 		}
 
-		// There must be no illegal characters.
-		// If there is a thousands separator, then it must be used correctly
-		// There may be only a single decimal separator
+		//Decimal, Thousands separator, etc
 		final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 		final char thousandsSeparator = symbols.getGroupingSeparator();
 		final char decimalSeparator = symbols.getMonetaryDecimalSeparator();
