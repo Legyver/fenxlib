@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface MenuSection<T extends MenuSectionOptions> {
 
-	List<? extends IMenuItemFactory> getFactories(T MmenuSectionOptions);
+	List<? extends IMenuItemFactory> getFactories(T menuSectionOptions);
 }
