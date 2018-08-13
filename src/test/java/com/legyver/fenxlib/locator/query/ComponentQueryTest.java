@@ -1,7 +1,5 @@
 package com.legyver.fenxlib.locator.query;
 
-import com.legyver.fenxlib.locator.query.ComponentQuery;
-import com.legyver.fenxlib.locator.query.DefaultComponentRegistry;
 import java.util.Optional;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -24,6 +22,9 @@ import com.legyver.fenxlib.factory.menu.RightMenuOptions;
 import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
 import com.legyver.fenxlib.factory.options.BorderPaneInitializationOptions;
 import com.legyver.fenxlib.factory.options.blade.NameListClickOption;
+import com.legyver.fenxlib.locator.DefaultLocationContext;
+import com.legyver.fenxlib.locator.LocationContext;
+import com.legyver.fenxlib.locator.LocationContextDecorator;
 import com.legyver.fenxlib.util.GuiUtil;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
@@ -90,6 +91,23 @@ public class ComponentQueryTest extends ApplicationTest {
 				.type(ListView.class).execute();
 		assertTrue(node.isPresent());
 		assertTrue(node.get() instanceof ListView);
+	}
+
+	@Test
+	public void findByLocationContext() throws Exception {
+		LocationContext start = new DefaultLocationContext("start");
+		LocationContext decorated = new LocationContextDecorator(start);
+		decorated.setName("here");
+		DefaultComponentRegistry defaultComponentRegistry = GuiUtil.getComponentRegistry();
+
+		TextFieldFactory tff = new TextFieldFactory(false);
+		TextField tf1 = tff.makeNode(decorated);
+
+		Optional<TextField> node = new ComponentQuery.QueryBuilder(defaultComponentRegistry)
+				.fromLocation(decorated)
+				.only().execute();
+		assertTrue(node.isPresent());
+		assertTrue(node.get() == tf1);
 	}
 
 }

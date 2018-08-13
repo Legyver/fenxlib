@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.locator.query;
 
+import com.legyver.fenxlib.locator.LocationContext;
+import com.legyver.fenxlib.locator.visitor.LocationKeyVisitor;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Optional;
@@ -9,6 +11,7 @@ import javafx.scene.Node;
 import static com.legyver.fenxlib.locator.visitor.LocationKeyVisitor.KEY_SEPARATOR;
 
 public abstract class ComponentQuery<T extends Node> {
+
 	private final String queryString;
 	protected final QueryableComponentRegistry registry;
 
@@ -55,7 +58,9 @@ public abstract class ComponentQuery<T extends Node> {
 	}
 
 	protected static abstract class AbstractQueryBuilder {
+
 		protected String name;
+
 		abstract protected ComponentQuery build(Deque<String> stack);
 
 		abstract protected ComponentQuery build(Deque<String> stack, Class type);
@@ -74,11 +79,17 @@ public abstract class ComponentQuery<T extends Node> {
 			return new RegionQueryBuilder(this);
 		}
 
+		public RegionQueryBuilder fromLocation(LocationContext locationContext) {
+			String key = locationContext.accept(new LocationKeyVisitor());
+			this.name = key;
+			return new RegionQueryBuilder(this);
+		}
+
 		@Override
 		protected ComponentQuery build(Deque<String> stack) {
-			stack.push(name);
-			stack.stream().collect(Collectors.joining(KEY_SEPARATOR));
-
+			if (name != null) {
+				stack.push(name);
+			}
 			return new NamedComponentQuery(stack.stream().collect(Collectors.joining(KEY_SEPARATOR)), registry);
 		}
 
@@ -90,7 +101,6 @@ public abstract class ComponentQuery<T extends Node> {
 			return new TypedComponentQuery(stack.stream().collect(Collectors.joining(KEY_SEPARATOR)), type, registry);
 		}
 	}
-
 
 	protected abstract static class ChildQueryBuilder<T extends AbstractQueryBuilder, U extends ChildQueryBuilder> extends AbstractQueryBuilder {
 
