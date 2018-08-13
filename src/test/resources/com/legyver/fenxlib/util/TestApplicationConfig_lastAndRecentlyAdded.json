@@ -1,0 +1,41 @@
+{
+    "lastOpened": {
+        "lastDirectory": "/temp/tmpDir"
+    },
+    "recentlyModified" : {
+      "limit" : 5,
+      "values" : [ {
+        "lastAccessed" : {
+          "date": {
+            "year": 2018,
+            "month": 7,
+            "day": 14
+          },
+          "time": {
+            "hour": 17,
+            "minute": 10,
+            "second": 57,
+            "nano": 0
+          }
+        },
+        "name" : "Name 1",
+        "path" : "/temp/tmp/Name 1.ext"
+      }, {
+        "lastAccessed" : {
+            "date": {
+            "year": 2018,
+            "month": 7,
+            "day": 14
+          },
+          "time": {
+            "hour": 13,
+            "minute": 10,
+            "second": 57,
+            "nano": 0
+          }
+        },
+        "name" : "Name 2",
+        "path" : "/temp/tmp/Name 2.ext"
+      } ]
+    }
+}

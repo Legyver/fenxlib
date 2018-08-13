@@ -1,7 +1,8 @@
-package com.legyver.fenxlib.factory.menu;
+package com.legyver.fenxlib.factory.menu.file;
 
 import com.legyver.fenxlib.factory.DirectoryOptionsChooserFactory;
-import com.legyver.fenxlib.factory.options.FileOptions;
+import com.legyver.fenxlib.factory.menu.IMenuItemFactory;
+import com.legyver.fenxlib.uimodel.FileOptions;
 import com.legyver.fenxlib.util.GuiUtil;
 import java.io.File;
 import java.util.function.Consumer;

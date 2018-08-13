@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.util;
 
+import com.legyver.fenxlib.uimodel.IUiModel;
 import javafx.stage.Stage;
 import com.legyver.fenxlib.locator.IComponentRegistry;
 import com.legyver.fenxlib.util.hook.LifecycleHook;

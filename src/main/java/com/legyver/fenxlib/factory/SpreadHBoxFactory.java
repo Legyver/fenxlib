@@ -3,20 +3,19 @@ package com.legyver.fenxlib.factory;
 import com.legyver.core.exception.CoreException;
 import javafx.scene.layout.HBox;
 import com.legyver.fenxlib.locator.LocationContext;
+import java.util.List;
+import javafx.scene.Node;
 
-public class SpreadHBoxFactory implements NodeFactory<HBox>, SpaceableFactory {
+public class SpreadHBoxFactory extends AbstractWrappingFactory<Node> implements NodeFactory<HBox>, SpaceableFactory {
 
-	private final NodeFactory leftFactory;
-	private final NodeFactory rightFactory;
-
-	public SpreadHBoxFactory(NodeFactory leftFactory, NodeFactory rightFactory) {
-		this.leftFactory = leftFactory;
-		this.rightFactory = rightFactory;
+	public SpreadHBoxFactory(NodeFactory... factories) {
+		super(factories);
 	}
 
 	@Override
 	public HBox makeNode(LocationContext locationContext) throws CoreException {
-		HBox spaced = spaceNodes(leftFactory.makeNode(locationContext), rightFactory.makeNode(locationContext));
+		List<Node> nodes = super.makeChildren(locationContext);
+		HBox spaced = spaceNodes(nodes.toArray(new Node[nodes.size()]));
 		spaced.getStyleClass().add("spaced");
 		return spaced;
 	}

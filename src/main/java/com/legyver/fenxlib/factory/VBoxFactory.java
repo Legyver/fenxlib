@@ -1,21 +1,22 @@
 package com.legyver.fenxlib.factory;
 
 import com.legyver.core.exception.CoreException;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.util.List;
 import com.legyver.fenxlib.locator.LocationContext;
 
-public class VBoxFactory extends AbstractWrappingFactory<HBox> implements NodeFactory<VBox> {
+import java.util.List;
 
-	public VBoxFactory(HBoxFactory...hboxFactories) {
-		super(hboxFactories);
+import javafx.scene.Node;
+import javafx.scene.layout.VBox;
+
+public class VBoxFactory extends AbstractWrappingFactory<Node> implements NodeFactory<VBox> {
+
+	public VBoxFactory(NodeFactory... nodeFactories) {
+		super(nodeFactories);
 	}
 
 	public VBox makeVBox(LocationContext locationContext) throws CoreException {
-		List<HBox> entries = makeChildren(locationContext);
-		return new VBox(entries.toArray(new HBox[entries.size()]));
+		List<Node> entries = makeChildren(locationContext);
+		return new VBox(entries.toArray(new Node[entries.size()]));
 	}
 
 	@Override
