@@ -10,11 +10,12 @@ import com.legyver.fenxlib.locator.query.DefaultComponentRegistry;
 import com.legyver.fenxlib.util.hook.LifecycleHook;
 
 public class GuiUtil {
+
 	private static IComponentRegistry registry = new DefaultComponentRegistry();
 	private static ApplicationOptions customOptions;
 	private static Stage stage;
 
-	public static void init(ApplicationOptions applicationOptions) throws IOException {
+	public static void init(ApplicationOptions<? extends IComponentRegistry, ? extends IUiModel> applicationOptions) throws IOException {
 		GuiUtil.customOptions = applicationOptions;
 		if (applicationOptions.getPrimaryStage() != null) {
 			GuiUtil.stage = applicationOptions.getPrimaryStage();
@@ -22,7 +23,9 @@ public class GuiUtil {
 		if (applicationOptions.getComponentRegistry() != null) {
 			GuiUtil.registry = applicationOptions.getComponentRegistry();
 		}
-		SVGGlyphLoader.loadGlyphsFont(SvgIconFactory.class.getResourceAsStream("/fonts/icomoon.svg"), "icomoon.svg");
+		for (LoadableResource svgFile : applicationOptions.getIconFontSVGFiles()) {
+			SVGGlyphLoader.loadGlyphsFont(SvgIconFactory.class.getResourceAsStream(svgFile.getPath() + svgFile.getName()), svgFile.getName());
+		}
 	}
 
 	public static void setPrimaryStage(Stage stage) {
