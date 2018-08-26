@@ -7,6 +7,7 @@ import com.legyver.fenxlib.locator.LocationContextDecorator;
 import com.legyver.fenxlib.util.GuiUtil;
 
 public class JFXListViewFactory implements NodeFactory<JFXListView> {
+
 	private final String name;
 	private final SizeOptions sizeOptions;
 
@@ -21,7 +22,7 @@ public class JFXListViewFactory implements NodeFactory<JFXListView> {
 		listView.minWidth(sizeOptions.getMinWidth());
 		listView.setPrefWidth(sizeOptions.getPrefWidth());
 		listView.setMinHeight(sizeOptions.getMinHeight());
-
+		listView.setPrefHeight(sizeOptions.getPrefHeight());
 		LocationContextDecorator decoratedContext = new LocationContextDecorator(locationContext);
 		decoratedContext.setName(name);
 		GuiUtil.getComponentRegistry().register(decoratedContext, listView);
