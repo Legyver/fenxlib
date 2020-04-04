@@ -6,11 +6,12 @@ import com.legyver.fenxlib.factory.options.visitor.AbstractGridPaneLayoutVisitor
 import javafx.beans.property.StringProperty;
 
 /**
- * Used mainly for GridPanes where there are multiple rows of
- *  label: [field] ([icon])
+ * Used mainly for GridPanes where there are multiple rows of label: [field]
+ * ([icon])
  *
  */
-public class NameFieldButtonOption extends AbstractBladeGridLayout implements BladeOption<StringProperty> {
+public class NameFieldButtonOption extends AbstractBladeGridLayout implements LabeledBladeOption<StringProperty> {
+
 	private final String label;
 	private final TooltipIconOptions iconOptions;
 	private final boolean readOnly;
@@ -26,6 +27,7 @@ public class NameFieldButtonOption extends AbstractBladeGridLayout implements Bl
 		this(label, iconOptions, 1, readOnly);
 	}
 
+	@Override
 	public String getLabel() {
 		return label;
 	}

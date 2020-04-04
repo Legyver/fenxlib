@@ -42,6 +42,7 @@ public abstract class AbstractBindingFactory {
 			BigDecimal value = property.get();
 			property.bindBidirectional(numberField.valueProperty());
 			numberField.setValue(value);
+			numberField.setDoubleBoundFlag(true);
 		}
 	}
 

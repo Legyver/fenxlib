@@ -3,7 +3,8 @@ package com.legyver.fenxlib.factory.options.blade;
 import com.legyver.fenxlib.factory.options.visitor.AbstractGridPaneLayoutVisitor;
 import javafx.collections.ObservableList;
 
-public class NameListClickOption extends AbstractBladeGridLayout implements BladeOption<ObservableList> {
+public class NameListClickOption extends AbstractBladeGridLayout implements LabeledBladeOption<ObservableList> {
+
 	private final String label;
 	private final boolean readOnly;
 
@@ -17,6 +18,7 @@ public class NameListClickOption extends AbstractBladeGridLayout implements Blad
 		this(label, 1, readOnly);
 	}
 
+	@Override
 	public String getLabel() {
 		return label;
 	}

@@ -1,14 +1,14 @@
 package com.legyver.fenxlib.factory;
 
-import com.jfoenix.svg.SVGGlyph;
-import com.jfoenix.svg.SVGGlyphLoader;
-import com.legyver.fenxlib.factory.SvgIconFactory.IconFont;
-import com.legyver.fenxlib.factory.options.IconOptions;
-import com.legyver.fenxlib.factory.options.SimpleIconOptions;
-import com.legyver.fenxlib.locator.DefaultLocationContext;
-import java.io.IOException;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
+		import com.jfoenix.svg.SVGGlyph;
+		import com.jfoenix.svg.SVGGlyphLoader;
+		import com.legyver.fenxlib.factory.SvgIconFactory.IconFont;
+		import com.legyver.fenxlib.factory.options.IconOptions;
+		import com.legyver.fenxlib.factory.options.SimpleIconOptions;
+		import com.legyver.fenxlib.locator.DefaultLocationContext;
+		import java.io.IOException;
+		import static org.junit.Assert.assertNotNull;
+		import org.junit.Test;
 
 public class SvgIconFactoryTest {
 

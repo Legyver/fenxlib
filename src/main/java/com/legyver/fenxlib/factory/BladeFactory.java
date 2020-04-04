@@ -3,7 +3,6 @@ package com.legyver.fenxlib.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.factory.context.BladeContext;
 import com.legyver.fenxlib.factory.options.blade.BladeOption;
-import com.legyver.fenxlib.factory.options.visitor.AbstractGridPaneLayoutVisitor;
 import com.legyver.fenxlib.factory.options.visitor.CenterItemVisitor;
 import com.legyver.fenxlib.factory.options.visitor.ConstraintVisitor;
 import com.legyver.fenxlib.factory.options.visitor.LeftItemVisitor;
@@ -12,11 +11,11 @@ import javafx.scene.layout.GridPane;
 import com.legyver.fenxlib.locator.LocationContext;
 import com.legyver.fenxlib.locator.LocationContextDecorator;
 import com.legyver.fenxlib.widget.MoreField;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.VBox;
 
 public class BladeFactory implements TitledPaneContentFactory<VBox> {
+
 	private final BladeOption[] bladeOptions;
 	private final int letterWidth;
 
@@ -47,25 +46,21 @@ public class BladeFactory implements TitledPaneContentFactory<VBox> {
 				bladeOption.accept(new RightItemVisitor(gp, decoratedLocation, bladeContext), i);
 				bladeOption.accept(new ConstraintVisitor(gp, decoratedLocation, bladeContext), i);
 			}
-			
+
 			MoreField moreTrigger = bladeContext.getMoreTrigger();
 			GridPane moreGrid = bladeContext.getMoreGrid();
 			if (moreTrigger != null) {
-				moreTrigger.expandedProperty().addListener(new ChangeListener<Boolean>(){
-					@Override
-					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-						if (newValue) {
-							vbox.getChildren().add(moreGrid);
-						} else {
-							vbox.getChildren().remove(moreGrid);
-						}
+				moreTrigger.expandedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+					if (newValue) {
+						vbox.getChildren().add(moreGrid);
+					} else {
+						vbox.getChildren().remove(moreGrid);
 					}
 				});
 			}
-			
+
 		}
 		return vbox;
 	}
-
 
 }

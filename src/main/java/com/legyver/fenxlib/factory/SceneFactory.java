@@ -6,11 +6,12 @@ import com.legyver.fenxlib.util.hook.LifecycleHook;
 import java.net.URL;
 import java.util.stream.Stream;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class SceneFactory {
+
 	private final URL[] stylesheetUrls;
 	private final Stage stage;
 	private final double width;
@@ -23,7 +24,7 @@ public class SceneFactory {
 		this.height = height;
 	}
 
-	public Scene makeScene(BorderPane root) {
+	public Scene makeScene(Node root) {
 		JFXDecorator decorator = new JFXDecorator(stage, root);
 		decorator.setOnCloseButtonAction(() -> {
 			GuiUtil.executeHook(LifecycleHook.PRE_SHUTDOWN);

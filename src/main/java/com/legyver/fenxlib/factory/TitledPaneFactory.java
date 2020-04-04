@@ -6,8 +6,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import com.legyver.fenxlib.locator.LocationContext;
 import com.legyver.fenxlib.locator.LocationContextDecorator;
+import javafx.scene.control.Skin;
 
 public class TitledPaneFactory<T extends Pane> implements NodeFactory<TitledPane> {
+
 	private final String title;
 	private final TitledPaneContentFactory<T> contentFactory;
 
@@ -27,7 +29,12 @@ public class TitledPaneFactory<T extends Pane> implements NodeFactory<TitledPane
 		spacer.setMinSize(200, 10);
 
 		grid.getChildren().add(spacer);
-		TitledPane history = new TitledPane(title, grid);
+		TitledPane history = new TitledPane(title, grid) {
+			@Override
+			protected Skin<?> createDefaultSkin() {
+				return contentFactory.skin(this);
+			}
+		};
 		return history;
 	}
 

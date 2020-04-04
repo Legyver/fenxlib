@@ -5,7 +5,9 @@ import com.legyver.fenxlib.factory.options.blade.NameDatePickerOption;
 import com.legyver.fenxlib.factory.options.blade.NameFieldButtonOption;
 import com.legyver.fenxlib.factory.options.blade.AbstractNameFieldOption;
 import com.legyver.fenxlib.factory.options.blade.NameListClickOption;
+import com.legyver.fenxlib.factory.options.blade.NameSelectOption;
 import com.legyver.fenxlib.factory.options.blade.ShowMoreLabelOption;
+import com.legyver.fenxlib.factory.options.blade.UnlabeledEditableTextOption;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -54,5 +56,14 @@ public class ConstraintVisitor extends AbstractGridPaneLayoutVisitor {
 		setColumnConstraints(row);
 	}
 
+	@Override
+	public void visit(UnlabeledEditableTextOption editableTextOption, int row) {
+		setColumnConstraints(row);
+	}
+
+	@Override
+	public void visit(NameSelectOption option, int row) {
+		setColumnConstraints(row);
+	}
 
 }

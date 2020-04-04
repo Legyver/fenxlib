@@ -8,9 +8,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 
 public class SkinnableNumberField extends JFXTextField {
+
 	private final ObjectProperty<BigDecimal> value = new SimpleObjectProperty<>(this, "value");
 	private AbstractNumberSkin numberSkin;
 	private Predicate<String> replaceText;
+	private boolean doubleBound;
 
 	public SkinnableNumberField(String cssClass) {
 		getStyleClass().setAll(cssClass);
@@ -26,7 +28,9 @@ public class SkinnableNumberField extends JFXTextField {
 	}
 
 	public final void setValue(BigDecimal value) {
-		this.value.set(value);
+		if (doubleBound || !this.value.isBound()) {
+			this.value.set(value);
+		}
 	}
 
 	public final ObjectProperty<BigDecimal> valueProperty() {
@@ -59,5 +63,9 @@ public class SkinnableNumberField extends JFXTextField {
 
 	void setNumberSkin(AbstractNumberSkin numberSkin) {
 		this.numberSkin = numberSkin;
+	}
+
+	public void setDoubleBoundFlag(boolean doubleBound) {
+		this.doubleBound = doubleBound;
 	}
 }

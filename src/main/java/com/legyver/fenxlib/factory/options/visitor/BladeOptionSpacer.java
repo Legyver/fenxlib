@@ -7,7 +7,9 @@ import javafx.scene.layout.Region;
 import com.legyver.fenxlib.factory.options.blade.NameFieldButtonOption;
 import com.legyver.fenxlib.factory.options.blade.AbstractNameFieldOption;
 import com.legyver.fenxlib.factory.options.blade.NameListClickOption;
+import com.legyver.fenxlib.factory.options.blade.NameSelectOption;
 import com.legyver.fenxlib.factory.options.blade.ShowMoreLabelOption;
+import com.legyver.fenxlib.factory.options.blade.UnlabeledEditableTextOption;
 import com.legyver.fenxlib.locator.LocationContext;
 
 public class BladeOptionSpacer extends AbstractGridPaneLayoutVisitor {
@@ -18,17 +20,21 @@ public class BladeOptionSpacer extends AbstractGridPaneLayoutVisitor {
 
 	@Override
 	public void visit(NameFieldButtonOption nameFieldButtonOption, int row) {
+		addSpacer(row);
+	}
+
+	private void addSpacer(int row) {
 		bladeContext.getWorkingGrid().add(getSpacer(), row, 3);
 	}
 
 	@Override
 	public void visit(AbstractNameFieldOption nameFieldOption, int row) {
-		bladeContext.getWorkingGrid().add(getSpacer(), row, 3);
+		addSpacer(row);
 	}
 
 	@Override
 	public void visit(NameListClickOption nameListClickOption, int row) {
-		bladeContext.getWorkingGrid().add(getSpacer(), row, 3);
+		addSpacer(row);
 	}
 
 	private Region getSpacer() {
@@ -39,12 +45,22 @@ public class BladeOptionSpacer extends AbstractGridPaneLayoutVisitor {
 
 	@Override
 	public void visit(NameDatePickerOption nameDatePickerOption, int row) {
-		bladeContext.getWorkingGrid().add(getSpacer(), row, 3);
+		addSpacer(row);
 	}
 
 	@Override
 	public void visit(ShowMoreLabelOption showMoreOptions, int row) {
-		bladeContext.getWorkingGrid().add(getSpacer(), row, 3);
+		addSpacer(row);
+	}
+
+	@Override
+	public void visit(UnlabeledEditableTextOption editableTextOption, int row) {
+//		bladeContext.getWorkingGrid().add(getSpacer(), row, 3);
+	}
+
+	@Override
+	public void visit(NameSelectOption option, int row) {
+		addSpacer(row);
 	}
 
 }

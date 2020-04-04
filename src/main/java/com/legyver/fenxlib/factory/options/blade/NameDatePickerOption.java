@@ -3,7 +3,8 @@ package com.legyver.fenxlib.factory.options.blade;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.factory.options.visitor.AbstractGridPaneLayoutVisitor;
 
-public class NameDatePickerOption extends AbstractBladeGridLayout implements BladeOption {
+public class NameDatePickerOption extends AbstractBladeGridLayout implements LabeledBladeOption {
+
 	private final String label;
 
 	public NameDatePickerOption(String label, int labelSpan) {
@@ -20,6 +21,7 @@ public class NameDatePickerOption extends AbstractBladeGridLayout implements Bla
 		visitor.visit(this, row);
 	}
 
+	@Override
 	public String getLabel() {
 		return label;
 	}
