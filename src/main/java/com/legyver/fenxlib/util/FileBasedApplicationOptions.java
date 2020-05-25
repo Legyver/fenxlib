@@ -65,7 +65,7 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	 * @param uiModel
 	 */
 	public FileBasedApplicationOptions(String configDirName, ApplicationConfigInstantiator instantiator, Stage primaryStage, T uiModel) throws IOException, IllegalAccessException {
-		this(primaryStage, uiModel, new ApplicationConfigHandler(configDirName, new FileIOUtil(), instantiator));
+		this(primaryStage, uiModel, new ApplicationConfigHandler(configDirName, new FileIOUtil(instantiator), instantiator));
 	}
 
 	public File getDefaultWorkingDir() {
@@ -136,6 +136,10 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 
 	public WorkingFileConfig getWorkingFileConfig() throws IOException {
 		return workingFileConfig;
+	}
+
+	public ApplicationConfig getApplicationConfig() {
+		return applicationConfig;
 	}
 
 	protected void setFileValidateExistence(boolean  validateExistence) {

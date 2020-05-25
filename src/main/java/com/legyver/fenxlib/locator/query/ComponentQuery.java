@@ -26,9 +26,9 @@ public abstract class ComponentQuery<T extends Node> {
 
 	public abstract Optional<T> execute();
 
-	public static class NamedComponentQuery<T extends Node> extends ComponentQuery<T> {
+	private static class NamedComponentQuery<T extends Node> extends ComponentQuery<T> implements INamedComponentQuery<T> {
 
-		public NamedComponentQuery(String queryString, QueryableComponentRegistry registry) {
+		private NamedComponentQuery(String queryString, QueryableComponentRegistry registry) {
 			super(queryString, registry);
 		}
 
@@ -38,11 +38,11 @@ public abstract class ComponentQuery<T extends Node> {
 		}
 	}
 
-	public static class TypedComponentQuery<T extends Node> extends ComponentQuery<T> {
+	private static class TypedComponentQuery<T extends Node> extends ComponentQuery<T> implements ITypedComponentQuery<T> {
 
 		private final Class type;
 
-		protected TypedComponentQuery(String queryString, Class type, QueryableComponentRegistry registry) {
+		private TypedComponentQuery(String queryString, Class type, QueryableComponentRegistry registry) {
 			super(queryString, registry);
 			this.type = type;
 		}

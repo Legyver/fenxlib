@@ -23,7 +23,7 @@ public class PopupMenuItemFactory implements IMenuItemFactory<MenuItemOptions> {
 
 	@Override
 	public MenuItem makeItem() throws CoreException {
-		MenuItem popup = new MenuItem(name);
+		MenuItem menuItem = new MenuItem(name);
 
 		JFXDialogLayout layout = factory.makeNode(null);
 		JFXDialog dialog = new JFXDialog(null, layout, DialogTransition.RIGHT);
@@ -32,11 +32,11 @@ public class PopupMenuItemFactory implements IMenuItemFactory<MenuItemOptions> {
 		okButton.setOnMouseClicked((e) -> dialog.close());
 		layout.setActions(okButton);
 
-		popup.setOnAction(e -> {
+		menuItem.setOnAction(e -> {
 			dialog.show(dialogContainerSupplier.get());//on-demand retrieval because it likely won't exist when this MenuItem is inited.
 		});
 
-		return popup;
+		return menuItem;
 	}
 
 }

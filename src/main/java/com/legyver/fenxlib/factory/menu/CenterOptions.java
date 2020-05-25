@@ -6,8 +6,8 @@ public class CenterOptions {
 
 	private final NodeFactory factory;
 
-	public CenterOptions(NodeFactory hboxFactory) {
-		this.factory = hboxFactory;
+	public CenterOptions(NodeFactory factory) {
+		this.factory = factory;
 	}
 
 	public NodeFactory getFactory() {

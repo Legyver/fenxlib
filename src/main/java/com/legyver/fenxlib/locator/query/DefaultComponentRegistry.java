@@ -1,15 +1,14 @@
 package com.legyver.fenxlib.locator.query;
 
-import java.util.HashMap;
-import java.util.Map;
-import javafx.scene.Node;
 import com.legyver.fenxlib.locator.IComponentRegistry;
 import com.legyver.fenxlib.locator.LocationContext;
-import com.legyver.fenxlib.locator.query.ComponentQuery.NamedComponentQuery;
-import com.legyver.fenxlib.locator.query.ComponentQuery.TypedComponentQuery;
 import com.legyver.fenxlib.locator.visitor.LocationKeyVisitor;
 import com.legyver.util.nippe.Base;
 import com.legyver.util.nippe.Step;
+import javafx.scene.Node;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class DefaultComponentRegistry implements IComponentRegistry, QueryableComponentRegistry {
@@ -39,13 +38,13 @@ public class DefaultComponentRegistry implements IComponentRegistry, QueryableCo
 	}
 
 	@Override
-	public Node get(TypedComponentQuery query) {
+	public Node get(ITypedComponentQuery query) {
 		return new Step<>(new Base<>(typedNodes.get(query.getQueryString())),
 				typed -> typed.typedNodes.get(query.getType())).execute();
 	}
 
 	@Override
-	public Node get(NamedComponentQuery query) {
+	public Node get(INamedComponentQuery query) {
 		return nodes.get(query.getQueryString());
 	}
 

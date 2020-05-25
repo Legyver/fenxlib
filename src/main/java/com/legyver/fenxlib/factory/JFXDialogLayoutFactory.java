@@ -2,7 +2,9 @@ package com.legyver.fenxlib.factory;
 
 import com.jfoenix.controls.JFXDialogLayout;
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.factory.adapter.TitleFactoryAdapter;
 import com.legyver.fenxlib.locator.LocationContext;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -24,17 +26,21 @@ import javafx.scene.layout.VBox;
  * </JFXDialogLayout>
  */
 public class JFXDialogLayoutFactory extends AbstractWrappingFactory implements NodeFactory<JFXDialogLayout> {
-	private final String title;
+	private ITitleFactory titleFactory;
 
-	public JFXDialogLayoutFactory(String title, NodeFactory... nodeFactories) {
+	public JFXDialogLayoutFactory(ITitleFactory titleFactory, NodeFactory... nodeFactories) {
 		super(nodeFactories);
-		this.title = title;
+		this.titleFactory = titleFactory;
+	}
+
+	public JFXDialogLayoutFactory(String title, NodeFactory...nodeFactories) {
+		this(new TitleFactoryAdapter(new LabelFactory(title)), nodeFactories);
 	}
 
 	@Override
 	public JFXDialogLayout makeNode(LocationContext locationContext) throws CoreException {
 		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setHeading(new Label(title));
+		layout.setHeading(titleFactory.makeNode(locationContext));
 		VBox vbox = new VBox();
 		layout.getBody().add(vbox);
 

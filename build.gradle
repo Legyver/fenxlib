@@ -1,39 +1,36 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven-publish'
+}
+
 group 'com.legyver'
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
-
+version = "1.0.0.0"
 
 sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
 	//exception
-	compile group: 'com.legyver', name: 'core', version: '1.0+'
-	compile group: 'com.legyver', name: 'utils', version: '1.0+'
+	compile group: 'com.legyver', name: 'core', version: '1.0.0.0'
+	compile group: 'com.legyver', name: 'utils', version: '1.0.0.0'
 	
 	//ui
-	compile group: 'com.jfoenix', name: 'jfoenix', version: '8.0.2'
-        //config
-        compile group: 'commons-io', name: 'commons-io', version: '2.6'
-        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+	compile group: 'com.jfoenix', name: 'jfoenix', version: '8.0.7'
+    //config
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
     
-	testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
-	testCompile group: 'junit', name: 'junit', version: '4.12'
-	testCompile group: 'org.testfx', name: 'testfx-junit', version: '4.0.13-alpha'
+	testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'junit', name: 'junit', version: '4.13-beta-3'
+    testCompile group: 'org.testfx', name: 'testfx-junit', version: '4.0.16-alpha'
 	testCompile group: 'junit-addons', name: 'junit-addons', version: '1.4'
 }
 
@@ -48,7 +45,5 @@ publishing {
       mavenLocal()
     }
 }
-
-version = "1.0.0.0"
 
 task install(dependsOn: "publishToMavenLocal")

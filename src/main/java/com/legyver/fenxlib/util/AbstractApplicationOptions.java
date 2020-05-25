@@ -4,7 +4,11 @@ import com.legyver.fenxlib.uimodel.IUiModel;
 import com.legyver.fenxlib.locator.IComponentRegistry;
 import com.legyver.fenxlib.util.hook.ExecutableHook;
 import com.legyver.fenxlib.util.hook.LifecycleHook;
+
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
+
 import javafx.stage.Stage;
 
 public abstract class AbstractApplicationOptions<T extends IComponentRegistry, U extends IUiModel> implements ApplicationOptions<T, U> {
@@ -12,7 +16,7 @@ public abstract class AbstractApplicationOptions<T extends IComponentRegistry, U
 	protected final Stage primaryStage;
 	protected final T componentRegistry;
 	protected final U uiModel;
-	protected final EnumMap<LifecycleHook, ExecutableHook> lifecycleHooks = new EnumMap<>(LifecycleHook.class);
+	protected final EnumMap<LifecycleHook, List<ExecutableHook>> lifecycleHooks = new EnumMap<>(LifecycleHook.class);
 
 	public AbstractApplicationOptions(Stage primaryStage, T componentRegistry, U uiModel) {
 		this.primaryStage = primaryStage;
@@ -37,14 +41,18 @@ public abstract class AbstractApplicationOptions<T extends IComponentRegistry, U
 
 	@Override
 	public void executeHook(LifecycleHook hook) {
-		ExecutableHook executableHook = lifecycleHooks.get(hook);
-		if (executableHook != null) {
-			executableHook.execute();
+		List<ExecutableHook> executableHooks = lifecycleHooks.get(hook);
+		if (executableHooks != null) {
+			for (ExecutableHook executableHook: executableHooks) {
+				executableHook.execute();
+			}
 		}
 	}
 
 	public void registerHook(LifecycleHook hook, ExecutableHook executableHook) {
-		lifecycleHooks.put(hook, executableHook);
+		List<ExecutableHook> executableHooks = lifecycleHooks.getOrDefault(hook, new ArrayList<>());
+		lifecycleHooks.put(hook, executableHooks);
+		executableHooks.add(executableHook);
 	}
 
 }
