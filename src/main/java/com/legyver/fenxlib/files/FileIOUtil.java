@@ -1,8 +1,9 @@
-package com.legyver.fenxlib.util;
+package com.legyver.fenxlib.files;
 
 import com.legyver.fenxlib.config.GsonApplicationConfig;
 import java.io.File;
 import java.io.IOException;
+
 import org.apache.commons.io.FileUtils;
 
 public class FileIOUtil {
@@ -19,9 +20,13 @@ public class FileIOUtil {
 	public FileIOUtil() {
 		this(map -> new GsonApplicationConfig(map));
 	}
-	
+
 	public Object readModel(File file) throws IOException, IllegalAccessException {
-		return strategy.toModel(loadFileToString(file));
+		return readModel(loadFileToString(file));
+	}
+
+	public Object readModel(String fileContents) throws IOException, IllegalAccessException {
+		return strategy.toModel(fileContents);
 	}
 	
 	public void saveModel(Object model, File file) throws IOException, IllegalAccessException {

@@ -1,14 +1,18 @@
-package com.legyver.fenxlib.util;
+package com.legyver.fenxlib.config;
 
-import com.legyver.fenxlib.config.ApplicationConfigHandler;
+import com.legyver.fenxlib.config.load.AppHome;
+import com.legyver.fenxlib.config.options.FileBasedApplicationOptions;
+import com.legyver.fenxlib.files.FileIOUtil;
 import com.legyver.fenxlib.uimodel.DefaultFileOptions;
 import com.legyver.fenxlib.uimodel.FileOptions;
 import com.legyver.fenxlib.uimodel.RecentFileAware;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+
 import org.apache.commons.io.IOUtils;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -39,7 +43,7 @@ public class FileBackedConfigTest extends ApplicationTest {
 	private class TestFileBasedApplicationOptions extends FileBasedApplicationOptions<TestUiModel> {
 		
 		public TestFileBasedApplicationOptions(String jsonTestFileToLoad) throws IOException, IllegalAccessException {
-			super(null, new TestUiModel(), new ApplicationConfigHandler(".test", new TestIOUtil(jsonTestFileToLoad), (map) -> new TestConfig(map)));
+			super(new TestAppResource(jsonTestFileToLoad), null, new TestUiModel(), new TestConfigHandler());
 		}
 		
 		@Override
@@ -48,17 +52,36 @@ public class FileBackedConfigTest extends ApplicationTest {
 		}
 		
 	}
-	
-	private class TestIOUtil extends FileIOUtil {
-		private final String jsonTestFileToLoad;
 
-		public TestIOUtil(String jsonTestFileToLoad) {
-			this.jsonTestFileToLoad = jsonTestFileToLoad;
+	private class TestConfigHandler extends ApplicationConfigHandler {
+		//In test, ApplicationConfigHandler.instantiator is bypassed
+		// FileIOUtil is just used for model mapping
+		// (we read from src\test\resources rather than a file)
+		public TestConfigHandler() {
+			super(new FileIOUtil(), null);
 		}
-		
+	}
+
+	private class TestAppResource extends AppHome {
+		private final TestIOUtil testIOUtil = new TestIOUtil();
+
+		public TestAppResource(String jsonTestFileToLoad) {
+			super("Test");
+			testIOUtil.jsonTestFileToLoad = jsonTestFileToLoad;
+		}
+
+		@Override
+		public String getApplicationConfigAsString() throws IOException {
+			return testIOUtil.loadFileToString(null);
+		}
+	}
+
+	private class TestIOUtil extends FileIOUtil {
+		private String jsonTestFileToLoad;
+
 		@Override
 		protected String loadFileToString(File file) throws IOException {
-			return IOUtils.toString(getClass().getResourceAsStream(jsonTestFileToLoad), "UTF-8");
+			return IOUtils.toString(getClass().getResourceAsStream(jsonTestFileToLoad), StandardCharsets.UTF_8);
 		}
 	}
 	

@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.legyver'
-version = "1.0.0.0"
+version = "1.1.0.0"
 
 sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'

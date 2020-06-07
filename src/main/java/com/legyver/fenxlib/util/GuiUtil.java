@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.util;
 
+import com.legyver.fenxlib.config.options.ApplicationOptions;
 import com.legyver.fenxlib.uimodel.IUiModel;
 import com.jfoenix.svg.SVGGlyphLoader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.util;
+package com.legyver.fenxlib.files;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,15 +1,18 @@
-package com.legyver.fenxlib.util;
+package com.legyver.fenxlib.config.options;
 
+import com.legyver.fenxlib.config.*;
+import com.legyver.fenxlib.config.load.AppConfigProvider;
 import com.legyver.fenxlib.config.ApplicationConfig;
-import com.legyver.fenxlib.config.ApplicationConfigHandler;
+import com.legyver.fenxlib.config.load.AppHome;
 import com.legyver.fenxlib.config.parts.ILastOpened;
 import com.legyver.fenxlib.config.parts.IRecentlyModified;
-import com.legyver.fenxlib.config.parts.RecentlyModified;
 import com.legyver.fenxlib.config.parts.RecentlyViewedFile;
 import com.legyver.fenxlib.factory.menu.file.WorkingFileConfig;
+import com.legyver.fenxlib.files.FileIOUtil;
 import com.legyver.fenxlib.uimodel.DefaultFileOptions;
 import com.legyver.fenxlib.uimodel.FileOptions;
 import com.legyver.fenxlib.uimodel.RecentFileAware;
+import com.legyver.fenxlib.util.RecentlyViewedFileComparator;
 import com.legyver.fenxlib.util.hook.LifecycleHook;
 import com.legyver.util.nippe.Base;
 import com.legyver.util.nippe.Step;
@@ -30,17 +33,18 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 	private final ApplicationConfig applicationConfig;
 	private final WorkingFileConfig workingFileConfig = new WorkingFileConfig();
 	private boolean validateFileExistence = true;
-
+	
 	/**
 	 *
+	 * @param appConfigProvider
 	 * @param primaryStage
 	 * @param uiModel
 	 * @param handler: the class responsible for loading/saving/accessing your IApplicationConfig
 	 */
-	public FileBasedApplicationOptions(Stage primaryStage, T uiModel, ApplicationConfigHandler handler) throws IOException, IllegalAccessException {
-		super(primaryStage, uiModel);
+	public FileBasedApplicationOptions(AppConfigProvider appConfigProvider, Stage primaryStage, T uiModel, ApplicationConfigHandler handler) throws IOException, IllegalAccessException {
+		super(appConfigProvider, primaryStage, uiModel);
 		firePreInit();
-		handler.loadOrInitConfig();
+		handler.loadOrInitConfig(appConfigProvider.getApplicationConfigAsString());
 		applicationConfig = handler.getConfig();
 		initWorkingFileConfig(getUiModel().getWorkingFileOptions());
 		initRecentlyModified(getUiModel());
@@ -51,21 +55,25 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 			}
 			try {
 				applicationConfig.sync();
-				handler.saveConfig();
-			} catch (IOException|IllegalAccessException  ex) {
-				System.out.println(ex);//FIXME
+				handler.saveConfig(appConfigProvider.getApplicationConfigFile());
+			} catch (IOException|IllegalAccessException e) {
+				throw new RuntimeException(e);
 			}
 		});
 	}
 
-	/**
-	 *
-	 * @param configDirName: The name of the directory where you want the config files stored.  It will end up in {user.home}/<YOUR_CONFIG_DIR_NAME>
-	 * @param primaryStage
-	 * @param uiModel
-	 */
-	public FileBasedApplicationOptions(String configDirName, ApplicationConfigInstantiator instantiator, Stage primaryStage, T uiModel) throws IOException, IllegalAccessException {
-		this(primaryStage, uiModel, new ApplicationConfigHandler(configDirName, new FileIOUtil(instantiator), instantiator));
+	public FileBasedApplicationOptions(String appName, Stage primaryStage, T uiModel, ApplicationConfigHandler handler) throws IOException, IllegalAccessException {
+		this(new AppHome(appName), primaryStage, uiModel, handler);
+	}
+
+		/**
+		 *
+		 * @param appName: The name of the directory where you want the config files stored.  It will end up in either {user.home}/<YOUR_CONFIG_DIR_NAME> or %APPDATA%\<YOUR_CONFIG_DIR_NAME>
+		 * @param primaryStage
+		 * @param uiModel
+		 */
+	public FileBasedApplicationOptions(String appName, ApplicationConfigInstantiator instantiator, Stage primaryStage, T uiModel) throws IOException, IllegalAccessException {
+		this(appName, primaryStage, uiModel, new ApplicationConfigHandler(new FileIOUtil(instantiator), instantiator));
 	}
 
 	public File getDefaultWorkingDir() {
@@ -142,7 +150,7 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 		return applicationConfig;
 	}
 
-	protected void setFileValidateExistence(boolean  validateExistence) {
+	protected void setFileValidateExistence(boolean validateExistence) {
 		this.validateFileExistence = validateExistence;
 	}
 
@@ -170,5 +178,4 @@ public class FileBasedApplicationOptions<T extends RecentFileAware> extends Defa
 			}
 		}
 	}
-
 }

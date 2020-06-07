@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.util;
+package com.legyver.fenxlib.config.options;
 
 import com.legyver.fenxlib.uimodel.IUiModel;
 import javafx.stage.Stage;
