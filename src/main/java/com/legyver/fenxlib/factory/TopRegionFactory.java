@@ -2,24 +2,24 @@ package com.legyver.fenxlib.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.factory.options.RegionInitializationOptions;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import com.legyver.fenxlib.factory.menu.CenterOptions;
+import com.legyver.fenxlib.factory.menu.LeftMenuOptions;
+import com.legyver.fenxlib.factory.menu.MenuFactory;
+import com.legyver.fenxlib.factory.menu.RightMenuOptions;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
+import javafx.css.Styleable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
-import com.legyver.fenxlib.factory.menu.CenterOptions;
-import com.legyver.fenxlib.factory.menu.LeftMenuOptions;
-import com.legyver.fenxlib.factory.menu.MenuFactory;
-import com.legyver.fenxlib.factory.menu.RightMenuOptions;
 
 import static com.legyver.core.exception.CoreException.unwrap;
 import static com.legyver.core.exception.CoreException.wrap;
@@ -43,7 +43,7 @@ public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 		MenuBar leftBar = getMenuBar(leftOptions.getFactories());
 		MenuBar rightBar = getMenuBar(rightOptions.getFactories());
 		if (centerOptions != null) {
-			Node center = centerOptions.getFactory().makeNode(regionInitOptions.getLocationContext());
+			Styleable center = centerOptions.getFactory().makeNode(regionInitOptions.getLocationContext());
 			center.getStyleClass().add("menubar-center");
 			if (center instanceof Region) {
 				((Region) center).minWidth(100);
@@ -56,11 +56,10 @@ public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 					}
 				});
 				textField.setAlignment(Pos.CENTER);
-			}
-			HBox.setHgrow(center, Priority.ALWAYS);
-			return spaceNodes(leftBar, center, rightBar);
-		} else {
 
+				HBox.setHgrow(textField, Priority.ALWAYS);
+				return spaceNodes(leftBar, textField, rightBar);
+			}
 		}
 		return spaceNodes(leftBar, rightBar);
 	}

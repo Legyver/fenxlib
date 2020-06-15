@@ -21,22 +21,14 @@ public class DefaultFileOptions implements FileOptions {
 
 	private File file;
 
-	public String getFilePath() {
-		return filePath.get();
-	}
-
-	public File getFile() {
-		return file;
-	}
-
 	@Override
 	public void setFilePath(String sourceName) {
 		this.filePath.setValue(sourceName);
 	}
 
 	@Override
-	public void setFile(File file) {
-		this.file = file;
+	public String getFilePath() {
+		return filePath.get();
 	}
 
 	@Override
@@ -45,10 +37,21 @@ public class DefaultFileOptions implements FileOptions {
 	}
 
 	@Override
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	@Override
+	public File getFile() {
+		return file;
+	}
+
+	@Override
 	public void setFileName(String name) {
 		fileName.set(name);
 	}
 
+	@Override
 	public String getFileName() {
 		return fileName.get();
 	}
@@ -73,4 +76,24 @@ public class DefaultFileOptions implements FileOptions {
 		return newFile;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DefaultFileOptions that = (DefaultFileOptions) o;
+
+		return filePath != null ? filePath.equals(that.filePath) : that.filePath == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return filePath != null ? filePath.hashCode() : 0;
+	}
+
+	@Override
+	public int compareTo(FileOptions o) {
+		//sort by name
+		return this.fileName.get().compareTo(o.getFileName());
+	}
 }

@@ -5,7 +5,7 @@ import java.io.File;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
-public interface FileOptions extends MenuItemOptions {
+public interface FileOptions extends MenuItemOptions, Comparable<FileOptions>  {
 
 	void setFile(File dir);
 	File getFile();
@@ -15,10 +15,11 @@ public interface FileOptions extends MenuItemOptions {
 	BooleanProperty newFileProperty();
 
 	void setFileName(String name);
+	String getFileName();
+	StringProperty fileNameProperty();
 
 	void setFilePath(String absolutePath);
-
+	String getFilePath();
 	StringProperty filePathProperty();
-	StringProperty fileNameProperty();
 
 }

@@ -5,7 +5,6 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.factory.adapter.TitleFactoryAdapter;
 import com.legyver.fenxlib.locator.LocationContext;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
@@ -40,7 +39,7 @@ public class JFXDialogLayoutFactory extends AbstractWrappingFactory implements N
 	@Override
 	public JFXDialogLayout makeNode(LocationContext locationContext) throws CoreException {
 		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setHeading(titleFactory.makeNode(locationContext));
+		layout.setHeading((Node) titleFactory.makeNode(locationContext));
 		VBox vbox = new VBox();
 		layout.getBody().add(vbox);
 

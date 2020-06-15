@@ -28,7 +28,7 @@ public class HBoxFactory extends AbstractWrappingFactory implements NodeFactory<
 		hbox.setSpacing(5);
 		HBox.setHgrow(hbox, Priority.SOMETIMES);
 		hbox.setAlignment(alignment);
-		if (nodeFactories != null) {
+		if (styleableFactories != null) {
 			addChildren(hbox.getChildren(), locationContext);
 			List nodes = hbox.getChildren();
 
