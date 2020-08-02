@@ -5,3 +5,15 @@
 build/**
 private/**
 /build/
+/core/build/
+/core/api/build/
+/core/impl/build/
+/extensions/build
+/extensions/ext-tuktukfx/build
+/samples/build/
+/samples/widgets/build/
+/skins/build
+/skins/skin-number/build
+/widgets/build
+/widgets/widget-about/build
+/widgets/widget-blade/build

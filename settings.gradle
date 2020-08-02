@@ -1,1 +1,9 @@
 rootProject.name = 'fenxlib'
+
+include 'core:api'
+include 'core:impl'
+include 'samples:widgets:widget-about-sample'
+include 'extensions:ext-tuktukfx'
+include 'skins:skin-number'
+include 'widgets:widget-about'
+include 'widgets:widget-blade'
