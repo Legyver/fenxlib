@@ -1,0 +1,27 @@
+.about-details {
+    -fx-text-fill: rgba(0, 0, 0, 0.87);
+}
+
+.about-details > .build {
+    -fx-alignment: center-left;
+    -fx-padding: 24 24 20 24;
+    -fx-font-size: 24.0;
+}
+
+.about-details > .about-details-body {
+    -fx-alignment: center-left;
+    -fx-padding: 24 24 24 24;
+    -fx-pref-width: 400;
+}
+
+.about-details > .about-details-body > .additional-info {
+    -fx-alignment: center-left;
+    -fx-padding: 60 0 60 0;
+    -fx-pref-width: 400;
+}
+
+.about-details > .powered-by {
+    -fx-alignment: center-left;
+    -fx-padding: 24 0 0 0;
+    -fx-font-style: italic
+}

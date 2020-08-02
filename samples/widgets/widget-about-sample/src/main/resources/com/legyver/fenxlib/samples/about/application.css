@@ -1,0 +1,99 @@
+
+.root {
+	-fx-font-family: "Roboto";
+	-fx-font-smoothing-type: gray;
+	-fx-base: #3e4d66;
+}
+
+.button {
+	-fx-padding: 0.7em 0.57em;
+	-fx-font-size: 14px;
+}
+
+.button-raised {
+	-fx-padding: 0.7em 0.57em;
+	-fx-font-size: 14px;
+	-jfx-button-type: RAISED;
+	-fx-background-color: rgb(77, 102, 204);
+	-fx-pref-width: 150;
+	-fx-text-fill: BLACK;
+}
+
+.jfx-tab-pane .tab-header-background {
+	-fx-background-color: #696a9b;
+}
+.jfx-tab-pane .text-field {
+	-fx-background-color: #ffffff;
+}
+.split-pane > .split-pane-divider {
+	-fx-padding: 0 0.25em 0 0.25em; /* 0 3 0 3 */
+}
+.split-pane:horizontal > .split-pane-divider {
+	-fx-background-color: #696a9b, -fx-inner-border-horizontal;
+	-fx-background-insets: 0, 0 1 0 1;
+}
+.menu-bar {
+	-fx-padding: 0.0em 0.666667em 0.0em 0.666667em; /* 0 8 0 8 */
+	-fx-spacing: 0.166667em; /* 2 */
+	-fx-background-color: linear-gradient(to bottom, derive(-fx-base, 75%) 0%, -fx-outer-border 90%),
+	linear-gradient(to bottom, derive(-fx-base, 46.9%) 2%, derive(-fx-base, -2.1%) 95%);
+}
+
+.jfx-dialog-overlay-pane {
+    -fx-background-color: rgba(0.0, 0.0, 0.0, 0.1);
+}
+.dialog-trigger {
+    -fx-background-color: WHITE;
+    -jfx-button-type: RAISED;
+    -fx-font-size: 14.0px;
+}
+
+.jfx-layout-heading .label {
+    -fx-font-size: 20.0px;
+    -fx-text-fill: BLACK;
+}
+
+.dialog-accept {
+    -fx-text-fill: #03A9F4;
+    -fx-font-weight: BOLD;
+    -fx-padding: 0.7em 0.8em;
+}
+
+
+.jfx-dialog-layout {
+    -fx-text-fill: rgba(0, 0, 0, 0.87);
+    -spacing: 20
+}
+
+.jfx-dialog-layout > .jfx-layout-heading {
+    -fx-alignment: center-left;
+    -fx-font-weight: BOLD;
+    -fx-padding: 24 24 20 24;
+    -fx-text-fill: BLACK;
+    -fx-background-color: #649170
+}
+
+.jfx-dialog-layout > .jfx-layout-actions {
+    -fx-alignment: center-right;
+    -fx-hgap: 8;
+    -fx-padding: 8 8 8 8;
+}
+
+.jfx-dialog-layout > .jfx-layout-actions .jfx-button {
+    -fx-pref-height: 36;
+    -fx-max-height: 36;
+    -fx-min-width: 64;
+    -fx-padding: 8;
+}
+
+.jfx-dialog-layout > .jfx-layout-body {
+    -fx-alignment: center-left;
+    -fx-padding: 24 24 0 24;
+    -fx-pref-width: 400;
+}
+
+.jfx-dialog-layout > .jfx-layout-body .label {
+    -fx-text-fill: #757575;
+    -fx-font-size: 16.0;
+    -fx-wrap-text: true;
+}

@@ -1,0 +1,17 @@
+.about-page {
+    -fx-text-fill: rgba(0, 0, 0, 0.87);
+}
+
+.about-page > VBox {
+   -fx-spacing: 20;
+}
+
+.about-page > .about-detail {
+    -fx-alignment: center-left;
+    -fx-padding: 24 24 20 24;
+    -fx-font-size: 24.0;
+}
+
+#powered-by {
+    -fx-font: bold italic 9pt "Arial";
+}

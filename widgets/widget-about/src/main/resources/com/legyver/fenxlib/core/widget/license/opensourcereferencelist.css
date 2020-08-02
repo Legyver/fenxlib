@@ -1,0 +1,8 @@
+.open-source-reference-list {
+    -fx-text-fill: rgba(0, 0, 0, 0.87);
+}
+
+.open-source-reference-list > .content {
+    -fx-alignment: center-left;
+    -fx-font-size: 10.0;
+}
