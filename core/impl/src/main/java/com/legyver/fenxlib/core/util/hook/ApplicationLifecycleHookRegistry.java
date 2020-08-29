@@ -1,18 +1,14 @@
 package com.legyver.fenxlib.core.util.hook;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.core.function.ThrowingConsumer;
 import com.legyver.fenxlib.core.context.ApplicationContext;
 import com.legyver.fenxlib.core.context.ApplicationStateMachine;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 
 public class ApplicationLifecycleHookRegistry {
-	private static final Logger logger = LogManager.getLogger();
 
 	private final EnumMap<LifecyclePhase, TreeMap<Integer, ExecutableHook>> lifecycleHooks = new EnumMap<>(LifecyclePhase.class);
 	private final ApplicationStateMachine applicationStateMachine = new ApplicationStateMachine();
@@ -32,9 +28,6 @@ public class ApplicationLifecycleHookRegistry {
 				for (Iterator<Integer> it = executableHooks.navigableKeySet().iterator(); it.hasNext(); ) {
 					Integer currentPriority = it.next();
 					ExecutableHook executableHook = executableHooks.get(currentPriority);
-					if (logger.isDebugEnabled()) {
-						logger.trace("Executing hook priority: " + currentPriority);
-					}
 					executableHook.execute();
 				}
 			}
@@ -61,7 +54,6 @@ public class ApplicationLifecycleHookRegistry {
 					break;
 				}
 			}
-			logger.warn("There is already a hook for priority: " + priority + ".  Adding it to next available priority: " + nextAvailable);
 			executableHooks.put(nextAvailable, executableHook);
 		}
 	}

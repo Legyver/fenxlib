@@ -100,7 +100,7 @@ public class ApplicationOptions {
 				applicationConfigProvider = new ApplicationHome(appName);
 			}
 			if (fileIOUtil == null) {
-				fileIOUtil = new FileIOUtil();
+				fileIOUtil = new FileIOUtil(appConfigInstantiator);
 			}
 			if (appConfigHandler == null) {
 				appConfigHandler = new ApplicationConfigHandler(fileIOUtil, appConfigInstantiator);

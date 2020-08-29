@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.factory.menu.file;
 
+import com.legyver.fenxlib.core.config.parts.ILastOpened;
 import com.legyver.fenxlib.core.context.ApplicationContext;
 import com.legyver.fenxlib.core.uimodel.DefaultFileOptions;
 import com.legyver.fenxlib.core.uimodel.FileOptions;
@@ -20,6 +21,30 @@ public abstract class AbstractFileMenuFactory {
 
 	public AbstractFileMenuFactory(DefaultFileBrowseLocation defaultFileBrowseLocation) {
 		fileOptionsChooserFactory = new FileOptionsChooserFactory(defaultFileBrowseLocation);
+	}
+
+	public AbstractFileMenuFactory() {
+		this(getDefaultFileBrowseLocation());
+	}
+
+	private static DefaultFileBrowseLocation getDefaultFileBrowseLocation() {
+		DefaultFileBrowseLocation defaultFileBrowseLocation = new DefaultFileBrowseLocation();
+		File initialDirectory = getLastOpenedFileLocation();
+		if (initialDirectory.exists()) {
+			defaultFileBrowseLocation.setInitialDirectory(initialDirectory);
+		}
+
+		return defaultFileBrowseLocation;
+	}
+
+	private static File getLastOpenedFileLocation() {
+		ILastOpened lastOpened = ApplicationContext.getApplicationConfig().getLastOpened();
+		String initialDirectoryName = lastOpened.getLastDirectory();
+		File initialDirectory = null;
+		if (initialDirectoryName != null) {
+			initialDirectory = new File(initialDirectoryName);
+		}
+		return initialDirectory;
 	}
 
 	/**

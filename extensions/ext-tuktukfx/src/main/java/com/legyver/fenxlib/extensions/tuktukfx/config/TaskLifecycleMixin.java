@@ -8,7 +8,7 @@ import com.legyver.fenxlib.core.config.options.init.ApplicationLifecycleHook;
 public interface TaskLifecycleMixin {
 
 	/**
-	 * In your ? extends {@link com.legyver.fenxlib.core.config.options.ApplicationOptions.Builder} call mixinLifecycleHook(shutDownThreadPoolOnExit())
+	 * In your &lt;? extends {@link com.legyver.fenxlib.core.config.options.ApplicationOptions.Builder}&gt; call registerLifecycleHook(shutDownThreadPoolOnExit())
 	 */
 	default ApplicationLifecycleHook shutDownThreadPoolOnExit() {
 		return new TaskExecutorShutdownApplicationLifecycleHook();
