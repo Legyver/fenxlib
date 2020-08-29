@@ -9,12 +9,12 @@ import java.io.File;
 import static com.legyver.fenxlib.core.config.load.ApplicationHome.APP_HOME_SUFFIX;
 
 /**
- *  Sets a system variable of <appname>.home.logging
+ *  Sets a system variable of &lt;appname&gt;.home.logging
  *  ie: if appName = "MyApp" would set the following environment variables
  *    myapp.home.logging
  *  in your log4j2.xml you would read this as ${sys:myapp.home.logging}
- *  	<property name="filename">${sys:myapp.home.logging}/application.log</property>
- * 		<property name="filenamePattern">${sys:myapp.home.logging}/application-%d{yyyy-MM-dd}.log.gz
+ *  	&lt;property name="filename"&gt;${sys:myapp.home.logging}/application.log&lt;/property&gt;
+ * 		&lt;property name="filenamePattern"&gt;${sys:myapp.home.logging}/application-%d{yyyy-MM-dd}.log.gz
  */
 public class InitLoggingApplicationLifecycleHook implements ApplicationLifecycleHook {
 	public static final String APP_HOME_LOGGING_SUFFIX = APP_HOME_SUFFIX + ".logging";

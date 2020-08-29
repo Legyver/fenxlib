@@ -2,8 +2,8 @@ package com.legyver.fenxlib.core.config.parts;
 
 public interface ILastOpened {
 
-	String getLastDirectory();
+	String getLastFile();
 
-	void setLastDirectory(String lastDirectory);
+	void setLastFile(String lastFile);
 
 }

@@ -7,21 +7,21 @@ import java.util.Map;
 public class LastOpened implements ILastOpened, MapSyncable {
 
 	private final Map sourceMap;
-	private final MapBackedString lastDirectory;
+	private final MapBackedString lastFile;
 
 	public LastOpened(Map rawValues) {
 		this.sourceMap = rawValues;
-		this.lastDirectory = new MapBackedString(sourceMap, "lastDirectory");
+		this.lastFile = new MapBackedString(sourceMap, "lastFile");
 	}
 
 	@Override
-	public String getLastDirectory() {
-		return lastDirectory.get();
+	public String getLastFile() {
+		return lastFile.get();
 	}
 
 	@Override
-	public void setLastDirectory(String lastDirectory) {
-		this.lastDirectory.set(lastDirectory);
+	public void setLastFile(String lastFile) {
+		this.lastFile.set(lastFile);
 	}
 
 	@Override

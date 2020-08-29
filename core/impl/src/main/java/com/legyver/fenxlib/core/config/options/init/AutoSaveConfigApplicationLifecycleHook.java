@@ -52,7 +52,7 @@ public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecy
 		if (!openFiles.isEmpty()) {
 			ILastOpened lastOpened = applicationConfig.getLastOpened();
 			FileOptions mostRecent = openFiles.get(openFiles.size() -1);
-			lastOpened.setLastDirectory(mostRecent.getFilePath());
+			lastOpened.setLastFile(mostRecent.getFilePath());
 		}
 	}
 }

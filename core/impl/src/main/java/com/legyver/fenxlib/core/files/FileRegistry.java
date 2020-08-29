@@ -17,19 +17,21 @@ public class FileRegistry {
 
 	public FileRegistry() {
 		openFiles.addListener((ListChangeListener<FileOptions>) change -> {
-			if (change.wasAdded()) {
-				List<? extends FileOptions> added = change.getAddedSubList();
-				for (int i = 0; i < added.size(); i++) {
-					FileOptions opened = added.get(i);
-					defaultFileBrowseLocation.setInitialDirectory(opened.getFile().getParentFile());
-					openFileConfigMap.put(opened.getFilePath(), opened);
-				}
-			} else if (change.wasRemoved()) {
-				//avoid a memory leak
-				List<? extends FileOptions> removed = change.getRemoved();
-				for (int i = 0; i < removed.size(); i++) {
-					FileOptions closed = removed.get(i);
-					openFileConfigMap.remove(closed.getFilePath());
+			if (change.next()) {
+				if (change.wasAdded()) {
+					List<? extends FileOptions> added = change.getAddedSubList();
+					for (int i = 0; i < added.size(); i++) {
+						FileOptions opened = added.get(i);
+						defaultFileBrowseLocation.setInitialDirectory(opened.getFile().getParentFile());
+						openFileConfigMap.put(opened.getFilePath(), opened);
+					}
+				} else if (change.wasRemoved()) {
+					//avoid a memory leak
+					List<? extends FileOptions> removed = change.getRemoved();
+					for (int i = 0; i < removed.size(); i++) {
+						FileOptions closed = removed.get(i);
+						openFileConfigMap.remove(closed.getFilePath());
+					}
 				}
 			}
 		});

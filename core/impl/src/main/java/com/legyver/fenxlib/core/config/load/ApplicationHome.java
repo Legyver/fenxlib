@@ -11,8 +11,8 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Where to save internal application files.
- *	Windows: %APPDATA%\<appName>
- *	Others: user.home/.<appName>
+ *	Windows: %APPDATA%\&lt;appName&gt;
+ *	Others: user.home/.&lt;appName&gt;
  * 
  * Default root directories include
  *   cache

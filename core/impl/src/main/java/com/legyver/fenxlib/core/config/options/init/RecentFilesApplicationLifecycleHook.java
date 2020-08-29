@@ -63,7 +63,7 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 	public File getLastModifiedParentDir(ApplicationConfig applicationConfig) {
 		File workingDir = null;
 		File file = new Step<>(new Step<>(new Base<>(applicationConfig.getLastOpened()),
-				(last) -> last.getLastDirectory()),
+				(last) -> last.getLastFile()),
 				(dir) -> new File(dir)).execute();
 		if (isFileValid(file)) {
 			workingDir = file;
@@ -100,7 +100,7 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 
 		//update the timestamp on the config whenever a file is opened
 		openFiles.addListener((ListChangeListener<FileOptions>) change -> {
-			if (change.wasAdded()) {
+			if (change.next() && change.wasAdded()) {
 				List<? extends FileOptions> workingFileConfigList = change.getAddedSubList();
 				for (int i = 0; i < workingFileConfigList.size(); i++) {
 					FileOptions workingFile = workingFileConfigList.get(i);

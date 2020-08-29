@@ -29,9 +29,9 @@ public abstract class AbstractFileMenuFactory {
 
 	private static DefaultFileBrowseLocation getDefaultFileBrowseLocation() {
 		DefaultFileBrowseLocation defaultFileBrowseLocation = new DefaultFileBrowseLocation();
-		File initialDirectory = getLastOpenedFileLocation();
-		if (initialDirectory.exists()) {
-			defaultFileBrowseLocation.setInitialDirectory(initialDirectory);
+		File lastOpenedFileLocation = getLastOpenedFileLocation();
+		if (lastOpenedFileLocation.exists()) {
+			defaultFileBrowseLocation.setInitialDirectory(lastOpenedFileLocation.getParentFile());
 		}
 
 		return defaultFileBrowseLocation;
@@ -39,12 +39,12 @@ public abstract class AbstractFileMenuFactory {
 
 	private static File getLastOpenedFileLocation() {
 		ILastOpened lastOpened = ApplicationContext.getApplicationConfig().getLastOpened();
-		String initialDirectoryName = lastOpened.getLastDirectory();
-		File initialDirectory = null;
-		if (initialDirectoryName != null) {
-			initialDirectory = new File(initialDirectoryName);
+		String lastFileName = lastOpened.getLastFile();
+		File lastFile = null;
+		if (lastFileName != null) {
+			lastFile = new File(lastFileName);
 		}
-		return initialDirectory;
+		return lastFile;
 	}
 
 	/**

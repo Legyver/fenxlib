@@ -24,7 +24,7 @@ public class FileOptionsChooserFactory {
 		final FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(title);
 
-		if (initialDirectory != null) {
+		if (initialDirectory != null && initialDirectory.get() != null && initialDirectory.get().isDirectory()) {
 			fileChooser.initialDirectoryProperty().bind(initialDirectory);
 		}
 		if (initialFileName != null) {
