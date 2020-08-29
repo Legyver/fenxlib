@@ -27,7 +27,5 @@ Release.Breaking.Feature.Fix
 - Feature: Used when introducing features that do not break backward compatability.
 - Fix: Used for small bug fixes
 
-All new versions should trigger new versions of all fenxlib-* libraries to keep dependency management simple.
-
 ## Releases
 * [Release Notes](https://github.com/Legyver/fenxlib/blob/master/RELEASE.MD)

@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.extensions.tuktukfx.config;
 
-import com.legyver.fenxlib.core.config.options.mixins.HookRegistrationMixin;
+import com.legyver.fenxlib.core.config.options.init.ApplicationLifecycleHook;
 
 /**
  * Mixin for shutting down the thread pool on application exit
@@ -8,9 +8,9 @@ import com.legyver.fenxlib.core.config.options.mixins.HookRegistrationMixin;
 public interface TaskLifecycleMixin {
 
 	/**
-	 * In your {@link com.legyver.fenxlib.core.config.options.ApplicationOptions.Builder} call mixinLifecycleHook(shutDownThreadPoolOnExit())
+	 * In your ? extends {@link com.legyver.fenxlib.core.config.options.ApplicationOptions.Builder} call mixinLifecycleHook(shutDownThreadPoolOnExit())
 	 */
-	default HookRegistrationMixin shutDownThreadPoolOnExit() {
-		return new TaskExecutorShutdownHook();
+	default ApplicationLifecycleHook shutDownThreadPoolOnExit() {
+		return new TaskExecutorShutdownApplicationLifecycleHook();
 	}
 }

@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.locator.query;
 
+import com.legyver.fenxlib.core.context.BaseApplicationContext;
 import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.fenxlib.core.locator.visitor.LocationKeyVisitor;
 import java.util.ArrayDeque;
@@ -8,16 +9,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.scene.Node;
 
-import static com.legyver.fenxlib.core.locator.visitor.LocationKeyVisitor.KEY_SEPARATOR;
-
 public abstract class ComponentQuery<T extends Node> {
 
 	private final String queryString;
-	protected final QueryableComponentRegistry registry;
+	protected final QueryableComponentRegistry registry = BaseApplicationContext.getComponentRegistry();
 
-	public ComponentQuery(String queryString, QueryableComponentRegistry registry) {
+	public ComponentQuery(String queryString) {
 		this.queryString = queryString;
-		this.registry = registry;
 	}
 
 	public String getQueryString() {
@@ -28,8 +26,8 @@ public abstract class ComponentQuery<T extends Node> {
 
 	private static class NamedComponentQuery<T extends Node> extends ComponentQuery<T> implements INamedComponentQuery<T> {
 
-		private NamedComponentQuery(String queryString, QueryableComponentRegistry registry) {
-			super(queryString, registry);
+		private NamedComponentQuery(String queryString) {
+			super(queryString);
 		}
 
 		@Override
@@ -42,8 +40,8 @@ public abstract class ComponentQuery<T extends Node> {
 
 		private final Class type;
 
-		private TypedComponentQuery(String queryString, Class type, QueryableComponentRegistry registry) {
-			super(queryString, registry);
+		private TypedComponentQuery(String queryString, Class type) {
+			super(queryString);
 			this.type = type;
 		}
 
@@ -68,12 +66,6 @@ public abstract class ComponentQuery<T extends Node> {
 
 	public static class QueryBuilder extends AbstractQueryBuilder {
 
-		private final QueryableComponentRegistry registry;
-
-		public QueryBuilder(QueryableComponentRegistry registry) {
-			this.registry = registry;
-		}
-
 		public RegionQueryBuilder inRegion(String name) {
 			this.name = name;
 			return new RegionQueryBuilder(this);
@@ -90,7 +82,7 @@ public abstract class ComponentQuery<T extends Node> {
 			if (name != null) {
 				stack.push(name);
 			}
-			return new NamedComponentQuery(stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)), registry);
+			return new NamedComponentQuery(stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)));
 		}
 
 		@Override
@@ -98,7 +90,7 @@ public abstract class ComponentQuery<T extends Node> {
 			stack.push(name);
 			stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR));
 
-			return new TypedComponentQuery(stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)), type, registry);
+			return new TypedComponentQuery(stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)), type);
 		}
 	}
 

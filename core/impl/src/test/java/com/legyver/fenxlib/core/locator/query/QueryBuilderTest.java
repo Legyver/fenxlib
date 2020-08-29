@@ -9,7 +9,7 @@ public class QueryBuilderTest {
 
 	@Test
 	public void queryRegionPanelName() {
-		ComponentQuery query = new ComponentQuery.QueryBuilder(null)
+		ComponentQuery query = new ComponentQuery.QueryBuilder()
 				.inRegion("region")
 				.inSubRegion("panel")
 				.named("name");
@@ -18,7 +18,7 @@ public class QueryBuilderTest {
 
 	@Test
 	public void queryRegionName() {
-		ComponentQuery query = new ComponentQuery.QueryBuilder(null)
+		ComponentQuery query = new ComponentQuery.QueryBuilder()
 				.inRegion("region")
 				.named("name");
 		assertThat(query.getQueryString(), is("region::name"));

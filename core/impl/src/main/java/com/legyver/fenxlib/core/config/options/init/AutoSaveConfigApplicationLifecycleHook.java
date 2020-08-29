@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.config.options.mixins;
+package com.legyver.fenxlib.core.config.options.init;
 
 import com.legyver.fenxlib.core.config.ApplicationConfig;
 import com.legyver.fenxlib.core.config.ApplicationConfigHandler;
@@ -14,11 +14,11 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 
-public class AutoSaveConfigMixin implements HookRegistrationMixin {
+public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final ApplicationConfigProvider appConfigProvider;
 	private final ApplicationConfigHandler applicationConfigHandler;
 
-	public AutoSaveConfigMixin(ApplicationConfigProvider applicationConfigProvider, ApplicationConfigHandler applicationConfigHandler) {
+	public AutoSaveConfigApplicationLifecycleHook(ApplicationConfigProvider applicationConfigProvider, ApplicationConfigHandler applicationConfigHandler) {
 		this.appConfigProvider = applicationConfigProvider;
 		this.applicationConfigHandler = applicationConfigHandler;
 	}

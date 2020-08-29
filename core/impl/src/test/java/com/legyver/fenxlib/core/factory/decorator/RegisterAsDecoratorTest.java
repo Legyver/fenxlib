@@ -42,7 +42,7 @@ public class RegisterAsDecoratorTest extends ApplicationTest {
 		TextField field = factory.makeNode(locationContext);
 		Map registered = (Map) PrivateAccessor.getField(defaultComponentRegistry, "nodes");
 		assertThat(registered.size(), is(1));
-		Optional<Node> node = new ComponentQuery.QueryBuilder(defaultComponentRegistry)
+		Optional<Node> node = new ComponentQuery.QueryBuilder()
 				.inRegion(ROOT)
 				.named(NAME).execute();
 		assertTrue(node.isPresent());

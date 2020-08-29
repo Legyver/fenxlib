@@ -2,7 +2,7 @@ package com.legyver.fenxlib.core.config;
 
 import com.legyver.fenxlib.core.config.load.ApplicationHome;
 import com.legyver.fenxlib.core.config.options.ApplicationOptions;
-import com.legyver.fenxlib.core.config.options.mixins.RecentFilesMixin;
+import com.legyver.fenxlib.core.config.options.init.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.core.context.ApplicationContext;
 import com.legyver.fenxlib.core.factory.menu.file.DefaultFileBrowseLocation;
 import com.legyver.fenxlib.core.files.FileIOUtil;
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertThat;
 public class FileBackedConfigTest extends ApplicationTest {
 
 	@After
-	public void reset() {
+	public void reset() throws Exception {
 		ApplicationContext.getFileRegistry().getOpenFiles().clear();
 		ApplicationContext.getApplicationLifecycleHookRegistry().reset();
 		ApplicationContext.setUiModel(null);
@@ -39,13 +39,13 @@ public class FileBackedConfigTest extends ApplicationTest {
 
 	@Test
 	public void openLastOpenedConfig() throws Exception {
-		ApplicationOptions applicationOptions = new TestApplicationOptionsBuilder()
+		new TestApplicationOptionsBuilder()
 				.appName("Test")
 				.customAppConfigProvider(new TestApplicationResource("TestApplicationConfig_lastopened.json"))
 				.customAppConfigHandler(new TestConfigHandler())
 				.customAppConfigInstantiator(map -> new TestConfig(map))
 				.uiModel(new TestUiModel())
-				.customRecentFilesMixin(new RecentFilesMixin() {
+				.customRecentFilesMixin(new RecentFilesApplicationLifecycleHook() {
 					@Override
 					protected boolean isFileValid(File file) {
 						return true;
@@ -53,9 +53,8 @@ public class FileBackedConfigTest extends ApplicationTest {
 				})
 				.disableLogging()
 				.disableAutosaveConfig()
-				.build();
-		applicationOptions.bootstrap();
-		ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(LifecyclePhase.PRE_INIT);
+				.build();//build() automatically bootstraps the application
+		ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(LifecyclePhase.PRE_INIT);//RecentFilesMixin
 
 		FileRegistry fileRegistry = ApplicationContext.getFileRegistry();
 		DefaultFileBrowseLocation defaultFileBrowseLocation = fileRegistry.getDefaultFileBrowseLocation();
@@ -66,13 +65,13 @@ public class FileBackedConfigTest extends ApplicationTest {
 	
 	@Test
 	public void openLastOpenedRecentlyModifiedConfig() throws Exception {
-		ApplicationOptions applicationOptions = new TestApplicationOptionsBuilder()
+		new TestApplicationOptionsBuilder()
 				.appName("Test")
 				.customAppConfigProvider(new TestApplicationResource("TestApplicationConfig_lastAndRecentlyAdded.json"))
 				.customAppConfigHandler(new TestConfigHandler())
 				.customAppConfigInstantiator(map -> new TestConfig(map))
 				.uiModel(new TestUiModel())
-				.customRecentFilesMixin(new RecentFilesMixin() {
+				.customRecentFilesMixin(new RecentFilesApplicationLifecycleHook() {
 					@Override
 					protected boolean isFileValid(File file) {
 						return true;
@@ -80,8 +79,7 @@ public class FileBackedConfigTest extends ApplicationTest {
 				})
 				.disableLogging()
 				.disableAutosaveConfig()
-				.build();
-		applicationOptions.bootstrap();
+				.build();//build() automatically bootstraps the application
 		ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(LifecyclePhase.PRE_INIT);
 
 		FileRegistry fileRegistry = ApplicationContext.getFileRegistry();
@@ -97,8 +95,8 @@ public class FileBackedConfigTest extends ApplicationTest {
 	}
 
 	private class TestApplicationOptionsBuilder extends ApplicationOptions.Builder<TestApplicationOptionsBuilder> {
-		public TestApplicationOptionsBuilder customRecentFilesMixin(RecentFilesMixin recentFilesMixin) {
-			return set(() -> this.recentFilesMixin = recentFilesMixin);
+		public TestApplicationOptionsBuilder customRecentFilesMixin(RecentFilesApplicationLifecycleHook recentFilesMixin) {
+			return set(() -> this.recentFilesHook = recentFilesMixin);
 		}
 	}
 

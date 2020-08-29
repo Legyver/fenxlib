@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.util.hook;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.core.function.ThrowingConsumer;
 import com.legyver.fenxlib.core.context.ApplicationContext;
 import com.legyver.fenxlib.core.context.ApplicationStateMachine;
 import org.apache.logging.log4j.LogManager;
@@ -20,15 +21,13 @@ public class ApplicationLifecycleHookRegistry {
 		applicationStateMachine.addObserver(ApplicationContext.getAppState());
 	}
 
-	public void executeInitHooks() throws CoreException {
-		executeHook(LifecyclePhase.BOOTSTRAP);
-		executeHook(LifecyclePhase.PRE_INIT);
-		executeHook(LifecyclePhase.INIT);
+	public void startup() throws CoreException {
+		executeHook(LifecyclePhase.POST_INIT);
 	}
 
 	public void executeHook(LifecyclePhase hook) throws CoreException {
-		if (applicationStateMachine.begin(hook)) {
-			TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.get(hook);
+		applicationStateMachine.run(hook, phase -> {
+			TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.get(phase);
 			if (executableHooks != null) {
 				for (Iterator<Integer> it = executableHooks.navigableKeySet().iterator(); it.hasNext(); ) {
 					Integer currentPriority = it.next();
@@ -39,8 +38,7 @@ public class ApplicationLifecycleHookRegistry {
 					executableHook.execute();
 				}
 			}
-			applicationStateMachine.end(hook);
-		}
+		});
 	}
 
 	/**
@@ -68,7 +66,7 @@ public class ApplicationLifecycleHookRegistry {
 		}
 	}
 
-	public void reset() {
+	public void reset() throws CoreException {
 		lifecycleHooks.clear();
 		applicationStateMachine.reset();
 	}

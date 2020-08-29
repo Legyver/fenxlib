@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.config.options.mixins;
+package com.legyver.fenxlib.core.config.options.init;
 
 import com.legyver.fenxlib.core.config.ApplicationConfig;
 import com.legyver.fenxlib.core.config.ApplicationConfigHandler;
@@ -8,11 +8,11 @@ import com.legyver.fenxlib.core.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.util.hook.LifecyclePhase;
 import com.legyver.util.adaptex.ExceptionToCoreExceptionFunctionDecorator;
 
-public class LoadConfigMixin implements HookRegistrationMixin {
+public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final ApplicationConfigHandler applicationConfigHandler;
 	private final ApplicationConfigProvider applicationConfigProvider;
 
-	public LoadConfigMixin(ApplicationConfigHandler applicationConfigHandler, ApplicationConfigProvider applicationConfigProvider) {
+	public LoadConfigApplicationLifecycleHook(ApplicationConfigHandler applicationConfigHandler, ApplicationConfigProvider applicationConfigProvider) {
 		this.applicationConfigHandler = applicationConfigHandler;
 		this.applicationConfigProvider = applicationConfigProvider;
 	}

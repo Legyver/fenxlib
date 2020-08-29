@@ -6,6 +6,7 @@ import com.legyver.fenxlib.core.context.BaseApplicationContext;
 import com.legyver.fenxlib.core.factory.*;
 import com.legyver.fenxlib.core.factory.menu.*;
 import com.legyver.fenxlib.core.factory.options.BorderPaneInitializationOptions;
+import com.legyver.fenxlib.core.factory.options.RegionInitializationOptions;
 import com.legyver.fenxlib.core.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.locator.query.QueryableComponentRegistry;
 import com.legyver.fenxlib.core.uimodel.IUiModel;
@@ -39,26 +40,25 @@ public class MyApplication extends Application {
 				.additionalInfo("be sure to tell your friends")
 				.build();
 
-
-
 		SceneFactory sceneFactory = new SceneFactory(primaryStage, 600, 650, MyApplication.class.getResource("application.css"));
 
 		QueryableComponentRegistry queryableComponentRegistry = BaseApplicationContext.getComponentRegistry();
 
 		//where to display the popup over
 		Supplier<StackPane> centerContentReference = () -> {
-			Optional<StackPane> center = new ComponentQuery.QueryBuilder(queryableComponentRegistry)
+			Optional<StackPane> center = new ComponentQuery.QueryBuilder()
 					.inRegion(BorderPaneInitializationOptions.REGION_CENTER)
 					.type(StackPane.class).execute();
 			return center.get();
 		};
 
 		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
-				.center()
-				//popup will display over this. See the centerContentReference Supplier above
-				.factory(new StackPaneRegionFactory(true, new TextFactory("Hello World")))
-				.up().top()
-				.factory(new TopRegionFactory(
+				.center(new RegionInitializationOptions.Builder()
+					//popup will display over this. See the centerContentReference Supplier above
+					.factory(new StackPaneRegionFactory(true, new TextFactory("Hello World")))
+				)
+				.top(new RegionInitializationOptions.Builder()
+					.factory(new TopRegionFactory(
 						new LeftMenuOptions(
 								new MenuFactory("File",
 										new ExitMenuItemFactory("Exit")
@@ -68,7 +68,8 @@ public class MyApplication extends Application {
 						new RightMenuOptions(
 								new MenuFactory("Help", new AboutMenuItemFactory("About", centerContentReference, aboutPageOptions))
 						))
-				).up().build();
+				))
+				.build();
 
 		BorderPane root = new BorderPaneFactory(options).makeBorderPane();
 		primaryStage.setScene(sceneFactory.makeScene(root));

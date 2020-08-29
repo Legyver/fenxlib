@@ -29,7 +29,7 @@ public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
 		LocationContext locationContext = new DefaultLocationContext("Test panel");
 		registry.register(locationContext, numberField);
 
-		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder(registry)
+		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		factory.bindTextField(money, query, null);
 		assertThat(numberField.getValue().doubleValue(), is(1000.0));

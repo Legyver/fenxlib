@@ -32,7 +32,7 @@ public class AbstractBindingFactoryTest extends ApplicationTest {
 		LocationContext locationContext = new DefaultLocationContext("Test panel");
 		registry.register(locationContext, textField);
 
-		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder(registry)
+		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		factory.bindTextField(s, query, null);
 		assertThat(textField.getText(), is("Test Value"));
@@ -52,7 +52,7 @@ public class AbstractBindingFactoryTest extends ApplicationTest {
 		LocationContext locationContext = new DefaultLocationContext("Test panel");
 		registry.register(locationContext, picker);
 
-		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder(registry)
+		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		factory.bindDatePicker(ld, query, null);
 		assertThat(picker.getValue(), is(LocalDate.now()));

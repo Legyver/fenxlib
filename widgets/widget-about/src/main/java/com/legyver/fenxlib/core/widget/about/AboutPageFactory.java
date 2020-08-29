@@ -4,6 +4,8 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.factory.NodeFactory;
 import com.legyver.util.graphrunner.*;
 import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.util.graphrunner.ctx.shared.SharedContextCommand;
+import com.legyver.util.graphrunner.ctx.shared.SharedMapCtx;
 import org.apache.commons.jexl3.*;
 
 import java.util.*;
@@ -18,7 +20,6 @@ public class AboutPageFactory implements NodeFactory<AboutPage> {
 	private final Properties licenseProperties;
 	private final Properties buildProperties;
 	private final Properties copyrightProperties;
-
 
 	public AboutPageFactory(String intro, String gist, String additionalInfo, Properties licenseProperties, Properties buildProperties, Properties copyrightProperties) {
 		this.intro = intro;
@@ -41,17 +42,17 @@ public class AboutPageFactory implements NodeFactory<AboutPage> {
 		VariableExtractionOptions variableExtractionOptions = new VariableExtractionOptions(jexlVar, 1);
 		VariableTransformationRule variableTransformationRule = new VariableTransformationRule(Pattern.compile("\\.format$"),
 				TransformationOperation.upToLastIndexOf(".format"));
-		ContextGraphFactory factory = new ContextGraphFactory(variableExtractionOptions, variableTransformationRule);
-		ContextGraph contextGraph = factory.make(map);
+		PropertyGraphFactory factory = new PropertyGraphFactory(variableExtractionOptions, variableTransformationRule);
+		Graph<SharedMapCtx> contextGraph = factory.make(map, (s, o) -> new SharedMapCtx(s, map));
 
 		JexlEngine jexl = new JexlBuilder().create();
 		JexlContext context = new MapContext(map);
-		GraphRunner runner = new GraphRunner(map);
-		runner.setCommand((nodeName, currentValue) -> {
-			try {
-				Matcher m = jexlVar.matcher((String) currentValue);
+		contextGraph.executeStrategy(new SharedContextCommand() {
+			@Override
+			public void executeString(String nodeName, String currentValue) {
+				Matcher m = jexlVar.matcher(currentValue);
 				if (m.find()) {
-					JexlExpression expression = jexl.createExpression((String) currentValue);
+					JexlExpression expression = jexl.createExpression(currentValue);
 					String value = (String) expression.evaluate(context);
 					//update the map with the value
 					String key = nodeName;
@@ -61,33 +62,13 @@ public class AboutPageFactory implements NodeFactory<AboutPage> {
 					}
 					map.put(key, value);
 				}
-			} catch (RuntimeException ex) {
-				throw new CoreException("Error evaluating expression: " + currentValue, ex);
 			}
 		});
-		runner.runGraph(contextGraph);
 
 		String buildDate = (String) map.get("build.date");
 		String version = (String) map.get("build.version");
 		String copyright = (String) map.get("copyright");
 
 		return new AboutPage(intro, gist, additionalInfo, version, buildDate, copyright, licenseProperties);
-	}
-
-
-	private String evaluate(JexlEngine jexl, JexlContext context, String expression) throws CoreException {
-		try {
-			JexlExpression e = jexl.createExpression(expression);
-			return (String) e.evaluate(context);
-		} catch (RuntimeException ex) {
-			throw new CoreException("Error evaluating expression: " + expression, ex);
-		}
-	}
-
-	private void setPropertiesOnContext(JexlContext context, Properties properties) {
-		for (String key : properties.stringPropertyNames()) {
-			String value = (String) properties.get(key);
-			context.set(key, value);
-		}
 	}
 }

@@ -68,45 +68,48 @@ public class RegionInitializationOptions {
 
 	}
 
-	public static class Builder<T> {
+	public static class Builder<T extends Builder> {
 
-		private final T parentBuilder;
-		private final String regionLocator;
+		private String regionLocator;
 		private RegionFactory factory;
 
 		private boolean displayContentByDefault = false;
 
-		public Builder(T parent, String regionLocator) {
-			this.parentBuilder = parent;
+		void setRegionLocator(String regionLocator) {
 			this.regionLocator = regionLocator;
-		}
-
-		public T up() {
-			return parentBuilder;
 		}
 
 		public RegionInitializationOptions build() {
 			return new RegionInitializationOptions(factory, new DefaultLocationContext(regionLocator), displayContentByDefault);
 		}
 
-		public Builder<T> factory(RegionFactory factory) {
+		public T factory(RegionFactory factory) {
 			this.factory = factory;
-			return this;
+			return (T) this;
 		}
 
-		public Builder<T> displayContentByDefault() {
+		public T displayContentByDefault() {
 			displayContentByDefault = true;
-			return this;
+			return (T) this;
 		}
 	}
 
-	static class SideAwareBuilder<T> extends Builder<T> {
+	public static class SideBuilder extends Builder<SideBuilder> {
+		private final String label;
+
+		public SideBuilder(String label) {
+			super();
+			this.label = label;
+		}
+
+		String getLabel() {
+			return label;
+		}
+	}
+
+	public static class SideAwareBuilder extends Builder<SideAwareBuilder> {
 		private String leftLabel;
 		private String rightLabel;
-
-		public SideAwareBuilder(T parent, String regionLocator) {
-			super(parent, regionLocator);
-		}
 
 		public SideAwareRegionInitializationOptions build(boolean displayLeft, boolean displayRight) {
 			return new SideAwareRegionInitializationOptions(super.factory, new DefaultLocationContext(super.regionLocator), super.displayContentByDefault, new SideOptions(displayLeft, leftLabel), new SideOptions(displayRight, rightLabel));

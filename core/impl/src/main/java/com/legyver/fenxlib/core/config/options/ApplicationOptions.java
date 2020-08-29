@@ -5,7 +5,7 @@ import com.legyver.fenxlib.core.config.ApplicationConfigHandler;
 import com.legyver.fenxlib.core.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.core.config.load.ApplicationConfigProvider;
 import com.legyver.fenxlib.core.config.load.ApplicationHome;
-import com.legyver.fenxlib.core.config.options.mixins.*;
+import com.legyver.fenxlib.core.config.options.init.*;
 import com.legyver.fenxlib.core.context.ApplicationContext;
 import com.legyver.fenxlib.core.files.FileIOUtil;
 import com.legyver.fenxlib.core.uimodel.IUiModel;
@@ -18,37 +18,60 @@ public class ApplicationOptions {
 		this.uiModel = uiModel;
 	}
 
-	public void autostart() throws CoreException {
-		bootstrap();
-		preInit();
-		init();
+	/**
+	 * Starts up application by executing the first three phases: bootstrap, pre-init and init
+	 * @throws CoreException if there is a problem with any of the startup lifecycle phases
+	 */
+	public void startup() throws CoreException {
+		postInit();
 	}
 
-	public void bootstrap() throws CoreException {
+	/**
+	 * Bootstraps the application.
+	 * Called automatically in ApplicationOptions.Builder.build()
+	 * @throws CoreException if there is a problem with the bootstrap phase
+	 */
+	protected void bootstrap() throws CoreException {
 		ApplicationContext.setUiModel(uiModel);
 		executePhase(LifecyclePhase.BOOTSTRAP);
 	}
 
+	/**
+	 * Executes the first phase of a multi-phase init application lifecycle
+	 * @throws CoreException if there is a problem with the pre_init phase
+	 */
 	public void preInit() throws CoreException {
 		executePhase(LifecyclePhase.PRE_INIT);
 	}
 
+	/**
+	 * Executes the first two phases of a multi-phase init application lifecycle
+	 * @throws CoreException if there is a problem with the pre_init phase
+	 */
 	public void init() throws CoreException {
 		executePhase(LifecyclePhase.INIT);
+	}
+
+	/**
+	 * Execute up to and including POST_INIT
+	 * @throws CoreException
+	 */
+	public void postInit() throws CoreException {
+		executePhase(LifecyclePhase.POST_INIT);
 	}
 
 	protected void executePhase(LifecyclePhase phase) throws CoreException {
 		ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(phase);
 	}
 
-	public static class Builder<B extends Builder> implements IApplicationOptionsBuilder<B> {
+	public static class Builder<B extends Builder> {
 		protected IUiModel uiModel;
 		protected ApplicationConfigProvider applicationConfigProvider;
 		protected ApplicationConfigHandler appConfigHandler;
 		protected ApplicationConfigInstantiator appConfigInstantiator;
 		protected FileIOUtil fileIOUtil;
-		protected SVGGlyphLoadingMixin glyphLoadingMixin;
-		protected RecentFilesMixin recentFilesMixin;
+		protected SVGGlyphLoadingApplicationLifecycleHook glyphLoadingHook;
+		protected RecentFilesApplicationLifecycleHook recentFilesHook;
 		protected String appName;
 		protected boolean autosaveConfig = true;
 		protected boolean enableLogging = true;
@@ -58,7 +81,9 @@ public class ApplicationOptions {
 			validate();
 			defaultUnspecified();
 			registerLifecycleHooks();
-			return new ApplicationOptions(uiModel);
+			ApplicationOptions options = new ApplicationOptions(uiModel);
+			options.bootstrap();
+			return options;
 		}
 
 		protected void validate() throws CoreException {
@@ -80,29 +105,29 @@ public class ApplicationOptions {
 			if (appConfigHandler == null) {
 				appConfigHandler = new ApplicationConfigHandler(fileIOUtil, appConfigInstantiator);
 			}
-			if (glyphLoadingMixin == null) {
-				glyphLoadingMixin = new IcoMoonSvgMixin();
+			if (glyphLoadingHook == null) {
+				glyphLoadingHook = new IcoMoonSvgApplicationLifecycleHook();
 			}
-			if (recentFilesMixin == null) {
-				recentFilesMixin = new RecentFilesMixin();
+			if (recentFilesHook == null) {
+				recentFilesHook = new RecentFilesApplicationLifecycleHook();
 			}
 
 		}
 
 		protected void registerLifecycleHooks() {
 			if (enableLogging) {
-				mixinLifecycleHook(new InitLoggingMixin(appName));
+				registerLifecycleHook(new InitLoggingApplicationLifecycleHook(appName));
 			}
 			//load config Mixin
-			mixinLifecycleHook(new LoadConfigMixin(appConfigHandler, applicationConfigProvider));
+			registerLifecycleHook(new LoadConfigApplicationLifecycleHook(appConfigHandler, applicationConfigProvider));
 			//save config Mixin
 			if (autosaveConfig) {
-				mixinLifecycleHook(new AutoSaveConfigMixin(applicationConfigProvider, appConfigHandler));
+				registerLifecycleHook(new AutoSaveConfigApplicationLifecycleHook(applicationConfigProvider, appConfigHandler));
 			}
 			//load icon Mixin
-			mixinLifecycleHook(glyphLoadingMixin);
+			registerLifecycleHook(glyphLoadingHook);
 			//remember recent files
-			mixinLifecycleHook(recentFilesMixin);
+			registerLifecycleHook(recentFilesHook);
 		}
 
 		public B uiModel(IUiModel uiModel) {
@@ -141,14 +166,13 @@ public class ApplicationOptions {
 			return set(()-> this.fileIOUtil = fileIOUtil);
 		}
 
-		public B customSvgLoader(SVGGlyphLoadingMixin glyphLoadingMixin) {
-			return set(() -> this.glyphLoadingMixin = glyphLoadingMixin);
+		public B customSvgLoader(SVGGlyphLoadingApplicationLifecycleHook glyphLoadingMixin) {
+			return set(() -> this.glyphLoadingHook = glyphLoadingMixin);
 		}
 
-		@Override
-		public B mixinLifecycleHook(HookRegistrationMixin hookRegistrationMixin) {
+		public B registerLifecycleHook(ApplicationLifecycleHook applicationLifecycleHook) {
 			return set(()-> ApplicationContext.getApplicationLifecycleHookRegistry()
-					.registerHook(hookRegistrationMixin.getLifecyclePhase(), hookRegistrationMixin.getExecutableHook(), hookRegistrationMixin.getPriority()));
+					.registerHook(applicationLifecycleHook.getLifecyclePhase(), applicationLifecycleHook.getExecutableHook(), applicationLifecycleHook.getPriority()));
 		}
 
 		protected B set(NoArgFunction noArgFunction) {
@@ -162,7 +186,7 @@ public class ApplicationOptions {
 		@Override
 		public ApplicationOptions build() throws CoreException {
 			ApplicationOptions options = super.build();
-			options.autostart();
+			options.startup();
 			return options;
 		}
 	}

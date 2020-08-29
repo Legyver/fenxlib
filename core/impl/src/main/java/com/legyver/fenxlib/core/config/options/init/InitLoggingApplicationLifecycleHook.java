@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.config.options.mixins;
+package com.legyver.fenxlib.core.config.options.init;
 
 import com.legyver.fenxlib.core.config.load.ApplicationHome;
 import com.legyver.fenxlib.core.util.hook.ExecutableHook;
@@ -16,18 +16,18 @@ import static com.legyver.fenxlib.core.config.load.ApplicationHome.APP_HOME_SUFF
  *  	<property name="filename">${sys:myapp.home.logging}/application.log</property>
  * 		<property name="filenamePattern">${sys:myapp.home.logging}/application-%d{yyyy-MM-dd}.log.gz
  */
-public class InitLoggingMixin implements HookRegistrationMixin {
+public class InitLoggingApplicationLifecycleHook implements ApplicationLifecycleHook {
 	public static final String APP_HOME_LOGGING_SUFFIX = APP_HOME_SUFFIX + ".logging";
 
 	private final ApplicationHome appHome;
 	private final String appName;
 
-	public InitLoggingMixin(ApplicationHome appHome, String appName) {
+	public InitLoggingApplicationLifecycleHook(ApplicationHome appHome, String appName) {
 		this.appHome = appHome;
 		this.appName = appName;
 	}
 
-	public InitLoggingMixin(String appName) {
+	public InitLoggingApplicationLifecycleHook(String appName) {
 		this(new ApplicationHome(appName), appName);
 	}
 

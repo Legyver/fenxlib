@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.config.options.mixins;
+package com.legyver.fenxlib.core.config.options.init;
 
 import com.legyver.fenxlib.core.config.ApplicationConfig;
 import com.legyver.fenxlib.core.config.parts.IRecentlyModified;
@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Populate recent files menu
  */
-public class RecentFilesMixin implements HookRegistrationMixin {
+public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycleHook {
 
 	@Override
 	public LifecyclePhase getLifecyclePhase() {

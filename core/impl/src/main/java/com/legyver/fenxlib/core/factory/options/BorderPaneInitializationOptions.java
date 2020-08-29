@@ -46,40 +46,56 @@ public class BorderPaneInitializationOptions {
 
 	public static class Builder {
 
-		private final RegionInitializationOptions.Builder<Builder> centerOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_CENTER);
-		private final RegionInitializationOptions.Builder<Builder> leftOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_LEFT);
-		private final RegionInitializationOptions.Builder<Builder> rightOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_RIGHT);
-		private final RegionInitializationOptions.SideAwareBuilder<Builder> bottomOptionsBuilder = new RegionInitializationOptions.SideAwareBuilder<>(this, REGION_BOTTOM);
-		private final RegionInitializationOptions.Builder<Builder> topOptionsBuilder = new RegionInitializationOptions.Builder<>(this, REGION_TOP);
-
+		private RegionInitializationOptions.Builder centerOptionsBuilder = new RegionInitializationOptions.Builder();
+		private RegionInitializationOptions.Builder leftOptionsBuilder = new RegionInitializationOptions.Builder();
+		private RegionInitializationOptions.Builder rightOptionsBuilder = new RegionInitializationOptions.Builder();
+		private RegionInitializationOptions.SideAwareBuilder bottomOptionsBuilder = new RegionInitializationOptions.SideAwareBuilder();
+		private RegionInitializationOptions.Builder topOptionsBuilder = new RegionInitializationOptions.Builder();
+		private String leftLabel;
+		private String rightLabel;
 
 		public BorderPaneInitializationOptions build() {
+			//regionLocator must be set before calling build() on any of these region builders
+			centerOptionsBuilder.setRegionLocator(REGION_CENTER);
+			leftOptionsBuilder.setRegionLocator(REGION_LEFT);
+			rightOptionsBuilder.setRegionLocator(REGION_RIGHT);
+			bottomOptionsBuilder.setRegionLocator(REGION_BOTTOM);
+			topOptionsBuilder.setRegionLocator(REGION_TOP);
+			//likewise we need to set the labels because we can't guarantee the order of the builders passed in
+			bottomOptionsBuilder.setLeftLabel(leftLabel);
+			bottomOptionsBuilder.setRightLabel(rightLabel);
+
 			RegionInitializationOptions leftOptions = leftOptionsBuilder.build();
 			RegionInitializationOptions rightOptions = rightOptionsBuilder.build();
 			SideAwareRegionInitializationOptions bottomOptions = bottomOptionsBuilder.build(leftOptions.isDisplayContentByDefault(), rightOptions.isDisplayContentByDefault());
 			return new BorderPaneInitializationOptions(centerOptionsBuilder.build(), leftOptions, rightOptions, bottomOptions, topOptionsBuilder.build());
 		}
 
-		public RegionInitializationOptions.Builder<Builder> center() {
-			return centerOptionsBuilder;
+		public Builder center(RegionInitializationOptions.Builder centerOptionsBuilder) {
+			this.centerOptionsBuilder = centerOptionsBuilder;
+			return this;
 		}
 
-		public RegionInitializationOptions.Builder<Builder> top() {
-			return topOptionsBuilder;
+		public Builder top(RegionInitializationOptions.Builder topOptionsBuilder) {
+			this.topOptionsBuilder = topOptionsBuilder;
+			return this;
 		}
 
-		public RegionInitializationOptions.Builder<Builder> bottom() {
-			return bottomOptionsBuilder;
+		public Builder bottom(RegionInitializationOptions.SideAwareBuilder bottomOptionsBuilder) {
+			this.bottomOptionsBuilder = bottomOptionsBuilder;
+			return this;
 		}
 
-		public RegionInitializationOptions.Builder<Builder> right(String name) {
-			bottomOptionsBuilder.setRightLabel(name);
-			return rightOptionsBuilder;
+		public Builder right(RegionInitializationOptions.SideBuilder rightOptionsBuilder) {
+			this.rightOptionsBuilder = rightOptionsBuilder;
+			this.rightLabel = rightOptionsBuilder.getLabel();
+			return this;
 		}
 
-		public RegionInitializationOptions.Builder<Builder> left(String name) {
-			bottomOptionsBuilder.setLeftLabel(name);
-			return leftOptionsBuilder;
+		public Builder left(RegionInitializationOptions.SideBuilder leftOptionsBuilder) {
+			this.leftOptionsBuilder = leftOptionsBuilder;
+			this.leftLabel = leftOptionsBuilder.getLabel();
+			return this;
 		}
 	}
 

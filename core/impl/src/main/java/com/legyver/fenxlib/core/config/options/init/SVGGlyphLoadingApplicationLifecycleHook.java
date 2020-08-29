@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.config.options.mixins;
+package com.legyver.fenxlib.core.config.options.init;
 
 import com.jfoenix.svg.SVGGlyphLoader;
 import com.legyver.fenxlib.core.factory.SvgIconFactory;
@@ -8,11 +8,11 @@ import com.legyver.util.adaptex.ExceptionToCoreExceptionConsumerDecorator;
 
 import java.io.InputStream;
 
-public class SVGGlyphLoadingMixin implements HookRegistrationMixin {
+public class SVGGlyphLoadingApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final String glyphKeyPrefix;
 	private final String resourceName;
 
-	public SVGGlyphLoadingMixin(String glyphKeyPrefix, String resourceName) {
+	public SVGGlyphLoadingApplicationLifecycleHook(String glyphKeyPrefix, String resourceName) {
 		this.glyphKeyPrefix = glyphKeyPrefix;
 		this.resourceName = resourceName;
 	}

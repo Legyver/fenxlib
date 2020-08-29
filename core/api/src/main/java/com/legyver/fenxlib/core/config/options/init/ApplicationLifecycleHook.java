@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.config.options.mixins;
+package com.legyver.fenxlib.core.config.options.init;
 
 import com.legyver.fenxlib.core.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.util.hook.LifecyclePhase;
@@ -6,7 +6,7 @@ import com.legyver.fenxlib.core.util.hook.LifecyclePhase;
 /**
  * Register a piece of executable code to be ran at a point in the application lifecycle
  */
-public interface HookRegistrationMixin {
+public interface ApplicationLifecycleHook {
 
 	/**
 	 *

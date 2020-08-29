@@ -1,72 +1,68 @@
 package com.legyver.fenxlib.core.context;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.core.function.ThrowingConsumer;
 import com.legyver.fenxlib.core.util.hook.LifecyclePhase;
+import com.legyver.util.graphrunner.Graph;
+import com.legyver.util.graphrunner.GraphExecutedCommand;
+import com.legyver.util.graphrunner.RunWithDependentsStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ApplicationStateMachine {
 	private static final List<AppStateObserver> appStateObservers = new ArrayList<>();
+	private final Graph graph;
 
-	private LifecyclePhase currentState = null;
-	private boolean complete = false;
+	public ApplicationStateMachine() {
+		Node bootstrap = new Node(LifecyclePhase.BOOTSTRAP);
+		Node preInit = new Node(LifecyclePhase.PRE_INIT);
+		Node init = new Node(LifecyclePhase.INIT);
+		Node postInit = new Node(LifecyclePhase.POST_INIT);
+		Node preShutdown = new Node(LifecyclePhase.PRE_SHUTDOWN);
+		graph = new Graph.Builder().nodes(bootstrap, preInit, init, postInit, preShutdown)
+				.connect(new Graph.Connection()
+						.from(bootstrap.getNodeName())
+						.to(preInit.getNodeName()))
+				.connect(new Graph.Connection()
+						.from(preInit.getNodeName())
+						.to(init.getNodeName()))
+				.connect(new Graph.Connection()
+						.from(init.getNodeName())
+						.to(postInit.getNodeName()))
+				.build();
+	}
 
-	public boolean begin(LifecyclePhase hook) throws CoreException {
-		boolean proceed = hook != currentState;//avoid executing the same lifecycle phase twice
-
-		LifecyclePhase next = null;
-		switch (hook) {
-			case BOOTSTRAP:
-			case PRE_SHUTDOWN:
-				next = hook; break;//no validation
-			case PRE_INIT:
-				validatePrecondition(hook.name(), LifecyclePhase.BOOTSTRAP);
-				next = hook; break;
-			case INIT:
-				validatePrecondition(hook.name(), LifecyclePhase.PRE_INIT);
-				next = hook; break;
-			case POST_INIT:
-				validatePrecondition(hook.name(), LifecyclePhase.INIT);
-				next = hook; break;
-			default:
-				throw new CoreException("Unexpected hook: " + hook.name());
-		}
-		currentState = next;
-		complete = false;
-		if (proceed) {
-			//new state
+	public void run(LifecyclePhase hook, ThrowingConsumer<LifecyclePhase> phaseConsumer) throws CoreException {
+		graph.setStrategy(new RunWithDependentsStrategy(hook.name()));
+		graph.executeStrategy((GraphExecutedCommand<Node>) (nodeName, phaseNode) -> {
+			//run the hook
+			phaseConsumer.accept(phaseNode.phase);
+			//update observers of transition to new state
 			for (AppStateObserver observer: appStateObservers) {
-				observer.observe(currentState);
+				observer.observe(phaseNode.phase);
 			}
-		}
-		return proceed;
-	}
-
-	private void validatePrecondition(String target, LifecyclePhase...preconditions) throws CoreException {
-		if (complete == false) {
-			throw new CoreException("Unable able to start lifecycle hook: " + target + ". Previous state: " + currentState + " not completed");
-		} else if (Stream.of(preconditions)
-				.noneMatch(precondition -> precondition == currentState)) {
-			throw new CoreException("Unable to transition to state: " + target + ".  Precondition not met");
-		}
-	}
-
-	public void end(LifecyclePhase hook) throws CoreException {
-		if (currentState == hook) {
-			complete = true;
-		} else {
-			throw new CoreException("Unexpected end of lifecycle hook: " + hook + ".  Current state " + currentState);
-		}
+		});
 	}
 
 	public void reset() {
-		currentState = null;
-		complete = false;
+		graph.resetEvaluated();
 	}
 
 	public void addObserver(AppStateObserver appStateObserver) {
 		appStateObservers.add(appStateObserver);
+	}
+
+	private class Node implements Graph.Payload {
+		final LifecyclePhase phase;
+
+		private Node(LifecyclePhase phase) {
+			this.phase = phase;
+		}
+
+		@Override
+		public String getNodeName() {
+			return phase.name();
+		}
 	}
 }
