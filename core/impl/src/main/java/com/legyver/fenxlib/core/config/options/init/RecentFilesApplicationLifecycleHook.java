@@ -15,6 +15,7 @@ import com.legyver.fenxlib.core.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.util.hook.LifecyclePhase;
 import com.legyver.util.nippe.Base;
 import com.legyver.util.nippe.Step;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
@@ -105,9 +106,10 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 				for (int i = 0; i < workingFileConfigList.size(); i++) {
 					FileOptions workingFile = workingFileConfigList.get(i);
 					IRecentlyModified recentConfig = applicationConfig.getRecentlyModified();
+					String workingFilePath = workingFile.getFilePath();
 					Optional<RecentlyViewedFile> option = recentConfig.getValues().stream()
 							.filter(m -> {
-								return workingFile.getFilePath().equalsIgnoreCase(m.getName());
+								return workingFilePath.equalsIgnoreCase(m.getPath());
 							})
 							.findFirst();
 					if (option.isPresent()) {//update the timestamp
