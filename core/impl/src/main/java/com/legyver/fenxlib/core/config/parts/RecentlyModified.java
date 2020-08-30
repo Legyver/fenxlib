@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.config.parts;
 
+import com.legyver.fenxlib.core.config.IRecentlyViewedFile;
 import com.legyver.util.mapqua.mapbacked.MapBackedCollection;
 import com.legyver.util.mapqua.mapbacked.MapBackedEntityCollection;
 import com.legyver.util.mapqua.mapbacked.MapBackedInteger;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class RecentlyModified implements IRecentlyModified, MapSyncable {
+public class RecentlyModified implements IRecentlyModified<RecentlyViewedFile>, MapSyncable {
 	private final Map sourceMap;
 	private final MapBackedInteger limit;
 	private final MapBackedCollection<List<RecentlyViewedFile>, RecentlyViewedFile> values;

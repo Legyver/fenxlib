@@ -1,14 +1,16 @@
 package com.legyver.fenxlib.core.config.parts;
 
+import com.legyver.fenxlib.core.config.IRecentlyViewedFile;
+
 import java.util.List;
 
-public interface IRecentlyModified {
+public interface IRecentlyModified<T extends IRecentlyViewedFile> {
 
-	void addValue(RecentlyViewedFile recentValue);
+	void addValue(T recentValue);
 
 	int getLimit();
 
-	List<RecentlyViewedFile> getValues();
+	List<T> getValues();
 
 	void setLimit(int limit);
 

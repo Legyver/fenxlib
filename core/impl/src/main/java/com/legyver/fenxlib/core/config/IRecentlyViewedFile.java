@@ -6,4 +6,5 @@ public interface IRecentlyViewedFile {
 	String getName();
 	String getPath();
 	LocalDateTime getLastAccessed();
+	void setLastAccessed(LocalDateTime now);
 }

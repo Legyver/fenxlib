@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.config.parts;
 
+import com.legyver.fenxlib.core.config.IRecentlyViewedFile;
 import com.legyver.util.mapqua.mapbacked.MapBackedLocalDateTime;
 import com.legyver.util.mapqua.mapbacked.MapBackedString;
 import com.legyver.util.mapqua.mapbacked.RawMapAware;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class RecentlyViewedFile implements RawMapAware {
+public class RecentlyViewedFile implements RawMapAware, IRecentlyViewedFile {
 
 	private final Map sourceMap;
 	private final MapBackedString name;
@@ -22,6 +23,7 @@ public class RecentlyViewedFile implements RawMapAware {
 		this.lastAccessed = new MapBackedLocalDateTime(sourceMap, "lastAccessed", LocalDateTime.MIN);//if unknown, make a long time ago
 	}
 
+	@Override
 	public String getName() {
 		return name.get();
 	}
@@ -30,6 +32,7 @@ public class RecentlyViewedFile implements RawMapAware {
 		this.name.set(name);
 	}
 
+	@Override
 	public String getPath() {
 		return path.get();
 	}
@@ -46,7 +49,7 @@ public class RecentlyViewedFile implements RawMapAware {
 		return lastAccessed.get();
 	}
 
-		@Override
+	@Override
 	public Map getRawMap() {
 		return sourceMap;
 	}

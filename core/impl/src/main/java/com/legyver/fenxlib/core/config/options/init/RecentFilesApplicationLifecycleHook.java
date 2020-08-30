@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.config.options.init;
 
 import com.legyver.fenxlib.core.config.ApplicationConfig;
+import com.legyver.fenxlib.core.config.IRecentlyViewedFile;
 import com.legyver.fenxlib.core.config.parts.IRecentlyModified;
 import com.legyver.fenxlib.core.config.parts.RecentlyViewedFile;
 import com.legyver.fenxlib.core.context.ApplicationContext;
@@ -107,13 +108,14 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 					FileOptions workingFile = workingFileConfigList.get(i);
 					IRecentlyModified recentConfig = applicationConfig.getRecentlyModified();
 					String workingFilePath = workingFile.getFilePath();
-					Optional<RecentlyViewedFile> option = recentConfig.getValues().stream()
+					List<IRecentlyViewedFile> recentlyViewedFiles = recentConfig.getValues();
+					Optional<IRecentlyViewedFile> option = recentlyViewedFiles.stream()
 							.filter(m -> {
 								return workingFilePath.equalsIgnoreCase(m.getPath());
 							})
 							.findFirst();
 					if (option.isPresent()) {//update the timestamp
-						RecentlyViewedFile recentValue = option.get();
+						IRecentlyViewedFile recentValue = option.get();
 						recentValue.setLastAccessed(LocalDateTime.now());
 					} else {
 						File file = workingFile.getFile();
