@@ -3,14 +3,10 @@ package com.legyver.fenxlib.core.config.options.init;
 import com.legyver.fenxlib.core.config.ApplicationConfig;
 import com.legyver.fenxlib.core.config.ApplicationConfigHandler;
 import com.legyver.fenxlib.core.config.load.ApplicationConfigProvider;
-import com.legyver.fenxlib.core.config.parts.ILastOpened;
 import com.legyver.fenxlib.core.context.ApplicationContext;
-import com.legyver.fenxlib.core.files.FileRegistry;
-import com.legyver.fenxlib.core.uimodel.FileOptions;
 import com.legyver.fenxlib.core.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.util.hook.LifecyclePhase;
 import com.legyver.util.adaptex.ExceptionToCoreExceptionConsumerDecorator;
-import javafx.collections.ObservableList;
 
 import java.io.File;
 
@@ -28,11 +24,19 @@ public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecy
 		return LifecyclePhase.PRE_SHUTDOWN;
 	}
 
+	/**
+	 * We want the sync hooks to fire before this. If you want something autosaved have a higher priority (smaller number) assigned to your hook.
+	 * @return 2500
+	 */
+	@Override
+	public int getPriority() {
+		return 2500;
+	}
+
 	@Override
 	public ExecutableHook getExecutableHook() {
 		return () -> {
 			ApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
-			updateLastOpenedDirectory(applicationConfig);
 			saveFile(applicationConfig);
 			return;
 		};
@@ -45,14 +49,5 @@ public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecy
 		}).accept(appConfigProvider.getApplicationConfigFile());
 	}
 
-	private void updateLastOpenedDirectory(ApplicationConfig applicationConfig) {
-		FileRegistry fileRegistry = ApplicationContext.getFileRegistry();
-		ObservableList<FileOptions> openFiles = fileRegistry.getOpenFiles();
 
-		if (!openFiles.isEmpty()) {
-			ILastOpened lastOpened = applicationConfig.getLastOpened();
-			FileOptions mostRecent = openFiles.get(openFiles.size() -1);
-			lastOpened.setLastFile(mostRecent.getFilePath());
-		}
-	}
 }

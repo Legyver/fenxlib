@@ -2,7 +2,7 @@ package com.legyver.fenxlib.core.factory.options;
 
 import javafx.scene.effect.BlendMode;
 
-public abstract class IconOptions {
+public class IconOptions {
 	private final String icon;
 	private final String iconColor;
 	private final double iconSize;

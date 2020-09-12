@@ -122,6 +122,7 @@ public class ApplicationOptions {
 			registerLifecycleHook(new LoadConfigApplicationLifecycleHook(appConfigHandler, applicationConfigProvider));
 			//save config Mixin
 			if (autosaveConfig) {
+				registerLifecycleHook(new PreShutdownConfigSyncLifecycleHook());
 				registerLifecycleHook(new AutoSaveConfigApplicationLifecycleHook(applicationConfigProvider, appConfigHandler));
 			}
 			//load icon Mixin
