@@ -9,7 +9,7 @@ allprojects {
         commonsIoVersion = '2.7'
         commonsLangVersion = '3.11'
         //JFoenix version
-        jfoenixVersion = '8.0.7'
+        jfoenixVersion = '9.0.10'
 
         publishBuildScript = 'https://raw.githubusercontent.com/Legyver/common-build/1.1/publish.gradle' //production version
     }
@@ -21,5 +21,3 @@ allprojects {
     }
 
 }
-
-

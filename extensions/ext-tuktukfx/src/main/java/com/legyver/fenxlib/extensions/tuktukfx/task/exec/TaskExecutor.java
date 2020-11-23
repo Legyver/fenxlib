@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.extensions.tuktukfx.task.exec;
 
-import com.legyver.fenxlib.extensions.tuktukfx.task.adapter.AbortableTaskStatusAdapter;
+import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
