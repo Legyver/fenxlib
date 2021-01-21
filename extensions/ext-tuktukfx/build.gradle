@@ -4,10 +4,7 @@ apply from: publishBuildScript
 
 dependencies {
     //task management
-    api group: 'com.legyver', name: 'tuktukfx', version: '1.1.0.0'
-    //ui
-    api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
-
+    api group: 'com.legyver', name: 'tuktukfx', version: '1.2.0.0'
     api project(':core:api')
 
     testImplementation 'junit:junit:4.13'
@@ -15,4 +12,8 @@ dependencies {
 
 test {
     useJUnit()
+}
+
+java {
+    modularity.inferModulePath = true
 }

@@ -6,13 +6,10 @@ dependencies {
     //exception
     implementation group: 'com.legyver', name: 'core', version: legyverCoreVersion
     //graph
-    implementation group: 'com.legyver', name: 'utils-graphrunner', version: legyverUtilsVersion
 
     implementation project(':widgets:widget-about')
 
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
-    //Expression language for conditional validation
-    implementation group: 'org.apache.commons', name: 'commons-jexl3', version: '3.1'
 
     testImplementation 'junit:junit:4.13'
     testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'

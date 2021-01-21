@@ -6,7 +6,7 @@ dependencies {
     //exception
     api group: 'com.legyver', name: 'core', version: legyverCoreVersion
     //NPE sugar
-    api group: 'com.legyver', name: 'utils-nippe', version: legyverUtilsVersion
+    api group: 'com.legyver', name: 'utils.nippe', version: legyverUtilsVersion
     //ui
     api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
 
@@ -16,4 +16,8 @@ dependencies {
 
 test {
     useJUnit()
+}
+
+java {
+    modularity.inferModulePath = true
 }

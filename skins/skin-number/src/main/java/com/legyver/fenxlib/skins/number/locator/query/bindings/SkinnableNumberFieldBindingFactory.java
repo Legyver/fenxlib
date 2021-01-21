@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
-import com.legyver.fenxlib.core.locator.query.ComponentQuery;
-import com.legyver.fenxlib.core.locator.query.bindings.AbstractBindingFactory;
+import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.api.locator.query.bindings.AbstractBindingFactory;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.TextField;

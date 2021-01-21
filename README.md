@@ -1,5 +1,10 @@
 # fenxlib
-A UI framework for JavaFX.  Mostly code I got tired of copy-and-pasting about.
+A UI framework for JavaFX.
+
+```gradle
+implementation group: 'com.legyver', name: 'utils-nippe', version: '2.0.0.0-alpha'
+```
+
 
 ## Getting Started
 ### Prerequisites

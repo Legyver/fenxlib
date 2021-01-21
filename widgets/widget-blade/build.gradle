@@ -17,3 +17,7 @@ dependencies {
 test {
     useJUnit()
 }
+
+java {
+    modularity.inferModulePath = true
+}

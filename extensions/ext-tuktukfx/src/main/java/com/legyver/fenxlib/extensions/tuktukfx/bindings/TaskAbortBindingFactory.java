@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.extensions.tuktukfx.bindings;
 
-import com.legyver.fenxlib.core.context.BaseApplicationContext;
-import com.legyver.fenxlib.core.locator.query.bindings.AbstractBindingFactory;
+import com.legyver.fenxlib.core.api.context.BaseApplicationContext;
+import com.legyver.fenxlib.core.api.locator.query.bindings.AbstractBindingFactory;
 import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
 
 /**

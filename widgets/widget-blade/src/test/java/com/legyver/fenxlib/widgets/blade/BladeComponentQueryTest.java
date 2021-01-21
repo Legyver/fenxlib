@@ -1,11 +1,11 @@
 package com.legyver.fenxlib.widgets.blade;
 
-import com.legyver.fenxlib.core.factory.AccordionMenuFactory;
-import com.legyver.fenxlib.core.factory.BorderPaneFactory;
-import com.legyver.fenxlib.core.factory.TitledPaneFactory;
-import com.legyver.fenxlib.core.factory.options.BorderPaneInitializationOptions;
-import com.legyver.fenxlib.core.factory.options.RegionInitializationOptions;
-import com.legyver.fenxlib.core.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.impl.factory.AccordionMenuFactory;
+import com.legyver.fenxlib.core.impl.factory.BorderPaneFactory;
+import com.legyver.fenxlib.core.impl.factory.TitledPaneFactory;
+import com.legyver.fenxlib.core.impl.factory.options.BorderPaneInitializationOptions;
+import com.legyver.fenxlib.core.impl.factory.options.RegionInitializationOptions;
+import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.widgets.blade.factory.BladeFactory;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import javafx.scene.control.ListView;

@@ -1,34 +1,44 @@
 package com.legyver.fenxlib.widgets.blade.factory.visitor;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.factory.NodeFactory;
+import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.impl.factory.SvgIconFactory;
+import com.legyver.fenxlib.core.impl.factory.decorator.ButtonIconDecorator;
+import com.legyver.fenxlib.core.impl.factory.decorator.ButtonTooltipDecorator;
+import com.legyver.fenxlib.core.impl.factory.decorator.CssClassDecorator;
 import com.legyver.fenxlib.widgets.blade.factory.MoreFieldFactory;
-import com.legyver.fenxlib.core.factory.NodeFactory;
-import com.legyver.fenxlib.core.factory.SvgIconFactory;
-import com.legyver.fenxlib.core.factory.decorator.ButtonIconDecorator;
-import com.legyver.fenxlib.core.factory.decorator.ButtonTooltipDecorator;
-import com.legyver.fenxlib.core.factory.decorator.CssClassDecorator;
-import com.legyver.fenxlib.widgets.blade.factory.options.TooltipIconOptions;
-
-import com.legyver.fenxlib.core.locator.LocationContext;
-
-import com.legyver.fenxlib.widgets.blade.factory.blade.NameFieldButtonOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.AbstractNameFieldOption;
-import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameDatePickerOption;
-
+import com.legyver.fenxlib.widgets.blade.factory.blade.NameFieldButtonOption;
+import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.ShowMoreLabelOption;
+import com.legyver.fenxlib.widgets.blade.factory.options.TooltipIconOptions;
 import com.legyver.fenxlib.widgets.blade.MoreField;
 import com.legyver.fenxlib.widgets.blade.factory.BladeContext;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 
+/**
+ * Visitor to apply the right item to a grid-layout
+ */
 public class RightItemVisitor extends AbstractGridPaneLayoutVisitor {
 
-	public RightItemVisitor(GridPane gp, LocationContext handleContext, BladeContext bladeContext) {
+	/**
+	 * Construct a RightItemVisitor given the location context and blade context
+	 * @param handleContext the location context to apply to the right item
+	 * @param bladeContext the blade context to apply to the right item
+	 */
+	public RightItemVisitor(LocationContext handleContext, BladeContext bladeContext) {
 		super(handleContext, bladeContext);
 	}
 
+	/**
+	 * Add a button to the grid.
+	 * @param nameFieldButtonOption holds the options to apply to the button
+	 * @param row the current row
+	 * @throws CoreException if any of the nested factories throw a CoreException
+	 */
 	@Override
 	public void visit(NameFieldButtonOption nameFieldButtonOption, int row) throws CoreException {
 		TooltipIconOptions options = nameFieldButtonOption.getIconOptions();
@@ -38,21 +48,42 @@ public class RightItemVisitor extends AbstractGridPaneLayoutVisitor {
 		bladeContext.getWorkingGrid().add(node, 4, row);
 	}
 
+	/**
+	 * Noop
+	 * @param nameFieldOption ignored
+	 * @param row ignored
+	 */
 	@Override
 	public void visit(AbstractNameFieldOption nameFieldOption, int row) {
 		//noop
 	}
 
+	/**
+	 * Noop
+	 * @param nameListClickOption ignored
+	 * @param row ignored
+	 */
 	@Override
 	public void visit(NameListClickOption nameListClickOption, int row) {
 		//noop
 	}
 
+	/**
+	 * Noop
+	 * @param nameDatePickerOption ignored
+	 * @param row ignored
+	 */
 	@Override
 	public void visit(NameDatePickerOption nameDatePickerOption, int row) {
 		//noop
 	}
 
+	/**
+	 * Apply a "show/hide more" to the right item that when clicked shows hidden rows
+	 * @param showMoreOptions contains the css/text to be displayed
+	 * @param row the row to apply this to
+	 * @throws CoreException if any of the nested factories throw a CoreException
+	 */
 	@Override
 	public void visit(ShowMoreLabelOption showMoreOptions, int row) throws CoreException {
 		NodeFactory<MoreField> moreFieldFactory = new CssClassDecorator<>(showMoreOptions.getCssClass(),

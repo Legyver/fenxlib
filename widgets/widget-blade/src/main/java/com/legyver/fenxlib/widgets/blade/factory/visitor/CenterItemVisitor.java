@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.widgets.blade.factory.visitor;
 
-import com.legyver.fenxlib.core.factory.DatePickerFactory;
-import com.legyver.fenxlib.core.factory.ListViewFactory;
-import com.legyver.fenxlib.core.factory.TextFieldFactory;
+import com.legyver.fenxlib.core.impl.factory.DatePickerFactory;
+import com.legyver.fenxlib.core.impl.factory.ListViewFactory;
+import com.legyver.fenxlib.core.impl.factory.TextFieldFactory;
 import com.legyver.fenxlib.widgets.blade.factory.BladeContext;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameDatePickerOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameFieldButtonOption;
@@ -11,13 +11,20 @@ import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.ShowMoreLabelOption;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.core.api.locator.LocationContext;
 import javafx.scene.control.DatePicker;
 
+/**
+ * Visitor to apply the center item to a grid-layout
+ */
 public class CenterItemVisitor extends AbstractGridPaneLayoutVisitor {
 
-	public CenterItemVisitor(GridPane gp, LocationContext handleContext, BladeContext bladeContext) {
+	/**
+	 * Construct a visitor to lay out the center item in a blade form
+	 * @param handleContext location context
+	 * @param bladeContext blade context
+	 */
+	public CenterItemVisitor(LocationContext handleContext, BladeContext bladeContext) {
 		super(handleContext, bladeContext);
 	}
 

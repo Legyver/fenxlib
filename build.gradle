@@ -2,8 +2,8 @@ allprojects {
 
     ext {
         //legyver dependencies
-        legyverCoreVersion = '1.0.0.0'
-        legyverUtilsVersion = '2.0.0.0-alpha-3'
+        legyverCoreVersion = '1.1.0.0'
+        legyverUtilsVersion = '2.0.0.0-alpha-4'
         //apache dependencies
         commonsLogVersion = '2.13.3'
         commonsIoVersion = '2.7'
@@ -11,7 +11,7 @@ allprojects {
         //JFoenix version
         jfoenixVersion = '9.0.10'
 
-        publishBuildScript = 'https://raw.githubusercontent.com/Legyver/common-build/1.1/publish.gradle' //production version
+        publishBuildScript = 'https://raw.githubusercontent.com/Legyver/common-build/1.2/publish.gradle' //java 9+
     }
 
     repositories {
