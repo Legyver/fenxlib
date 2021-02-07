@@ -1,0 +1,18 @@
+.about-blurb {
+
+}
+
+.about-blurb > .intro {
+    -fx-text-fill: red;
+    -fx-alignment: center-left;
+    -fx-padding: 60 0 60 0;
+}
+.about-blurb > .gist {
+    -fx-alignment: center-left;
+    -fx-padding: 60 0 60 0;
+}
+.about-blurb > .additional-info {
+    -fx-alignment: center-left;
+    -fx-padding: 60 0 60 0;
+}
+

@@ -1,0 +1,24 @@
+description = 'Skins for Fenxlib widgets'
+
+apply from: publishBuildScript
+
+dependencies {
+    //exception
+    api group: 'com.legyver', name: 'core', version: legyverCoreVersion
+    //ui
+    api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
+
+    api project(':fenxlib.core.api')
+
+    testImplementation project(':fenxlib.core.impl')
+    testImplementation 'junit:junit:4.13'
+    testCompile group: 'org.testfx', name: 'testfx-junit', version: '4.0.16-alpha'
+}
+
+test {
+    useJUnit()
+}
+
+java {
+    modularity.inferModulePath = true
+}
