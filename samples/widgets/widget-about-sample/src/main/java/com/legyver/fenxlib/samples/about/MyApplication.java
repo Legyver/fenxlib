@@ -10,8 +10,8 @@ import com.legyver.fenxlib.core.impl.factory.options.RegionInitializationOptions
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.api.locator.query.QueryableComponentRegistry;
 import com.legyver.fenxlib.core.api.uimodel.IUiModel;
-import com.legyver.fenxlib.widget.about.AboutMenuItemFactory;
-import com.legyver.fenxlib.widget.about.AboutPageOptions;
+import com.legyver.fenxlib.widgets.about.AboutMenuItemFactory;
+import com.legyver.fenxlib.widgets.about.AboutPageOptions;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;

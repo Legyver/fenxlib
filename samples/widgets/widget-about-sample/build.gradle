@@ -7,9 +7,10 @@ dependencies {
     implementation group: 'com.legyver', name: 'core', version: legyverCoreVersion
     //graph
 
-    implementation project(':widgets:widget-about')
+    implementation project(':fenxlib.widgets.about')
 
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: commonsLogVersion
 
     testImplementation 'junit:junit:4.13'
     testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
