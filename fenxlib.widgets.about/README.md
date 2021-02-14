@@ -1,4 +1,36 @@
 # AboutPage
+Display an about page with the following customizable elements (listed from top-to-bottom)
+- A title for the about page
+- A build message specified by a **build.message** property.  See property transformation rules below.
+- An introduction paragraph
+- Two additional paragraphs
+- A hard-coded message ***Powered by open source***
+- A list of all open source dependencies, and their licenses read from a union of
+  - licensePropertiesFile() specified by the developer
+  - Any dependency license information read from Legyver's self-reporting modules.
+- A copyright message specified by a **copyright** message
+## Property Transformation Rules
+Three properties are required to be constructed by a property graph comprised of the properties defined in the copyrightPropertiesFile() and buildPropertiesFile().
+
+These properties are:
+- build.date
+- build.version
+- copyright
+
+To have any of these variables constructed by concatenating other properties/text together, declare a property named
+<property.name>.format
+
+example:
+```properties
+build.date.day=13
+build.date.month=February
+build.date.year=2021
+
+#Note: Expression must be a valid slel expression.
+#below ends up being injected into build.date
+build.date.format=${build.date.day} ${build.date.month} ${build.date.year}
+```
+
 ## Usage
 ### Dependency
 ```gradle
