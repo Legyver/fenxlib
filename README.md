@@ -1,17 +1,54 @@
 # fenxlib
 A UI framework for JavaFX.
 
+By default, this library is compiled on JDK 15.
+
+## Usage
+Since version 2.0.0.0-alpha-3, this library has been made module-friendly, and hence the artifacts use dots as separators instead of traditional dashes.
+
+The main functionality of this library is in the fenxlib.core.impl module
+
 ```gradle
-implementation group: 'com.legyver', name: 'utils-nippe', version: '2.0.0.0-alpha'
+implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.0.0.0-alpha-5'
 ```
 
+There are several extensions, widgets and skins available as well as independent dependencies
+
+### Extensions
+- [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx\README.MD)
+    - an extension for TukTukFx support
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.0.0.0-alpha-5'
+```
+
+### Widgets
+- [fenxlib.widgets.about](fenxlib.widgets.about\README.MD)
+  - an "About Page" widget that pre-populates license information downstream of any Legyver library
+  - additional license information can also be added via a properties file
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-alpha-5'
+```
+- [fenxlib.widgets.blade](fenxlib.widgets.blade\README.MD)
+  - a pre-made form that lays out form-fields on a grid
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.0.0.0-alpha-5'
+```
+
+### Skins
+- [fenxlib.skins.number](fenxlib.skins.number\README.MD)
+  - skins for showing numbers in text fields
+    - currency
+    - percentages
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-alpha-5'
+```
 
 ## Getting Started
 ### Prerequisites
-This is a gradle project.  You will either need an IDE that supports gradle, or have gradle installed in order to build.
+This is a gradle project.  You will either need an IDE that supports gradle, or have gradle installed in order to build.  Since this uses modules, it is recommended to use gradle 6.7 or newer.
 
 ### Building the library to your local repo
-gradle install
+gradlew install
 
 ## Built With
 * [Gradle](https://gradle.org/) - Dependency Management
