@@ -4,12 +4,12 @@ A UI framework for JavaFX.
 Note: The distribution of this library is compiled on Java 15.
 
 ## Usage
-Since version 2.0.0.0-alpha-3, this library has been made module-friendly, and hence the artifacts use dots as separators instead of traditional dashes.
+Since version 2.0.0.0, this library has been made module-friendly, and hence the artifacts use dots as separators instead of traditional dashes.
 
 The main functionality of this library is in the fenxlib.core.impl module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.0.0.0-alpha-5'
+implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.0.0.0-rc1'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
@@ -18,7 +18,7 @@ There are several extensions, widgets and skins available as well as independent
 - [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx/README.MD)
     - an extension for TukTukFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.0.0.0-alpha-5'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.0.0.0-rc1'
 ```
 
 ### Widgets
@@ -26,12 +26,12 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
   - an "About Page" widget that pre-populates license information downstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-alpha-5'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-rc1'
 ```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.0.0.0-alpha-5'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.0.0.0-rc1'
 ```
 
 ### Skins
@@ -40,7 +40,7 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.
     - currency
     - percentages
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-alpha-5'
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-rc1'
 ```
 
 ## Samples
