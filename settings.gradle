@@ -6,5 +6,3 @@ include ':fenxlib.extensions.tuktukfx'
 include ':fenxlib.skins.number'
 include ':fenxlib.widgets.about'
 include ':fenxlib.widgets.blade'
-//samples not modular
-include 'samples:widgets:widget-about-sample'

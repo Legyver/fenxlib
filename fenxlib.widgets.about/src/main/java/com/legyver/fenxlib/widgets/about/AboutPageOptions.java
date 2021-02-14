@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.widgets.license.service.LicenseServiceRegistry;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +69,11 @@ public class AboutPageOptions {
 			this.klass = klass;
 		}
 
-		public AboutPageOptions build() {
+		public AboutPageOptions build() throws IOException {
+			Properties autoProperties = LicenseServiceRegistry.getInstance().loadLicenseProperties();
+			for (Object key : autoProperties.keySet()) {
+				licenseProperties.computeIfAbsent(key, x -> autoProperties.getProperty((String) key));
+			}
 			return new AboutPageOptions(title, intro, gist, additionalInfo, licenseProperties, buildProperties, copyrightProperties);
 		}
 
@@ -88,8 +93,7 @@ public class AboutPageOptions {
 		}
 
 		private void loadProperties(Properties properties, String filename) throws CoreException {
-			try {
-				InputStream is = klass.getClassLoader().getResourceAsStream(filename);
+			try (InputStream is = klass.getClassLoader().getResourceAsStream(filename)) {
 				if (is != null) {
 					properties.load(is);
 				} else {

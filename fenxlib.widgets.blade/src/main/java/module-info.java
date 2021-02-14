@@ -10,6 +10,6 @@ module com.legyver.fenxlib.widgets.blade {
 	requires com.legyver.fenxlib.skins.number;
 	requires com.legyver.fenxlib.core.impl;
 
-
 	exports com.legyver.fenxlib.widgets.blade;
+	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.blade.license.LicenseServiceImpl;
 }

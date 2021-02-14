@@ -2,8 +2,8 @@ allprojects {
 
     ext {
         //legyver dependencies
-        legyverCoreVersion = '1.1.0.0'
-        legyverUtilsVersion = '2.0.0.0-alpha-4'
+        legyverCoreVersion = '1.1.1.1'
+        legyverUtilsVersion = '2.0.0.0-alpha-5'
         //apache dependencies
         commonsLogVersion = '2.13.3'
         commonsIoVersion = '2.7'

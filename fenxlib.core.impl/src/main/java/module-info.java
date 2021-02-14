@@ -2,18 +2,18 @@
  * Core Impl for Fenxlib widgets
  */
 module com.legyver.fenxlib.core.impl {
-	requires transitive com.legyver.utils.mapqua;
-	requires transitive javafx.graphics;
-	requires transitive com.legyver.fenxlib.core.api;
-	requires transitive com.legyver.utils.graphrunner;
-	requires transitive com.jfoenix;
 	requires transitive javafx.controls;
-	requires transitive org.apache.logging.log4j;
-	requires transitive com.google.gson;
+	requires transitive javafx.graphics;
 	requires transitive javafx.web;
-	requires transitive com.legyver.utils.nippe;
-	requires org.apache.commons.io;
+	requires transitive com.google.gson;
+	requires transitive com.legyver.fenxlib.core.api;
 	requires transitive com.legyver.utils.adaptex;
+	requires transitive com.legyver.utils.graphrunner;
+	requires transitive com.legyver.utils.mapqua;
+	requires transitive com.legyver.utils.nippe;
+	requires transitive com.jfoenix;
+	requires transitive org.apache.logging.log4j;
+	requires org.apache.commons.io;
 
 	exports com.legyver.fenxlib.core.impl.config;
 	exports com.legyver.fenxlib.core.impl.context;
@@ -27,5 +27,5 @@ module com.legyver.fenxlib.core.impl {
 	exports com.legyver.fenxlib.core.impl.factory.menu;
 	exports com.legyver.fenxlib.core.impl.factory.options;
 	exports com.legyver.fenxlib.core.impl.factory.decorator;
-
+	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.impl.license.LicenseServiceImpl;
 }

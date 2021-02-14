@@ -5,14 +5,31 @@ Milestone release.  All fenxlib libraries now live in one repository as separate
 - Application Lifecycle
   - Lifecycle hook registration Mixins
   - AppStateObserver
+- AboutPage (see fenxlib-samples repository for a demo)
+  - Widget to simplify about page creation
+    - Two customizable about paragraphs
+    - "Powered by open source" license section detailing the licenses of the libraries used provided by LicenseService.
+    - Templateable (SLEL) build message
+    - Templateable (SLEL) copyright message
+- LicenseService
+  - Support for libraries supplying their own license.properties.  When using the AboutPage widget, the dependencies will automatically include licenses of dependencies
 ### Refactoring
 - ApplicationOptions
   - Extendable Builder replacing tall ApplicationOptions inheritance stack.
   - Mixins for adding ApplicationLifecycleHooks
 - Package renaming.
-  - All classes of fenxlib-1.0 now live in the core package (com.legyver.fenxlib.core).
-  - Some additional packages we moved or renamed.
-
+  - Most functionality of fenxlib-1.0 now lives in the core package (com.legyver.fenxlib.core).
+     but has been split between api and impl.
+  - The number skins now lives in the fenxlib.skins.number module
+  - The blade widget now lives in the fenxlib.widgets.blade module
+- Module
+  - Made the whole library Java module friendly
+    - fenxlib.core.api
+    - fenxlib.core.impl
+    - fenxlib.extensions.tuktukfx
+    - fenxlib.skins.number
+    - fenxlib.widgets.about
+    - fenxlib.widgets.blade
 ## 1.1.1
 ### New stuff
 - Factories

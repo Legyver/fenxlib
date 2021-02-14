@@ -10,4 +10,5 @@ module com.legyver.fenxlib.extensions.tuktukfx {
 	exports com.legyver.fenxlib.extensions.tuktukfx.config;
 	exports com.legyver.fenxlib.extensions.tuktukfx.task.adapter;
 	exports com.legyver.fenxlib.extensions.tuktukfx.task.exec;
+	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.extensions.tuktukfx.license.LicenseServiceImpl;
 }
