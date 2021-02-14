@@ -2,14 +2,13 @@ package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.utils.graphrunner.*;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
-import com.legyver.utils.graphrunner.ctx.shared.SharedContextCommand;
-import com.legyver.utils.graphrunner.ctx.shared.SharedMapCtx;
-import com.legyver.utils.slel.ExpressionInterpreter;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.legyver.utils.graphrunner.PropertyMap;
+import com.legyver.utils.propcross.PropertyGraph;
+import com.legyver.utils.propcross.SlelOperationContext;
+
+import java.util.Map;
+import java.util.Properties;
 
 public class AboutPageFactory implements NodeFactory<AboutPage> {
 	private static final String JEXL_VARIABLE = "\\$\\{(([a-z\\.-])*)\\}";
@@ -36,31 +35,8 @@ public class AboutPageFactory implements NodeFactory<AboutPage> {
 	@Override
 	public AboutPage makeNode(LocationContext locationContext) throws CoreException {
 		Map<String, Object> map = PropertyMap.of(buildProperties, copyrightProperties);
-
-		Pattern jexlVar = Pattern.compile(JEXL_VARIABLE);
-		VariableExtractionOptions variableExtractionOptions = new VariableExtractionOptions(jexlVar, 1);
-		VariableTransformationRule variableTransformationRule = new VariableTransformationRule(Pattern.compile("\\.format$"),
-				TransformationOperation.upToLastIndexOf(".format"));
-		PropertyGraphFactory factory = new PropertyGraphFactory(variableExtractionOptions, variableTransformationRule);
-		Graph<SharedMapCtx> contextGraph = factory.make(map, (s, o) -> new SharedMapCtx(s, map));
-
-		contextGraph.executeStrategy(new SharedContextCommand() {
-			@Override
-			public void executeString(String nodeName, String currentValue) {
-				Matcher m = jexlVar.matcher(currentValue);
-				if (m.find()) {
-					ExpressionInterpreter expressionInterpreter = new ExpressionInterpreter(map);
-					String value = (String) expressionInterpreter.evaluate(currentValue);
-					//update the map with the value
-					String key = nodeName;
-					//avoid overwriting the .format property
-					if (variableTransformationRule.matches(nodeName)) {
-						key = variableTransformationRule.transform(nodeName);
-					}
-					map.put(key, value);
-				}
-			}
-		});
+		PropertyGraph propertyGraph = new PropertyGraph(map);
+		propertyGraph.runGraph(new SlelOperationContext(".format"));
 
 		String buildDate = (String) map.get("build.date");
 		String version = (String) map.get("build.version");

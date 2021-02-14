@@ -4,8 +4,7 @@
 module fenxlib.widgets.about {
 	requires transitive javafx.controls;
 	requires transitive com.legyver.fenxlib.core.impl;
-	requires transitive com.legyver.utils.graphrunner;
-	requires transitive com.legyver.utils.slel;
+	requires transitive com.legyver.utils.propcross;
 	requires transitive java.desktop;
 	requires org.apache.commons.lang3;
 
