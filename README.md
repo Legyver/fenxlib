@@ -23,7 +23,7 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
 
 ### Widgets
 - [fenxlib.widgets.about](fenxlib.widgets.about/README.md)
-  - an "About Page" widget that pre-populates license information downstream of any Legyver library
+  - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
 implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-rc1'
