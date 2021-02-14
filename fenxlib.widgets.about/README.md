@@ -81,7 +81,7 @@ build.date.format=${build.date.day} ${build.date.month} ${build.date.year}
 ```
 
 ## Declaring dependencies and licenses
-While dependencies (and downstream dependencies) for any used Legyver libaries will be automatically added to the About Page, the developer can also specify additional properties
+While dependencies (and transitive dependencies) for any used Legyver libraries will be automatically added to the About Page, the developer can also declare additional open source libraries.
 - Manually with a properties file
 - Automatically by implementing the com.legyver.core.license.LicenseService
 
@@ -144,3 +144,5 @@ If both are not modular, you will need to specify your license service in **META
 ```
 your.package.LicenseServiceImpl
 ```
+
+Obviously using a LicenseService does not eliminate the need for a property file somewhere, but it does help manage licenses of any libraries you may be writing yourself, as any dependency changes in those libraries will automatically be picked up by the AboutPage in any downstream application.
