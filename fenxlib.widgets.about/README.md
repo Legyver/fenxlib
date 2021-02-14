@@ -140,7 +140,7 @@ For modular applications, providing your library is modular too, you can declare
 provides com.legyver.core.license.LicenseService with your.package.LicenseServiceImpl;
 ```
 
-If both are not modular, you will need to specify your license service in **META-INF/services/com.legyver.core.license.LicenseService**
+If either are not modular, you will need to specify your license service in **META-INF/services/com.legyver.core.license.LicenseService**
 ```
 your.package.LicenseServiceImpl
 ```
