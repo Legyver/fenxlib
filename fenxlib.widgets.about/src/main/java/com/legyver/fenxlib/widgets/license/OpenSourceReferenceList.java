@@ -71,10 +71,13 @@ public class OpenSourceReferenceList extends Control {
 	 * Get items to render on the open source reference list
 	 * @return the items
 	 */
-	public List<Item> getItems() {
+	protected List<Item> getItems() {
 		return items;
 	}
 
+	/**
+	 * An open-source library to be included as item in reference list
+	 */
 	protected class Item {
 		private List<String> licenseLinks = new ArrayList<>();
 		private List<String> licenseNames = new ArrayList<>();

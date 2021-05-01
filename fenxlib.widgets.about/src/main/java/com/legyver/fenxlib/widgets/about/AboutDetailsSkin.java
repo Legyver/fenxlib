@@ -8,10 +8,17 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Skin for the AboutDetails widget
+ */
 public class AboutDetailsSkin extends SkinBase<AboutDetails> {
 	private final StackPane buildStack;
 	private final StackPane openSourceTaglineStack;
 
+	/**
+	 * Construct a skin for the about details
+	 * @param aboutDetails the details to skin
+	 */
 	public AboutDetailsSkin(AboutDetails aboutDetails) {
 		super(aboutDetails);
 		VBox vBox = new VBox();

@@ -13,6 +13,9 @@ import javafx.scene.layout.Region;
 import static com.legyver.core.exception.CoreException.unwrap;
 import static com.legyver.core.exception.CoreException.wrap;
 
+/**
+ * BorderPane factory with factories for the center, top, bottom, and left and right sides
+ */
 public class BorderPaneFactory {
 	private FactoryAction centerFactory;
 	private FactoryAction topFactory;
@@ -20,6 +23,10 @@ public class BorderPaneFactory {
 	private FactoryAction leftFactory;
 	private FactoryAction rightFactory;
 
+	/**
+	 * Construct a BorderPane factory with factories for the center, top, bottom, and left and right sides
+	 * @param options the options containing the options for each section of the border pane
+	 */
 	public BorderPaneFactory(BorderPaneInitializationOptions options) {
 		this.centerFactory = new FactoryAction(options.getCenterOptions(), (pane, region) -> pane.setCenter(region));
 		this.topFactory = new FactoryAction(options.getTopOptions(), (pane, region) -> pane.setTop(region));
@@ -28,6 +35,11 @@ public class BorderPaneFactory {
 		this.rightFactory = new FactoryAction(options.getRightOptions(), (pane, region) -> pane.setRight(region));
 	}
 
+	/**
+	 * Create the border pane
+	 * @return the border pane
+	 * @throws CoreException if there is an error during construction
+	 */
 	public BorderPane makeBorderPane() throws CoreException {
 		BorderPane borderPane = new BorderPane();
 		unwrap(() -> Stream.of(centerFactory, topFactory, leftFactory, rightFactory, bottomFactory)//order matters, since bottomFactory calls getLeft()/getRight()
@@ -40,12 +52,12 @@ public class BorderPaneFactory {
 		private final RegionInitializationOptions options;
 		private final BiConsumer<BorderPane, Region> setter;
 
-		public FactoryAction(RegionInitializationOptions options, BiConsumer<BorderPane, Region> setter) {
+		FactoryAction(RegionInitializationOptions options, BiConsumer<BorderPane, Region> setter) {
 			this.options = options;
 			this.setter = setter;
 		}
 
-		public void execute(BorderPane borderPane) throws CoreException {
+		void execute(BorderPane borderPane) throws CoreException {
 			if (options != null && options.getFactory() != null) {
 				Region region = options.getFactory().makeRegion(borderPane, options);
 				setter.accept(borderPane, region);

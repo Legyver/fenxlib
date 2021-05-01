@@ -22,6 +22,10 @@ public class LazyCreateDirectoryWrapper {
 		return new File(directory.getAbsolutePath() + File.separator + filename);
 	}
 
+	public String getFullFilename(String filename) {
+		return directory.getAbsolutePath() + File.separator + filename;
+	}
+
 	private void ensureDirectoryExists(File dir) {
 		if (!dir.exists()) {
 			dir.mkdirs();

@@ -1,0 +1,22 @@
+.svg-button {
+    -fx-base: #d9faf0;
+
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 1;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.066em 0.066em 0.066em 0.066em;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+.svg-button:pressed {
+    -fx-color: -fx-pressed-base
+}
+.svg-button:hover {
+    -fx-color: -fx-hover-base
+}
+.svg-button:focused {
+   -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
+   -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+   -fx-background-radius: 3, 2, 1, 4, 1;
+}

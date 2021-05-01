@@ -5,6 +5,9 @@
 build/**
 private/**
 /build/
+/fenxlib.controls.svg/build/
+/fenxlib.icons.fa/build/
+/fenxlib.icons.icomoon/build/
 /fenxlib.core.api/build/
 /fenxlib.core.impl/build/
 /fenxlib.extensions.tuktukfx/build

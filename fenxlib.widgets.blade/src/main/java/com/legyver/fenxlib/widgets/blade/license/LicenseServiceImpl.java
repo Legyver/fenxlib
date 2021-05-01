@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Supply license information for libraries used by this module
+ *
+ */
 public class LicenseServiceImpl implements LicenseService {
 	@Override
 	public Properties loadLicenseProperties() throws IOException {

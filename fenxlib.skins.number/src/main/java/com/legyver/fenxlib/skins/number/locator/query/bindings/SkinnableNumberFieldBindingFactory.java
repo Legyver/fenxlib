@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
-import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.api.locator.query.IRegionDiscriminator;
 import com.legyver.fenxlib.core.api.locator.query.bindings.AbstractBindingFactory;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
 import javafx.beans.property.ObjectProperty;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface SkinnableNumberFieldBindingFactory extends AbstractBindingFactory {
 
-	default void bindTextField(ObjectProperty<BigDecimal> property, ComponentQuery.RegionQueryBuilder query, String named) {
+	default void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) {
 		Optional<TextField> text = finalizeQuery(query, named).execute();
 		TextField textField = text.get();
 		if (textField instanceof SkinnableNumberField) {

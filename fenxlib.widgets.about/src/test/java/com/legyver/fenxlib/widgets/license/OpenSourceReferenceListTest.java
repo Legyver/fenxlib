@@ -19,7 +19,7 @@ public class OpenSourceReferenceListTest extends ApplicationTest {
 	@Test
 	public void parseLicenseProperties() throws Exception {
 		Properties properties = new Properties();
-		properties.load(OpenSourceReferenceListTest.class.getResourceAsStream("com/legyver/fenxlib/core/impl/license/license.properties"));
+		properties.load(OpenSourceReferenceListTest.class.getResourceAsStream("license.properties"));
 		OpenSourceReferenceList openSourceReferenceList = new OpenSourceReferenceList(properties);
 		List<OpenSourceReferenceList.Item> items = openSourceReferenceList.getItems();
 		assertThat(items.size(), is(6));

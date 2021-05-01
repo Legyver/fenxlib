@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
+import com.legyver.fenxlib.core.api.locator.query.IRegionDiscriminator;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
@@ -29,7 +30,7 @@ public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
 		LocationContext locationContext = new DefaultLocationContext("Test panel");
 		registry.register(locationContext, numberField);
 
-		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder()
+		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		factory.bindTextField(money, query, null);
 		assertThat(numberField.getValue().doubleValue(), is(1000.0));

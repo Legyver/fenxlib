@@ -6,6 +6,9 @@ import com.legyver.fenxlib.core.api.locator.LocationContext;
 
 import java.util.Properties;
 
+/**
+ * Factory to create an OpenSourceReferenceList
+ */
 public class OpenSourceReferenceListFactory implements NodeFactory<OpenSourceReferenceList> {
 	private final Properties properties;
 

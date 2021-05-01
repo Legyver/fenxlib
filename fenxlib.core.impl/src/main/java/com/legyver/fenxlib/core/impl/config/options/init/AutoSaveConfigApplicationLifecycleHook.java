@@ -1,23 +1,22 @@
 package com.legyver.fenxlib.core.impl.config.options.init;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.config.ConfigServiceRegistry;
 import com.legyver.fenxlib.core.api.config.options.init.ApplicationLifecycleHook;
 import com.legyver.fenxlib.core.api.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 import com.legyver.fenxlib.core.impl.config.ApplicationConfig;
-import com.legyver.fenxlib.core.impl.config.ApplicationConfigHandler;
 import com.legyver.fenxlib.core.impl.config.load.ApplicationConfigProvider;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
-import com.legyver.utils.adaptex.ExceptionToCoreExceptionConsumerDecorator;
 
-import java.io.File;
-
+/**
+ * Lifecycle hook to auto-save the application config data on shutdown
+ */
 public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final ApplicationConfigProvider appConfigProvider;
-	private final ApplicationConfigHandler applicationConfigHandler;
 
-	public AutoSaveConfigApplicationLifecycleHook(ApplicationConfigProvider applicationConfigProvider, ApplicationConfigHandler applicationConfigHandler) {
+	public AutoSaveConfigApplicationLifecycleHook(ApplicationConfigProvider applicationConfigProvider) {
 		this.appConfigProvider = applicationConfigProvider;
-		this.applicationConfigHandler = applicationConfigHandler;
 	}
 
 	@Override
@@ -43,12 +42,9 @@ public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecy
 		};
 	}
 
-	private void saveFile(ApplicationConfig applicationConfig) throws com.legyver.core.exception.CoreException {
-		new ExceptionToCoreExceptionConsumerDecorator<>((File file) -> {
-			applicationConfig.sync();
-			applicationConfigHandler.saveConfig(file);
-		}).accept(appConfigProvider.getApplicationConfigFile());
+	private void saveFile(ApplicationConfig applicationConfig) throws CoreException {
+		applicationConfig.sync();
+		ConfigServiceRegistry.getInstance().saveConfig(appConfigProvider.getApplicationConfigFilename(), applicationConfig);
 	}
-
 
 }

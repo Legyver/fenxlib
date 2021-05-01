@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.core.impl.config.parts;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.config.parts.IRecentlyModified;
 import com.legyver.utils.mapqua.mapbacked.MapBackedCollection;
 import com.legyver.utils.mapqua.mapbacked.MapBackedEntityCollection;
 import com.legyver.utils.mapqua.mapbacked.MapBackedInteger;
@@ -9,11 +11,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Default implementation of IRecentlyModified
+ * Uses legyver.utils.mapqua to represent the value as a POJO.
+ */
 public class RecentlyModified implements IRecentlyModified<RecentlyViewedFile>, MapSyncable {
 	private final Map sourceMap;
 	private final MapBackedInteger limit;
 	private final MapBackedCollection<List<RecentlyViewedFile>, RecentlyViewedFile> values;
 
+	/**
+	 * Construct a RecentlyModified POJO wrapping the raw value map.
+	 * @param sourceMap map containing all the values
+	 */
 	public RecentlyModified(Map sourceMap) {
 		this.sourceMap = sourceMap;
 		this.limit = new MapBackedInteger(sourceMap, "limit", 5);
@@ -21,28 +31,32 @@ public class RecentlyModified implements IRecentlyModified<RecentlyViewedFile>, 
 	}
 
 	@Override
-	public int getLimit() {
+	public int getLimit() throws CoreException {
 		return limit.get();
 	}
 
 	@Override
-	public void setLimit(int limit) {
+	public void setLimit(int limit) throws CoreException {
 		this.limit.set(limit);
 	}
 
 	@Override
-	public List<RecentlyViewedFile> getValues() {
+	public List<RecentlyViewedFile> getValues() throws CoreException {
 		return values.get();
 	}
 
 	@Override
-	public void addValue(RecentlyViewedFile recentValue) {
+	public void addValue(RecentlyViewedFile recentValue) throws CoreException {
 		values.add(recentValue);
 	}
 
-	public void accept(String newPath) {
-		Optional<RecentlyViewedFile> existingValue = getValues().stream()
-				.filter(v -> v.getPath().equalsIgnoreCase(newPath)).findAny();
+	public void accept(String newPath) throws CoreException {
+		Optional<RecentlyViewedFile> existingValue = CoreException.unwrap(
+				() -> CoreException.wrap(
+						() -> getValues().stream()
+								.filter(v -> CoreException.wrap(
+										() -> v.getPath().equalsIgnoreCase(newPath)))
+								.findAny()));
 		if (existingValue.isPresent()) {
 			RecentlyViewedFile recentValue = existingValue.get();
 			recentValue.setLastAccessed(LocalDateTime.now());
@@ -50,7 +64,7 @@ public class RecentlyModified implements IRecentlyModified<RecentlyViewedFile>, 
 	}
 
 	@Override
-	public void sync() {
+	public void sync() throws CoreException {
 		values.sync();
 	}
 

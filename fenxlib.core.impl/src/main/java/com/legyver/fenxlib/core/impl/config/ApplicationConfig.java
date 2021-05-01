@@ -1,7 +1,9 @@
 package com.legyver.fenxlib.core.impl.config;
 
-import com.legyver.fenxlib.core.impl.config.parts.ILastOpened;
-import com.legyver.fenxlib.core.impl.config.parts.IRecentlyModified;
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.config.IApplicationConfig;
+import com.legyver.fenxlib.core.api.config.parts.ILastOpened;
+import com.legyver.fenxlib.core.api.config.parts.IRecentlyModified;
 import com.legyver.utils.mapqua.mapbacked.MapSyncable;
 
 /**
@@ -12,10 +14,10 @@ import com.legyver.utils.mapqua.mapbacked.MapSyncable;
  * @param <M> IRecentlyModified MapSyncable data
  * @param <O> ILastOpened MapSyncable data
  */
-public abstract class ApplicationConfig<M extends IRecentlyModified, O extends ILastOpened> implements MapSyncable {
+public abstract class ApplicationConfig<M extends IRecentlyModified, O extends ILastOpened> implements MapSyncable, IApplicationConfig<M, O> {
 
-	abstract public M getRecentlyModified();
+	abstract public M getRecentlyModified() throws CoreException;
 
-	abstract public O getLastOpened();
+	abstract public O getLastOpened() throws CoreException;
 
 }

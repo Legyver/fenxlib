@@ -11,8 +11,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
+/**
+ * Factory to create an accordion menu
+ */
 public class AccordionMenuFactory extends AbstractWrappingFactory<TitledPane> implements RegionFactory<Accordion, RegionInitializationOptions> {
 
+	/**
+	 * Construct a factory for accordion menus
+	 * @param titledPaneFactories titled pane factories for accordion menu sections
+	 */
 	public AccordionMenuFactory(TitledPaneFactory... titledPaneFactories) {
 		super(titledPaneFactories);
 	}

@@ -1,16 +1,19 @@
 package com.legyver.fenxlib.core.impl.config.options.init;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.config.parts.ILastOpened;
 import com.legyver.fenxlib.core.api.uimodel.IUiModel;
 import com.legyver.fenxlib.core.api.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 import com.legyver.fenxlib.core.api.config.options.init.ApplicationLifecycleHook;
 import com.legyver.fenxlib.core.impl.config.ApplicationConfig;
-import com.legyver.fenxlib.core.impl.config.IRecentlyViewedFile;
-import com.legyver.fenxlib.core.impl.config.parts.IRecentlyModified;
+import com.legyver.fenxlib.core.api.config.parts.IRecentlyViewedFile;
+import com.legyver.fenxlib.core.api.config.parts.IRecentlyModified;
 import com.legyver.fenxlib.core.impl.config.parts.RecentlyViewedFile;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
-import com.legyver.fenxlib.core.impl.factory.menu.file.DefaultFileBrowseLocation;
+import com.legyver.fenxlib.core.impl.factory.menu.file.internal.DefaultFileBrowseLocation;
 import com.legyver.fenxlib.core.impl.files.FileRegistry;
+import com.legyver.fenxlib.core.impl.log.LazyLog;
 import com.legyver.fenxlib.core.impl.uimodel.DefaultFileOptions;
 import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
 import com.legyver.fenxlib.core.impl.uimodel.RecentFileAware;
@@ -29,6 +32,7 @@ import java.util.Optional;
  * Populate recent files menu
  */
 public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycleHook {
+	private static final LazyLog logger = new LazyLog(RecentFilesApplicationLifecycleHook.class);
 
 	@Override
 	public LifecyclePhase getLifecyclePhase() {
@@ -47,7 +51,7 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		return 1000;
 	}
 
-	private void setupFileOptions() {
+	private void setupFileOptions() throws CoreException {
 		ApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
 		IUiModel uiModel = ApplicationContext.getUiModel();
 		openingFileUpdatesConfig(applicationConfig);
@@ -57,24 +61,28 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		}
 	}
 
-	private void initializeDefaultFileBrowseLocation(ApplicationConfig applicationConfig) {
+	private void initializeDefaultFileBrowseLocation(ApplicationConfig applicationConfig) throws CoreException {
 		DefaultFileBrowseLocation defaultFileBrowseLocation = ApplicationContext.getFileRegistry().getDefaultFileBrowseLocation();
 		defaultFileBrowseLocation.setInitialDirectory(getLastModifiedParentDir(applicationConfig));
 	}
 
-	public File getLastModifiedParentDir(ApplicationConfig applicationConfig) {
+	public File getLastModifiedParentDir(ApplicationConfig applicationConfig) throws CoreException {
 		File workingDir = null;
-		File file = new Step<>(new Step<>(new Base<>(applicationConfig.getLastOpened()),
-				(last) -> last.getLastFile()),
-				(dir) -> new File(dir)).execute();
-		if (isFileValid(file)) {
-			workingDir = file;
+		ILastOpened lastOpened = applicationConfig.getLastOpened();
+		File parentDir = CoreException.unwrap(() -> new Step<>(new Step<>(new Step<>(new Base<>(lastOpened),
+				(last) -> CoreException.wrap(() -> last.getLastFile())),
+				(filename) -> new File(filename)),
+				(f) -> f.getParentFile()
+				).execute());
+
+		if (isDirectoryValid(parentDir)) {
+			workingDir = parentDir;
 		}
 
 		return workingDir;
 	}
 
-	private void initRecentlyModified(ApplicationConfig applicationConfig, RecentFileAware uiModel) {
+	private void initRecentlyModified(ApplicationConfig applicationConfig, RecentFileAware uiModel) throws CoreException {
 		List<FileOptions> recentFiles = uiModel.getRecentFiles();
 		IRecentlyModified recentlyModified = applicationConfig.getRecentlyModified();
 		int limit = recentlyModified.getLimit();
@@ -96,6 +104,10 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		return file != null && file.exists();
 	}
 
+	protected boolean isDirectoryValid(File file) {
+		return file != null && file.isDirectory();
+	}
+
 	private void openingFileUpdatesConfig(ApplicationConfig applicationConfig) {
 		FileRegistry fileRegistry = ApplicationContext.getFileRegistry();
 		ObservableList<FileOptions> openFiles = fileRegistry.getOpenFiles();
@@ -103,25 +115,28 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		//update the timestamp on the config whenever a file is opened
 		openFiles.addListener((ListChangeListener<FileOptions>) change -> {
 			if (change.next() && change.wasAdded()) {
-				List<? extends FileOptions> workingFileConfigList = change.getAddedSubList();
-				for (int i = 0; i < workingFileConfigList.size(); i++) {
-					FileOptions workingFile = workingFileConfigList.get(i);
-					IRecentlyModified recentConfig = applicationConfig.getRecentlyModified();
-					String workingFilePath = workingFile.getFilePath();
-					List<IRecentlyViewedFile> recentlyViewedFiles = recentConfig.getValues();
-					Optional<IRecentlyViewedFile> option = recentlyViewedFiles.stream()
-							.filter(m -> {
-								return workingFilePath.equalsIgnoreCase(m.getPath());
-							})
-							.findFirst();
-					if (option.isPresent()) {//update the timestamp
-						IRecentlyViewedFile recentValue = option.get();
-						recentValue.setLastAccessed(LocalDateTime.now());
-					} else {
-						File file = workingFile.getFile();
-						RecentlyViewedFile recentValue = RecentlyViewedFile.parse(file);
-						recentConfig.addValue(recentValue);
+				try {
+					List<? extends FileOptions> workingFileConfigList = change.getAddedSubList();
+					for (int i = 0; i < workingFileConfigList.size(); i++) {
+						FileOptions workingFile = workingFileConfigList.get(i);
+						IRecentlyModified recentConfig = applicationConfig.getRecentlyModified();
+						String workingFilePath = workingFile.getFilePath();
+						List<IRecentlyViewedFile> recentlyViewedFiles = recentConfig.getValues();
+						Optional<IRecentlyViewedFile> option = CoreException.unwrap(() -> recentlyViewedFiles.stream()
+								.filter(m -> CoreException.wrap(
+										() -> workingFilePath.equalsIgnoreCase(m.getPath())))
+								.findFirst());
+						if (option.isPresent()) {//update the timestamp
+							IRecentlyViewedFile recentValue = option.get();
+							recentValue.setLastAccessed(LocalDateTime.now());
+						} else {
+							File file = workingFile.getFile();
+							RecentlyViewedFile recentValue = RecentlyViewedFile.parse(file);
+							recentConfig.addValue(recentValue);
+						}
 					}
+				} catch (CoreException ex) {
+					logger.error("Error updating recently viewed file: " + ex.getMessage(), ex);
 				}
 			}
 		});

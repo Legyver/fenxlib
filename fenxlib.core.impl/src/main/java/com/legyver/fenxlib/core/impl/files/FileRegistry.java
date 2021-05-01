@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.impl.files;
 
 import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
-import com.legyver.fenxlib.core.impl.factory.menu.file.DefaultFileBrowseLocation;
+import com.legyver.fenxlib.core.impl.factory.menu.file.internal.DefaultFileBrowseLocation;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;

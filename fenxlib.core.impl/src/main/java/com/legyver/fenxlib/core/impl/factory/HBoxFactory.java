@@ -10,20 +10,40 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
+/**
+ * Factory to create wrap the output of the nested factories in an HBox
+ */
 public class HBoxFactory extends AbstractWrappingFactory implements NodeFactory<HBox> {
 	private final Pos alignment;
 	private final boolean bindWidth;
 
+	/**
+	 * Construct a factory to wrap the output of the nested factories in an HBox
+	 * @param alignment alignment to apply
+	 * @param bindWidth if the width of the HBox to the width of the first node
+	 * @param nodeFactories factories to create the nodes in the HBox
+	 */
 	public HBoxFactory(Pos alignment, boolean bindWidth, NodeFactory... nodeFactories) {
 		super(nodeFactories);
 		this.alignment = alignment;
 		this.bindWidth = bindWidth;
 	}
 
+	/**
+	 * Construct a factory to wrap the output of the nested factories in an HBox.
+	 * Note: Uses {@link Pos.CENTER_LEFT} by default
+	 * @param nodeFactories factories to create the nodes in the HBox
+	 */
 	public HBoxFactory(NodeFactory... nodeFactories) {
 		this(Pos.CENTER_LEFT, false, nodeFactories);
 	}
 
+	/**
+	 * Make the HBox
+	 * @param locationContext the location context to use when registering components
+	 * @return the HBox
+	 * @throws CoreException if any error occurs creating child components
+	 */
 	public HBox makeHBox(LocationContext locationContext) throws CoreException {
 		HBox hbox = new HBox();
 		hbox.setSpacing(5);

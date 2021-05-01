@@ -1,11 +1,10 @@
 package com.legyver.fenxlib.core.impl.uimodel;
 
-import com.legyver.fenxlib.core.impl.factory.menu.MenuItemOptions;
 import java.io.File;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
-public interface FileOptions extends MenuItemOptions, Comparable<FileOptions>  {
+public interface FileOptions extends Comparable<FileOptions>  {
 
 	File getFile();
 

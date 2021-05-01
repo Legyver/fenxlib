@@ -1,13 +1,8 @@
 package com.legyver.fenxlib.core.impl.config.load;
 
 import com.legyver.fenxlib.core.impl.files.LazyCreateDirectoryWrapper;
-import org.apache.commons.io.IOUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Where to save internal application files.
@@ -57,31 +52,12 @@ public class ApplicationHome implements ApplicationConfigProvider {
 		return logDirectory.getDirectory();
 	}
 
-	public File getConfigFile(String name) {
-		return configDirectory.loadFileFromDir(name);
-	}
-
-
 	public File getCacheFile(String name) {
 		return cacheDirectory.loadFileFromDir(name);
 	}
 
 	@Override
-	public String getApplicationConfigAsString() throws IOException {
-		File configFile = getApplicationConfigFile();
-		if (configFile.exists()) {
-			try {
-				return IOUtils.toString(new FileInputStream(configFile), StandardCharsets.UTF_8);
-			} catch (FileNotFoundException e) {
-				//can't happen see configFile.exists()
-				throw new UnsupportedOperationException("Can't open a file that does not exist");
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public File getApplicationConfigFile() {
-		return getConfigFile("config.json");
+	public String getApplicationConfigFilename() {
+		return configDirectory.getFullFilename("config.json");
 	}
 }

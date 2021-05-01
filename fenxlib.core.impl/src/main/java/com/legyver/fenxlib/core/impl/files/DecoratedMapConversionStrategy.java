@@ -1,11 +1,9 @@
 package com.legyver.fenxlib.core.impl.files;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.legyver.core.exception.CoreException;
+import com.legyver.utils.jackiso.JacksonObjectMapper;
 import com.legyver.utils.mapqua.mapbacked.RawMapAware;
-import java.io.IOException;
-import java.lang.reflect.Type;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,12 +16,13 @@ public class DecoratedMapConversionStrategy<U extends RawMapAware> implements Fi
 	public DecoratedMapConversionStrategy(MapDecoratorPojoInstantiator<U> instantiator) {
 		this.instantiator = instantiator;
 	}
-			
+
 	@Override
-	public U toModel(String contents) throws IOException, IllegalAccessException {
-		Type type = new TypeToken<Map>() {
-		}.getType();
-		Map<String, Map> map = new Gson().fromJson(contents, type);
+	public U toModel(String contents) throws CoreException {
+		Map<String, Object> map = null;
+		if (contents != null) {
+			map = JacksonObjectMapper.INSTANCE.readValue(contents, Map.class);
+		}
 		if (map == null) {
 			map = new HashMap<>();
 		}
@@ -31,8 +30,8 @@ public class DecoratedMapConversionStrategy<U extends RawMapAware> implements Fi
 	}
 
 	@Override
-	public String fromModel(U model) throws IOException, IllegalAccessException {
-		return new GsonBuilder().setPrettyPrinting().create().toJson(model.getRawMap());
+	public String fromModel(U model) throws CoreException {
+		return JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(model.getRawMap());
 	}
 
 }

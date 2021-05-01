@@ -1,5 +1,5 @@
 /**
- * Skins for Fenxlib widgets
+ * Numeric skins for Fenxlib widgets
  */
 module com.legyver.fenxlib.skins.number {
 	requires com.jfoenix;

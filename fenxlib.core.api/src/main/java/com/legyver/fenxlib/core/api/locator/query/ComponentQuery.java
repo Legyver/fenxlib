@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.api.locator.query;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.api.locator.visitor.LocationKeyVisitor;
 import com.legyver.fenxlib.core.api.context.BaseApplicationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
@@ -11,19 +12,31 @@ import java.util.stream.Collectors;
 
 import javafx.scene.Node;
 
+/**
+ * Query for a component
+ * @param <T> the type of the component
+ */
 public abstract class ComponentQuery<T extends Node> {
 
 	private final String queryString;
-	protected final QueryableComponentRegistry registry = BaseApplicationContext.getComponentRegistry();
+	final QueryableComponentRegistry registry = BaseApplicationContext.getComponentRegistry();
 
-	public ComponentQuery(String queryString) {
+	ComponentQuery(String queryString) {
 		this.queryString = queryString;
 	}
 
+	/**
+	 * Get the query string
+	 * @return the query string
+	 */
 	public String getQueryString() {
 		return queryString;
 	}
 
+	/**
+	 * Execute the query
+	 * @return the component
+	 */
 	public abstract Optional<T> execute();
 
 	private static class NamedComponentQuery<T extends Node> extends ComponentQuery<T> implements INamedComponentQuery<T> {
@@ -47,6 +60,7 @@ public abstract class ComponentQuery<T extends Node> {
 			this.type = type;
 		}
 
+		@Override
 		public Class getType() {
 			return type;
 		}
@@ -57,30 +71,43 @@ public abstract class ComponentQuery<T extends Node> {
 		}
 	}
 
-	protected static abstract class AbstractQueryBuilder {
+	static abstract class AbstractQueryBuilder {
 
-		protected String name;
+		String name;
 
-		abstract protected ComponentQuery build(Deque<String> stack);
+		abstract ComponentQuery build(Deque<String> stack);
 
-		abstract protected ComponentQuery build(Deque<String> stack, Class type);
+		abstract ComponentQuery build(Deque<String> stack, Class type);
 	}
 
+	/**
+	 * Fluent builder to create a query
+	 */
 	public static class QueryBuilder extends AbstractQueryBuilder {
 
-		public RegionQueryBuilder inRegion(String name) {
+		/**
+		 * The region to query in
+		 * @param name the name of the region
+		 * @return the query builder
+		 */
+		public IRegionDiscriminator inRegion(String name) {
 			this.name = name;
-			return new RegionQueryBuilder(this);
+			return new RegionIQueryBuilder(this);
 		}
 
-		public RegionQueryBuilder fromLocation(LocationContext locationContext) {
+		/**
+		 * The location to query in
+		 * @param locationContext the location
+		 * @return the query builder
+		 */
+		public IRegionDiscriminator fromLocation(LocationContext locationContext) {
 			String key = locationContext.accept(new LocationKeyVisitor());
 			this.name = key;
-			return new RegionQueryBuilder(this);
+			return new RegionIQueryBuilder(this);
 		}
 
 		@Override
-		protected ComponentQuery build(Deque<String> stack) {
+		ComponentQuery build(Deque<String> stack) {
 			if (name != null) {
 				stack.push(name);
 			}
@@ -88,7 +115,7 @@ public abstract class ComponentQuery<T extends Node> {
 		}
 
 		@Override
-		protected ComponentQuery build(Deque<String> stack, Class type) {
+		ComponentQuery build(Deque<String> stack, Class type) {
 			stack.push(name);
 			stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR));
 
@@ -96,38 +123,60 @@ public abstract class ComponentQuery<T extends Node> {
 		}
 	}
 
-	protected abstract static class ChildQueryBuilder<T extends AbstractQueryBuilder, U extends ChildQueryBuilder> extends AbstractQueryBuilder {
+	abstract static class ChildIQueryBuilder<T extends AbstractQueryBuilder, U extends ChildIQueryBuilder> extends AbstractQueryBuilder implements IQueryDiscriminator {
 
-		protected final T parent;
+		final T parent;
 
-		public ChildQueryBuilder(T parent) {
+		ChildIQueryBuilder(T parent) {
 			this.parent = parent;
 		}
 
+		/**
+		 * Query for the only component at the specified location
+		 * @return the query
+		 */
+		@Override
 		public ComponentQuery only() {
 			return build(new ArrayDeque<>());
 		}
 
+		/**
+		 * Query for the component named a specific value at the specified location
+		 * @param name the name of the component
+		 * @return the query
+		 */
+		@Override
 		public ComponentQuery named(String name) {
-			Deque<String> stack = new ArrayDeque<>();//since we're builing from the botton, using a stack
+			Deque<String> stack = new ArrayDeque<>();//since we're building from the botton, using a stack
 			stack.push(name);
 			return build(stack);
 		}
 
+		/**
+		 * Query for the component of a specific type at the specified location
+		 * @param type the type of the component
+		 * @return the Query
+		 */
+		@Override
 		public ComponentQuery type(Class type) {
 			return build(new ArrayDeque<>(), type);
 		}
 	}
 
-	public static class RegionQueryBuilder<T extends AbstractQueryBuilder> extends ChildQueryBuilder<T, RegionQueryBuilder> {
+	/**
+	 * Query
+	 * @param <T>
+	 */
+	static class RegionIQueryBuilder<T extends AbstractQueryBuilder> extends ChildIQueryBuilder<T, RegionIQueryBuilder> implements IRegionDiscriminator {
 
-		public RegionQueryBuilder(T parent) {
+		RegionIQueryBuilder(T parent) {
 			super(parent);
 		}
 
-		public RegionQueryBuilder inSubRegion(String name) {
+		@Override
+		public RegionIQueryBuilder inSubRegion(String name) {
 			this.name = name;
-			return new RegionQueryBuilder(this);
+			return new RegionIQueryBuilder(this);
 		}
 
 		@Override

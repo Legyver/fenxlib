@@ -4,7 +4,6 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.api.uimodel.IUiModel;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 import com.legyver.fenxlib.core.api.config.options.init.ApplicationLifecycleHook;
-import com.legyver.fenxlib.core.impl.config.ApplicationConfigHandler;
 import com.legyver.fenxlib.core.impl.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.core.impl.config.load.ApplicationConfigProvider;
 import com.legyver.fenxlib.core.impl.config.load.ApplicationHome;
@@ -12,6 +11,9 @@ import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.impl.files.FileIOUtil;
 import com.legyver.fenxlib.core.impl.config.options.init.*;
 
+/**
+ * Options for the application
+ */
 public class ApplicationOptions {
 	private final IUiModel uiModel;
 
@@ -65,10 +67,13 @@ public class ApplicationOptions {
 		ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(phase);
 	}
 
+	/**
+	 * Builder to specify application options
+	 * @param <B> the subtype of the builder
+	 */
 	public static class Builder<B extends Builder> {
 		protected IUiModel uiModel;
 		protected ApplicationConfigProvider applicationConfigProvider;
-		protected ApplicationConfigHandler appConfigHandler;
 		protected ApplicationConfigInstantiator appConfigInstantiator;
 		protected FileIOUtil fileIOUtil;
 		protected SVGGlyphLoadingApplicationLifecycleHook glyphLoadingHook;
@@ -103,11 +108,8 @@ public class ApplicationOptions {
 			if (fileIOUtil == null) {
 				fileIOUtil = new FileIOUtil(appConfigInstantiator);
 			}
-			if (appConfigHandler == null) {
-				appConfigHandler = new ApplicationConfigHandler(fileIOUtil, appConfigInstantiator);
-			}
 			if (glyphLoadingHook == null) {
-				glyphLoadingHook = new IcoMoonSvgApplicationLifecycleHook();
+				glyphLoadingHook = new SVGGlyphLoadingApplicationLifecycleHook();
 			}
 			if (recentFilesHook == null) {
 				recentFilesHook = new RecentFilesApplicationLifecycleHook();
@@ -120,11 +122,11 @@ public class ApplicationOptions {
 				registerLifecycleHook(new InitLoggingApplicationLifecycleHook(appName));
 			}
 			//load config Mixin
-			registerLifecycleHook(new LoadConfigApplicationLifecycleHook(appConfigHandler, applicationConfigProvider));
+			registerLifecycleHook(new LoadConfigApplicationLifecycleHook(appConfigInstantiator, applicationConfigProvider));
 			//save config Mixin
 			if (autosaveConfig) {
 				registerLifecycleHook(new PreShutdownConfigSyncLifecycleHook());
-				registerLifecycleHook(new AutoSaveConfigApplicationLifecycleHook(applicationConfigProvider, appConfigHandler));
+				registerLifecycleHook(new AutoSaveConfigApplicationLifecycleHook(applicationConfigProvider));
 			}
 			//load icon Mixin
 			registerLifecycleHook(glyphLoadingHook);
@@ -156,20 +158,8 @@ public class ApplicationOptions {
 			return set(() -> this.applicationConfigProvider = applicationConfigProvider);
 		}
 
-		public B customAppConfigHandler(ApplicationConfigHandler applicationConfigHandler) {
-			return set(() -> this.appConfigHandler = applicationConfigHandler);
-		}
-
 		public B customAppConfigInstantiator(ApplicationConfigInstantiator appConfigInstantiator) {
 			return set(() -> this.appConfigInstantiator = appConfigInstantiator);
-		}
-
-		public B customFileIOUtil(FileIOUtil fileIOUtil) {
-			return set(()-> this.fileIOUtil = fileIOUtil);
-		}
-
-		public B customSvgLoader(SVGGlyphLoadingApplicationLifecycleHook glyphLoadingMixin) {
-			return set(() -> this.glyphLoadingHook = glyphLoadingMixin);
 		}
 
 		public B registerLifecycleHook(ApplicationLifecycleHook applicationLifecycleHook) {
@@ -177,13 +167,17 @@ public class ApplicationOptions {
 					.registerHook(applicationLifecycleHook.getLifecyclePhase(), applicationLifecycleHook.getExecutableHook(), applicationLifecycleHook.getPriority()));
 		}
 
-		protected B set(NoArgFunction noArgFunction) {
+		B set(NoArgFunction noArgFunction) {
 			noArgFunction.execute();
 			return (B) this;
 		}
 
 	}
 
+	/**
+	 * Builds the ApplicationOption and then run the lifecycle phases up through {@link LifecyclePhase#POST_INIT}
+	 * @param <B> the type of the application options
+	 */
 	public static class AutoStartBuilder<B extends Builder> extends Builder<B> {
 		@Override
 		public ApplicationOptions build() throws CoreException {
@@ -193,8 +187,14 @@ public class ApplicationOptions {
 		}
 	}
 
+	/**
+	 * Hook to provide a no arg lambda
+	 */
 	@FunctionalInterface
-	public  interface NoArgFunction {
+	public interface NoArgFunction {
+		/**
+		 * lambda body
+		 */
 		void execute();
 	}
 

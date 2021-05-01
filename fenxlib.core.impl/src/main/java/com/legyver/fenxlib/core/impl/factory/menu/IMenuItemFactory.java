@@ -1,9 +1,19 @@
 package com.legyver.fenxlib.core.impl.factory.menu;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.locator.LocationContext;
 import javafx.scene.control.MenuItem;
 
-public interface IMenuItemFactory<T extends MenuItemOptions> {
+/**
+ * Type for factory that creates a menu item
+ */
+public interface IMenuItemFactory {
 
-	MenuItem makeItem() throws CoreException;
+	/**
+	 * Create a menu item
+	 * @param locationContext The location context to use
+	 * @return the menu item
+	 * @throws CoreException if there is an error
+	 */
+	MenuItem makeItem(LocationContext locationContext) throws CoreException;
 }

@@ -11,8 +11,19 @@ Milestone release.  All fenxlib libraries now live in one repository as separate
     - "Powered by open source" license section detailing the licenses of the libraries used provided by LicenseService.
     - Templateable (SLEL) build message
     - Templateable (SLEL) copyright message
+- ConfigService
+  - Loads the configuration from file/resources via the LoadConfigApplicationLifecycleHook
+  - Updates the saved configuration pre-shutdown via the AutoSaveConfigApplicationLifecycleHook unless disableAutosaveConfig() is specified
+  - Overrideable by supplying an additional ConfigService with a lower order() via standard java/services mechanism 
+- IconService
+  - Loads any available font libraries when the SVGGlyphLoadingApplicationLifecycleHook is used
+    - available font library modules:
+      - fenxlib.icons.fa - free regular and solid FontAwesome icons
+      - fenxlib.icons.icomoon - free IcoMoon icons
+  - Supports loading additional fonts by supplying an additional IconService via standard java/services mechanism
 - LicenseService
   - Support for libraries supplying their own license.properties.  When using the AboutPage widget, the dependencies will automatically include licenses of dependencies
+  - Supports loading additional licenses by supplying an additional LicenseService via standard java/services mechanism
 ### Refactoring
 - ApplicationOptions
   - Extendable Builder replacing tall ApplicationOptions inheritance stack.
@@ -26,10 +37,16 @@ Milestone release.  All fenxlib libraries now live in one repository as separate
   - Made the whole library Java module friendly
     - fenxlib.core.api
     - fenxlib.core.impl
+    - fenxlib.controls.svg
     - fenxlib.extensions.tuktukfx
+    - fenxlib.icons.fa
+    - fenxlib.icons.icomoon
     - fenxlib.skins.number
     - fenxlib.widgets.about
     - fenxlib.widgets.blade
+- Application configuration files
+    - Changed to use Jackson instead of gson
+    - Dates/Times now comply to ISO-8601 by default
 ## 1.1.1
 ### New stuff
 - Factories

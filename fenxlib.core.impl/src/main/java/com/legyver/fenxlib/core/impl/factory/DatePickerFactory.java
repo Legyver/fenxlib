@@ -5,6 +5,9 @@ import com.legyver.fenxlib.core.api.factory.NodeFactory;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import javafx.scene.control.DatePicker;
 
+/**
+ * Factory to create a DatePicker
+ */
 public class DatePickerFactory implements NodeFactory<DatePicker> {
 
 	@Override

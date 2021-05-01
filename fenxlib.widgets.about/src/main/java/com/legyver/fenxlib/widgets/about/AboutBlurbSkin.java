@@ -7,11 +7,18 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * The skin for the AboutBlurb widget
+ */
 public class AboutBlurbSkin extends SkinBase<AboutBlurb> {
 	private final StackPane intro;
 	private final StackPane gist;
 	private final StackPane additionalInfo;
 
+	/**
+	 * Construct the skin for the AboutBlurb
+	 * @param aboutBlurb the blurb to skin
+	 */
 	public AboutBlurbSkin(AboutBlurb aboutBlurb) {
 		super(aboutBlurb);
 		VBox aboutBox = new VBox();

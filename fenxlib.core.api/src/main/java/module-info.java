@@ -5,11 +5,17 @@ module com.legyver.fenxlib.core.api {
 	requires transitive javafx.base;
 	requires transitive javafx.graphics;
 	requires transitive com.legyver.core;
+	requires transitive com.legyver.utils.adaptex;
 	requires transitive com.legyver.utils.nippe;
+	requires transitive org.apache.logging.log4j;
+	requires javafx.controls;
 
+	exports com.legyver.fenxlib.core.api.config;
+	exports com.legyver.fenxlib.core.api.config.parts;
 	exports com.legyver.fenxlib.core.api.config.options.init;
 	exports com.legyver.fenxlib.core.api.context;
 	exports com.legyver.fenxlib.core.api.factory;
+	exports com.legyver.fenxlib.core.api.icons;
 	exports com.legyver.fenxlib.core.api.locator;
 	exports com.legyver.fenxlib.core.api.uimodel;
 	exports com.legyver.fenxlib.core.api.util.hook;

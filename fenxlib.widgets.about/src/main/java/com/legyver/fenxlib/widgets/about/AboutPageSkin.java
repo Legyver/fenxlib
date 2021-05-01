@@ -5,11 +5,18 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Skin for an AboutPage
+ */
 public class AboutPageSkin extends SkinBase<AboutPage> {
 	private final StackPane aboutDetailStack;
 	private final StackPane referenceListStack;
 	private final StackPane copyrightStack;
 
+	/**
+	 * Construct a skin for the about page
+	 * @param aboutPage the about page to skin
+	 */
 	public AboutPageSkin(AboutPage aboutPage) {
 		super(aboutPage);
 		aboutDetailStack = new StackPane();
@@ -27,7 +34,5 @@ public class AboutPageSkin extends SkinBase<AboutPage> {
 		copyrightStack.getChildren().add(new CopyrightNotice(aboutPage.getCopyright()));
 		getChildren().setAll(layout);
 	}
-
-
 
 }

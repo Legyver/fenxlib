@@ -1,4 +1,4 @@
-description = 'Skins for Fenxlib widgets'
+description = 'Numeric skins for Fenxlib widgets'
 
 apply from: publishBuildScript
 

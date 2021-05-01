@@ -10,8 +10,10 @@ import com.legyver.utils.propcross.SlelOperationContext;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * Factory to create an AboutPage
+ */
 public class AboutPageFactory implements NodeFactory<AboutPage> {
-	private static final String JEXL_VARIABLE = "\\$\\{(([a-z\\.-])*)\\}";
 	private final String intro;
 	private final String gist;
 	private final String additionalInfo;
@@ -19,6 +21,15 @@ public class AboutPageFactory implements NodeFactory<AboutPage> {
 	private final Properties buildProperties;
 	private final Properties copyrightProperties;
 
+	/**
+	 * Construct an AboutPageFactory
+	 * @param intro the first paragraph
+	 * @param gist the second paragraph
+	 * @param additionalInfo the third paragraph
+	 * @param licenseProperties properties file containing any additional license information
+	 * @param buildProperties properties file containing application build information
+	 * @param copyrightProperties properties file containing application copyright information
+	 */
 	public AboutPageFactory(String intro, String gist, String additionalInfo, Properties licenseProperties, Properties buildProperties, Properties copyrightProperties) {
 		this.intro = intro;
 		this.gist = gist;
@@ -28,6 +39,10 @@ public class AboutPageFactory implements NodeFactory<AboutPage> {
 		this.copyrightProperties = copyrightProperties;
 	}
 
+	/**
+	 * Construct an AboutPageFactory
+	 * @param aboutPageOptions the options to use
+	 */
 	public AboutPageFactory(AboutPageOptions aboutPageOptions) {
 		this(aboutPageOptions.getIntro(), aboutPageOptions.getGist(), aboutPageOptions.getAdditionalInfo(), aboutPageOptions.getLicenseProperties(), aboutPageOptions.getBuildProperties(), aboutPageOptions.getCopyrightProperties());
 	}

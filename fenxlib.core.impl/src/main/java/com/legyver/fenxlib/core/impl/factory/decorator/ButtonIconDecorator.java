@@ -9,10 +9,18 @@ import javafx.scene.control.Button;
 import com.legyver.fenxlib.core.api.factory.NodeFactory;
 import com.legyver.fenxlib.core.impl.factory.SvgIconFactory;
 
+/**
+ * Decorate an icon with a clickable button
+ */
 public class ButtonIconDecorator implements NodeFactory<Button> {
 	private final SvgIconFactory factory;
 	private final EventHandler<ActionEvent> onClick;
 
+	/**
+	 * Construct a factory to decorate the output of the icon factory with a button
+	 * @param onClick what to do when the button is clicked
+	 * @param factory factory creating the icon
+	 */
 	public ButtonIconDecorator(EventHandler<ActionEvent> onClick, SvgIconFactory factory) {
 		this.onClick = onClick;
 		this.factory = factory;

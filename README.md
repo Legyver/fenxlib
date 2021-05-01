@@ -9,7 +9,7 @@ Since version 2.0.0.0, this library has been made module-friendly, and hence the
 The main functionality of this library is in the fenxlib.core.impl module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.0.0.0-rc1'
+implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.0.0.0-rc2'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
@@ -18,7 +18,7 @@ There are several extensions, widgets and skins available as well as independent
 - [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx/README.MD)
     - an extension for TukTukFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.0.0.0-rc1'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.0.0.0-rc2'
 ```
 
 ### Widgets
@@ -26,21 +26,25 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
   - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-rc1'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-rc2'
 ```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.0.0.0-rc1'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.0.0.0-rc2'
 ```
-
 ### Skins
 - [fenxlib.skins.number](fenxlib.skins.number/README.MD)
   - skins for showing numbers in text fields
     - currency
     - percentages
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-rc1'
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-rc2'
+```
+- [fenxlib.skins.svg](fenxlib.skins.svg/README.md)
+  - SVG control that attaches an action to an icon
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.skins.svg', version: '2.0.0.0-rc2'
 ```
 
 ## Samples

@@ -7,10 +7,18 @@ import com.legyver.fenxlib.core.impl.factory.options.SizeOptions;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContextDecorator;
 
+/**
+ * Factory to create a JFXListView
+ */
 public class JFXListViewFactory implements NodeFactory<JFXListView> {
 	private final String name;
 	private final SizeOptions sizeOptions;
 
+	/**
+	 * Construct a factory to create a JFXListView
+	 * @param name name of the list view
+	 * @param sizeOptions size options for the ListView
+	 */
 	public JFXListViewFactory(String name, SizeOptions sizeOptions) {
 		this.name = name;
 		this.sizeOptions = sizeOptions;

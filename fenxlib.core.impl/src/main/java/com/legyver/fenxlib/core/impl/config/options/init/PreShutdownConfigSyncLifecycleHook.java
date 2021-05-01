@@ -1,15 +1,20 @@
 package com.legyver.fenxlib.core.impl.config.options.init;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.api.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.api.config.options.init.ApplicationLifecycleHook;
 import com.legyver.fenxlib.core.impl.config.ApplicationConfig;
 import com.legyver.fenxlib.core.impl.files.FileRegistry;
 import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
-import com.legyver.fenxlib.core.impl.config.parts.ILastOpened;
+import com.legyver.fenxlib.core.api.config.parts.ILastOpened;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 import javafx.collections.ObservableList;
 
+/**
+ * Lifecycle hook to sync any information about the application state (recently-viewed files, etc) to the application config file
+ * @param <T> the type of ApplicationContext
+ */
 public class PreShutdownConfigSyncLifecycleHook<T extends ApplicationConfig> implements ApplicationLifecycleHook {
 	@Override
 	public LifecyclePhase getLifecyclePhase() {
@@ -32,11 +37,11 @@ public class PreShutdownConfigSyncLifecycleHook<T extends ApplicationConfig> imp
 	 * Override this method when you register your hook if you want something other than the recentFiles synced.
 	 * It will not replace the default hook, but you can register a separate one to sync other items.
 	 */
-	protected void syncToConfig(T applicationConfig) {
+	protected void syncToConfig(T applicationConfig) throws CoreException {
 		updateLastOpenedDirectory(applicationConfig);
 	}
 
-	private void updateLastOpenedDirectory(ApplicationConfig applicationConfig) {
+	private void updateLastOpenedDirectory(ApplicationConfig applicationConfig) throws CoreException {
 		FileRegistry fileRegistry = ApplicationContext.getFileRegistry();
 		ObservableList<FileOptions> openFiles = fileRegistry.getOpenFiles();
 

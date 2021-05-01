@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.impl.config.options.init;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.api.uimodel.IUiModel;
 import com.legyver.fenxlib.core.api.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.api.config.options.init.ApplicationLifecycleHook;
@@ -7,6 +8,11 @@ import com.legyver.fenxlib.core.impl.config.ApplicationConfig;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 
+/**
+ * Lifecycle hook to sync aspects of application state from the application config to the UI model when the application starts
+ * @param <T> the type of the application config
+ * @param <U> the type of the UI model
+ */
 public class UiModelConfigInitializer<T extends ApplicationConfig, U extends IUiModel> implements ApplicationLifecycleHook {
 	@Override
 	public LifecyclePhase getLifecyclePhase() {
@@ -25,7 +31,7 @@ public class UiModelConfigInitializer<T extends ApplicationConfig, U extends IUi
 	/**
 	 * Override this method when you register your hook to sync config to your UiModel.
 	 */
-	protected void syncToUiModel(T applicationConfig, U uiModel) {
+	protected void syncToUiModel(T applicationConfig, U uiModel) throws CoreException {
 		//template
 	}
 }

@@ -1,41 +1,22 @@
 package com.legyver.fenxlib.core.impl.factory.menu.file;
 
-import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
-import com.legyver.fenxlib.core.impl.context.ApplicationContext;
-import com.legyver.fenxlib.core.impl.factory.DirectoryOptionsChooserFactory;
-import com.legyver.fenxlib.core.impl.factory.menu.IMenuItemFactory;
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.impl.factory.menu.file.internal.AbstractSelectFileOrDirectoryFactory;
+import com.legyver.fenxlib.core.impl.factory.menu.file.internal.DirectoryOptionsChooserFactory;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.function.Consumer;
 
-import javafx.scene.control.MenuItem;
+public class SelectDirectoryMenuFactory extends AbstractSelectFileOrDirectoryFactory<DirectoryOptionsChooserFactory> {
 
-public class SelectDirectoryMenuFactory implements IMenuItemFactory<FileOptions> {
-
-	private final String name;
-	private final String message;
-	private final String initialDirectory;
-	private final Consumer<File> directorySelectionConsumer;
-
-	public SelectDirectoryMenuFactory(String name, String message, String initialDirectory, Consumer<File> directorySelectionConsumer) {
-		this.name = name;
-		this.message = message;
-		this.initialDirectory = initialDirectory;
-		this.directorySelectionConsumer = directorySelectionConsumer;
+	public SelectDirectoryMenuFactory() throws CoreException {
+		super(new DirectoryOptionsChooserFactory());
 	}
 
 	@Override
-	public MenuItem makeItem() {
-		MenuItem select = new MenuItem(name);
-		select.setOnAction(av -> {
-			DirectoryOptionsChooserFactory factory = new DirectoryOptionsChooserFactory(message, initialDirectory);
-			File selectedDirectory = factory.makeDirectoryChooser().showDialog(ApplicationContext.getPrimaryStage());
-
-			if (selectedDirectory != null) {
-				directorySelectionConsumer.accept(selectedDirectory);
-			}
-		});
-		return select;
+	public File choose(Action action, String message, DirectoryOptionsChooserFactory chooserFactory, Stage primaryStage) {
+		DirectoryChooser directoryChooser = chooserFactory.makeDirectoryChooser(message);
+		return action.choose(directoryChooser, primaryStage);
 	}
-
 }

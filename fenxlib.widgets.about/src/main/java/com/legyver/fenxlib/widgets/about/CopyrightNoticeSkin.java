@@ -4,6 +4,9 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+/**
+ * Skin for a CopyrightNotice
+ */
 public class CopyrightNoticeSkin extends SkinBase<CopyrightNotice> {
 	private final StackPane content;
 

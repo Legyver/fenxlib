@@ -1,9 +1,11 @@
 package com.legyver.fenxlib.core.impl.files;
 
-import com.legyver.fenxlib.core.impl.config.GsonApplicationConfig;
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.impl.config.JsonApplicationConfig;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
 
@@ -23,27 +25,27 @@ public class FileIOUtil {
 	}
 	
 	public FileIOUtil() {
-		this(map -> new GsonApplicationConfig(map));
+		this(map -> new JsonApplicationConfig(map));
 	}
 
-	public Object readModel(File file) throws IOException, IllegalAccessException {
+	public Object readModel(File file) throws IOException, CoreException {
 		return readModel(loadFileToString(file));
 	}
 
-	public Object readModel(String fileContents) throws IOException, IllegalAccessException {
+	public Object readModel(String fileContents) throws CoreException {
 		return strategy.toModel(fileContents);
 	}
 	
-	public void saveModel(Object model, File file) throws IOException, IllegalAccessException {
+	public void saveModel(Object model, File file) throws IOException, CoreException {
 		writeFileFromString(file, strategy.fromModel(model));
 	}
 	
 	protected String loadFileToString(File file) throws IOException {
-		return FileUtils.readFileToString(file, "UTF-8");
+		return file.exists() ? FileUtils.readFileToString(file, StandardCharsets.UTF_8) : null;
 	}
 	
 	protected void writeFileFromString(File file, String string) throws IOException {
-		FileUtils.write(file, string, "UTF-8");
+		FileUtils.write(file, string, StandardCharsets.UTF_8);
 	}
 
 }

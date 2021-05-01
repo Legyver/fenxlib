@@ -5,6 +5,10 @@ import com.legyver.tuktukfx.task.IAbortTask;
 import com.legyver.tuktukfx.task.ITask;
 import javafx.concurrent.Task;
 
+/**
+ * Adapter to process {@link javafx.concurrent.Task} tasks with tuktukfx
+ * @param <R> the return type of the task
+ */
 public class JavaFxAdapter<R extends Object> extends Task<R> implements AbortableTaskStatusAdapter {
 	private final ITask<R> wrappedTask;
 

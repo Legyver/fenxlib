@@ -11,6 +11,9 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * Skin for an OpenSourceReferenceList
+ */
 public class OpenSourceReferenceListSkin extends SkinBase<OpenSourceReferenceList> {
 	private final GridPane gridPane;
 

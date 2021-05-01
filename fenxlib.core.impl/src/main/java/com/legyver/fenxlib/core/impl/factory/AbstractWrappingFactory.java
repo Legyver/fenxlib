@@ -14,14 +14,31 @@ import static com.legyver.core.exception.CoreException.unwrap;
 import static com.legyver.core.exception.CoreException.wrap;
 import javafx.css.Styleable;
 
+/**
+ * Abstract factory for any factory that has child components created by nested factories
+ * @param <T> the type of the widget being created
+ */
 public class AbstractWrappingFactory<T extends Styleable> {
 
+	/**
+	 * Nested factories for creating embedded widgets
+	 */
 	protected final StyleableFactory<? extends T>[] styleableFactories;
 
+	/**
+	 * Construct a wrapping factory for the specified child factories
+	 * @param styleableFactories child factories
+	 */
 	public AbstractWrappingFactory(StyleableFactory<? extends T>... styleableFactories) {
 		this.styleableFactories = styleableFactories;
 	}
 
+	/**
+	 * Add children to the specified list
+	 * @param childs the list to add the children to
+	 * @param locationContext the location context when constructing the children
+	 * @throws CoreException if there is an error during child component creation
+	 */
 	protected void addChildren(ObservableList<T> childs, LocationContext locationContext) throws CoreException {
 		if (styleableFactories != null) {
 			makeChildStream(locationContext)
@@ -34,6 +51,12 @@ public class AbstractWrappingFactory<T extends Styleable> {
 				.map((StyleableFactory f) -> CoreException.wrap(() -> f.makeNode(locationContext))));
 	}
 
+	/**
+	 * Create a list of child compoenents
+	 * @param locationContext the location context when constructing the children
+	 * @return the list of children
+	 * @throws CoreException if there is an error during child component creation
+	 */
 	protected List<T> makeChildren(LocationContext locationContext) throws CoreException {
 		List<T> childList = Collections.EMPTY_LIST;
 		if (styleableFactories != null) {

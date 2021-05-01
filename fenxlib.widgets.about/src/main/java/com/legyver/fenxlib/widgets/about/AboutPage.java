@@ -5,6 +5,9 @@ import javafx.scene.control.Skin;
 
 import java.util.Properties;
 
+/**
+ * Widget to create an 'About' page for an application
+ */
 public class AboutPage extends Control {
 
 	private final String intro;
@@ -16,6 +19,17 @@ public class AboutPage extends Control {
 	private final String copyright;
 	private final Properties licenseProperties;
 
+	/**
+	 * Construct an About Page
+	 * @param intro the first paragraph
+	 * @param gist the second paragraph
+	 * @param additionalInfo the third paragraph
+	 * @param version the version of the application
+	 * @param buildDate the build-date of the application
+	 * @param copyright the copyright notice for the application
+	 * @param openSourceTagLine the tagline to display before list of open source libraries
+	 * @param licenseProperties properties file containing any additional license information for libraries
+	 */
 	public AboutPage(String intro, String gist, String additionalInfo, String version, String buildDate, String copyright, String openSourceTagLine, Properties licenseProperties) {
 		this.intro = intro;
 		this.gist = gist;
@@ -28,6 +42,16 @@ public class AboutPage extends Control {
 		getStyleClass().add("about-page");
 	}
 
+	/**
+	 * Construct an about page
+	 * @param intro the first paragraph
+	 * @param gist the second paragraph
+	 * @param additionalInfo the third paragraph
+	 * @param version the version of the application
+	 * @param buildDate the build-date of the application
+	 * @param copyright the copyright notice for the application
+	 * @param licenseProperties properties file containing any additional license information for libraries
+	 */
 	public AboutPage(String intro, String gist, String additionalInfo, String version, String buildDate, String copyright, Properties licenseProperties) {
 		this(intro, gist, additionalInfo, version, buildDate, copyright, "Powered by open source", licenseProperties);
 	}
@@ -42,34 +66,66 @@ public class AboutPage extends Control {
 		return AboutPage.class.getResource("aboutpage.css").toExternalForm();
 	}
 
+	/**
+	 * Get the first paragraph
+	 * @return the intro
+	 */
 	public String getIntro() {
 		return intro;
 	}
 
+	/**
+	 * Get the second paragraph
+	 * @return the gist
+	 */
 	public String getGist() {
 		return gist;
 	}
 
+	/**
+	 * Get the tagline to display prior to the list of open-source library dependencies
+	 * @return the tagline
+	 */
 	public String getOpenSourceTagLine() {
 		return openSourceTagLine;
 	}
 
+	/**
+	 * Get the third paragraph
+	 * @return any additional information
+	 */
 	public String getAdditionalInfo() {
 		return additionalInfo;
 	}
 
+	/**
+	 * Get the version of the application
+	 * @return the version
+	 */
 	public String getVersion() {
 		return version;
 	}
 
+	/**
+	 * Get the build-date of the application
+	 * @return the build-date
+	 */
 	public String getBuildDate() {
 		return buildDate;
 	}
 
+	/**
+	 * Get the copyright notice for the application
+	 * @return the copyright notice
+	 */
 	public String getCopyright() {
 		return copyright;
 	}
 
+	/**
+	 * Get the properties file containing additional license information for any open-source libraries used
+	 * @return the license properties file
+	 */
 	public Properties getLicenseProperties() {
 		return licenseProperties;
 	}

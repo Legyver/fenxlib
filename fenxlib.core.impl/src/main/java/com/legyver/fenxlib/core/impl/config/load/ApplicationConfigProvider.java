@@ -1,18 +1,13 @@
 package com.legyver.fenxlib.core.impl.config.load;
 
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * Hook to provide an application config
+ */
 public interface ApplicationConfigProvider {
 
 	/**
-	 * Read the appropriate resource.
+	 * return the filename for the application config
+	 * @return the application config file
 	 */
-	String getApplicationConfigAsString() throws IOException;
-
-	/**
-	 * Load config.json
-	 * @return
-	 */
-	File getApplicationConfigFile();
+	String getApplicationConfigFilename();
 }

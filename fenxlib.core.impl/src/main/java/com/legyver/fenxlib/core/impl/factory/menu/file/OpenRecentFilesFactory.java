@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.impl.factory.menu.file;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
 import com.legyver.fenxlib.core.impl.factory.menu.IMenuItemFactory;
 
@@ -12,7 +13,8 @@ import java.util.stream.Collectors;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
-public class OpenRecentFilesFactory implements IMenuItemFactory {
+public class OpenRecentFilesFactory extends AbstractMenuItemFactory implements IMenuItemFactory {
+	public static final String NAME = "Recent";
 	private final List<OpenRecentFileFactory> factories;
 	private final boolean noRecentFiles;
 
@@ -22,13 +24,17 @@ public class OpenRecentFilesFactory implements IMenuItemFactory {
 	}
 
 	@Override
-	public MenuItem makeItem() throws CoreException {
-		Menu recentMenu = new Menu("Recent");
+	public MenuItem makeItem(LocationContext locationContext) throws CoreException {
+		Menu recentMenu = new Menu(NAME);
 		recentMenu.setDisable(noRecentFiles);
 		for (OpenRecentFileFactory factory : factories) {
-			recentMenu.getItems().add(factory.makeItem());
+			recentMenu.getItems().add(factory.makeItem(locationContext));
 		}
-		return recentMenu;
+		return register(locationContext, recentMenu);
 	}
 
+	@Override
+	protected String getName() {
+		return NAME;
+	}
 }

@@ -20,10 +20,14 @@ dependencies {
     api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
     //file-based config
     api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+    api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
+
     //logging
     api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
 
     testImplementation 'junit:junit:4.13'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
+
     testImplementation group: 'org.testfx', name: 'testfx-junit', version: '4.0.16-alpha'
     testImplementation group: 'junit-addons', name: 'junit-addons', version: '1.4'
 }

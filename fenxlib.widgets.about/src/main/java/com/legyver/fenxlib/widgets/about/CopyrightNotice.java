@@ -3,6 +3,9 @@ package com.legyver.fenxlib.widgets.about;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
+/**
+ * Widget to render the copyright notice
+ */
 public class CopyrightNotice extends Control {
 	private final String text;
 

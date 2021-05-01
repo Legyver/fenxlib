@@ -1,0 +1,19 @@
+description = 'Fenxlib FontAwesome icons'
+
+apply from: publishBuildScript
+
+dependencies {
+    //exception
+    api group: 'com.legyver', name: 'core', version: legyverCoreVersion
+    //ui
+    api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
+
+    api project(':fenxlib.core.api')
+
+    //logging
+    api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
+}
+
+java {
+    modularity.inferModulePath = true
+}

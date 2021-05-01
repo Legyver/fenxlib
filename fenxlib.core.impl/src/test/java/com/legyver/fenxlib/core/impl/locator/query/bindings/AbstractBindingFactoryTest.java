@@ -3,6 +3,7 @@ package com.legyver.fenxlib.core.impl.locator.query.bindings;
 import com.legyver.fenxlib.core.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.api.locator.query.IRegionDiscriminator;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.locator.query.QueryableComponentRegistry;
 
@@ -32,7 +33,7 @@ public class AbstractBindingFactoryTest extends ApplicationTest {
 		LocationContext locationContext = new DefaultLocationContext("Test panel");
 		registry.register(locationContext, textField);
 
-		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder()
+		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		factory.bindTextField(s, query, null);
 		assertThat(textField.getText(), is("Test Value"));
@@ -52,7 +53,7 @@ public class AbstractBindingFactoryTest extends ApplicationTest {
 		LocationContext locationContext = new DefaultLocationContext("Test panel");
 		registry.register(locationContext, picker);
 
-		ComponentQuery.RegionQueryBuilder query = new ComponentQuery.QueryBuilder()
+		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		factory.bindDatePicker(ld, query, null);
 		assertThat(picker.getValue(), is(LocalDate.now()));
