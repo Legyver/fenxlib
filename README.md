@@ -41,10 +41,25 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.
 ```gradle
 implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-rc2'
 ```
-- [fenxlib.skins.svg](fenxlib.skins.svg/README.md)
+
+### Controls
+- [fenxlib.controls.svg](fenxlib.controls.svg/README.md)
   - SVG control that attaches an action to an icon
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.svg', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.controls.svg', version: '2.0.0.0-rc2'
+```
+
+### Icons
+- fenxlib.icons.fa
+  - Bootstraps an application with fa-free-regular and fa-free-solid svg icons
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.icons.fa', version: '2.0.0.0-rc2'
+```
+
+- fenxlib.icons.icomoon
+  - Bootstraps an application with icomoon svg icons
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.icons.icomoon', version: '2.0.0.0-rc2'
 ```
 
 ## Samples
