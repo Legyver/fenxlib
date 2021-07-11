@@ -15,6 +15,11 @@ public class SystemBrowserHyperlinkFactory implements NodeFactory<Hyperlink> {
 	private final HostServices hostServices;
 	private final String url;
 
+	/**
+	 * Construct a factory that produces hyperlinks to open the link in a OS-default browser window
+	 * @param url the url to open
+	 * @param hostServices reference to the OS browser services
+	 */
 	public SystemBrowserHyperlinkFactory(String url, HostServices hostServices) {
 		this.url = url;
 		this.hostServices = hostServices;

@@ -44,6 +44,7 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 	/**
 	 * Get the node registered under a UUID
 	 * @param guid the uuid to reference
+	 * @param <T> the type of the JavaFX Component
 	 * @return the node registered with the uuid
 	 */
 	public <T extends EventTarget>  T get(UUID guid) {

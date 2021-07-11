@@ -18,6 +18,12 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 	private final ApplicationConfigInstantiator appConfigInstantiator;
 	private final ApplicationConfigProvider applicationConfigProvider;
 
+	/**
+	 * Construct an Application Lifecycle Hook to load the config.
+	 * By default this happens during {@link LifecyclePhase#PRE_INIT}
+	 * @param appConfigInstantiator instantiates the config if it does not exist
+	 * @param applicationConfigProvider provides the config filename
+	 */
 	public LoadConfigApplicationLifecycleHook(ApplicationConfigInstantiator appConfigInstantiator, ApplicationConfigProvider applicationConfigProvider) {
 		this.appConfigInstantiator = appConfigInstantiator;
 		this.applicationConfigProvider = applicationConfigProvider;

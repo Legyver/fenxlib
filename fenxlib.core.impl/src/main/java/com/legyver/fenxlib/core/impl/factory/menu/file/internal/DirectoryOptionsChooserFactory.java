@@ -10,7 +10,7 @@ public class DirectoryOptionsChooserFactory extends AbstractChooserFactory {
 
 	/**
 	 * Construct a directory chooser with the initial directory of the last-opened file as loaded from config
-	 * @throws CoreException
+	 * @throws CoreException if an error is encountered reading the last-opened file from the config
 	 */
 	public DirectoryOptionsChooserFactory() throws CoreException {
 		super();
@@ -18,6 +18,7 @@ public class DirectoryOptionsChooserFactory extends AbstractChooserFactory {
 
 	/**
 	 * Create the DirectoryChooser
+	 * @param title the title for the directory chooser
 	 * @return the DirectoryChooser
 	 */
 	public DirectoryChooser makeDirectoryChooser(String title) {

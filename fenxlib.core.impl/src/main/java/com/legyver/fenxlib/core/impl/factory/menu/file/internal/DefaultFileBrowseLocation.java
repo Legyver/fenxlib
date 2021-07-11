@@ -30,18 +30,34 @@ public class DefaultFileBrowseLocation {
 		return initialDirectory.get();
 	}
 
+	/**
+	 * Get the initial directory property
+	 * @return the initial directory property
+	 */
 	public ObjectProperty<File> initialDirectory() {
 		return initialDirectory;
 	}
 
+	/**
+	 * Set the initial file name
+	 * @param initialFileName the initial file name
+	 */
 	public void setInitialFileName(String initialFileName) {
 		this.initialFileName.set(initialFileName);
 	}
 
+	/**
+	 * Get the initial file name
+	 * @return the initial file name
+	 */
 	public String getInitialFileName() {
 		return initialFileName.get();
 	}
 
+	/**
+	 * Get the initial file name property
+	 * @return the initial file name property
+	 */
 	public StringProperty initialFileName() {
 		return initialFileName;
 	}

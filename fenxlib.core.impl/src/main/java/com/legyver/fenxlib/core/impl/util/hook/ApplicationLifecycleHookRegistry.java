@@ -10,19 +10,34 @@ import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 
+/**
+ * An application lifecycle hook registry to keep track of all lifecycle hooks and the application current state
+ */
 public class ApplicationLifecycleHookRegistry {
 
 	private final EnumMap<LifecyclePhase, TreeMap<Integer, ExecutableHook>> lifecycleHooks = new EnumMap<>(LifecyclePhase.class);
 	private final ApplicationStateMachine applicationStateMachine = new ApplicationStateMachine();
 
+	/**
+	 * Construct an application lifecycle hook registry to keep track of all lifecycle hooks and the application current state
+	 */
 	public ApplicationLifecycleHookRegistry() {
 		applicationStateMachine.addObserver(ApplicationContext.getAppState());
 	}
 
+	/**
+	 * Startup the application by running through the lifecycle to {@link LifecyclePhase#POST_INIT}
+	 * @throws CoreException if there is an error raised by any of the associated hooks
+	 */
 	public void startup() throws CoreException {
 		executeHook(LifecyclePhase.POST_INIT);
 	}
 
+	/**
+	 * Execute a lifecycle hook
+	 * @param hook the hook (phase) to execute
+	 * @throws CoreException if an error is raised in running the hook
+	 */
 	public void executeHook(LifecyclePhase hook) throws CoreException {
 		applicationStateMachine.run(hook, phase -> {
 			TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.get(phase);
@@ -37,14 +52,14 @@ public class ApplicationLifecycleHookRegistry {
 	}
 
 	/**
-	 *
-	 * @param hook
-	 * @param executableHook
+	 * Register a lifecycle phase to be executed in a specific lifecycle phase
+	 * @param phase the phase in which the hook should be executed
+	 * @param executableHook the hook to be executed
 	 * @param priority: determines the order in which executable hooks within same phase are run
 	 */
-	public void registerHook(LifecyclePhase hook, ExecutableHook executableHook, int priority) {
-		TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.getOrDefault(hook, new TreeMap<>());
-		lifecycleHooks.put(hook, executableHooks);
+	public void registerHook(LifecyclePhase phase, ExecutableHook executableHook, int priority) {
+		TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.getOrDefault(phase, new TreeMap<>());
+		lifecycleHooks.put(phase, executableHooks);
 
 		if (!executableHooks.containsKey(priority)) {
 			executableHooks.put(priority, executableHook);
@@ -60,7 +75,10 @@ public class ApplicationLifecycleHookRegistry {
 		}
 	}
 
-	public void reset() throws CoreException {
+	/**
+	 * Clear all lifecycle hooks and reset the application state machine
+	 */
+	public void reset() {
 		lifecycleHooks.clear();
 		applicationStateMachine.reset();
 	}

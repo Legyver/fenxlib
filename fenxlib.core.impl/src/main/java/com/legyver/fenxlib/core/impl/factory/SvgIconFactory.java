@@ -15,6 +15,10 @@ public class SvgIconFactory implements NodeFactory<SVGGlyph> {
 	private final String fileName =  "icomoon.svg";
 	private final IconOptions iconOptions;
 
+	/**
+	 * Construct a factory to create SVG icons
+	 * @param iconOptions the icon options to use for all icons produced by the factory
+	 */
 	public SvgIconFactory(IconOptions iconOptions) {
 		this.iconOptions = iconOptions;
 	}

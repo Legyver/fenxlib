@@ -66,6 +66,12 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		defaultFileBrowseLocation.setInitialDirectory(getLastModifiedParentDir(applicationConfig));
 	}
 
+	/**
+	 * Get the parent directory of the last modified file.
+	 * @param applicationConfig the application config to read the last modified file from
+	 * @return the parent directory if there is a last-opened file and the directory still exists
+	 * @throws CoreException if there is an error reading the last-opened file from the config
+	 */
 	public File getLastModifiedParentDir(ApplicationConfig applicationConfig) throws CoreException {
 		File workingDir = null;
 		ILastOpened lastOpened = applicationConfig.getLastOpened();
@@ -100,12 +106,22 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		}
 	}
 
+	/**
+	 * Null-safe check for if a file exists.
+	 * @param file the file candidate
+	 * @return true if the file is not null and exists
+	 */
 	protected boolean isFileValid(File file) {
 		return file != null && file.exists();
 	}
 
-	protected boolean isDirectoryValid(File file) {
-		return file != null && file.isDirectory();
+	/**
+	 * Null-safe check if the directory is valid
+	 * @param directory the candidate directory
+	 * @return true if the directory is not null and is in fact a directory
+	 */
+	protected boolean isDirectoryValid(File directory) {
+		return directory != null && directory.isDirectory();
 	}
 
 	private void openingFileUpdatesConfig(ApplicationConfig applicationConfig) {

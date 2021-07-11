@@ -14,10 +14,17 @@ public class HookExecutingAction {
 	private static final Logger logger = LogManager.getLogger(HookExecutingAction.class);
 	private final LifecyclePhase hook;
 
+	/**
+	 * Construct a action that executes a lifecycle hook
+	 * @param hook the hook to execute
+	 */
 	public HookExecutingAction(LifecyclePhase hook) {
 		this.hook = hook;
 	}
 
+	/**
+	 * Execute a lifecycle hook
+	 */
 	public void execute() {
 		try {
 			ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(hook);

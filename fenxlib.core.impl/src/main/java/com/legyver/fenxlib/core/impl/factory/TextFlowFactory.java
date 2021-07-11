@@ -11,6 +11,10 @@ import javafx.scene.text.TextFlow;
  */
 public class TextFlowFactory extends AbstractWrappingFactory implements NodeFactory<TextFlow> {
 
+    /**
+     * Construct a TextFlowFactory wrapping the output of any nested factories in a TextFlow
+     * @param nodeFactories factories producing child content
+     */
     public TextFlowFactory(NodeFactory... nodeFactories) {
         super(nodeFactories);
     }

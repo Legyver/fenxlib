@@ -10,10 +10,18 @@ import java.util.function.Consumer;
 
 import javafx.scene.control.MenuItem;
 
+/**
+ * Factory to create a menu item to open a recent file
+ */
 public class OpenRecentFileFactory implements IMenuItemFactory {
 	private final FileOptions fileOptions;
 	private final Consumer<File> fileOpenConsumer;
 
+	/**
+	 * Construct a factory to create a MenuItem that will open a specific file
+	 * @param fileOptions the file to open
+	 * @param fileOpenConsumer any action that should be taken when the file is opened
+	 */
 	public OpenRecentFileFactory(FileOptions fileOptions, Consumer<File> fileOpenConsumer) {
 		this.fileOptions = fileOptions;
 		this.fileOpenConsumer = fileOpenConsumer;

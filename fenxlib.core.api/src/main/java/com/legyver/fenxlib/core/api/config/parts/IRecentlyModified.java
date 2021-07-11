@@ -33,8 +33,8 @@ public interface IRecentlyModified<T extends IRecentlyViewedFile> {
 
 	/**
 	 * Set the limit on how many files to show in recently-viewed menu
-	 * @param limit
-	 * @throws CoreException
+	 * @param limit the max number of files to keep track of
+	 * @throws CoreException if there is a problem setting the value on the backing config
 	 */
 	void setLimit(int limit) throws CoreException;
 

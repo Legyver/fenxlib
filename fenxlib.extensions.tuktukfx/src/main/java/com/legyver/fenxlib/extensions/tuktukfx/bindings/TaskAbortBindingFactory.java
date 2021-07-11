@@ -9,6 +9,10 @@ import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
  */
 public interface TaskAbortBindingFactory extends AbstractBindingFactory {
 
+	/**
+	 * Register the task with the application so application shutdown aborts the task
+	 * @param abortable the task to abort on application shutdown
+	 */
 	default void taskAbortObservesShutdown(AbortableTaskStatusAdapter abortable) {
 		BaseApplicationContext.getAppState().shuttingDownProperty().addListener((observableValue, oldValue, newValue) -> {
 			abortable.abort();

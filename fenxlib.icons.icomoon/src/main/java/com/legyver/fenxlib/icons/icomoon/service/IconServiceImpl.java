@@ -8,6 +8,9 @@ import java.util.List;
 
 import static com.legyver.fenxlib.icons.icomoon.IcoMoonFonts.ICO_MOON;
 
+/**
+ * Load the IcoMoon icon library
+ */
 public class IconServiceImpl implements IconService {
 
 	@Override

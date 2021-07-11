@@ -57,12 +57,17 @@ public class ApplicationOptions {
 
 	/**
 	 * Execute up to and including POST_INIT
-	 * @throws CoreException
+	 * @throws CoreException if there is an error executing any of the hooks
 	 */
 	public void postInit() throws CoreException {
 		executePhase(LifecyclePhase.POST_INIT);
 	}
 
+	/**
+	 * Execute up to and including a specific lifecycle phase
+	 * @param phase the phase to execute up to (inclusive)
+	 * @throws CoreException if there is an error executing any of the hooks
+	 */
 	protected void executePhase(LifecyclePhase phase) throws CoreException {
 		ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(phase);
 	}

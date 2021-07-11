@@ -12,30 +12,55 @@ import javafx.concurrent.Task;
 public class JavaFxAdapter<R extends Object> extends Task<R> implements AbortableTaskStatusAdapter {
 	private final ITask<R> wrappedTask;
 
+	/**
+	 * Construct a JavaFxAdapter that wraps a TukTukFX {@link ITask}
+	 * @param wrappedTask the task to wrap
+	 */
 	public JavaFxAdapter(ITask<R> wrappedTask) {
 		this.wrappedTask = wrappedTask;
 	}
 
+	/**
+	 * Execute the wrapped task
+	 * @return the result
+	 * @throws Exception if an Exception is raised by the wrapped task
+	 */
 	@Override
 	protected R call() throws Exception {
 		return wrappedTask.execute(this);
 	}
 
+	/**
+	 * Update the title property
+	 * @param message the new title
+	 */
 	@Override
 	public void updateTitle(String message) {
 		super.updateTitle(message);//overridden to expose JavaFx messaging to common ProgressAwareTask abstraction
 	}
 
+	/**
+	 * Update the message property
+	 * @param message the new message
+	 */
 	@Override
 	public void updateMessage(String message) {
-		super.updateMessage(message);//overridden to expose JavaFx messaging to common ProgressAwareTask abstraction
+		super.updateMessage(message);//overridden to expose JavaFx messaging to common TukTukFX task abstraction
 	}
 
+	/**
+	 * Update the progress indicator
+	 * @param numerator the range value
+	 * @param denominator the domain value
+	 */
 	@Override
 	public void updateProgress(double numerator, double denominator) {
-		super.updateProgress(numerator, denominator);//overridden to expose JavaFx messaging to common ProgressAwareTask abstraction
+		super.updateProgress(numerator, denominator);//overridden to expose JavaFx messaging to common TukTukFX task abstraction
 	}
 
+	/**
+	 * Abort the task
+	 */
 	@Override
 	public void abort() {
 		if (wrappedTask instanceof IAbortTask && !super.isDone()) {
@@ -43,6 +68,10 @@ public class JavaFxAdapter<R extends Object> extends Task<R> implements Abortabl
 		}
 	}
 
+	/**
+	 * Check if the wrapped task is aborted
+	 * @return true if the wrapped task is aborted
+	 */
 	@Override
 	public boolean isAborted() {
 		if (wrappedTask instanceof IAbortTask) {

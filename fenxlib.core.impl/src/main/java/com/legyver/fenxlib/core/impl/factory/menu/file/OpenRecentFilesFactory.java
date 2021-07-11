@@ -13,11 +13,22 @@ import java.util.stream.Collectors;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Factory to create a menu item to open a recent file
+ */
 public class OpenRecentFilesFactory extends AbstractMenuItemFactory implements IMenuItemFactory {
+	/**
+	 * Default name for the recent file menu
+	 */
 	public static final String NAME = "Recent";
 	private final List<OpenRecentFileFactory> factories;
 	private final boolean noRecentFiles;
 
+	/**
+	 * Construct a factory to create a menu item to open a recent file
+	 * @param recentFiles list of recent files to create menu items for
+	 * @param fileOpenConsumer any action that should be taken when a file is opened
+	 */
 	public OpenRecentFilesFactory(List<FileOptions> recentFiles, Consumer<File> fileOpenConsumer) {
 		this.noRecentFiles = recentFiles.isEmpty();
 		factories = recentFiles.stream().map(option -> new OpenRecentFileFactory(option, fileOpenConsumer)).collect(Collectors.toList());

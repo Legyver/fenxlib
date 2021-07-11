@@ -4,8 +4,15 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Skin to auto-append a percent symbol to a number.
+ */
 public class PercentageFieldSkin extends AbstractNumberSkin {
 
+	/**
+	 * Construct a Skin for a Percentage field that appends a percent symbol to the number
+	 * @param skinnable the number field to skin
+	 */
 	public PercentageFieldSkin(SkinnableNumberField skinnable) {
 		super(skinnable, false);
 	}

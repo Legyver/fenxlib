@@ -8,8 +8,15 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+/**
+ * DirectoryChooser factory
+ */
 public class SelectDirectoryMenuFactory extends AbstractSelectFileOrDirectoryFactory<DirectoryOptionsChooserFactory> {
 
+	/**
+	 * Construct a DirectoryChooser factory
+	 * @throws CoreException if there is an error reading the default browser-to location for the chooser
+	 */
 	public SelectDirectoryMenuFactory() throws CoreException {
 		super(new DirectoryOptionsChooserFactory());
 	}

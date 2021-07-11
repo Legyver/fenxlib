@@ -9,6 +9,10 @@ import com.legyver.utils.adaptex.ExceptionToCoreExceptionVoidActionDecorator;
 
 import java.io.File;
 
+/**
+ * Loads the application config from file.
+ * This was moved to a service to make tests more sensible.
+ */
 public class ConfigServiceImpl implements ConfigService {
 	private final FileIOUtil fileIOUtil;
 

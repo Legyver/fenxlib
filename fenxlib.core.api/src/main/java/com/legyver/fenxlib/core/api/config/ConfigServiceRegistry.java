@@ -47,6 +47,12 @@ public class ConfigServiceRegistry {
 		return instance;
 	}
 
+	/**
+	 * Load the config from the first {@link ConfigService} that returns a non-null result.
+	 * @param filename the filename
+	 * @param <T> the type of the config file
+	 * @return the config
+	 */
 	public <T extends IApplicationConfig> T loadConfig(String filename) {
 		T result = null;
 		for (Iterator<ConfigService> it = configServices.iterator(); result == null && it.hasNext(); ) {
@@ -60,6 +66,13 @@ public class ConfigServiceRegistry {
 		return result;
 	}
 
+	/**
+	 * Save the config with the first {@link ConfigService} that returns a true flag.
+	 * If no service is able to save the config, an error message is logged.
+	 * @param applicationConfigFilename the filename to use
+	 * @param applicationConfig the config file to save
+	 * @param <T> the type of the config file
+	 */
 	public <T extends IApplicationConfig> void saveConfig(String applicationConfigFilename, T applicationConfig) {
 		boolean saved = false;
 		for (Iterator<ConfigService> it = configServices.iterator(); !saved && it.hasNext(); ) {

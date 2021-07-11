@@ -7,11 +7,21 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 
+/**
+ * A number field for BigDecimal values to allow for formatting of numbers
+ */
 public class SkinnableNumberField extends JFXTextField {
+	/**
+	 * The BigDecimal value of the field
+	 */
 	private final ObjectProperty<BigDecimal> value = new SimpleObjectProperty<>(this, "value");
 	private AbstractNumberSkin numberSkin;
 	private Predicate<String> replaceText;
 
+	/**
+	 * Construct a SkinnableNumberField with a specified css class
+	 * @param cssClass the css class
+	 */
 	public SkinnableNumberField(String cssClass) {
 		getStyleClass().setAll(cssClass);
 		value.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
@@ -21,14 +31,26 @@ public class SkinnableNumberField extends JFXTextField {
 		});
 	}
 
+	/**
+	 * Get the value
+	 * @return the value
+	 */
 	public final BigDecimal getValue() {
 		return value.get();
 	}
 
+	/**
+	 * Set the value
+	 * @param value the value
+	 */
 	public final void setValue(BigDecimal value) {
 		this.value.set(value);
 	}
 
+	/**
+	 * Get the property the value is stored in
+	 * @return the property
+	 */
 	public final ObjectProperty<BigDecimal> valueProperty() {
 		return value;
 	}

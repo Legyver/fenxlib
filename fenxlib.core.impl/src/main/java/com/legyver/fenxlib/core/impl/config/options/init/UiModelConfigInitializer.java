@@ -29,7 +29,10 @@ public class UiModelConfigInitializer<T extends ApplicationConfig, U extends IUi
 	}
 
 	/**
-	 * Override this method when you register your hook to sync config to your UiModel.
+	 * Override this method when you register your hook to sync config to your UiModel and/or vise-versa
+	 * @param applicationConfig the application config
+	 * @param uiModel the ui model
+	 * @throws CoreException if an error is raised by your sync code
 	 */
 	protected void syncToUiModel(T applicationConfig, U uiModel) throws CoreException {
 		//template

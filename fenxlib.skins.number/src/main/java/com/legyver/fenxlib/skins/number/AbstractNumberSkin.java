@@ -10,6 +10,10 @@ import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.geometry.Pos;
 
+/**
+ * Base class for number skins.
+ * {@link CurrencyFieldSkin} and {@link PercentageFieldSkin} known implementations
+ */
 public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumberField> {
 
 	private final SkinnableNumberField skinnable;
@@ -18,6 +22,11 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 	private final String symbol;
 	private final boolean leadingSymbol;
 
+	/**
+	 * Construct a number skin to format a wrapped number field.
+	 * @param skinnable the skinnable text field
+	 * @param leadingSymbol true of the symbol should be inserted before the number
+	 */
 	public AbstractNumberSkin(final SkinnableNumberField skinnable, boolean leadingSymbol) {
 		super(skinnable);
 		this.skinnable = skinnable;
@@ -40,11 +49,17 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 		skinnable.setNumberSkin(this);
 	}
 
+	/**
+	 * Set the BigDecimal value on the text field appropriately formatted.
+	 */
 	protected void updateText() {
 		BigDecimal value = skinnable.getValue();
 		skinnable.setText(value == null ? "" : formatter.format(value));
 	}
 
+	/**
+	 * Get the text in the field and marshall it to the BigDecimal value object
+	 */
 	protected void updateValue() {
 		boolean updateText = !"".equals(skinnable.getText());
 		try {
@@ -68,6 +83,11 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 		}
 	}
 
+	/**
+	 * Take the text as it is typed in and format it.
+	 * @param text the entered text
+	 * @return true if text can be replaced, false otherwise
+	 */
 	protected boolean accept(String text) {
 		text = text.trim();
 		if (text.length() == 0) {
@@ -123,11 +143,36 @@ public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumbe
 		return true;
 	}
 
+	/**
+	 * Get the DecimalFormatter to be used by the skin
+	 * @param locale the locale for the formatter
+	 * @return the formatter
+	 */
 	protected abstract DecimalFormat getFormatter(Locale locale);
 
+	/**
+	 * The formatting needs to be applied in a subsequent pulse to the data population.
+	 * This is a hook to return the runnable to do this.
+	 * @param skinnable the field where the formatting will be set
+	 * @param formatter the formatter for the decimal number
+	 * @return the runnable to prepend/append the symbol to the value.
+	 */
 	protected abstract Runnable getRunLater(SkinnableNumberField skinnable, DecimalFormat formatter);
 
+	/**
+	 * Get the expected symbol based on the formatter.
+	 * ie: For currency this will be the local currency symbol, where as for percentages it will be the percent symbol
+	 * @param formatter the formatter to use while extracting the symbol
+	 * @return the symbol
+	 */
 	protected abstract String getSymbol(DecimalFormat formatter);
 
+	/**
+	 * Test for trailing symbols
+	 * @param formatter the formatter to use
+	 * @param text the value
+	 * @param decimalSeparatorIndex the index of the decimal character
+	 * @return true if there a trailing symbol is expected.
+	 */
 	protected abstract boolean validateTrailing(DecimalFormat formatter, String text, int decimalSeparatorIndex);
 }

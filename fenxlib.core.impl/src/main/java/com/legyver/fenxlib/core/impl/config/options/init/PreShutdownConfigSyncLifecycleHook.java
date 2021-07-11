@@ -36,6 +36,8 @@ public class PreShutdownConfigSyncLifecycleHook<T extends ApplicationConfig> imp
 	/**
 	 * Override this method when you register your hook if you want something other than the recentFiles synced.
 	 * It will not replace the default hook, but you can register a separate one to sync other items.
+	 * @param applicationConfig the application config
+	 * @throws CoreException if there is an error reading the last-opened file from config
 	 */
 	protected void syncToConfig(T applicationConfig) throws CoreException {
 		updateLastOpenedDirectory(applicationConfig);

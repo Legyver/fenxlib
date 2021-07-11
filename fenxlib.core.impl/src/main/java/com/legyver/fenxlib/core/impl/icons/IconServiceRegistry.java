@@ -10,14 +10,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
 
+/**
+ * Registry for Icon Services
+ * This allows for any IconService in the classpath to be picked up (along with license information)
+ */
 public class IconServiceRegistry {
 	private final ServiceLoader<IconService> iconServiceLoader;
 	private static IconServiceRegistry instance;
 
+	/**
+	 * Construct an registry for Icon Services
+	 */
 	public IconServiceRegistry() {
 		this.iconServiceLoader = ServiceLoader.load(IconService.class);
 	}
 
+	/**
+	 * Get the singleton instance of the service registry for IconServices
+	 * @return the singleton instance
+	 */
 	public static IconServiceRegistry getInstance() {
 		if (instance == null) {
 			synchronized (IconServiceRegistry.class) {
@@ -29,6 +40,10 @@ public class IconServiceRegistry {
 		return instance;
 	}
 
+	/**
+	 * Load all icons from all IconServices that are on the classpath
+	 * @throws CoreException if there is an error loading any of the icons
+	 */
 	public void loadIcons() throws CoreException {
 		for (Iterator<IconService> it = iconServiceLoader.iterator(); it.hasNext(); ) {
 			IconService service = it.next();

@@ -11,6 +11,7 @@ public interface IComponentRegistry {
 	 * Register a component with the registry
 	 * @param context the context specifying the register-as information
 	 * @param target the node to be registered
+	 * @param <T> the type of the JavaFX component
 	 */
 	<T extends EventTarget> void register(LocationContext context, T target);
 

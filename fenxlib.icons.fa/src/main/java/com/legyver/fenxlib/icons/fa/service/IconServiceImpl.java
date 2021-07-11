@@ -9,6 +9,9 @@ import java.util.List;
 import static com.legyver.fenxlib.icons.fa.FontAwesomeIconFonts.FONTAWESOME_FREE_REGULAR;
 import static com.legyver.fenxlib.icons.fa.FontAwesomeIconFonts.FONTAWESOME_FREE_SOLID;
 
+/**
+ * Load the fa icon libraries
+ */
 public class IconServiceImpl implements IconService {
 
 	@Override

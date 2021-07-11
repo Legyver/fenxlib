@@ -36,22 +36,43 @@ public class ApplicationHome implements ApplicationConfigProvider {
 		logDirectory = new LazyCreateDirectoryWrapper(new File(appHome.getAbsolutePath() + File.separator + "logs"));
 	}
 
+	/**
+	 * Get the Application Home directory where all managed application files are kept.
+	 * @return
+	 */
 	public File getAppHome() {
 		return appHome.getDirectory();
 	}
 
+	/**
+	 * Get the cache directory where all the files cached by the application are kept
+	 * @return
+	 */
 	public File getCacheDirectory() {
 		return cacheDirectory.getDirectory();
 	}
 
+	/**
+	 * Get the config directory where all the application config files are kept
+	 * @return
+	 */
 	public File getConfigDirectory() {
 		return configDirectory.getDirectory();
 	}
 
+	/**
+	 * Get the log directory where all the application log files are kept
+	 * @return the directory
+	 */
 	public File getLogDirectory() {
 		return logDirectory.getDirectory();
 	}
 
+	/**
+	 * Load a file from the application cache
+	 * @param name the name of the file
+	 * @return the file
+	 */
 	public File getCacheFile(String name) {
 		return cacheDirectory.loadFileFromDir(name);
 	}

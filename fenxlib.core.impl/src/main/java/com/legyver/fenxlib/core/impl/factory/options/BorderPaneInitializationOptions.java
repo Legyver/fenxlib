@@ -1,11 +1,30 @@
 package com.legyver.fenxlib.core.impl.factory.options;
 
+/**
+ * Options describing the default layout of a fenxlib application.
+ * This layout corresponds to the five sections of a BorderPane
+ */
 public class BorderPaneInitializationOptions {
 
+	/**
+	 * The name of the top region of the application layout
+	 */
 	public static final String REGION_TOP = "top";
+	/**
+	 * The name of the bottom region of the application layout
+	 */
 	public static final String REGION_BOTTOM = "bottom";
+	/**
+	 * The name of the left region of the application layout
+	 */
 	public static final String REGION_LEFT = "left";
+	/**
+	 * The name of the right region of the application layout
+	 */
 	public static final String REGION_RIGHT = "right";
+	/**
+	 * The name of the center region of the application layout
+	 */
 	public static final String REGION_CENTER = "center";
 
 	private final RegionInitializationOptions centerOptions;
@@ -42,6 +61,9 @@ public class BorderPaneInitializationOptions {
 		return topOptions;
 	}
 
+	/**
+	 * Builder for creating BorderPaneInitializationOptions
+	 */
 	public static class Builder {
 
 		private RegionInitializationOptions.Builder centerOptionsBuilder = new RegionInitializationOptions.Builder();

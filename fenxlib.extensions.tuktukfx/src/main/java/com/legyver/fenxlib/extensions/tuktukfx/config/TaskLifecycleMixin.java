@@ -9,6 +9,7 @@ public interface TaskLifecycleMixin {
 
 	/**
 	 * In your ApplicationOptions.Builder call registerLifecycleHook(shutDownThreadPoolOnExit())
+	 * @return the lifecycle hook to shut down the thread pool on application exit
 	 */
 	default ApplicationLifecycleHook shutDownThreadPoolOnExit() {
 		return new TaskExecutorShutdownApplicationLifecycleHook();

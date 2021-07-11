@@ -14,10 +14,16 @@ import java.util.Map;
  * Maintain recently modified file lists
  */
 public class FileRegistry {
-	private DefaultFileBrowseLocation defaultFileBrowseLocation = new DefaultFileBrowseLocation();
-	private ObservableList<FileOptions> openFiles = FXCollections.observableArrayList();
-	private Map<String, FileOptions> openFileConfigMap = new HashMap<>();
+	private final DefaultFileBrowseLocation defaultFileBrowseLocation = new DefaultFileBrowseLocation();
+	private final ObservableList<FileOptions> openFiles = FXCollections.observableArrayList();
+	private final Map<String, FileOptions> openFileConfigMap = new HashMap<>();
 
+	/**
+	 * Construct an registry of open files.
+	 * Any time a file is opened
+	 * - the open files list is updated
+	 * - the default browse location is updated so all file/directory chooser browse windows update to the last-opened location
+	 */
 	public FileRegistry() {
 		openFiles.addListener((ListChangeListener<FileOptions>) change -> {
 			if (change.next()) {
@@ -40,14 +46,29 @@ public class FileRegistry {
 		});
 	}
 
+	/**
+	 * Get observable list of open files
+	 * @return list of open files
+	 */
 	public ObservableList<FileOptions> getOpenFiles() {
 		return openFiles;
 	}
 
+	/**
+	 * Get the FileOptions based on the absolute path of the file.
+	 * @param absolutePath the absolute path to the file.
+	 * @return the appropriate file options or null
+	 */
 	public FileOptions lookup(String absolutePath) {
 		return openFileConfigMap.get(absolutePath);
 	}
 
+	/**
+	 * Get the default file browse location.
+	 * While the DefaultFileBrowseLocation is guaranteed to be not-null and the same can be said for
+	 * both its initialDirectory and initialFileName properties, the values contained by these properties may be null.
+	 * @return the default file browse location
+	 */
 	public DefaultFileBrowseLocation getDefaultFileBrowseLocation() {
 		return defaultFileBrowseLocation;
 	}

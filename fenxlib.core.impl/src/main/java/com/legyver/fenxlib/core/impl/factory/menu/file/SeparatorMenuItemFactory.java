@@ -6,6 +6,9 @@ import com.legyver.fenxlib.core.impl.factory.menu.IMenuItemFactory;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
+/**
+ * Factory to add a separator a menu
+ */
 public class SeparatorMenuItemFactory implements IMenuItemFactory {
 	
 	@Override

@@ -37,12 +37,23 @@ public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 	private final CenterOptions centerOptions;
 	private final RightMenuOptions rightOptions;
 
+	/**
+	 * Construct a TopRegionFactory based on left, right and center options
+	 * @param leftOptions options describing left-orientated menus
+	 * @param centerOptions options describing the area between left and right menu sections
+	 * @param rightOptions options describing right-orientated menus
+	 */
 	public TopRegionFactory(LeftMenuOptions leftOptions, CenterOptions centerOptions, RightMenuOptions rightOptions) {
 		this.leftOptions = leftOptions;
 		this.centerOptions = centerOptions;
 		this.rightOptions = rightOptions;
 	}
 
+	/**
+	 * Construct a TopRegionFactory based on left and right menu options
+	 * @param leftOptions options describing left-orientated menus
+	 * @param rightOptions options describing right-orientated menus
+	 */
 	public TopRegionFactory(LeftMenuOptions leftOptions, RightMenuOptions rightOptions) {
 		this(leftOptions, null, rightOptions);
 	}

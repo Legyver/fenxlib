@@ -5,6 +5,9 @@ import com.legyver.fenxlib.extensions.tuktukfx.task.exec.TaskExecutor;
 import com.legyver.fenxlib.core.api.util.hook.ExecutableHook;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 
+/**
+ * Application lifecycle hook mixin to shutdown the {@link TaskExecutor}
+ */
 public class TaskExecutorShutdownApplicationLifecycleHook implements ApplicationLifecycleHook {
 	@Override
 	public LifecyclePhase getLifecyclePhase() {

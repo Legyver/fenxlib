@@ -19,11 +19,23 @@ public class TitledPaneFactory<T extends Pane> implements NodeFactory<TitledPane
 	private final String title;
 	private final TitledPaneContentFactory<T> contentFactory;
 
+	/**
+	 * Construct a TitledPaneFactory with a given title and contentFactory
+	 * @param title the title of the TitledPane
+	 * @param contentFactory content factory that will create the content of the TitledPane
+	 */
 	public TitledPaneFactory(String title, TitledPaneContentFactory<T> contentFactory) {
 		this.title = title;
 		this.contentFactory = contentFactory;
 	}
 
+	/**
+	 * Make a TitledPane.
+	 * The name of the titled pane is passed down to any child factories so child elements can be located within this titled pane.
+	 * @param locationContext the parent location context
+	 * @return the TitledPane
+	 * @throws CoreException if there is an Exception raised by the content factory
+	 */
 	public TitledPane makeTitlePane(LocationContext locationContext) throws CoreException {
 		LocationContextDecorator decorated = new LocationContextDecorator(locationContext);
 		decorated.setName(title);

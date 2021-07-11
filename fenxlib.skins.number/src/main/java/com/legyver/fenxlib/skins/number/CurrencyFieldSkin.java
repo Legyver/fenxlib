@@ -5,8 +5,15 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 
+/**
+ * Skin to auto-append/prepend a currency symbol to a number.
+ */
 public class CurrencyFieldSkin extends AbstractNumberSkin {
 
+	/**
+	 * Construct a skin for a number field that prepends/appends a currency symbol to the number
+	 * @param skinnable the number field to skin
+	 */
 	public CurrencyFieldSkin(final SkinnableNumberField skinnable) {
 		super(skinnable, true);
 	}

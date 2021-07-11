@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * Create an Open File Chooser with a specified title and type/extension filters
- * @Since 2.0
+ * @since 2.0
  */
 public class SelectFileMenuFactory extends AbstractSelectFileOrDirectoryFactory<FileOptionsChooserFactory> {
 	private final List<FileChooser.ExtensionFilter> extensionFilters;

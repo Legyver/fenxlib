@@ -12,7 +12,11 @@ import java.util.Map;
  */
 public class DecoratedMapConversionStrategy<U extends RawMapAware> implements FileConversionStrategy<U> {
 	private final MapDecoratorPojoInstantiator<U> instantiator;
-	
+
+	/**
+	 * Construct a conversion strategy that marshalls a POJO to String and vise-versa
+	 * @param instantiator instantiates the POJO if there is no existing String to marshall
+	 */
 	public DecoratedMapConversionStrategy(MapDecoratorPojoInstantiator<U> instantiator) {
 		this.instantiator = instantiator;
 	}

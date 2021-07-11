@@ -15,6 +15,10 @@ import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final ApplicationConfigProvider appConfigProvider;
 
+	/**
+	 * Construct an application lifecycle hook to auto-save the application state to the config.
+	 * @param applicationConfigProvider the provider for the application config
+	 */
 	public AutoSaveConfigApplicationLifecycleHook(ApplicationConfigProvider applicationConfigProvider) {
 		this.appConfigProvider = applicationConfigProvider;
 	}

@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Factory to create a Menu Item for a recently opened file
+ */
 public class RecentlyOpenedFileFactory implements IMenuItemFactory {
 	private static final Logger logger = LogManager.getLogger(RecentlyOpenedFileFactory.class);
 
@@ -22,12 +25,24 @@ public class RecentlyOpenedFileFactory implements IMenuItemFactory {
 	private final ThrowingConsumer<File> fileSelectionConsumer;
 	private final List<IRecentlyViewedFile> recentlyViewedFiles;
 
+	/**
+	 * Construct a factory to create a RecentlyOpened menu item with a list of sub menu-items for each recently viewed file
+	 * @param name the name of the menu item, ex: "Recent"
+	 * @param recentlyViewedFiles the list of recently-viewed files to create menu items for
+	 * @param fileSelectionConsumer any action to be taken when a particular recently opened file is selected
+	 */
 	public RecentlyOpenedFileFactory(String name, List<IRecentlyViewedFile> recentlyViewedFiles, ThrowingConsumer<File> fileSelectionConsumer) {
 		this.name = name;
 		this.recentlyViewedFiles = recentlyViewedFiles;
 		this.fileSelectionConsumer = fileSelectionConsumer;
 	}
 
+	/**
+	 * Construct a factory to create a RecentlyOpened menu item with a list of sub menu-items for each recently viewed file
+	 * @param name the name of the menu item, ex: "Recent"
+	 * @param fileSelectionConsumer any action to be taken when a particular recently opened file is selected
+	 * @throws CoreException if there is an error reading the list of recently opened files
+	 */
 	public RecentlyOpenedFileFactory(String name, ThrowingConsumer<File> fileSelectionConsumer) throws CoreException {
 		this(name, getRecentlyViewedFiles(), fileSelectionConsumer);
 	}
