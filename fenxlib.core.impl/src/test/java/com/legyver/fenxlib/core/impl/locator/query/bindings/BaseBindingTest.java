@@ -14,11 +14,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BaseBindingTest extends ApplicationTest {
 
@@ -35,12 +34,12 @@ public class BaseBindingTest extends ApplicationTest {
 		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		TextFieldBinding.bindTextField(s, query, null);
-		assertThat(textField.getText(), is("Test Value"));
-		assertThat(s.get(), is("Test Value"));
+		assertThat(textField.getText()).isEqualTo("Test Value");
+		assertThat(s.get()).isEqualTo("Test Value");
 
 		textField.setText("New Value");
-		assertThat(textField.getText(), is("New Value"));
-		assertThat(s.get(), is("New Value"));
+		assertThat(textField.getText()).isEqualTo("New Value");
+		assertThat(s.get()).isEqualTo("New Value");
 	}
 
 	@Test
@@ -55,11 +54,11 @@ public class BaseBindingTest extends ApplicationTest {
 		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
 		DatePickerBinding.bindDatePicker(ld, query, null);
-		assertThat(picker.getValue(), is(LocalDate.now()));
-		assertThat(ld.get(), is(LocalDate.now()));
+		assertThat(picker.getValue()).isEqualTo(LocalDate.now());
+		assertThat(ld.get()).isEqualTo(LocalDate.now());
 
 		picker.setValue(LocalDate.MIN);
-		assertThat(picker.getValue(), is(LocalDate.MIN));
-		assertThat(ld.get(), is(LocalDate.MIN));
+		assertThat(picker.getValue()).isEqualTo(LocalDate.MIN);
+		assertThat(ld.get()).isEqualTo(LocalDate.MIN);
 	}
 }

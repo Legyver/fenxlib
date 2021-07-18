@@ -1,16 +1,13 @@
 package com.legyver.fenxlib.widgets.license;
 
-import org.hamcrest.collection.IsIterableContainingInOrder;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class OpenSourceReferenceListTest extends ApplicationTest {
 
@@ -22,7 +19,7 @@ public class OpenSourceReferenceListTest extends ApplicationTest {
 		properties.load(OpenSourceReferenceListTest.class.getResourceAsStream("license.properties"));
 		OpenSourceReferenceList openSourceReferenceList = new OpenSourceReferenceList(properties);
 		List<OpenSourceReferenceList.Item> items = openSourceReferenceList.getItems();
-		assertThat(items.size(), is(6));
+		assertThat(items.size()).isEqualTo(6);
 		Iterator<OpenSourceReferenceList.Item> itemIterator = items.iterator();
 		assertItem(itemIterator.next(), "com.fasterxml.jackson.core.jackson-databind", APACHE_LICENSE_2_0, "https://github.com/FasterXML/jackson-databind/blob/master/LICENSE");
 		assertItem(itemIterator.next(), "com.jfoenix", APACHE_LICENSE_2_0, "https://github.com/jfoenixadmin/JFoenix/blob/master/LICENSE");
@@ -33,14 +30,14 @@ public class OpenSourceReferenceListTest extends ApplicationTest {
 	}
 
 	private void assertItem(OpenSourceReferenceList.Item item, String library, String license, String licenseLink) {
-		assertThat(item.getArtifact(), is(library));
-		assertThat(item.getLicenseNames(), containsInAnyOrder(license));
-		assertThat(item.getLicenseLinks(), containsInAnyOrder(licenseLink));
+		assertThat(item.getArtifact()).isEqualTo(library);
+		assertThat(item.getLicenseNames()).containsExactlyInAnyOrder(license);
+		assertThat(item.getLicenseLinks()).containsExactlyInAnyOrder(licenseLink);
 	}
 
 	private void assertItem(OpenSourceReferenceList.Item item, String library, String license1, String license2, String licenseLink1, String licenseLInk2) {
-		assertThat(item.getArtifact(), is(library));
-		assertThat(item.getLicenseNames(), IsIterableContainingInOrder.contains(license1, license2));
-		assertThat(item.getLicenseLinks(), IsIterableContainingInOrder.contains(licenseLink1, licenseLInk2));
+		assertThat(item.getArtifact()).isEqualTo(library);
+		assertThat(item.getLicenseNames()).containsExactlyInAnyOrder(license1, license2);
+		assertThat(item.getLicenseLinks()).containsExactlyInAnyOrder(licenseLink1, licenseLInk2);
 	}
 }

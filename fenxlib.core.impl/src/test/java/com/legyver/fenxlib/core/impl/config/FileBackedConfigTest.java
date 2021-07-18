@@ -1,32 +1,29 @@
 package com.legyver.fenxlib.core.impl.config;
 
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
-import com.legyver.fenxlib.core.impl.config.load.ApplicationConfigProvider;
 import com.legyver.fenxlib.core.impl.config.options.TestApplicationOptionsBuilder;
 import com.legyver.fenxlib.core.impl.config.options.init.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.impl.factory.menu.file.internal.DefaultFileBrowseLocation;
 import com.legyver.fenxlib.core.impl.files.FileRegistry;
 import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
-import com.legyver.fenxlib.core.impl.uimodel.RecentFileAware;
 import com.legyver.fenxlib.core.impl.util.TestApplicationResource;
 import com.legyver.fenxlib.core.impl.util.TestConfig;
 import com.legyver.fenxlib.core.impl.util.TestUiModel;
-import org.junit.After;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class FileBackedConfigTest extends ApplicationTest {
 
-	@After
+	@AfterEach
 	public void reset() throws Exception {
 		ApplicationContext.getFileRegistry().getOpenFiles().clear();
 		ApplicationContext.getApplicationLifecycleHookRegistry().reset();
@@ -60,7 +57,7 @@ public class FileBackedConfigTest extends ApplicationTest {
 		DefaultFileBrowseLocation defaultFileBrowseLocation = fileRegistry.getDefaultFileBrowseLocation();
 		File browseDir = defaultFileBrowseLocation.getInitialDirectory();
 		String expected = File.separator +  new StringJoiner(File.separator).add("temp").add("tmp").toString();
-		assertThat(browseDir.getPath(), is(expected));
+		assertThat(browseDir.getPath()).isEqualTo(expected);
 	}
 
 	/**
@@ -87,12 +84,12 @@ public class FileBackedConfigTest extends ApplicationTest {
 
 		TestUiModel uiModel = (TestUiModel) ApplicationContext.getUiModel();
 		List<FileOptions> fileOptions = uiModel.getRecentFiles();
-		assertThat(fileOptions.size(), is(2));
+		assertThat(fileOptions.size()).isEqualTo(2);
 		//sorted by most recently accessed
 		FileOptions file0 = fileOptions.get(0);
-		assertThat(file0.getFileName(), is("Name 2.ext"));
+		assertThat(file0.getFileName()).isEqualTo("Name 2.ext");
 		FileOptions file1 = fileOptions.get(1);
-		assertThat(file1.getFileName(), is("Name 1.ext"));
+		assertThat(file1.getFileName()).isEqualTo("Name 1.ext");
 	}
 
 }

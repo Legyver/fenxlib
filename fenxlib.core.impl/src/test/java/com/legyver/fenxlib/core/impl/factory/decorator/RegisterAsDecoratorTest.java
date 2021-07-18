@@ -10,15 +10,14 @@ import com.legyver.fenxlib.core.api.locator.query.QueryableComponentRegistry;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import junitx.util.PrivateAccessor;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.util.Map;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class RegisterAsDecoratorTest extends ApplicationTest {
 	private static final String ROOT = "Root";
@@ -31,7 +30,7 @@ public class RegisterAsDecoratorTest extends ApplicationTest {
 		NodeFactory<TextField> factory = new MockFactory();
 		TextField field = factory.makeNode(locationContext);
 		Map registered = (Map) PrivateAccessor.getField(defaultComponentRegistry, "nodes");
-		assertThat(registered.size(), is(0));
+		assertThat(registered.size()).isEqualTo(0);
 	}
 
 	@Test
@@ -41,11 +40,11 @@ public class RegisterAsDecoratorTest extends ApplicationTest {
 		NodeFactory<TextField> factory = new RegisterAsDecorator(new MockFactory(), NAME);
 		TextField field = factory.makeNode(locationContext);
 		Map registered = (Map) PrivateAccessor.getField(defaultComponentRegistry, "nodes");
-		assertThat(registered.size(), is(1));
+		assertThat(registered.size()).isEqualTo(1);
 		Optional<Node> node = new ComponentQuery.QueryBuilder()
 				.inRegion(ROOT)
 				.named(NAME).execute();
-		assertTrue(node.isPresent());
+		assertThat(node.isPresent()).isTrue();
 
 	}
 

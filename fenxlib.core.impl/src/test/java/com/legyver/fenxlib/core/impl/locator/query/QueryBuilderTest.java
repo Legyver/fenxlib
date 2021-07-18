@@ -1,10 +1,9 @@
 package com.legyver.fenxlib.core.impl.locator.query;
 
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class QueryBuilderTest {
 
@@ -14,7 +13,7 @@ public class QueryBuilderTest {
 				.inRegion("region")
 				.inSubRegion("panel")
 				.named("name");
-		assertThat(query.getQueryString(), is("region::panel::name"));
+		assertThat(query.getQueryString()).isEqualTo("region::panel::name");
 	}
 
 	@Test
@@ -22,6 +21,6 @@ public class QueryBuilderTest {
 		ComponentQuery query = new ComponentQuery.QueryBuilder()
 				.inRegion("region")
 				.named("name");
-		assertThat(query.getQueryString(), is("region::name"));
+		assertThat(query.getQueryString()).isEqualTo("region::name");
 	}
 }

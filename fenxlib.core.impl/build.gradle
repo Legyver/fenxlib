@@ -25,15 +25,15 @@ dependencies {
     //logging
     api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
 
-    testImplementation 'junit:junit:4.13'
-    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
-
-    testImplementation group: 'org.testfx', name: 'testfx-junit', version: '4.0.16-alpha'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
+    testImplementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
     testImplementation group: 'junit-addons', name: 'junit-addons', version: '1.4'
 }
 
 test {
-    useJUnit()
+    useJUnitPlatform()
 }
 
 java {

@@ -9,12 +9,12 @@ import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.widgets.blade.factory.BladeFactory;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import javafx.scene.control.ListView;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BladeComponentQueryTest extends ApplicationTest {
 
@@ -35,7 +35,7 @@ public class BladeComponentQueryTest extends ApplicationTest {
 				.inRegion(BorderPaneInitializationOptions.REGION_LEFT)
 				.inSubRegion("Source Options")
 				.named("Sources").execute();
-		assertTrue(node.isPresent());
-		assertTrue(node.get() instanceof ListView);
+		assertThat(node.isPresent()).isEqualTo(true);
+		assertThat(node.get()).isInstanceOf(ListView.class);
 	}
 }

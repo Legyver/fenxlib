@@ -4,8 +4,6 @@ import com.legyver.fenxlib.core.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
-import com.legyver.fenxlib.core.impl.config.FileBackedConfigTest;
-import com.legyver.fenxlib.core.impl.config.options.ApplicationOptions;
 import com.legyver.fenxlib.core.impl.config.options.TestApplicationOptionsBuilder;
 import com.legyver.fenxlib.core.impl.config.options.init.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.core.impl.factory.*;
@@ -23,14 +21,15 @@ import com.legyver.fenxlib.core.impl.util.TestUiModel;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class ComponentQueryTest extends ApplicationTest {
 
@@ -70,8 +69,8 @@ public class ComponentQueryTest extends ApplicationTest {
 		Optional<Node> node = new ComponentQuery.QueryBuilder()
 				.inRegion(BorderPaneInitializationOptions.REGION_TOP)
 				.only().execute();
-		assertTrue(node.isPresent());
-		assertTrue(node.get() instanceof TextField);
+		assertThat(node.isPresent()).isTrue();
+		assertThat(node.get()).isInstanceOf(TextField.class);
 	}
 
 
@@ -87,8 +86,8 @@ public class ComponentQueryTest extends ApplicationTest {
 		Optional<ListView> node = new ComponentQuery.QueryBuilder()
 				.inRegion(BorderPaneInitializationOptions.REGION_CENTER)
 				.type(ListView.class).execute();
-		assertTrue(node.isPresent());
-		assertTrue(node.get() instanceof ListView);
+		assertThat(node.isPresent()).isTrue();
+		assertThat(node.get()).isInstanceOf(ListView.class);
 	}
 
 	@Test
@@ -103,8 +102,8 @@ public class ComponentQueryTest extends ApplicationTest {
 		Optional<TextField> node = new ComponentQuery.QueryBuilder()
 				.fromLocation(decorated)
 				.only().execute();
-		assertTrue(node.isPresent());
-		assertTrue(node.get() == tf1);
+		assertThat(node.isPresent()).isTrue();
+		assertThat(node.get()).isEqualTo(tf1);
 	}
 
 }
