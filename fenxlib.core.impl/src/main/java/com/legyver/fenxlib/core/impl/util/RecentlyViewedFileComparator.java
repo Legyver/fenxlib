@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 
+/**
+ * Comparator for recently-viewed files.  Sorts them by most-recently accessed.
+ */
 public class RecentlyViewedFileComparator implements Comparator<IRecentlyViewedFile> {
 	private static final Logger logger = LogManager.getLogger(RecentlyViewedFileComparator.class);
 	@Override

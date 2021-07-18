@@ -16,6 +16,9 @@ import java.io.File;
 public class ConfigServiceImpl implements ConfigService {
 	private final FileIOUtil fileIOUtil;
 
+	/**
+	 * Construct a config service that loads the config from file
+	 */
 	public ConfigServiceImpl() {
 		this.fileIOUtil = new FileIOUtil();
 	}

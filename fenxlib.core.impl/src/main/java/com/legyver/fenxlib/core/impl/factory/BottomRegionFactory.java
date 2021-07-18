@@ -13,12 +13,11 @@ import javafx.scene.layout.Region;
 import com.legyver.fenxlib.core.api.locator.LocationContextDecorator;
 
 /**
- * Singleton factory to create the bottom region of the main layout page.
+ * Factory to create the bottom region of the main layout page.
  * This has knowledge of the left and right menu panels in the main border pane
  * and provides a mechanism to show/hide the left/right menu panels
  */
-public enum BottomRegionFactory implements SpaceableFactory, RegionFactory<Region, RegionInitializationOptions.SideAwareRegionInitializationOptions> {
-	INSTANCE;
+public class BottomRegionFactory implements SpaceableFactory, RegionFactory<Region, RegionInitializationOptions.SideAwareRegionInitializationOptions> {
 
 	@Override
 	public Region makeRegion(BorderPane borderPane, RegionInitializationOptions.SideAwareRegionInitializationOptions regionInitOptions) {

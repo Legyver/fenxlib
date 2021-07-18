@@ -16,6 +16,10 @@ public class JsonApplicationConfig extends ApplicationConfig<RecentlyModified, L
 	private final MapBackedEntity<RecentlyModified> recentlyModified;
 	private final MapBackedEntity<LastOpened> lastOpened;
 
+	/**
+	 * Construct an Application Config the will marshall the config to-from JSON
+	 * @param map the map of values to save
+	 */
 	public JsonApplicationConfig(Map map) {
 		this.rawMap = map;
 		this.recentlyModified = new MapBackedEntity<>(map, "recentlyModified", (m) -> new RecentlyModified(m));

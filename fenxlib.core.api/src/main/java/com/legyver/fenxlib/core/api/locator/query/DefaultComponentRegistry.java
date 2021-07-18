@@ -20,9 +20,11 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 	private final Map<String, TypedCtx> typedNodes = new HashMap<>();
 
 	@Override
-	public <T extends EventTarget> void register(LocationContext context, T target) {
+	public <T extends EventTarget> void register(LocationContext context, T target, boolean typedOnly) {
 		String key = context.accept(new LocationKeyVisitor());
-		nodes.put(key, target);
+		if (!typedOnly) {
+			nodes.put(key, target);
+		}
 
 		TypedCtx typed = typedNodes.get(key);
 		if (typed == null) {

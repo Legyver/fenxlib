@@ -4,9 +4,9 @@ import com.legyver.fenxlib.core.api.locator.query.IQueryDiscriminator;
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 
 /**
- * Base binding factory that provides query finalization
+ * Base binding mixin that provides query finalization
  */
-public interface AbstractBindingFactory {
+public interface AbstractBindingMixin {
 
 	/**
 	 * Finalize a query

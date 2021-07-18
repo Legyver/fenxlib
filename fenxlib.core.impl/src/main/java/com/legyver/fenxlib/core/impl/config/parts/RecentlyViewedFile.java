@@ -37,6 +37,11 @@ public class RecentlyViewedFile implements RawMapAware, IRecentlyViewedFile {
 		return name.get();
 	}
 
+	/**
+	 * Set the name for the file
+	 * @param name the (simple) name
+	 * @throws CoreException if there is an error setting the value
+	 */
 	public void setName(String name) throws CoreException {
 		this.name.set(name);
 	}
@@ -46,14 +51,29 @@ public class RecentlyViewedFile implements RawMapAware, IRecentlyViewedFile {
 		return path.get();
 	}
 
+	/**
+	 * Set the path to the recently-viewed file
+	 * @param path the (absolute) path to the file
+	 * @throws CoreException if there is an error setting the value
+	 */
 	public void setPath(String path) throws CoreException {
 		this.path.set(path);
 	}
 
+	/**
+	 * Set the last-accessed date
+	 * @param lastAccessed the last-accessed LocalDateTime
+	 * @throws CoreException if there is an error setting the value
+	 */
 	public void setLastAccessed(LocalDateTime lastAccessed) throws CoreException {
 		this.lastAccessed.set(lastAccessed);
 	}
 
+	/**
+	 * Retrieve the last-accessed date-time
+	 * @return the last-accessed date-time
+	 * @throws CoreException if there is an error reading the value
+	 */
 	public LocalDateTime getLastAccessed() throws CoreException {
 		return lastAccessed.get();
 	}
@@ -63,6 +83,15 @@ public class RecentlyViewedFile implements RawMapAware, IRecentlyViewedFile {
 		return sourceMap;
 	}
 
+	/**
+	 * Construct a RecentlyViewedFile descriptor from a file.
+	 * - sets the recently viewed file name to the name of the file
+	 * - sets the recently viewed file path to the absolute path of the file
+	 * - sets the recently viewed file last accessed to now
+	 * @param file the file
+	 * @return the RecentlyViewedFile descriptor for the file
+	 * @throws CoreException if there is an error setting any of the values
+	 */
 	public static RecentlyViewedFile parse(File file) throws CoreException {
 		RecentlyViewedFile recentValue = new RecentlyViewedFile(new LinkedHashMap<>());
 		recentValue.setPath(file.getAbsolutePath());

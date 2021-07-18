@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
 import com.legyver.fenxlib.core.api.locator.query.IRegionDiscriminator;
-import com.legyver.fenxlib.core.api.locator.query.bindings.AbstractBindingFactory;
+import com.legyver.fenxlib.core.api.locator.query.bindings.AbstractBindingMixin;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.TextField;
@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Mixin to allow for binding of a SkinnableNumberField to a BigDecimal ObjectProperty
  */
-public interface SkinnableNumberFieldBindingFactory extends AbstractBindingFactory {
+public interface SkinnableNumberFieldBindingMixin extends AbstractBindingMixin {
 
 	/**
 	 * Bind the SkinnableNumberField to a BigDecimal object property

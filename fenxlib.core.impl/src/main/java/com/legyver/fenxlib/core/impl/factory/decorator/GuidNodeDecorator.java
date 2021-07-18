@@ -14,6 +14,10 @@ import javafx.scene.Node;
 public class GuidNodeDecorator<T extends Node> implements NodeFactory<T> {
 	private final NodeFactory<T> factory;
 
+	/**
+	 * Decorator for a node factory that will apply a GUID to the output of the factory
+	 * @param factory the factory being decorated
+	 */
 	public GuidNodeDecorator(NodeFactory<T> factory) {
 		this.factory = factory;
 	}

@@ -14,7 +14,7 @@ public class TitleFactoryAdapter<T extends Node> implements ITitleFactory<T> {
 
 	/**
 	 * Construct a factory adaptor to apply the output of a wrapped factory to the title
-	 * @param wrappedFactory
+	 * @param wrappedFactory the factory to wrap and adapt
 	 */
 	public TitleFactoryAdapter(NodeFactory<T> wrappedFactory) {
 		this.wrappedFactory = wrappedFactory;

@@ -20,8 +20,8 @@ import org.testfx.framework.junit.ApplicationTest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class AbstractBindingFactoryTest extends ApplicationTest {
-	private final TestBindingFactory factory = new TestBindingFactory();
+public class AbstractBindingMixinTest extends ApplicationTest {
+	private final TestBindingMixin factory = new TestBindingMixin();
 
 	@Test
 	public void bindTextField() throws Exception {
@@ -66,7 +66,7 @@ public class AbstractBindingFactoryTest extends ApplicationTest {
 
 
 
-	private class TestBindingFactory implements TextFieldBindingFactory, DatePickerBindingFactory {
+	private class TestBindingMixin implements TextFieldBindingMixin, DatePickerBindingMixin {
 
 	}
 }

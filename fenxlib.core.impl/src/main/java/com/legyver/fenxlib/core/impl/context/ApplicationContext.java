@@ -33,34 +33,66 @@ public class ApplicationContext extends BaseApplicationContext {
 	 */
 	private static ApplicationConfig applicationConfig;
 
+	/**
+	 * Get the registry of application lifecycle hooks
+	 * @return the application hook registry
+	 */
 	public static ApplicationLifecycleHookRegistry getApplicationLifecycleHookRegistry() {
 		return applicationLifecycleHookRegistry;
 	}
 
+	/**
+	 * Get the registry of files opened by the application
+	 * @return the file registry
+	 */
 	public static FileRegistry getFileRegistry() {
 		return fileRegistry;
 	}
 
+	/**
+	 * Get the UI model for the application
+	 * @return the UI model
+	 */
 	public static IUiModel getUiModel() {
 		return uiModel;
 	}
 
+	/**
+	 * Set the UI model on the application context
+	 * @param uiModel the UI model
+	 */
 	public static void setUiModel(IUiModel uiModel) {
 		ApplicationContext.uiModel = uiModel;
 	}
 
+	/**
+	 * Get the primary stage of the application
+	 * @return the primary stage of the application
+	 */
 	public static Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
+	/**
+	 * Set the primary stage on the application context
+	 * @param primaryStage the primary stage
+	 */
 	public static void setPrimaryStage(Stage primaryStage) {
 		ApplicationContext.primaryStage = primaryStage;
 	}
 
+	/**
+	 * Get the application config
+	 * @return the application config
+	 */
 	public static ApplicationConfig getApplicationConfig() {
 		return applicationConfig;
 	}
 
+	/**
+	 * Set the application config on the application context
+	 * @param applicationConfig the application config
+	 */
 	public static void setApplicationConfig(ApplicationConfig applicationConfig) {
 		ApplicationContext.applicationConfig = applicationConfig;
 	}

@@ -15,12 +15,28 @@ import java.io.File;
  *   logs
  */
 public class ApplicationHome implements ApplicationConfigProvider {
+	/**
+	 * suffix used in setting up logging
+	 * ie: (src/main/resources/log4j2.xml)
+	 *  &lt;properties&gt;
+	 *         &lt;property name="patternlayout"&gt;%d{dd/MM/yyyy HH:mm:ss} %5p %c{1}:%L - %m%n&lt;/property&gt;
+	 *         &lt;property name="filename"&gt;${sys:documaint.home.logging}/application.log&lt;/property&gt;
+	 *         &lt;property name="filenamePattern"&gt;${sys:documaint.home.logging}/application-%d{yyyy-MM-dd}.log.gz&lt;/property&gt;
+	 *  &lt;/properties&gt;
+	 */
 	public static final String APP_HOME_SUFFIX = ".home";
 	private final LazyCreateDirectoryWrapper appHome;
 	private final LazyCreateDirectoryWrapper cacheDirectory;
 	private final LazyCreateDirectoryWrapper configDirectory;
 	private final LazyCreateDirectoryWrapper logDirectory;
 
+	/**
+	 * Construct an Application Home based on the provided app name.
+	 * - Creates a directory in the appropriate location for all config files, cached files, and log files for the application to be saved.
+	 * -- In Windows this is under %AppData%
+	 * -- For other OS's it will be under user.home
+	 * @param appName the name of the application.
+	 */
 	public ApplicationHome(String appName) {
 		String osName = System.getProperty("os.name");
 		String appDir;
@@ -38,7 +54,7 @@ public class ApplicationHome implements ApplicationConfigProvider {
 
 	/**
 	 * Get the Application Home directory where all managed application files are kept.
-	 * @return
+	 * @return the application home directory
 	 */
 	public File getAppHome() {
 		return appHome.getDirectory();
@@ -46,7 +62,7 @@ public class ApplicationHome implements ApplicationConfigProvider {
 
 	/**
 	 * Get the cache directory where all the files cached by the application are kept
-	 * @return
+	 * @return the cache directory
 	 */
 	public File getCacheDirectory() {
 		return cacheDirectory.getDirectory();
@@ -54,7 +70,7 @@ public class ApplicationHome implements ApplicationConfigProvider {
 
 	/**
 	 * Get the config directory where all the application config files are kept
-	 * @return
+	 * @return the config directory
 	 */
 	public File getConfigDirectory() {
 		return configDirectory.getDirectory();
@@ -62,7 +78,7 @@ public class ApplicationHome implements ApplicationConfigProvider {
 
 	/**
 	 * Get the log directory where all the application log files are kept
-	 * @return the directory
+	 * @return the logging directory
 	 */
 	public File getLogDirectory() {
 		return logDirectory.getDirectory();
@@ -71,7 +87,7 @@ public class ApplicationHome implements ApplicationConfigProvider {
 	/**
 	 * Load a file from the application cache
 	 * @param name the name of the file
-	 * @return the file
+	 * @return the cached file
 	 */
 	public File getCacheFile(String name) {
 		return cacheDirectory.loadFileFromDir(name);

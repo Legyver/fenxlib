@@ -6,13 +6,33 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Default implementation of FileOptions
+ */
 public class DefaultFileOptions implements FileOptions {
+	/**
+	 * The path of the file
+	 */
 	private final StringProperty filePath = new SimpleStringProperty();
+	/**
+	 * The (simple) name of the file
+	 */
 	private final StringProperty fileName = new SimpleStringProperty();
+	/**
+	 * Flag to tell if the file is to be created (true) or already exists (false)
+	 */
 	private final BooleanProperty newFile = new SimpleBooleanProperty();
 
+	/**
+	 * The actual file
+	 */
 	private final File file;
 
+	/**
+	 * Construct file options for the file
+	 * @param file the file
+	 * @param newFile flag to set if the file is a new file
+	 */
 	public DefaultFileOptions(File file, boolean newFile) {
 		this.file = file;
 		this.newFile.set(newFile);
@@ -22,6 +42,11 @@ public class DefaultFileOptions implements FileOptions {
 		}
 	}
 
+	/**
+	 * Construct file options for the file
+	 * - the file reference is set to null
+	 * - the new file flag is set to true
+	 */
 	public DefaultFileOptions() {
 		this(null, true);
 	}

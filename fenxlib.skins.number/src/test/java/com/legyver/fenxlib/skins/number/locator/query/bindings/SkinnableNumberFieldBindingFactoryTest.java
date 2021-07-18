@@ -18,7 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
-	private final TestBindingFactory factory = new TestBindingFactory();
+	private final TestBindingMixin factory = new TestBindingMixin();
 
 	@Test
 	public void bindMoneyField() throws Exception {
@@ -41,7 +41,7 @@ public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
 		assertThat(money.get().doubleValue(), is(2000.0));
 	}
 
-	private class TestBindingFactory implements SkinnableNumberFieldBindingFactory {
+	private class TestBindingMixin implements SkinnableNumberFieldBindingMixin {
 
 	}
 }

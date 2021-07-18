@@ -13,7 +13,19 @@ public interface IComponentRegistry {
 	 * @param target the node to be registered
 	 * @param <T> the type of the JavaFX component
 	 */
-	<T extends EventTarget> void register(LocationContext context, T target);
+	default <T extends EventTarget> void register(LocationContext context, T target) {
+		register(context, target, false);
+	}
+
+	/**
+	 * Register a component with the registry.
+	 * Note: if typeOnly is false, then any node currently sharing the same location context will be overwritten by this target.
+	 * @param context the context specifying the register-as information
+	 * @param target the node to be registered
+	 * @param <T> the type of the JavaFX component
+	 * @param typedOnly flag for registering just as type
+	 */
+	<T extends EventTarget> void register(LocationContext context, T target, boolean typedOnly);
 
 	/**
 	 * Remove the registration for component at the specified location

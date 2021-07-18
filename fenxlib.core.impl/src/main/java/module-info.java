@@ -24,8 +24,7 @@ module com.legyver.fenxlib.core.impl {
 	exports com.legyver.fenxlib.core.impl.locator.query.bindings;
 	exports com.legyver.fenxlib.core.impl.uimodel;
 	exports com.legyver.fenxlib.core.impl.util;
-	exports com.legyver.fenxlib.core.impl.widget;
-	exports com.legyver.fenxlib.core.impl.config.options;
+    exports com.legyver.fenxlib.core.impl.config.options;
 	exports com.legyver.fenxlib.core.impl.factory.menu;
 	exports com.legyver.fenxlib.core.impl.factory.menu.file;
 	exports com.legyver.fenxlib.core.impl.factory.menu.file.proto;

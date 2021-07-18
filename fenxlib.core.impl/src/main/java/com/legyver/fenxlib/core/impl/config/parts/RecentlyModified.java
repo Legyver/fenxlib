@@ -50,12 +50,17 @@ public class RecentlyModified implements IRecentlyModified<RecentlyViewedFile>, 
 		values.add(recentValue);
 	}
 
-	public void accept(String newPath) throws CoreException {
+	/**
+	 * Update the appropriate recently-viewed file reference with the date-time of now if it exists
+	 * @param path the path to the new file
+	 * @throws CoreException if there is an error reading the list of recently-viewed files or setting the new date-time on the reference
+	 */
+	public void accept(String path) throws CoreException {
 		Optional<RecentlyViewedFile> existingValue = CoreException.unwrap(
 				() -> CoreException.wrap(
 						() -> getValues().stream()
 								.filter(v -> CoreException.wrap(
-										() -> v.getPath().equalsIgnoreCase(newPath)))
+										() -> v.getPath().equalsIgnoreCase(path)))
 								.findAny()));
 		if (existingValue.isPresent()) {
 			RecentlyViewedFile recentValue = existingValue.get();

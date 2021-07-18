@@ -16,8 +16,18 @@ import com.legyver.utils.mapqua.mapbacked.MapSyncable;
  */
 public abstract class ApplicationConfig<M extends IRecentlyModified, O extends ILastOpened> implements MapSyncable, IApplicationConfig<M, O> {
 
+	/**
+	 * Retrieve the "recently-modified" section of the config
+	 * @return the "recently-modified" section of the config
+	 * @throws CoreException if there is a problem parsing the config
+	 */
 	abstract public M getRecentlyModified() throws CoreException;
 
+	/**
+	 * Retrieve the "last-opened" section of the config
+	 * @return the "last-opened" section of the config
+	 * @throws CoreException if there is a problem parsing the config
+	 */
 	abstract public O getLastOpened() throws CoreException;
 
 }
