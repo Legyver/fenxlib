@@ -31,14 +31,14 @@ public class CenterItemVisitor extends AbstractGridPaneLayoutVisitor {
 	@Override
 	public void visit(NameFieldButtonOption nameFieldButtonOption, int row) {
 		locationContext.setName(nameFieldButtonOption.getLabel());
-		TextField text = new TextFieldFactory(nameFieldButtonOption.isReadOnly()).makeNode(locationContext);
+		TextField text = TextFieldFactory.jfxTextField(nameFieldButtonOption.isReadOnly()).makeNode(locationContext);
 		bladeContext.getWorkingGrid().add(text, nameFieldButtonOption.getLabelSpan(), row, nameFieldButtonOption.getFieldSpan(), 1);
 	}
 
 	@Override
 	public void visit(AbstractNameFieldOption nameFieldOption, int row) {
 		locationContext.setName(nameFieldOption.getLabel());
-		TextField text = new TextFieldFactory(nameFieldOption.isReadOnly(), nameFieldOption.getInstantiator()).makeNode(locationContext);
+		TextField text = new TextFieldFactory<>(nameFieldOption.isReadOnly(), nameFieldOption.getInstantiator()).makeNode(locationContext);
 		bladeContext.getWorkingGrid().add(text, nameFieldOption.getLabelSpan(), row, nameFieldOption.getFieldSpan(), 1);
 	}
 

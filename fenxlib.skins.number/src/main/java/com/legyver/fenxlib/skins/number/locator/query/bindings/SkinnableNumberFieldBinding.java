@@ -21,8 +21,8 @@ public class SkinnableNumberFieldBinding extends BaseBinding {
 	 * @param named the name of the skinnable number field
 	 */
 	public static void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) {
-		Optional<TextField> text = finalizeQuery(query, named).execute();
-		TextField textField = text.get();
+		Optional text = finalizeQuery(query, named).execute();
+		TextField textField = (TextField) text.get();
 		if (textField instanceof SkinnableNumberField) {
 			SkinnableNumberField numberField = (SkinnableNumberField) textField;
 			BigDecimal value = property.get();

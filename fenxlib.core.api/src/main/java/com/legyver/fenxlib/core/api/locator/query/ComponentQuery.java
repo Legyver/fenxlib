@@ -1,22 +1,18 @@
 package com.legyver.fenxlib.core.api.locator.query;
 
-import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.locator.visitor.LocationKeyVisitor;
 import com.legyver.fenxlib.core.api.context.BaseApplicationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.api.locator.visitor.LocationKeyVisitor;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javafx.scene.Node;
-
 /**
  * Query for a component
- * @param <T> the type of the component
  */
-public abstract class ComponentQuery<T extends Node> {
+public abstract class ComponentQuery {
 
 	private final String queryString;
 	final QueryableComponentRegistry registry = BaseApplicationContext.getComponentRegistry();
@@ -37,21 +33,21 @@ public abstract class ComponentQuery<T extends Node> {
 	 * Execute the query
 	 * @return the component
 	 */
-	public abstract Optional<T> execute();
+	public abstract Optional execute();
 
-	private static class NamedComponentQuery<T extends Node> extends ComponentQuery<T> implements INamedComponentQuery<T> {
+	private static class NamedComponentQuery extends ComponentQuery implements INamedComponentQuery {
 
 		private NamedComponentQuery(String queryString) {
 			super(queryString);
 		}
 
 		@Override
-		public Optional<T> execute() {
-			return Optional.ofNullable((T) registry.get(this));
+		public Optional execute() {
+			return Optional.ofNullable(registry.get(this));
 		}
 	}
 
-	private static class TypedComponentQuery<T extends Node> extends ComponentQuery<T> implements ITypedComponentQuery<T> {
+	private static class TypedComponentQuery extends ComponentQuery implements ITypedComponentQuery {
 
 		private final Class type;
 
@@ -66,8 +62,8 @@ public abstract class ComponentQuery<T extends Node> {
 		}
 
 		@Override
-		public Optional<T> execute() {
-			return Optional.ofNullable((T) registry.get(this));
+		public Optional execute() {
+			return Optional.ofNullable(registry.get(this));
 		}
 	}
 
@@ -92,7 +88,7 @@ public abstract class ComponentQuery<T extends Node> {
 		 */
 		public IRegionDiscriminator inRegion(String name) {
 			this.name = name;
-			return new RegionIQueryBuilder(this);
+			return new RegionQueryBuilder(this);
 		}
 
 		/**
@@ -103,7 +99,7 @@ public abstract class ComponentQuery<T extends Node> {
 		public IRegionDiscriminator fromLocation(LocationContext locationContext) {
 			String key = locationContext.accept(new LocationKeyVisitor());
 			this.name = key;
-			return new RegionIQueryBuilder(this);
+			return new RegionQueryBuilder(this);
 		}
 
 		@Override
@@ -123,11 +119,11 @@ public abstract class ComponentQuery<T extends Node> {
 		}
 	}
 
-	abstract static class ChildIQueryBuilder<T extends AbstractQueryBuilder, U extends ChildIQueryBuilder> extends AbstractQueryBuilder implements IQueryDiscriminator {
+	abstract static class ChildQueryBuilder<T extends AbstractQueryBuilder, U extends ChildQueryBuilder> extends AbstractQueryBuilder implements IQueryDiscriminator {
 
 		final T parent;
 
-		ChildIQueryBuilder(T parent) {
+		ChildQueryBuilder(T parent) {
 			this.parent = parent;
 		}
 
@@ -165,18 +161,18 @@ public abstract class ComponentQuery<T extends Node> {
 
 	/**
 	 * Query
-	 * @param <T>
+	 * @param <T> type of the sub-classing query builder
 	 */
-	static class RegionIQueryBuilder<T extends AbstractQueryBuilder> extends ChildIQueryBuilder<T, RegionIQueryBuilder> implements IRegionDiscriminator {
+	static class RegionQueryBuilder<T extends AbstractQueryBuilder> extends ChildQueryBuilder<T, RegionQueryBuilder> implements IRegionDiscriminator {
 
-		RegionIQueryBuilder(T parent) {
+		RegionQueryBuilder(T parent) {
 			super(parent);
 		}
 
 		@Override
-		public RegionIQueryBuilder inSubRegion(String name) {
+		public RegionQueryBuilder inSubRegion(String name) {
 			this.name = name;
-			return new RegionIQueryBuilder(this);
+			return new RegionQueryBuilder(this);
 		}
 
 		@Override

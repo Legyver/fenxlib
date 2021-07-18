@@ -1,7 +1,5 @@
 package com.legyver.fenxlib.core.api.locator.query;
 
-import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
-
 /**
  * Filter common query results by one of the following strategies
  *   only: when there is only 1 expected result

@@ -22,7 +22,7 @@ public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
 	public void bindMoneyField() throws Exception {
 		QueryableComponentRegistry registry = ApplicationContext.getComponentRegistry();
 
-		ObjectProperty<BigDecimal> money = new SimpleObjectProperty();
+		ObjectProperty<BigDecimal> money = new SimpleObjectProperty<>();
 		money.set(BigDecimal.valueOf(1000));
 		SkinnableNumberField numberField = new SkinnableNumberField("test-css");
 		LocationContext locationContext = new DefaultLocationContext("Test panel");

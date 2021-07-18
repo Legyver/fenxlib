@@ -43,4 +43,13 @@ public class TextFieldFactory<T extends TextField> implements NodeFactory<T> {
 		textField.editableProperty().bindBidirectional(isEditable);
 		return textField;
 	}
+
+	/**
+	 * Create a TextFieldFactory that creates an editable JFXTextField
+	 * @param isEditable flag that determines if the field accepts text input
+	 * @return a TextFieldFactory that produces JFXTextField
+	 */
+	public static TextFieldFactory<JFXTextField> jfxTextField(boolean isEditable) {
+		return new TextFieldFactory<>(isEditable, () -> new JFXTextField());
+	}
 }

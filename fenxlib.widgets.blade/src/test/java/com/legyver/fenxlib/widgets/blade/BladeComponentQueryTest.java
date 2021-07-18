@@ -24,14 +24,14 @@ public class BladeComponentQueryTest extends ApplicationTest {
 				.left(new RegionInitializationOptions.SideBuilder("Controls")
 					.displayContentByDefault()
 					.factory(new AccordionMenuFactory(
-						new TitledPaneFactory("Source Options", new BladeFactory(
+						new TitledPaneFactory<>("Source Options", new BladeFactory(
 								new NameListClickOption("Sources", false)
 						))))
 				)
 				.build();
 		new BorderPaneFactory(options).makeBorderPane();
 
-		Optional<ListView> node = new ComponentQuery.QueryBuilder()
+		Optional node = new ComponentQuery.QueryBuilder()
 				.inRegion(BorderPaneInitializationOptions.REGION_LEFT)
 				.inSubRegion("Source Options")
 				.named("Sources").execute();
