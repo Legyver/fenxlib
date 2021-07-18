@@ -6,7 +6,7 @@ import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 /**
  * Base binding mixin that provides query finalization
  */
-public interface AbstractBindingMixin {
+public abstract class BaseBinding {
 
 	/**
 	 * Finalize a query
@@ -14,7 +14,7 @@ public interface AbstractBindingMixin {
 	 * @param named the name to append to the query
 	 * @return the finalized query
 	 */
-	default ComponentQuery finalizeQuery(IQueryDiscriminator query, String named) {
+	protected static ComponentQuery finalizeQuery(IQueryDiscriminator query, String named) {
 		if (named == null) {
 			return query.only();
 		} else {

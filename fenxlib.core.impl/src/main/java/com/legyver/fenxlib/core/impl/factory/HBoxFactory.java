@@ -31,7 +31,7 @@ public class HBoxFactory extends AbstractWrappingFactory implements NodeFactory<
 
 	/**
 	 * Construct a factory to wrap the output of the nested factories in an HBox.
-	 * Note: Uses {@link Pos.CENTER_LEFT} by default
+	 * Note: Uses {@link Pos#CENTER_LEFT} by default
 	 * @param nodeFactories factories to create the nodes in the HBox
 	 */
 	public HBoxFactory(NodeFactory... nodeFactories) {

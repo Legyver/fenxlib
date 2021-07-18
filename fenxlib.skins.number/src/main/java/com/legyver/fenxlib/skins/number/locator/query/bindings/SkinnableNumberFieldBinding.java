@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
 import com.legyver.fenxlib.core.api.locator.query.IRegionDiscriminator;
-import com.legyver.fenxlib.core.api.locator.query.bindings.AbstractBindingMixin;
+import com.legyver.fenxlib.core.api.locator.query.bindings.BaseBinding;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.TextField;
@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Mixin to allow for binding of a SkinnableNumberField to a BigDecimal ObjectProperty
  */
-public interface SkinnableNumberFieldBindingMixin extends AbstractBindingMixin {
+public class SkinnableNumberFieldBinding extends BaseBinding {
 
 	/**
 	 * Bind the SkinnableNumberField to a BigDecimal object property
@@ -20,7 +20,7 @@ public interface SkinnableNumberFieldBindingMixin extends AbstractBindingMixin {
 	 * @param query the query that will locate the SkinnableNumberField
 	 * @param named the name of the skinnable number field
 	 */
-	default void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) {
+	public static void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) {
 		Optional<TextField> text = finalizeQuery(query, named).execute();
 		TextField textField = text.get();
 		if (textField instanceof SkinnableNumberField) {

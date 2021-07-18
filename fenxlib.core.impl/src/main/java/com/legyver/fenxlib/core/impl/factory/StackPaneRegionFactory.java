@@ -16,6 +16,11 @@ import javafx.scene.web.WebView;
 public class StackPaneRegionFactory extends AbstractWrappingFactory implements RegionFactory<StackPane, RegionInitializationOptions> {
 	private final boolean shouldRegister;
 
+	/**
+	 * Construct a factory to embed the wrapped factories in a StackPane
+	 * @param shouldRegister true if the stack pane should be registered
+	 * @param nodeFactories factories for StackPane content
+	 */
 	public StackPaneRegionFactory(boolean shouldRegister, NodeFactory... nodeFactories) {
 		super(nodeFactories);
 		this.shouldRegister = shouldRegister;

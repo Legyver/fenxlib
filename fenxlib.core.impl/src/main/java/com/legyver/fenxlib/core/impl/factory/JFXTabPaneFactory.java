@@ -19,7 +19,7 @@ public class JFXTabPaneFactory extends AbstractTabPaneFactory<JFXTabPane> {
 
 	/**
 	 * Construct a JFXTabPaneFactory that uses the specified name and tab content factories
-	 * @param contentFactory
+	 * @param contentFactory wrapped factories producing the tab contents
 	 */
 	public JFXTabPaneFactory(TabContentFactory<? extends Tab>... contentFactory) {
 		super(contentFactory);

@@ -14,7 +14,7 @@ public class SliderFactory implements NodeFactory<Slider> {
 	private final Double value;
 
 	/**
-	 * Construct a factory to make sliders with the specified min, max and default value
+	 * Construct a factory to make sliders with the specified min, max and default values
 	 * @param min the minimum value
 	 * @param max the maximum value
 	 * @param value the default value
@@ -25,6 +25,9 @@ public class SliderFactory implements NodeFactory<Slider> {
 		this.value = value;
 	}
 
+	/**
+	 * Construct a factory to make sliders with unspecified min, max and default values
+	 */
 	public SliderFactory() {
 		this(null, null, null);
 	}

@@ -14,12 +14,16 @@ import javafx.scene.layout.VBox;
 
 /**
  * Wrapper factory to embed the nested factories output into a SplitPane.
- * Only the first two nested factories will be rendered
  */
 public class SplitPaneFactory extends AbstractWrappingFactory<Region> implements NodeFactory<SplitPane> {
 
 	private final double topPercentage;
 
+	/**
+	 * Construct a factory to embed the content produced by the wrapped factories in a split pane.
+	 * @param topPercentage the percentage of the split taken up by the top pane (as a percentage between 0.000 and 0.999)
+	 * @param factories the factories producing the split pane content
+	 */
 	public SplitPaneFactory(double topPercentage, NodeFactory<? extends Region>... factories) {
 		super(factories);
 		this.topPercentage = topPercentage;
@@ -33,18 +37,18 @@ public class SplitPaneFactory extends AbstractWrappingFactory<Region> implements
 		splitPane.setOrientation(Orientation.VERTICAL);
 		splitPane.setDividerPositions(topPercentage);
 
-		if (!nodes.isEmpty()) {
-			Region firstNode = (Region) nodes.get(0);
-			VBox.setVgrow(firstNode, Priority.NEVER);
-			//Constrain max size of top component:
-			firstNode.maxHeightProperty().bind(splitPane.heightProperty().multiply(topPercentage));
-			firstNode.minWidthProperty().bind(splitPane.maxWidthProperty());
+		boolean first = true;
+		for (Region region : nodes) {
+			if (first){
+				VBox.setVgrow(region, Priority.NEVER);
+				//Constrain max size of top component:
+				region.maxHeightProperty().bind(splitPane.heightProperty().multiply(topPercentage));
+				region.minWidthProperty().bind(splitPane.maxWidthProperty());
+			} else {
+				VBox.setVgrow(region, Priority.ALWAYS);
+			}
 		}
 
-		if (nodes.size() == 2) {
-			Region secondNode = (Region) nodes.get(1);
-			VBox.setVgrow(secondNode, Priority.ALWAYS);
-		}
 		return splitPane;
 	}
 

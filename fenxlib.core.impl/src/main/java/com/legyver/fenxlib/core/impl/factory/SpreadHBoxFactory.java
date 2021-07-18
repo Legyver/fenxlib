@@ -13,6 +13,10 @@ import javafx.scene.Node;
  */
 public class SpreadHBoxFactory extends AbstractWrappingFactory<Node> implements NodeFactory<HBox>, SpaceableFactory {
 
+	/**
+	 * Construct a factory to embed the content produced by the wrapped factories in an HBox
+	 * @param factories the factories producing the HBox content
+	 */
 	public SpreadHBoxFactory(NodeFactory... factories) {
 		super(factories);
 	}

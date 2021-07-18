@@ -28,11 +28,21 @@ import javafx.scene.layout.VBox;
 public class JFXDialogLayoutFactory extends AbstractWrappingFactory implements NodeFactory<JFXDialogLayout> {
 	private ITitleFactory titleFactory;
 
+	/**
+	 * Construct a factory for producing a JFXDialogLayout
+	 * @param titleFactory the factory for the title part of the layout
+	 * @param nodeFactories the factories producing the body content
+	 */
 	public JFXDialogLayoutFactory(ITitleFactory titleFactory, NodeFactory... nodeFactories) {
 		super(nodeFactories);
 		this.titleFactory = titleFactory;
 	}
 
+	/**
+	 * Construct a factory for producing a JFXDialogLayout
+	 * @param title the title to use for the dialog
+	 * @param nodeFactories the factories producing the body content
+	 */
 	public JFXDialogLayoutFactory(String title, NodeFactory...nodeFactories) {
 		this(new TitleFactoryAdapter(new LabelFactory(title)), nodeFactories);
 	}

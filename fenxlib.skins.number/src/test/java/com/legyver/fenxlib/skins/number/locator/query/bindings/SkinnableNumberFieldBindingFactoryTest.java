@@ -18,7 +18,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
-	private final TestBindingMixin factory = new TestBindingMixin();
 
 	@Test
 	public void bindMoneyField() throws Exception {
@@ -32,16 +31,12 @@ public class SkinnableNumberFieldBindingFactoryTest extends ApplicationTest {
 
 		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
-		factory.bindTextField(money, query, null);
+		SkinnableNumberFieldBinding.bindTextField(money, query, null);
 		assertThat(numberField.getValue().doubleValue(), is(1000.0));
 		assertThat(money.get().doubleValue(), is(1000.0));
 
 		numberField.setValue(BigDecimal.valueOf(2000));
 		assertThat(numberField.getValue().doubleValue(), is(2000.0));
 		assertThat(money.get().doubleValue(), is(2000.0));
-	}
-
-	private class TestBindingMixin implements SkinnableNumberFieldBindingMixin {
-
 	}
 }

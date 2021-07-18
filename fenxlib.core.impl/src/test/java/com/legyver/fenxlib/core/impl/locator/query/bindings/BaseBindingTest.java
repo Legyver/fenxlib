@@ -20,8 +20,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class AbstractBindingMixinTest extends ApplicationTest {
-	private final TestBindingMixin factory = new TestBindingMixin();
+public class BaseBindingTest extends ApplicationTest {
 
 	@Test
 	public void bindTextField() throws Exception {
@@ -35,7 +34,7 @@ public class AbstractBindingMixinTest extends ApplicationTest {
 
 		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
-		factory.bindTextField(s, query, null);
+		TextFieldBinding.bindTextField(s, query, null);
 		assertThat(textField.getText(), is("Test Value"));
 		assertThat(s.get(), is("Test Value"));
 
@@ -55,18 +54,12 @@ public class AbstractBindingMixinTest extends ApplicationTest {
 
 		IRegionDiscriminator query = new ComponentQuery.QueryBuilder()
 				.inRegion("Test panel");
-		factory.bindDatePicker(ld, query, null);
+		DatePickerBinding.bindDatePicker(ld, query, null);
 		assertThat(picker.getValue(), is(LocalDate.now()));
 		assertThat(ld.get(), is(LocalDate.now()));
 
 		picker.setValue(LocalDate.MIN);
 		assertThat(picker.getValue(), is(LocalDate.MIN));
 		assertThat(ld.get(), is(LocalDate.MIN));
-	}
-
-
-
-	private class TestBindingMixin implements TextFieldBindingMixin, DatePickerBindingMixin {
-
 	}
 }
