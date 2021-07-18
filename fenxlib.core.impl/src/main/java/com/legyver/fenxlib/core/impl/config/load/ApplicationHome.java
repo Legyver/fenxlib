@@ -20,8 +20,8 @@ public class ApplicationHome implements ApplicationConfigProvider {
 	 * ie: (src/main/resources/log4j2.xml)
 	 *  &lt;properties&gt;
 	 *         &lt;property name="patternlayout"&gt;%d{dd/MM/yyyy HH:mm:ss} %5p %c{1}:%L - %m%n&lt;/property&gt;
-	 *         &lt;property name="filename"&gt;${sys:documaint.home.logging}/application.log&lt;/property&gt;
-	 *         &lt;property name="filenamePattern"&gt;${sys:documaint.home.logging}/application-%d{yyyy-MM-dd}.log.gz&lt;/property&gt;
+	 *         &lt;property name="filename"&gt;${sys: &lt;appName&gt;.home.logging}/application.log&lt;/property&gt;
+	 *         &lt;property name="filenamePattern"&gt;${sys: &lt;appName&gt;.home.logging}/application-%d{yyyy-MM-dd}.log.gz&lt;/property&gt;
 	 *  &lt;/properties&gt;
 	 */
 	public static final String APP_HOME_SUFFIX = ".home";
