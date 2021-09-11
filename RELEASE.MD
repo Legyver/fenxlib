@@ -1,4 +1,24 @@
 # Releases
+## 2.1
+### New Stuff
+- New widget FileTreeExplorer
+  - Standard filesystem project window
+  - Add top level folders via import window
+  - All folders are automatically watched so that folder contents automatically updates as files/folders are added or deleted.
+    - Files/Folders added on filesystem under a watched directory automatically added to the tree
+    - Files/Folders removed on filesystem under a watched directory automatically removed from the tree
+  - All nodes in tree automatically sorted in alphabetical order
+    - Folders above files
+- Support for correlation ids in log messages
+### Refactoring
+- Standardized module names
+  - fenxlib.icons.fa -> com.legyver.fenxlib.icons.fa
+  - fenxlib.icons.icomoon -> com.legyver.fenxlib.icons.icomoon
+- Moved classes from core.impl to core.api
+  - com.legyver.fenxlib.core.impl.util.GuidUtil to com.legyver.fenxlib.core.api.util.GuidUtil
+- Added SHUTDOWN lifecycle hook to follow PRE_SHUTDOWN lifecycle hooks.
+  - File > Exit now triggers SHUTDOWN lifecycle hook, as does closing the window
+  - fenxlib.extensions.tuktukfx now shuts down the thread pool on SHUTDOWN lifecycle hook
 ## 2.0
 Milestone release.  All fenxlib libraries now live in one repository as separate modules under various top-level folders
 ### New stuff

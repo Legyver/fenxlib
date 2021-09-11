@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.impl.factory.menu.file;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.event.correlation.CorrelatingEventHandlerFactory;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
 import com.legyver.fenxlib.core.impl.factory.menu.IMenuItemFactory;
@@ -30,9 +31,9 @@ public class OpenRecentFileFactory implements IMenuItemFactory {
 	@Override
 	public MenuItem makeItem(LocationContext locationContext) throws CoreException {
 		MenuItem open = new MenuItem(fileOptions.getFile().getName());
-		open.setOnAction(e -> {
+		open.setOnAction(CorrelatingEventHandlerFactory.wrapIfNecessary(e -> {
 			fileOpenConsumer.accept(fileOptions.getFile());
-		});
+		}));
 		return open;
 	}
 

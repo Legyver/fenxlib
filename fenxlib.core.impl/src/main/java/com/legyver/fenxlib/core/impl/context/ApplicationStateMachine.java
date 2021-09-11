@@ -31,7 +31,8 @@ public class ApplicationStateMachine {
 		Node init = new Node(LifecyclePhase.INIT);
 		Node postInit = new Node(LifecyclePhase.POST_INIT);
 		Node preShutdown = new Node(LifecyclePhase.PRE_SHUTDOWN);
-		graph = new Graph.Builder().nodes(bootstrap, preInit, init, postInit, preShutdown)
+		Node shutdown = new Node(LifecyclePhase.SHUTDOWN);
+		graph = new Graph.Builder().nodes(bootstrap, preInit, init, postInit, preShutdown, shutdown)
 				.connect(new Graph.Connection()
 						.from(bootstrap.getNodeName())
 						.to(preInit.getNodeName()))
@@ -41,6 +42,9 @@ public class ApplicationStateMachine {
 				.connect(new Graph.Connection()
 						.from(init.getNodeName())
 						.to(postInit.getNodeName()))
+				.connect(new Graph.Connection()
+						.from(preShutdown.getNodeName())
+						.to(shutdown.getNodeName()))
 				.build();
 	}
 

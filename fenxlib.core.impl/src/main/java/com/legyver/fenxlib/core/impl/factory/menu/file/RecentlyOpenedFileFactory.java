@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.core.function.ThrowingConsumer;
 import com.legyver.fenxlib.core.api.config.parts.IRecentlyViewedFile;
 import com.legyver.fenxlib.core.api.config.parts.IRecentlyModified;
+import com.legyver.fenxlib.core.api.event.correlation.CorrelatingEventHandlerFactory;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.impl.factory.menu.IMenuItemFactory;
@@ -69,14 +70,14 @@ public class RecentlyOpenedFileFactory implements IMenuItemFactory {
 	
 	private MenuItem makeItem(IRecentlyViewedFile recentFile) throws CoreException {
 		MenuItem recent = new MenuItem(recentFile.getName());
-		recent.setOnAction(av -> {
+		recent.setOnAction(CorrelatingEventHandlerFactory.wrapIfNecessary(av -> {
 			try {
 				File file = new File(recentFile.getPath());//not validating file.exists() here so devs can handle themselves
 				fileSelectionConsumer.accept(file);
 			} catch (CoreException ex) {
 				logger.error("Error reading recent file information: " + ex.getMessage(), ex);
 			}
-		});
+		}));
 		return recent;
 	}
 

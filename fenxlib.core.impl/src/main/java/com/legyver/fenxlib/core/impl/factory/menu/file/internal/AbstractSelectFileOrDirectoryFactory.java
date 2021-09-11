@@ -2,6 +2,7 @@ package com.legyver.fenxlib.core.impl.factory.menu.file.internal;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.core.function.ThrowingConsumer;
+import com.legyver.fenxlib.core.api.event.correlation.CorrelatingEventHandlerFactory;
 import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.impl.factory.menu.file.Action;
 import com.legyver.fenxlib.core.impl.uimodel.DefaultFileOptions;
@@ -40,7 +41,7 @@ public abstract class AbstractSelectFileOrDirectoryFactory<T extends AbstractCho
 	 */
 	public MenuItem makeItem(Action action, String name, String message, ThrowingConsumer<FileOptions> fileSelectionConsumer) {
 		MenuItem open = new MenuItem(name);
-		open.setOnAction(av -> {
+		open.setOnAction(CorrelatingEventHandlerFactory.wrapIfNecessary(av -> {
 			File file = choose(action, message, chooserFactory, ApplicationContext.getPrimaryStage());
 			if (file != null) {
 				FileOptions fileOptions = new DefaultFileOptions(file, false);
@@ -55,7 +56,7 @@ public abstract class AbstractSelectFileOrDirectoryFactory<T extends AbstractCho
 					}
 				}
 			}
-		});
+		}));
 		return open;
 	}
 

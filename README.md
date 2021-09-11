@@ -9,7 +9,7 @@ Since version 2.0.0.0, this library has been made module-friendly, and hence the
 The main functionality of this library is in the fenxlib.core.impl module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '2.1.0.0'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
@@ -18,7 +18,7 @@ There are several extensions, widgets and skins available as well as independent
 - [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx/README.MD)
     - an extension for TukTukFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '2.1.0.0'
 ```
 
 ### Widgets
@@ -26,12 +26,17 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
   - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.1.0.0'
 ```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.1.0.0'
+```
+- [fenxlib.widgets.filetree](fenxlib.widgets.filetree/README.md)
+  - a pre-made, customizable and extendable file explorer that monitors the filesystem for file operations on added files/folders.
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '2.1.0.0'
 ```
 ### Skins
 - [fenxlib.skins.number](fenxlib.skins.number/README.MD)
@@ -39,27 +44,28 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.
     - currency
     - percentages
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.1.0.0'
 ```
 
 ### Controls
 - [fenxlib.controls.svg](fenxlib.controls.svg/README.md)
   - SVG control that attaches an action to an icon
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.controls.svg', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.controls.svg', version: '2.1.0.0'
 ```
 
 ### Icons
+Add icons to your application by supplying any artifact that loads SVGs (See com.legyver.fenxlib.core.api.icons.IconService)
 - fenxlib.icons.fa
   - Bootstraps an application with fa-free-regular and fa-free-solid svg icons
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.icons.fa', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.icons.fa', version: '2.1.0.0'
 ```
 
 - fenxlib.icons.icomoon
   - Bootstraps an application with icomoon svg icons
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.icons.icomoon', version: '2.0.0.0-rc2'
+implementation group: 'com.legyver', name: 'fenxlib.icons.icomoon', version: '2.1.0.0'
 ```
 
 ## Samples

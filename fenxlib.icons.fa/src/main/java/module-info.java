@@ -1,7 +1,7 @@
 /**
  * Fenxlib FontAwesome icons
  */
-module fenxlib.icons.fa {
+module com.legyver.fenxlib.icons.fa {
 	requires com.legyver.fenxlib.core.api;
 	exports com.legyver.fenxlib.icons.fa;
 

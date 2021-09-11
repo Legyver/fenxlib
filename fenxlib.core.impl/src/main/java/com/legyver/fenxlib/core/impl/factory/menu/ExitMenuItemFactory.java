@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.impl.factory.menu;
 
-import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.event.correlation.CorrelatingEventHandlerFactory;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.impl.util.hook.HookExecutingAction;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
@@ -25,7 +25,9 @@ public class ExitMenuItemFactory implements IMenuItemFactory {
 	@Override
 	public MenuItem makeItem(LocationContext locationContext) {
 		MenuItem exit = new MenuItem(name);
-		exit.setOnAction(new ShutdownHookDecorator(new HookExecutingAction(LifecyclePhase.PRE_SHUTDOWN))::execute);
+		exit.setOnAction(CorrelatingEventHandlerFactory.wrapIfNecessary(
+				new ShutdownHookDecorator(new HookExecutingAction(LifecyclePhase.SHUTDOWN))::execute)
+		);
 		return exit;
 	}
 

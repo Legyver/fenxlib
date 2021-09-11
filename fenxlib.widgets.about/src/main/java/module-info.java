@@ -1,7 +1,7 @@
 /**
  * About Page widget for Fenxlib projects
  */
-module fenxlib.widgets.about {
+module com.legyver.fenxlib.widgets.about {
 	requires transitive javafx.controls;
 	requires transitive com.legyver.fenxlib.core.impl;
 	requires transitive com.legyver.utils.propcross;

@@ -2,6 +2,7 @@ package com.legyver.fenxlib.core.api.locator.query;
 
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.api.locator.visitor.LocationKeyVisitor;
+import com.legyver.fenxlib.core.api.util.GuidUtil;
 import com.legyver.utils.nippe.Base;
 import com.legyver.utils.nippe.Step;
 import javafx.event.EventTarget;
@@ -12,7 +13,9 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Component registry handling the registration and querying of components
+ * Component registry handling the registration and querying of components.
+ * @since 2.1: Sets the location context key on the Node as a Guid using {@link GuidUtil}
+ * @since 1.0
  */
 public class DefaultComponentRegistry implements QueryableComponentRegistry {
 
@@ -32,15 +35,29 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 			typedNodes.put(key, typed);
 		}
 		typed.typedNodes.put(target.getClass(), target);
+		if (target instanceof Node) {
+			GuidUtil.setGuid((Node) target, key);
+		}
 	}
 
 	/**
 	 * Register a node with a UUID
 	 * @param guid the uuid to use
 	 * @param node the node to register
+	 * @deprecated Use {@link #register(String, Node)} instead
 	 */
+	@Deprecated
 	public void register(UUID guid, Node node) {
 		nodes.put(guid.toString(), node);
+	}
+
+	/**
+	 * Register a node with a GUID
+	 * @param guid the uuid to use
+	 * @param node the node to register
+	 */
+	public void register(String guid, Node node) {
+		nodes.put(guid, node);
 	}
 
 	/**
@@ -48,9 +65,21 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 	 * @param guid the uuid to reference
 	 * @param <T> the type of the JavaFX Component
 	 * @return the node registered with the uuid
+	 * @deprecated Use {@link #get(String)} instead
 	 */
+	@Deprecated
 	public <T extends EventTarget>  T get(UUID guid) {
 		return (T) nodes.get(guid.toString());
+	}
+
+	/**
+	 * Get the node registered under a guid
+	 * @param guid the uuid to reference
+	 * @param <T> the type of the JavaFX Component
+	 * @return the node registered with the uuid
+	 */
+	public <T extends EventTarget>  T get(String guid) {
+		return (T) nodes.get(guid);
 	}
 
 	@Override

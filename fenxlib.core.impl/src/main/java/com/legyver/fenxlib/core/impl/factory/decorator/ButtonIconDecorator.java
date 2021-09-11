@@ -2,6 +2,7 @@ package com.legyver.fenxlib.core.impl.factory.decorator;
 
 import com.jfoenix.svg.SVGGlyph;
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.api.event.correlation.CorrelatingEventHandlerFactory;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +23,7 @@ public class ButtonIconDecorator implements NodeFactory<Button> {
 	 * @param factory factory creating the icon
 	 */
 	public ButtonIconDecorator(EventHandler<ActionEvent> onClick, SvgIconFactory factory) {
-		this.onClick = onClick;
+		this.onClick = CorrelatingEventHandlerFactory.wrapIfNecessary(onClick);
 		this.factory = factory;
 	}
 

@@ -23,5 +23,9 @@ public enum LifecyclePhase {
 	/**
 	 * Any hooks that need to be executed before the application shuts down, like updating settings or configuration
 	 */
-	PRE_SHUTDOWN;
+	PRE_SHUTDOWN,
+	/**
+	 * Final hooks like shutting down thread pools gracefully, etc
+	 */
+	SHUTDOWN;
 }

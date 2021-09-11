@@ -41,7 +41,7 @@ public class SceneFactory {
 	 */
 	public Scene makeScene(BorderPane root) {
 		JFXDecorator decorator = new JFXDecorator(stage, root);
-		decorator.setOnCloseButtonAction(new ShutdownHookDecorator(new HookExecutingAction(LifecyclePhase.PRE_SHUTDOWN))::execute);
+		decorator.setOnCloseButtonAction(new ShutdownHookDecorator(new HookExecutingAction(LifecyclePhase.SHUTDOWN))::execute);
 		decorator.setCustomMaximize(true);
 
 		Scene scene = new Scene(decorator, width, height);

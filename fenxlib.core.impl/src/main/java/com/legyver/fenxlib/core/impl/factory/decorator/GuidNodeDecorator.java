@@ -3,7 +3,7 @@ package com.legyver.fenxlib.core.impl.factory.decorator;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.api.locator.LocationContext;
 import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.fenxlib.core.impl.util.GuidUtil;
+import com.legyver.fenxlib.core.api.util.GuidUtil;
 import javafx.scene.Node;
 
 /**

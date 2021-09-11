@@ -1,7 +1,7 @@
 /**
  * Fenxlib IcoMoon icons
  */
-module fenxlib.icons.icomoon {
+module com.legyver.fenxlib.icons.icomoon {
 	requires com.legyver.fenxlib.core.api;
 	exports com.legyver.fenxlib.icons.icomoon;
 
