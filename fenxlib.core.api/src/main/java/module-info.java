@@ -10,6 +10,7 @@ module com.legyver.fenxlib.core.api {
 	requires transitive org.apache.logging.log4j;
 	requires javafx.controls;
 
+	exports com.legyver.fenxlib.core.api.alert;
 	exports com.legyver.fenxlib.core.api.config;
 	exports com.legyver.fenxlib.core.api.config.parts;
 	exports com.legyver.fenxlib.core.api.config.options.init;

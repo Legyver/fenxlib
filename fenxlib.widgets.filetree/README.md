@@ -22,5 +22,4 @@
                         .factory(new StackPaneRegionFactory(false, new SimpleFileExplorerFactory(fileTreeRegistry, fileWatchHandler))))
                 .build();
 ```
-## Themain
 

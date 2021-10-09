@@ -6,6 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -15,7 +19,7 @@ public class FileTreeItemContextMenuFactory {
     /**
      * Factories to provide the individual items in the context menu
      */
-    private final FileTreeItemContextMenuItemFactory[] factories;
+    private final List<FileTreeItemContextMenuItemFactory> factories;
     /**
      * File tree registry to pass to the {@link FileTreeItemContextMenuItemFactory}
      */
@@ -26,7 +30,19 @@ public class FileTreeItemContextMenuFactory {
      * @param factories the factories to produce the menu items
      */
     public FileTreeItemContextMenuFactory(FileTreeItemContextMenuItemFactory...factories) {
-        this.factories = factories;
+        if (factories != null) {
+            this.factories = Arrays.stream(factories).collect(Collectors.toList());
+        } else {
+            this.factories = new ArrayList<>();
+        }
+    }
+
+    /**
+     * Add a menu item factory
+     * @param factory factory to use to construct a menu item
+     */
+    public void addMenuItemFactory(FileTreeItemContextMenuItemFactory factory) {
+        this.factories.add(factory);
     }
 
     /**
@@ -37,14 +53,12 @@ public class FileTreeItemContextMenuFactory {
     public ContextMenu makeContextMenu(FileTreeItem fileTreeItem) {
         ContextMenu contextMenu = new ContextMenu();
         ObservableList<MenuItem> items = contextMenu.getItems();
-        if (factories != null) {
-            Stream.of(factories).forEach(f-> {
-                MenuItem menuItem = f.makeItem(fileTreeRegistry, fileTreeItem);
-                if (menuItem != null) {
-                    items.add(menuItem);
-                }
-            });
-        }
+        factories.forEach(f-> {
+            MenuItem menuItem = f.makeItem(fileTreeRegistry, fileTreeItem);
+            if (menuItem != null) {
+                items.add(menuItem);
+            }
+        });
         return contextMenu;
     }
 

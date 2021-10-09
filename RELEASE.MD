@@ -1,4 +1,9 @@
 # Releases
+## 2.1.1
+### New Stuff
+- Add notification support for info/warning/error messages
+- FileTreeExplorer
+  - Add ability to provide short-cut menu items to FileTreeExplorer (FileWatchHandler.Builder().contextMenuItemFactory)
 ## 2.1
 ### New Stuff
 - New widget FileTreeExplorer

@@ -11,8 +11,8 @@ private/**
 /fenxlib.core.api/build/
 /fenxlib.core.impl/build/
 /fenxlib.extensions.tuktukfx/build
-/samples/widgets/widget-about-sample/build/
 /fenxlib.skins.number/build/
 /fenxlib.widgets.about/build/
 /fenxlib.widgets.blade/build/
 /fenxlib.widgets.filetree/build/
+/fenxlib.widgets.snackbar/build/

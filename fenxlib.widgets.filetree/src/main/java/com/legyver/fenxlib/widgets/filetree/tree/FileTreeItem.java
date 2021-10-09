@@ -95,6 +95,14 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
     }
 
     /**
+     * Get the reference to the filesystem file/folder this tree node represents
+     * @return the file reference
+     */
+    public INodeReference getNodeReference() {
+        return nodeReference;
+    }
+
+    /**
      * Get the name of the node
      * @return the name
      */

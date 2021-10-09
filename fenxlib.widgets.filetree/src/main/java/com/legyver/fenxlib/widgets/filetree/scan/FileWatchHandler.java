@@ -60,7 +60,7 @@ public class FileWatchHandler implements IFileWatchHandler {
         /**
          * Factory to create the Context Menu to display when an item in the tree is selected
          */
-        private FileTreeItemContextMenuFactory fileTreeItemContextMenuFactory;
+        private final FileTreeItemContextMenuFactory fileTreeItemContextMenuFactory;
         private List<FileFilter> fileFilters = new ArrayList<>();
 
         /**
@@ -95,6 +95,16 @@ public class FileWatchHandler implements IFileWatchHandler {
             FileSystemCreateEventHandler createEventHandler = (FileSystemCreateEventHandler) handlerMap.get(FileWatcherEventConstants.ENTRY_CREATE_NAME);
             createEventHandler.setChildFactory(childFactory);
             return new FileWatchHandler(fileTreeRegistry, handlerMap);
+        }
+
+        /**
+         * Add a factory for a context menu item to display of a tree node.
+         * @param fileTreeItemContextMenuItemFactory the factory to use to construct the menu item
+         * @return this builder
+         */
+        public final Builder contextMenuItemFactory(FileTreeItemContextMenuItemFactory fileTreeItemContextMenuItemFactory) {
+            this.fileTreeItemContextMenuFactory.addMenuItemFactory(fileTreeItemContextMenuItemFactory);
+            return this;
         }
 
         /**

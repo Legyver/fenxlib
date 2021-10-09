@@ -1,10 +1,14 @@
 package com.legyver.fenxlib.core.impl.context;
 
+import com.legyver.fenxlib.core.api.alert.Level;
 import com.legyver.fenxlib.core.api.uimodel.IUiModel;
 import com.legyver.fenxlib.core.api.context.BaseApplicationContext;
+import com.legyver.fenxlib.core.impl.alert.AlertServiceRegistry;
 import com.legyver.fenxlib.core.impl.config.ApplicationConfig;
 import com.legyver.fenxlib.core.impl.files.FileRegistry;
 import com.legyver.fenxlib.core.impl.util.hook.ApplicationLifecycleHookRegistry;
+import javafx.application.Platform;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -95,6 +99,64 @@ public class ApplicationContext extends BaseApplicationContext {
 	 */
 	public static void setApplicationConfig(ApplicationConfig applicationConfig) {
 		ApplicationContext.applicationConfig = applicationConfig;
+	}
+
+	/**
+	 * Broadcast an informational alert
+	 * @param stackPane the StackPane to display the alert over
+	 * @param title the title for the alert
+	 * @param message the message for the alert
+	 */
+	public static void infoAlert(StackPane stackPane, String title, String message) {
+		infoAlert(stackPane, title, message, -1L);
+	}
+
+	/**
+	 * Broadcast an informational alert
+	 * @param stackPane the StackPane to display the alert over
+	 * @param title the title for the alert
+	 * @param message the message for the alert
+	 * @param timeout the timeout for the alert
+	 */
+	public static void infoAlert(StackPane stackPane, String title, String message, Long timeout) {
+		broadcastAlert(stackPane, title, message, Level.INFO, timeout);
+	}
+
+	/**
+	 * Broadcast a warning alert
+	 * @param stackPane the StackPane to display the alert over
+	 * @param title the title for the alert
+	 * @param message the message for the alert
+	 */
+	public static void warningAlert(StackPane stackPane, String title, String message) {
+		warningAlert(stackPane, title, message, -1L);
+	}
+
+	/**
+	 * Broadcast a warning alert
+	 * @param stackPane the StackPane to display the alert over
+	 * @param title the title for the alert
+	 * @param message the message for the alert
+	 * @param timeout the timeout for the alert
+	 */
+	public static void warningAlert(StackPane stackPane, String title, String message, Long timeout) {
+		broadcastAlert(stackPane, title, message, Level.WARNING, timeout);
+	}
+
+	/**
+	 * Broadcast an error alert
+	 * @param stackPane the StackPane to display the alert over
+	 * @param title the title for the alert
+	 * @param message the message for the alert
+	 */
+	public static void errorAlert(StackPane stackPane, String title, String message) {
+		broadcastAlert(stackPane, title, message, Level.ERROR, -1L);
+	}
+
+	private static void broadcastAlert(StackPane stackPane, String title, String message, Level level, Long timeout) {
+		Platform.runLater(() -> {
+			AlertServiceRegistry.getInstance().displayAlert(stackPane, title, message, level, timeout);
+		});
 	}
 
 }

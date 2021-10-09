@@ -22,4 +22,7 @@ module com.legyver.fenxlib.widgets.filetree {
     exports com.legyver.fenxlib.widgets.filetree.task;
     exports com.legyver.fenxlib.widgets.filetree.tree;
 
+    provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.filetree.license.LicenseServiceImpl;
+
+
 }
