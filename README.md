@@ -28,6 +28,11 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
 ```gradle
 implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.1.0.0'
 ```
+- [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar/README.md)
+  - a notification widget that displays info/warning/error notifications in a snackbar
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.1.1.0'
+```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
