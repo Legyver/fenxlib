@@ -28,11 +28,6 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
 ```gradle
 implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.1.0.0'
 ```
-- [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar/README.md)
-  - a notification widget that displays info/warning/error notifications in a snackbar
-```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '2.1.1.0'
-```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
@@ -42,6 +37,11 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '2.
   - a pre-made, customizable and extendable file explorer that monitors the filesystem for file operations on added files/folders.
 ```gradle
 implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '2.1.0.0'
+```
+- [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar/README.md)
+  - a notification widget that displays info/warning/error notifications in a snackbar
+```gradle
+implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '2.1.1.0'
 ```
 ### Skins
 - [fenxlib.skins.number](fenxlib.skins.number/README.MD)
