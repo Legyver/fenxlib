@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.widgets.license;
 
+import com.legyver.fenxlib.core.impl.web.DesktopWeblink;
 import javafx.geometry.HPos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -7,8 +8,6 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import java.awt.Desktop;
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public class OpenSourceReferenceListSkin extends SkinBase<OpenSourceReferenceLis
 					if (j < item.getLicenseNames().size()) {
 						licenseName = item.getLicenseNames().get(j);
 					}
-					Hyperlink link = makeHyperLink(licenseName, licenseLinkPart);
+					Hyperlink link = new DesktopWeblink(licenseName, licenseLinkPart);
 					if (hBox.getChildren().size() > 0) {
 						hBox.getChildren().add(new Label("/"));
 					}
@@ -61,18 +60,5 @@ public class OpenSourceReferenceListSkin extends SkinBase<OpenSourceReferenceLis
 		);
 
 		getChildren().addAll(contentStack);
-	}
-
-	private Hyperlink makeHyperLink(String text, String url) {
-		Hyperlink link = new Hyperlink();
-		link.setText(text);
-		link.setOnAction(click -> {
-			try {
-				Desktop.getDesktop().browse(new URI(url));
-			} catch (Exception e) {
-				//FIXME
-			}
-		});
-		return link;
 	}
 }

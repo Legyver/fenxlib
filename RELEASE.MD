@@ -1,4 +1,7 @@
 # Releases
+## 2.1.2
+- DesktopWeblink
+  - Open up a link in the user's default web browser
 ## 2.1.1
 ### New Stuff
 - Add notification support for info/warning/error messages
