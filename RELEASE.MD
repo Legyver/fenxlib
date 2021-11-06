@@ -1,5 +1,11 @@
 # Releases
+## 2.1.2.1
+### Refactoring
+- FileTreeExplorer
+  - Pulled out DefaultFileTreeItemContextMenuFactory for easier extension.
+  - Deprecated the FileWatchHandler.Builder.contextMenuItemFactory(FileTreeItemContextMenuItemFactory) method as it is confusing to use.
 ## 2.1.2
+### New Stuff
 - DesktopWeblink
   - Open up a link in the user's default web browser
 ## 2.1.1

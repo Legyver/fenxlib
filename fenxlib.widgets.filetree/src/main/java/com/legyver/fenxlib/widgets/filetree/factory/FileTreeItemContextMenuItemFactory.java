@@ -12,7 +12,7 @@ import java.util.function.BiFunction;
 /**
  * Factory to produce a file tree node-specific context menu item
  */
-public class FileTreeItemContextMenuItemFactory {
+public class FileTreeItemContextMenuItemFactory implements Comparable<FileTreeItemContextMenuItemFactory> {
     /**
      * Name of the context menu item
      */
@@ -52,5 +52,10 @@ public class FileTreeItemContextMenuItemFactory {
             menuItem.setOnAction(eventHandler);
         }
         return menuItem;
+    }
+
+    @Override
+    public int compareTo(FileTreeItemContextMenuItemFactory o) {
+        return name.compareTo(o.name);
     }
 }

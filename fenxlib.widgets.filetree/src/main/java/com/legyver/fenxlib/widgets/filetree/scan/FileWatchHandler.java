@@ -1,9 +1,6 @@
 package com.legyver.fenxlib.widgets.filetree.scan;
 
-import com.legyver.fenxlib.widgets.filetree.factory.FileTreeItemContextMenuFactory;
-import com.legyver.fenxlib.widgets.filetree.factory.FileTreeItemContextMenuItemFactory;
-import com.legyver.fenxlib.widgets.filetree.factory.FileTreeRemoveEventHandlerFactory;
-import com.legyver.fenxlib.widgets.filetree.factory.TreeItemChildFactory;
+import com.legyver.fenxlib.widgets.filetree.factory.*;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,9 +69,7 @@ public class FileWatchHandler implements IFileWatchHandler {
          * - OVERFLOW event handler. See {@link FileSystemOverflowEventHandler}
          */
         public Builder() {
-            fileTreeItemContextMenuFactory = new FileTreeItemContextMenuFactory(
-                    new FileTreeItemContextMenuItemFactory(FileTreeRemoveEventHandlerFactory.MENU_ITEM_NAME, new FileTreeRemoveEventHandlerFactory())
-            );
+            fileTreeItemContextMenuFactory = new DefaultFileTreeItemContextMenuFactory();
 
             childFactory(new TreeItemChildFactory(fileTreeItemContextMenuFactory));
             withCreateHandler(new FileSystemCreateEventHandler());
@@ -100,8 +95,10 @@ public class FileWatchHandler implements IFileWatchHandler {
         /**
          * Add a factory for a context menu item to display of a tree node.
          * @param fileTreeItemContextMenuItemFactory the factory to use to construct the menu item
+         * @deprecated Use {@link #childFactory(TreeItemChildFactory)} to specify any custom menu items
          * @return this builder
          */
+        @Deprecated
         public final Builder contextMenuItemFactory(FileTreeItemContextMenuItemFactory fileTreeItemContextMenuItemFactory) {
             this.fileTreeItemContextMenuFactory.addMenuItemFactory(fileTreeItemContextMenuItemFactory);
             return this;
