@@ -4,6 +4,7 @@
 - FileTreeExplorer
   - Pulled out DefaultFileTreeItemContextMenuFactory for easier extension.
   - Deprecated the FileWatchHandler.Builder.contextMenuItemFactory(FileTreeItemContextMenuItemFactory) method as it is confusing to use.
+ - BottomRegionFactory now allows for center content factories to be passed into constructor.
 ## 2.1.2
 ### New Stuff
 - DesktopWeblink

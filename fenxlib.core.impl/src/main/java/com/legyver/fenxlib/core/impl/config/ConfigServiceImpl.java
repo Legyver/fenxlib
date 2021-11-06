@@ -25,7 +25,7 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	public <T extends IApplicationConfig> T loadConfig(String filename) throws CoreException {
-		return (T) new ExceptionToCoreExceptionActionDecorator(
+		return (T) new ExceptionToCoreExceptionActionDecorator<>(
 				() -> fileIOUtil.readModel(new File(filename))
 		).execute();
 	}
