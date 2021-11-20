@@ -26,4 +26,6 @@ module com.legyver.fenxlib.core.api {
 	exports com.legyver.fenxlib.core.api.locator.query.bindings;
 	exports com.legyver.fenxlib.core.api.locator.query;
 	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.api.license.LicenseServiceImpl;
+	uses com.legyver.fenxlib.core.api.config.ConfigService;
+
 }

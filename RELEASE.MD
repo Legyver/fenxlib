@@ -1,4 +1,8 @@
 # Releases
+## 2.1.2.2
+### Refactoring
+- DesktopWeblink
+  - Added constructor to accept a URI.
 ## 2.1.2.1
 ### Refactoring
 - FileTreeExplorer

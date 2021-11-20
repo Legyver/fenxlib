@@ -12,6 +12,23 @@ import java.net.URI;
 public class DesktopWeblink extends Hyperlink {
     private static final Logger logger = LogManager.getLogger(DesktopWeblink.class);
 
+
+    /**
+     * Construct a link that opens in the user's default web browser
+     * @param text the text for the link
+     * @param uri the link uri
+     */
+    public DesktopWeblink(String text, URI uri) {
+        super(text);
+        setOnAction(click -> {
+            try {
+                java.awt.Desktop.getDesktop().browse(uri);
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        });
+    }
+
     /**
      * Construct a link that opens in the user's default web browser
      * @param text the text for the link
