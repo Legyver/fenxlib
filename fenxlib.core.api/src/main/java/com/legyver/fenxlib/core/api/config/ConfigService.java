@@ -6,7 +6,7 @@ import com.legyver.core.exception.CoreException;
  * Loads the application config from file.
  * This was moved to a service to make tests more sensible.
  */
-public interface ConfigService extends OrderedService<ConfigService> {
+public interface ConfigService<I> extends OrderedService<ConfigService>, InitializableService<I> {
 	/**
 	 * Load the application config from file.
 	 * @param filename the filename

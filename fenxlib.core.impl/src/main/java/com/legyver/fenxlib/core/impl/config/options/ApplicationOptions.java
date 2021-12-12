@@ -179,7 +179,11 @@ public class ApplicationOptions {
 		 */
 		protected void registerLifecycleHooks() {
 			if (enableLogging) {
-				registerLifecycleHook(new InitLoggingApplicationLifecycleHook(appName));
+				if (applicationConfigProvider instanceof ApplicationHome) {
+					registerLifecycleHook(new InitLoggingApplicationLifecycleHook((ApplicationHome) applicationConfigProvider, appName));
+				} else {
+					registerLifecycleHook(new InitLoggingApplicationLifecycleHook(appName));
+				}
 			}
 			//load config Mixin
 			registerLifecycleHook(new LoadConfigApplicationLifecycleHook(appConfigInstantiator, applicationConfigProvider));

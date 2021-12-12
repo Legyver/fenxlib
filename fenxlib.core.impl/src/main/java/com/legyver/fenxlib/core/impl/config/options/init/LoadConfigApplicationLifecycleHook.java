@@ -37,6 +37,7 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 	@Override
 	public ExecutableHook getExecutableHook() {
 		return () -> {
+			ConfigServiceRegistry.getInstance().setConfigServiceInitializer(configService -> configService.init(appConfigInstantiator));
 			ApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(applicationConfigProvider.getApplicationConfigFilename());
 			if (applicationConfig == null) {
 				applicationConfig = (ApplicationConfig) appConfigInstantiator.init(new HashMap());

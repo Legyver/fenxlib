@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class TestConfigService implements ConfigService {
+public class TestConfigService implements ConfigService<ApplicationConfigInstantiator> {
 	private FileIOUtil fileIOUtil = new FileIOUtil();
 
 	@Override
@@ -33,4 +33,8 @@ public class TestConfigService implements ConfigService {
 		return 1;
 	}
 
+	@Override
+	public void init(ApplicationConfigInstantiator initializer) {
+		fileIOUtil = new FileIOUtil(initializer);
+	}
 }

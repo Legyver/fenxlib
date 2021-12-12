@@ -1,4 +1,9 @@
 # Releases
+## 2.1.2.3
+### Refactoring
+- ConfigService accepts an initializer so FileIOUtil can always use the same ApplicationConfigInstantiator
+### Vulnerability
+- Update log4j version to 2.15.0
 ## 2.1.2.2
 ### Refactoring
 - DesktopWeblink

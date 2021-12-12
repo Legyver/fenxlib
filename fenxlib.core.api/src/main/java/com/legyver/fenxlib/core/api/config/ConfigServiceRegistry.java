@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 /**
  * Loads the config from any ConfigService registered.
@@ -16,6 +16,8 @@ public class ConfigServiceRegistry {
 
 	private final List<ConfigService> configServices;
 	private static ConfigServiceRegistry instance;
+	private Consumer<ConfigService> configServiceInitializer;
+	private int initCount;
 
 	private ConfigServiceRegistry() {
 		ServiceLoader<ConfigService> configServiceLoader = ServiceLoader.load(ConfigService.class);
@@ -49,16 +51,24 @@ public class ConfigServiceRegistry {
 
 	/**
 	 * Load the config from the first {@link ConfigService} that returns a non-null result.
-	 * @param filename the filename
 	 * @param <T> the type of the config file
+	 * @param filename the filename
 	 * @return the config
 	 */
 	public <T extends IApplicationConfig> T loadConfig(String filename) {
 		T result = null;
+		int i = 0;
 		for (Iterator<ConfigService> it = configServices.iterator(); result == null && it.hasNext(); ) {
 			ConfigService next = it.next();
+			if (initCount < configServices.size() && configServiceInitializer != null) {
+				configServiceInitializer.accept(next);
+				if (i < initCount) {
+					initCount++;
+				}
+				i++;
+			}
 			try {
-				result = next.loadConfig(filename);
+				result = (T) next.loadConfig(filename);
 			} catch (CoreException e) {
 				logger.error("Unable to read file[" + filename + "] with " + next.getClass(), e);
 			}
@@ -86,5 +96,13 @@ public class ConfigServiceRegistry {
 		if (!saved) {
 			logger.error("Unable to save file");
 		}
+	}
+
+	/**
+	 * Set the initializer to use to initialize the config service
+	 * @param configServiceInitializer the initializer
+	 */
+	public void setConfigServiceInitializer(Consumer<ConfigService> configServiceInitializer) {
+		this.configServiceInitializer = configServiceInitializer;
 	}
 }

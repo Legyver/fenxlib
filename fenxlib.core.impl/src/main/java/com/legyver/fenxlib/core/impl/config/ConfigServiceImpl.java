@@ -13,8 +13,8 @@ import java.io.File;
  * Loads the application config from file.
  * This was moved to a service to make tests more sensible.
  */
-public class ConfigServiceImpl implements ConfigService {
-	private final FileIOUtil fileIOUtil;
+public class ConfigServiceImpl implements ConfigService<ApplicationConfigInstantiator> {
+	private FileIOUtil fileIOUtil;
 
 	/**
 	 * Construct a config service that loads the config from file
@@ -41,5 +41,10 @@ public class ConfigServiceImpl implements ConfigService {
 	@Override
 	public int order() {
 		return 10;
+	}
+
+	@Override
+	public void init(ApplicationConfigInstantiator initializer) {
+		fileIOUtil = new FileIOUtil(initializer);
 	}
 }
