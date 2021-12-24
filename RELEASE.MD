@@ -1,4 +1,7 @@
 # Releases
+## 2.1.2.4
+### Vulnerability
+- Update log4j version to 2.17.0
 ## 2.1.2.3
 ### Refactoring
 - ConfigService accepts an initializer so FileIOUtil can always use the same ApplicationConfigInstantiator
