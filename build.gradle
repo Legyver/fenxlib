@@ -3,9 +3,9 @@ allprojects {
     ext {
         //legyver dependencies
         legyverCoreVersion = '1.1.2.0'
-        legyverUtilsVersion = '2.1.1.4'
+        legyverUtilsVersion = '2.1.1.5'
         //apache dependencies
-        commonsLogVersion = '2.17.0'
+        commonsLogVersion = '2.17.1'
         commonsIoVersion = '2.7'
         commonsLangVersion = '3.11'
         //JFoenix version

@@ -1,4 +1,7 @@
 # Releases
+## 2.1.2.5
+### Vulnerability
+- Update log4j version to 2.17.1
 ## 2.1.2.4
 ### Vulnerability
 - Update log4j version to 2.17.0
