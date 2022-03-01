@@ -29,7 +29,7 @@ public class ApplicationContext extends BaseApplicationContext {
 	 */
 	private static IUiModel uiModel;
 	/**
-	 *
+	 * The primary stage
 	 */
 	private static Stage primaryStage;
 	/**

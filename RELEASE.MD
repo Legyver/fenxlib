@@ -1,4 +1,14 @@
 # Releases
+## 2.1.2.6
+### Maintenance
+- All
+  - Removed requires transitive for JavaFX modules
+- Core
+  - ApplicationOptions should allow the application name to be retrieved since it was specified in the builder 
+- TukTukFX
+  - TaskExecutor should clear ThreadContext before returning thread to pool.
+- Widgets-about
+  - Now exports com.legyver.fenxlib.widgets.license
 ## 2.1.2.5
 ### Vulnerability
 - Update log4j version to 2.17.1

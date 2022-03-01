@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.extensions.tuktukfx.task.exec;
 
 import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
+import org.apache.logging.log4j.ThreadContext;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * Internal thread pool for executing (long-running) tasks.
@@ -15,7 +15,7 @@ public enum TaskExecutor {
 	 * The singleton instance
 	 */
 	INSTANCE;
-	private static final ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
+	private static final ExecutorService pool = new ContextClearingThreadPoolExecutor(Runtime.getRuntime().availableProcessors() - 1);
 
 	/**
 	 * Submit a test to the task scheduler
@@ -30,5 +30,19 @@ public enum TaskExecutor {
 	 */
 	public void shutdownNow() {
 		pool.shutdownNow();
+	}
+
+	private static class ContextClearingThreadPoolExecutor extends ThreadPoolExecutor {
+
+		private ContextClearingThreadPoolExecutor(int nThreads) {
+			super(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS,
+					new LinkedBlockingQueue<>());
+		}
+
+		@Override
+		protected void afterExecute(Runnable r, Throwable t) {
+			super.afterExecute(r, t);
+			ThreadContext.clearAll();
+		}
 	}
 }

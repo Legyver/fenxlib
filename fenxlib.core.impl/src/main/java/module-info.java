@@ -2,17 +2,17 @@
  * Core Impl for Fenxlib widgets
  */
 module com.legyver.fenxlib.core.impl {
-	requires transitive javafx.controls;
-	requires transitive javafx.graphics;
-	requires transitive javafx.web;
+	requires javafx.controls;
+	requires javafx.graphics;
+	requires javafx.web;
 	requires transitive com.legyver.fenxlib.core.api;
 	requires transitive com.legyver.utils.adaptex;
 	requires transitive com.legyver.utils.graphrunner;
 	requires transitive com.legyver.utils.jackiso;
 	requires transitive com.legyver.utils.mapqua;
 	requires transitive com.legyver.utils.nippe;
-	requires transitive com.jfoenix;
-	requires transitive org.apache.logging.log4j;
+	requires com.jfoenix;
+	requires org.apache.logging.log4j;
 	requires org.apache.commons.io;
 	requires org.apache.commons.lang3;
     requires java.desktop;

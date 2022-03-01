@@ -2,8 +2,8 @@
  * Core API for Fenxlib widgets
  */
 module com.legyver.fenxlib.core.api {
-	requires transitive javafx.base;
-	requires transitive javafx.graphics;
+	requires javafx.base;
+	requires javafx.graphics;
 	requires transitive com.legyver.core;
 	requires transitive com.legyver.utils.adaptex;
 	requires transitive com.legyver.utils.nippe;
