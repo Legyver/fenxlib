@@ -5,7 +5,7 @@
 build/**
 private/**
 /build/
-/fenxlib.controls.svg/build/
+/fenxlib.controls.icon/build/
 /fenxlib.icons.standard/build/
 /fenxlib.core/build/
 /fenxlib.core.impl/build/

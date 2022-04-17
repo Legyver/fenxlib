@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.controls.svg.license;
+package com.legyver.fenxlib.controls.icon.license;
 
 import com.legyver.core.license.LicenseService;
 

@@ -1,22 +1,27 @@
 # Releases
 ## 3.0.0.0
-Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the scope of the changes.
+Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the scope of the changes. Not the least of this will be how factories are handled.
 
-Not the least of this will be how factories are handled. Instead of calling a factory explicitly, you will call the general factory which will spit out the output of the first related implementation on the classpath, be it raw JavaFX or MaterialFX.  For example if the materialfx factory is on the classpath, when calling for a text box you will get a MaterialFX text box.
+Instead of calling a factory explicitly, you will call the general factory which will spit out the output of the first related implementation on the classpath, be it raw JavaFX or MaterialFX.  For example if the materialfx factory is on the classpath, when calling for a text box you will get a MaterialFX text box.
+
 If nothing is on the classpath, you will get the plain JavaFX TextBox.  This will be extendable by allowing you to bring your own factory.  If your factory has a higher preference than others (JavaFX is 0, MaterialFX is 100; the lower the number, the higher the preference) it will usurp other factories for that specific control.  You can also define a factory for custom types that has a lower preference and your factory will still be picked up.
 
+Even though we plan on supporting MaterialFX controls, we will not be using their alert system as it does not work on multi-monitor displays (alerts are always displayed over primary monitor).
+
 ### Refactoring
-- Core
-  - Pushed out factories into separate API
-  - Pulled icons into core
-- Factories.API
-  - New API for factories that returns the default javafx widget
-  - package: com.legyver.fenxlib.factories.api
-- Factories.MaterialFX
+- fenxlib.core
+  - Consolidated fenxlib.core.api and fenxlib.core.impl into fenxlib.core 
+  - Pulled icon handling into core
+    - Devs are expected to either use the fenxlib.icons.standard font or supply their own ttf
+- fenxlib.controls.materialfx
   - Host the new MaterialFX (preferred) factories
-  - package: com.legyver.fenxlib.factories.materialfx
-- Icons.FA/IcoMoon
-  - Deleted.  We no longer follow the SVG pattern from JFoenix, but rather rely on specific TTFs the user is expected to supply or override.
+  - package: com.legyver.fenxlib.controls.materialfx
+- fenxlib.icons.fa
+  - Deleted.  We no longer follow the SVG pattern from JFoenix, but rather rely on specific TTFs the dev can supply.
+- fenxlib.icons.standard
+  - IcoMoon-Free icons
+  - This is a separate module because of licensing.  Licensing should only include IcoMoon if you're using them.
+
 ## 2.1.2.6
 ### Maintenance
 - All

@@ -1,3 +1,5 @@
+import com.legyver.fenxlib.controls.icon.license.LicenseServiceImpl;
+
 /**
  * Fenxlib SVG icon control skins
  */
@@ -8,5 +10,5 @@ module com.legyver.fenxlib.controls.svg {
     requires org.apache.logging.log4j;
 
     exports com.legyver.fenxlib.controls.icon;
-    provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.controls.svg.license.LicenseServiceImpl;
+    provides com.legyver.core.license.LicenseService with LicenseServiceImpl;
 }

@@ -148,7 +148,7 @@ public class IconControl extends Control {
 
 	@Override
 	public String getUserAgentStylesheet() {
-		return IconControl.class.getResource("svg-button.css").toExternalForm();
+		return IconControl.class.getResource("icon-button.css").toExternalForm();
 	}
 
 	@Override

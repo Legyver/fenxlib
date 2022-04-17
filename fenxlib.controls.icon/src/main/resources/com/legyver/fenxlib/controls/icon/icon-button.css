@@ -1,4 +1,4 @@
-.svg-button {
+.icon-button {
     -fx-base: #d9faf0;
 
     -fx-background-color: transparent;
@@ -9,13 +9,13 @@
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
 }
-.svg-button:pressed {
+.icon-button:pressed {
     -fx-color: -fx-pressed-base
 }
-.svg-button:hover {
+.icon-button:hover {
     -fx-color: -fx-hover-base
 }
-.svg-button:focused {
+.icon-button:focused {
    -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
    -fx-background-radius: 3, 2, 1, 4, 1;
