@@ -22,7 +22,6 @@ public class OpenSourceReferenceListTest extends ApplicationTest {
 		assertThat(items.size()).isEqualTo(6);
 		Iterator<OpenSourceReferenceList.Item> itemIterator = items.iterator();
 		assertItem(itemIterator.next(), "com.fasterxml.jackson.core.jackson-databind", APACHE_LICENSE_2_0, "https://github.com/FasterXML/jackson-databind/blob/master/LICENSE");
-		assertItem(itemIterator.next(), "com.jfoenix", APACHE_LICENSE_2_0, "https://github.com/jfoenixadmin/JFoenix/blob/master/LICENSE");
 		assertItem(itemIterator.next(), "commons-codec", APACHE_LICENSE_2_0, "https://github.com/apache/commons-codec/blob/master/LICENSE.txt");
 		assertItem(itemIterator.next(), "commons-io", APACHE_LICENSE_2_0, "https://github.com/apache/commons-io/blob/master/LICENSE.txt");
 		assertItem(itemIterator.next(), "io.icomoon", "GPL", "CC BY 4.0", "http://www.gnu.org/licenses/gpl.html", "http://creativecommons.org/licenses/by/4.0/");

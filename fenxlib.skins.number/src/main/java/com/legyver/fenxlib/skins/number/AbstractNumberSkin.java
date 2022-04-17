@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.skins.number;
 
-import com.jfoenix.skins.JFXTextFieldSkin;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -9,12 +8,13 @@ import java.util.Locale;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.geometry.Pos;
+import javafx.scene.control.SkinBase;
 
 /**
  * Base class for number skins.
  * {@link CurrencyFieldSkin} and {@link PercentageFieldSkin} known implementations
  */
-public abstract class AbstractNumberSkin extends JFXTextFieldSkin<SkinnableNumberField> {
+public abstract class AbstractNumberSkin extends SkinBase<SkinnableNumberField> {
 
 	private final SkinnableNumberField skinnable;
 	private final BigDecimalSkinnedNumberExtractor extractor;

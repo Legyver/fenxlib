@@ -1,16 +1,16 @@
 package com.legyver.fenxlib.skins.number;
 
-import com.jfoenix.controls.JFXTextField;
 import java.math.BigDecimal;
 import java.util.function.Predicate;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextField;
 
 /**
  * A number field for BigDecimal values to allow for formatting of numbers
  */
-public class SkinnableNumberField extends JFXTextField {
+public class SkinnableNumberField extends TextField {
 	/**
 	 * The BigDecimal value of the field
 	 */

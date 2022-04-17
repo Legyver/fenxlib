@@ -2,7 +2,6 @@
  * Fenxlib SVG icon control skins
  */
 module com.legyver.fenxlib.controls.svg {
-	requires com.jfoenix;
 	requires javafx.graphics;
 	requires com.legyver.fenxlib.core;
 	requires javafx.controls;

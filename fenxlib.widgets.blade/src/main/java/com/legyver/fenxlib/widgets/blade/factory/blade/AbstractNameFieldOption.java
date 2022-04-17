@@ -1,9 +1,6 @@
 package com.legyver.fenxlib.widgets.blade.factory.blade;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.base.ValidatorBase;
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.controls.factory.NodeInstantiator;
 import com.legyver.fenxlib.widgets.blade.factory.visitor.AbstractGridPaneLayoutVisitor;
 import javafx.beans.property.StringProperty;
 
@@ -31,10 +28,9 @@ public abstract class AbstractNameFieldOption extends AbstractBladeGridLayout im
 	 * Construct an option for a labeled text field.  The validators are currently ignored.
 	 * @param label the label
 	 * @param readOnly read-only flag
-	 * @param validators field validators
 	 */
-	public AbstractNameFieldOption(String label, boolean readOnly, ValidatorBase... validators) {
-		this(label, readOnly, 1);//FIXME: lets do something with these validators
+	public AbstractNameFieldOption(String label, boolean readOnly) {
+		this(label, readOnly, 1);
 	}
 
 	@Override
@@ -57,11 +53,5 @@ public abstract class AbstractNameFieldOption extends AbstractBladeGridLayout im
 	public boolean isReadOnly() {
 		return readOnly;
 	}
-
-	/**
-	 * Get the instantiator for the text field.  Allows for skinning of the text fields.
-	 * @return the instantiator
-	 */
-	public abstract NodeInstantiator<JFXTextField> getInstantiator();
 
 }

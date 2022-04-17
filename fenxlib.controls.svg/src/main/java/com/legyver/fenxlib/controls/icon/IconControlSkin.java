@@ -1,8 +1,9 @@
 package com.legyver.fenxlib.controls.icon;
 
-import com.jfoenix.svg.SVGGlyph;
-import com.jfoenix.svg.SVGGlyphLoader;
+import com.legyver.fenxlib.core.icons.IconRegistry;
+import com.legyver.fenxlib.core.icons.options.IconOptions;
 import javafx.scene.control.SkinBase;
+import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +16,7 @@ public class IconControlSkin extends SkinBase<IconControl> {
 	/**
 	 * The icon to render
 	 */
-	private SVGGlyph glyph;
+	private Text glyph;
 
 	/**
 	 * Construct a skin for a SVGControl
@@ -25,9 +26,13 @@ public class IconControlSkin extends SkinBase<IconControl> {
 		super(iconControl);
 		String name = iconControl.getIconFontFamily() + "." + iconControl.getIconName();
 		try {
-			glyph = SVGGlyphLoader.getIcoMoonGlyph(name);
+			IconOptions iconOptions = new IconOptions.Builder()
+					.family(iconControl.getIconFontFamily())
+					.icon(iconControl.getIconName())
+					.iconSize(iconControl.getIconSize())
+					.build();
+			glyph = IconRegistry.getInstance().getIcon(iconOptions);
 			glyph.setFill(iconControl.getIconPaint());
-			glyph.setSize(iconControl.getIconSize());
 		} catch (Exception exception) {
 			logger.error("Error loading control: " + name, exception);
 		}

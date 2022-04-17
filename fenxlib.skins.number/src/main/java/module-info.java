@@ -2,7 +2,6 @@
  * Numeric skins for Fenxlib widgets
  */
 module com.legyver.fenxlib.skins.number {
-	requires com.jfoenix;
 	requires javafx.graphics;
 	requires com.legyver.fenxlib.core;
 	requires javafx.controls;

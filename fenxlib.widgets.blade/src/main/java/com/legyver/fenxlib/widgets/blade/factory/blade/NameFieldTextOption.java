@@ -1,8 +1,7 @@
 package com.legyver.fenxlib.widgets.blade.factory.blade;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.base.ValidatorBase;
 import com.legyver.fenxlib.core.controls.factory.NodeInstantiator;
+import javafx.scene.control.TextField;
 
 /**
  * Layout option for
@@ -24,15 +23,9 @@ public class NameFieldTextOption extends AbstractNameFieldOption {
 	 * Construct an option for a text field to be included n the form
 	 * @param label the label for the text field
 	 * @param readOnly if the text field is read-only
-	 * @param validators any validators for the text field
 	 */
-	public NameFieldTextOption(String label, boolean readOnly, ValidatorBase... validators) {
-		super(label, readOnly, validators);
-	}
-
-	@Override
-	public NodeInstantiator<JFXTextField> getInstantiator() {
-		return () -> new JFXTextField();
+	public NameFieldTextOption(String label, boolean readOnly) {
+		super(label, readOnly);
 	}
 
 }
