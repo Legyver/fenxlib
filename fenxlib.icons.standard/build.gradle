@@ -1,0 +1,24 @@
+description = 'Base icon library for Fenxlib widgets'
+
+apply from: publishBuildScript
+
+dependencies {
+    //exception, services, license
+    api group: 'com.legyver', name: 'core', version: legyverCoreVersion
+    //core
+    api project(':fenxlib.core')
+    //logging
+    api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
+    //file-based config
+    api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+    api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.19.0'
+
+}
+
+test {
+    useJUnitPlatform()
+}
