@@ -1,14 +1,14 @@
 package com.legyver.fenxlib.widgets.blade.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.fenxlib.widgets.blade.MoreField;
 
 /**
  * Factory for creating "more" fields
  */
-public class MoreFieldFactory implements NodeFactory<MoreField> {
+public class MoreFieldFactory implements StyleableFactory<MoreField> {
 	private final String showText;
 	private final String hideText;
 

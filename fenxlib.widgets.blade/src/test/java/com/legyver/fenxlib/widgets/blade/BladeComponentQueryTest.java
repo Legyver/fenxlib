@@ -1,11 +1,11 @@
 package com.legyver.fenxlib.widgets.blade;
 
-import com.legyver.fenxlib.core.impl.factory.AccordionMenuFactory;
-import com.legyver.fenxlib.core.impl.factory.BorderPaneFactory;
-import com.legyver.fenxlib.core.impl.factory.TitledPaneFactory;
-import com.legyver.fenxlib.core.impl.factory.options.BorderPaneInitializationOptions;
-import com.legyver.fenxlib.core.impl.factory.options.RegionInitializationOptions;
-import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.controls.factory.AccordionMenuFactory;
+import com.legyver.fenxlib.core.controls.factory.TitledPaneFactory;
+import com.legyver.fenxlib.core.layout.factory.ApplicationBorderPaneLayoutFactory;
+import com.legyver.fenxlib.core.layout.options.BorderPaneInitializationOptions;
+import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;
+import com.legyver.fenxlib.core.locator.query.ComponentQuery;
 import com.legyver.fenxlib.widgets.blade.factory.BladeFactory;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import javafx.scene.control.ListView;
@@ -29,7 +29,7 @@ public class BladeComponentQueryTest extends ApplicationTest {
 						))))
 				)
 				.build();
-		new BorderPaneFactory(options).makeBorderPane();
+		new ApplicationBorderPaneLayoutFactory(options).makeBorderPaneWithContent();
 
 		Optional node = new ComponentQuery.QueryBuilder()
 				.inRegion(BorderPaneInitializationOptions.REGION_LEFT)

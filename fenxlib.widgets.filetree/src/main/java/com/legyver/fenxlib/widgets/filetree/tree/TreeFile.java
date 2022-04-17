@@ -1,11 +1,10 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
-import com.legyver.fenxlib.controls.svg.SVGControl;
-import com.legyver.fenxlib.icons.fa.FontAwesomeFreeSolidIcons;
-import com.legyver.fenxlib.icons.fa.FontAwesomeIconFonts;
+import com.legyver.fenxlib.controls.icon.IconControl;
+import com.legyver.fenxlib.core.icons.options.IconOptions;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
+import com.legyver.fenxlib.widgets.filetree.service.FileTreeIconRegistry;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Paint;
 
@@ -28,7 +27,7 @@ public class TreeFile extends FileTreeItem {
      * @param file the file to represent
      * @param controlIcon the control icon to use
      */
-    public TreeFile(String name, SVGControl controlIcon, FileReference file) {
+    public TreeFile(String name, IconControl controlIcon, FileReference file) {
         super(name, controlIcon, file);
     }
 
@@ -37,7 +36,7 @@ public class TreeFile extends FileTreeItem {
      * @param file the file to represent
      * @param controlIcon the control icon to use
      */
-    public TreeFile(FileReference file, SVGControl controlIcon) {
+    public TreeFile(FileReference file, IconControl controlIcon) {
         this(file.getFile().getName(), controlIcon, file);
     }
 
@@ -46,13 +45,12 @@ public class TreeFile extends FileTreeItem {
      * @param file the file to represent
      */
     public TreeFile(FileReference file) {
-        this(file, new SVGControl());
-        SVGControl graphic = (SVGControl) getGraphic();
-        graphic.setSvgIcon(FontAwesomeFreeSolidIcons.CODE);
-        graphic.setSvgIconLibraryPrefix(FontAwesomeIconFonts.FONTAWESOME_FREE_SOLID);
-        graphic.svgIconPaintProperty().bind(color);
-        graphic.setSvgIconSize(18);
-        color.set(Paint.valueOf( "#3a73cf"));
+        this(file, new IconControl());
+        IconControl graphic = (IconControl) getGraphic();
+        IconOptions iconOptions = FileTreeIconRegistry.getInstance().getIcon(file);
+        graphic.setIconOptions(iconOptions);
+        graphic.iconPaintProperty().bind(color);
+        color.set(Paint.valueOf(iconOptions.getIconColor()));
     }
 
     /**

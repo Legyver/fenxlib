@@ -1,7 +1,8 @@
 package com.legyver.fenxlib.widgets.blade.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.factory.TitledPaneContentFactory;
+import com.legyver.fenxlib.core.controls.factory.TitledPaneContentFactory;
+import com.legyver.fenxlib.core.locator.LocationContextDecorator;
 import com.legyver.fenxlib.widgets.blade.factory.blade.BladeOption;
 import com.legyver.fenxlib.widgets.blade.factory.visitor.CenterItemVisitor;
 import com.legyver.fenxlib.widgets.blade.factory.visitor.ConstraintVisitor;
@@ -9,8 +10,7 @@ import com.legyver.fenxlib.widgets.blade.factory.visitor.LeftItemVisitor;
 import com.legyver.fenxlib.widgets.blade.factory.visitor.RightItemVisitor;
 import com.legyver.fenxlib.widgets.blade.MoreField;
 import javafx.scene.layout.GridPane;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
-import com.legyver.fenxlib.core.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.VBox;

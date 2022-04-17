@@ -1,15 +1,16 @@
 package com.legyver.fenxlib.core.impl.config;
 
+import com.legyver.fenxlib.core.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
 import com.legyver.fenxlib.core.impl.config.options.TestApplicationOptionsBuilder;
-import com.legyver.fenxlib.core.impl.config.options.init.RecentFilesApplicationLifecycleHook;
-import com.legyver.fenxlib.core.impl.context.ApplicationContext;
-import com.legyver.fenxlib.core.impl.factory.menu.file.internal.DefaultFileBrowseLocation;
-import com.legyver.fenxlib.core.impl.files.FileRegistry;
-import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
+import com.legyver.fenxlib.core.config.options.init.RecentFilesApplicationLifecycleHook;
+import com.legyver.fenxlib.core.api.files.DefaultFileBrowseLocation;
+import com.legyver.fenxlib.core.api.files.FileRegistry;
+import com.legyver.fenxlib.core.api.files.FileOptions;
 import com.legyver.fenxlib.core.impl.util.TestApplicationResource;
 import com.legyver.fenxlib.core.impl.util.TestConfig;
 import com.legyver.fenxlib.core.impl.util.TestUiModel;
+import com.legyver.fenxlib.core.impl.util.hook.ApplicationLifecycleHookRegistry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -26,7 +27,8 @@ public class FileBackedConfigTest extends ApplicationTest {
 	@AfterEach
 	public void reset() throws Exception {
 		ApplicationContext.getFileRegistry().getOpenFiles().clear();
-		ApplicationContext.getApplicationLifecycleHookRegistry().reset();
+		ApplicationLifecycleHookRegistry registry = ApplicationContext.getApplicationLifecycleHookRegistry();
+		registry.reset();
 		ApplicationContext.setUiModel(null);
 		ApplicationContext.setApplicationConfig(null);
 	}

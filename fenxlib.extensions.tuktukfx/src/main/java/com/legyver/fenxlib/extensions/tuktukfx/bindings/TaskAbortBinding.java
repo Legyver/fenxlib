@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.extensions.tuktukfx.bindings;
 
-import com.legyver.fenxlib.core.api.context.BaseApplicationContext;
-import com.legyver.fenxlib.core.api.locator.query.bindings.BaseBinding;
+import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.core.locator.query.bindings.BaseBinding;
 import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
 
 /**
@@ -14,7 +14,7 @@ public class TaskAbortBinding extends BaseBinding {
 	 * @param abortable the task to abort on application shutdown
 	 */
 	public static void taskAbortObservesShutdown(AbortableTaskStatusAdapter abortable) {
-		BaseApplicationContext.getAppState().shuttingDownProperty().addListener((observableValue, oldValue, newValue) -> {
+		ApplicationContext.getAppState().shuttingDownProperty().addListener((observableValue, oldValue, newValue) -> {
 			abortable.abort();
 		});
 	}

@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.extensions.tuktukfx.config;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.config.options.init.ApplicationLifecycleHook;
-import com.legyver.fenxlib.core.api.util.hook.ExecutableHook;
-import com.legyver.fenxlib.core.api.util.hook.LifecyclePhase;
+import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.core.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.core.lifecycle.hooks.ExecutableHook;
 import com.legyver.fenxlib.extensions.tuktukfx.task.exec.TaskExecutor;
 
 /**

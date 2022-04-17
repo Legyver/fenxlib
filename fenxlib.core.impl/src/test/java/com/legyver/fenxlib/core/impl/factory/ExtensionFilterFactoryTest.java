@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.impl.factory;
 
-import com.legyver.fenxlib.core.impl.factory.menu.file.SelectFileMenuFactory;
+import com.legyver.fenxlib.core.api.factory.menu.file.SelectFileMenuFactory;
 import javafx.stage.FileChooser.ExtensionFilter;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.impl.util;
 
-import com.legyver.fenxlib.core.impl.config.load.ApplicationConfigProvider;
+import com.legyver.fenxlib.core.config.load.ApplicationConfigProvider;
 
 public class TestApplicationResource implements ApplicationConfigProvider {
 	private final String filename;

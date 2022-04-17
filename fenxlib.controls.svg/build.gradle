@@ -8,13 +8,10 @@ dependencies {
     //ui
     api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
 
-    api project(':fenxlib.core.api')
+    api project(':fenxlib.core')
 
     //logging
     api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
-
-    testImplementation 'junit:junit:4.13'
-    testCompile group: 'org.testfx', name: 'testfx-junit', version: '4.0.16-alpha'
 }
 
 test {

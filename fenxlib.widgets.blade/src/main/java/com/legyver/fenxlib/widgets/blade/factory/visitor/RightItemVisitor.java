@@ -1,12 +1,13 @@
 package com.legyver.fenxlib.widgets.blade.factory.visitor;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
-import com.legyver.fenxlib.core.impl.factory.SvgIconFactory;
-import com.legyver.fenxlib.core.impl.factory.decorator.ButtonIconDecorator;
-import com.legyver.fenxlib.core.impl.factory.decorator.ButtonTooltipDecorator;
-import com.legyver.fenxlib.core.impl.factory.decorator.CssClassDecorator;
+import com.legyver.fenxlib.core.controls.decorator.ButtonIconDecorator;
+import com.legyver.fenxlib.core.controls.decorator.ButtonTooltipDecorator;
+import com.legyver.fenxlib.core.controls.decorator.CssClassDecorator;
+import com.legyver.fenxlib.core.controls.factory.IconFactory;
+import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.fenxlib.widgets.blade.factory.MoreFieldFactory;
 import com.legyver.fenxlib.widgets.blade.factory.blade.AbstractNameFieldOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameDatePickerOption;
@@ -43,8 +44,8 @@ public class RightItemVisitor extends AbstractGridPaneLayoutVisitor {
 	public void visit(NameFieldButtonOption nameFieldButtonOption, int row) throws CoreException {
 		TooltipIconOptions options = nameFieldButtonOption.getIconOptions();
 		Button node = new ButtonTooltipDecorator(options.getToolTip(),
-				new ButtonIconDecorator(options.getOnClick(),
-						new SvgIconFactory(options))).makeNode(locationContext);
+				(NodeFactory<Button>) new ButtonIconDecorator(options.getOnClick(),
+						new IconFactory(options))).makeNode(locationContext);
 		bladeContext.getWorkingGrid().add(node, 4, row);
 	}
 
@@ -86,7 +87,7 @@ public class RightItemVisitor extends AbstractGridPaneLayoutVisitor {
 	 */
 	@Override
 	public void visit(ShowMoreLabelOption showMoreOptions, int row) throws CoreException {
-		NodeFactory<MoreField> moreFieldFactory = new CssClassDecorator<>(showMoreOptions.getCssClass(),
+		StyleableFactory<MoreField> moreFieldFactory = new CssClassDecorator<>(showMoreOptions.getCssClass(),
 				new MoreFieldFactory(showMoreOptions.getShowText(), showMoreOptions.getHideText()));
 		MoreField label = moreFieldFactory.makeNode(locationContext);
 		bladeContext.getWorkingGrid().add(label, 4, row, 2, 1);//more label the last item shown by default		

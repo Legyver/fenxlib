@@ -1,13 +1,13 @@
 package com.legyver.fenxlib.widgets.blade.factory.visitor;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.fenxlib.widgets.blade.factory.BladeContext;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameDatePickerOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameFieldButtonOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.AbstractNameFieldOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.ShowMoreLabelOption;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
 
 /**
  * Superclass for the GridPane layout visitors
@@ -43,20 +43,23 @@ public abstract class AbstractGridPaneLayoutVisitor {
 	 * Layout a text field in a blade form
 	 * @param nameFieldOption options for showing a labeled text field
 	 * @param row the row of the form this goes on
+	 * @throws CoreException if there is a problem with any of the nested builders
 	 */
-	public abstract void visit(AbstractNameFieldOption nameFieldOption, int row);
+	public abstract void visit(AbstractNameFieldOption nameFieldOption, int row) throws CoreException;
 	/**
 	 * Layout a list field in a blade form
 	 * @param nameListClickOption options for showing a labeled list field
 	 * @param row the row of the form this goes on
+	 * @throws CoreException if there is a problem with any of the nested builders
 	 */
-	public abstract void visit(NameListClickOption nameListClickOption, int row);
+	public abstract void visit(NameListClickOption nameListClickOption, int row) throws CoreException;
 	/**
 	 * Layout a date field in a blade form
 	 * @param nameDatePickerOption options for showing a labeled date field
 	 * @param row the row of the form this goes on
+	 * @throws CoreException if there is a problem with any of the nested builders
 	 */
-	public abstract void visit(NameDatePickerOption nameDatePickerOption, int row);
+	public abstract void visit(NameDatePickerOption nameDatePickerOption, int row) throws CoreException;
 
 	/**
 	 * Layout a more field in a blade form

@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.utils.graphrunner.PropertyMap;
 import com.legyver.utils.propcross.PropertyGraph;
 import com.legyver.utils.propcross.SlelOperationContext;
@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * Factory to create an AboutPage
  */
-public class AboutPageFactory implements NodeFactory<AboutPage> {
+public class AboutPageFactory implements StyleableFactory<AboutPage> {
 	private final String intro;
 	private final String gist;
 	private final String additionalInfo;

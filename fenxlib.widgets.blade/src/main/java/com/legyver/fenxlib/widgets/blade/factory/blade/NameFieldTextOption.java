@@ -2,7 +2,7 @@ package com.legyver.fenxlib.widgets.blade.factory.blade;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.base.ValidatorBase;
-import com.legyver.fenxlib.core.api.factory.NodeInstantiator;
+import com.legyver.fenxlib.core.controls.factory.NodeInstantiator;
 
 /**
  * Layout option for

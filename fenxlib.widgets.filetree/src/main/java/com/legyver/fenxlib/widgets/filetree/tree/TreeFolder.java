@@ -1,10 +1,10 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
-import com.legyver.fenxlib.controls.svg.SVGControl;
-import com.legyver.fenxlib.icons.fa.FontAwesomeFreeSolidIcons;
-import com.legyver.fenxlib.icons.fa.FontAwesomeIconFonts;
+import com.legyver.fenxlib.controls.icon.IconControl;
+import com.legyver.fenxlib.core.icons.options.IconOptions;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
+import com.legyver.fenxlib.widgets.filetree.service.FileTreeIconRegistry;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Paint;
@@ -22,13 +22,13 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      */
     private final ObjectProperty<Paint> color = new SimpleObjectProperty<>();
 
-    private TreeFolder(String label, SVGControl graphic, IFileReference fileReference) {
+    private TreeFolder(String label, IconControl graphic, IFileReference fileReference) {
         super(label, graphic, fileReference);
         if (graphic != null) {
-            graphic.setSvgIcon(FontAwesomeFreeSolidIcons.FOLDER);
-            graphic.setSvgIconLibraryPrefix(FontAwesomeIconFonts.FONTAWESOME_FREE_SOLID);
-            graphic.svgIconPaintProperty().bind(color);
-            graphic.setSvgIconSize(16);
+            IconOptions iconOptions = FileTreeIconRegistry.getInstance().getIcon(fileReference);
+            graphic.setIconOptions(iconOptions);
+            graphic.iconPaintProperty().bind(color);
+            graphic.setIconSize(iconOptions.getIconSize());
             color.set(Paint.valueOf("#e7c9a9"));
         }
     }
@@ -39,7 +39,7 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      * @param fileReference the filesystem folder reference
      */
     public TreeFolder(String label, IFileReference fileReference) {
-        this(label, new SVGControl(), fileReference);
+        this(label, new IconControl(), fileReference);
     }
 
     /**

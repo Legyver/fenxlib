@@ -1,23 +1,27 @@
 package com.legyver.fenxlib.core.impl.locator.query;
 
+import com.legyver.fenxlib.core.api.factory.layout.ApplicationBorderPaneLayoutFactory;
 import com.legyver.fenxlib.core.api.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.fenxlib.core.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.impl.config.options.TestApplicationOptionsBuilder;
-import com.legyver.fenxlib.core.impl.config.options.init.RecentFilesApplicationLifecycleHook;
-import com.legyver.fenxlib.core.impl.factory.*;
-import com.legyver.fenxlib.core.impl.factory.menu.CenterOptions;
-import com.legyver.fenxlib.core.impl.factory.menu.LeftMenuOptions;
-import com.legyver.fenxlib.core.impl.factory.menu.MenuFactory;
-import com.legyver.fenxlib.core.impl.factory.menu.RightMenuOptions;
-import com.legyver.fenxlib.core.impl.factory.menu.file.OpenFileDecorator;
-import com.legyver.fenxlib.core.impl.factory.menu.file.SelectFileMenuFactory;
-import com.legyver.fenxlib.core.impl.factory.options.BorderPaneInitializationOptions;
-import com.legyver.fenxlib.core.impl.factory.options.RegionInitializationOptions;
+import com.legyver.fenxlib.core.config.options.init.RecentFilesApplicationLifecycleHook;
+import com.legyver.fenxlib.core.api.factory.layout.options.CenterOptions;
+import com.legyver.fenxlib.core.api.factory.layout.options.LeftMenuOptions;
+import com.legyver.fenxlib.core.api.factory.menu.MenuFactory;
+import com.legyver.fenxlib.core.api.factory.layout.options.RightMenuOptions;
+import com.legyver.fenxlib.core.api.factory.menu.file.OpenFileDecorator;
+import com.legyver.fenxlib.core.api.factory.menu.file.SelectFileMenuFactory;
+import com.legyver.fenxlib.core.api.factory.layout.options.BorderPaneInitializationOptions;
+import com.legyver.fenxlib.core.api.factory.layout.options.RegionInitializationOptions;
 import com.legyver.fenxlib.core.impl.util.TestApplicationResource;
 import com.legyver.fenxlib.core.impl.util.TestConfig;
 import com.legyver.fenxlib.core.impl.util.TestUiModel;
+import com.legyver.fenxlib.controls.api.node.ListViewFactory;
+import com.legyver.fenxlib.core.api.factory.layout.StackPaneRegionFactory;
+import com.legyver.fenxlib.controls.api.node.TextFieldFactory;
+import com.legyver.fenxlib.core.api.factory.layout.TopRegionFactory;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -64,7 +68,7 @@ public class ComponentQueryTest extends ApplicationTest {
 						new RightMenuOptions()))
 				)
 				.build();
-		new BorderPaneFactory(options).makeBorderPane();
+		new ApplicationBorderPaneLayoutFactory(options).makeBorderPaneWithContent();
 
 		Optional<Node> node = new ComponentQuery.QueryBuilder()
 				.inRegion(BorderPaneInitializationOptions.REGION_TOP)
@@ -81,7 +85,7 @@ public class ComponentQueryTest extends ApplicationTest {
 				.center(new RegionInitializationOptions.Builder()
 						.factory(new StackPaneRegionFactory(true, new ListViewFactory(true)))
 				).build();
-		new BorderPaneFactory(options).makeBorderPane();
+		new BorderPaneFactory(options).makeBorderPaneWithContent();
 
 		Optional<ListView> node = new ComponentQuery.QueryBuilder()
 				.inRegion(BorderPaneInitializationOptions.REGION_CENTER)

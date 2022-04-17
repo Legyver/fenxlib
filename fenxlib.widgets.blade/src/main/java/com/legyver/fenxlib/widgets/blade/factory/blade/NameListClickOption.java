@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.widgets.blade.factory.blade;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.widgets.blade.factory.visitor.AbstractGridPaneLayoutVisitor;
 import javafx.collections.ObservableList;
 
@@ -49,7 +50,7 @@ public class NameListClickOption extends AbstractBladeGridLayout implements Blad
 	}
 
 	@Override
-	public void accept(AbstractGridPaneLayoutVisitor visitor, int row) {
+	public void accept(AbstractGridPaneLayoutVisitor visitor, int row) throws CoreException {
 		visitor.visit(this, row);
 	}
 }

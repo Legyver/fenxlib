@@ -1,29 +1,32 @@
 package com.legyver.fenxlib.widgets.filetree.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
-import com.legyver.fenxlib.core.api.locator.LocationContextDecorator;
-import com.legyver.fenxlib.core.impl.context.ApplicationContext;
-import com.legyver.fenxlib.core.impl.factory.menu.ContextMenuFactory;
-import com.legyver.fenxlib.core.impl.factory.menu.file.ImportDirectoryDecorator;
-import com.legyver.fenxlib.core.impl.factory.menu.file.SelectDirectoryMenuFactory;
+import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.core.files.action.OpenDirectoryAction;
+import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.menu.factory.ContextMenuFactory;
+import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
+import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
+import com.legyver.fenxlib.core.menu.templates.file.SelectDirectoryMenuFactory;
 import com.legyver.fenxlib.widgets.filetree.SimpleFileExplorer;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.scan.FileWatchHandler;
+import javafx.css.Styleable;
 import javafx.scene.control.ContextMenu;
 
 /**
  * Factory to create a {@link SimpleFileExplorer}
  */
-public class SimpleFileExplorerFactory implements NodeFactory<SimpleFileExplorer> {
+public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExplorer> {
     /**
      * The default file explorer name to register as.
      */
     public static final String DEFAULT_EXPLORER_NAME = "fileExplorer";
     /**
-     * The name to register the file explorer as.  This is used for querying the file explorer from the {@link com.legyver.fenxlib.core.api.locator.IComponentRegistry}
+     * The name to register the file explorer as.  This is used for querying the file explorer from the {@link com.legyver.fenxlib.core.locator.IComponentRegistry}
      */
     private final String name;
     /**
@@ -42,7 +45,7 @@ public class SimpleFileExplorerFactory implements NodeFactory<SimpleFileExplorer
 
     /**
      * Construct a FileExplorerFactory
-     * @param name the name to register the file explorer as with the {@link com.legyver.fenxlib.core.api.locator.IComponentRegistry}
+     * @param name the name to register the file explorer as with the {@link com.legyver.fenxlib.core.locator.IComponentRegistry}
      * @param fileTreeRegistry the registry that stores a record of files this file explorer will be responsible for
      * @param fileWatchHandler the handler that handles any new/deleted/modified files that are added or discovered under watched directories
      * @param areaContextMenuFactory the factory to produce the context menu for the file explorer
@@ -64,9 +67,13 @@ public class SimpleFileExplorerFactory implements NodeFactory<SimpleFileExplorer
      */
     public SimpleFileExplorerFactory(FileTreeRegistry<FileReference> fileTreeRegistry, FileWatchHandler fileWatchHandler) throws CoreException {
         this(DEFAULT_EXPLORER_NAME, fileTreeRegistry, fileWatchHandler,
-                new ContextMenuFactory("area", new ImportDirectoryDecorator("Add directory", "Select directory", new SelectDirectoryMenuFactory(), fileOptions -> {
-                    fileTreeRegistry.addToRoot(new FileReference(fileOptions.getFile()));
-                }))
+                new ContextMenuFactory("area",
+                        new MenuItemFactory("Add directory",
+                                new OpenDirectoryAction("Select directory", fileOptions -> {
+                                    fileTreeRegistry.addToRoot(new FileReference(fileOptions.getFile()));
+                                })
+                        )
+                )
         );
     }
 

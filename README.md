@@ -1,7 +1,58 @@
 # fenxlib
 A UI framework for JavaFX.
 
-Note: The distribution of this library is compiled on Java 15.
+Note: The distribution of this library is compiled on Java 17.
+
+## Design
+### Extensibility via META-INF/services
+We use the [Java service mechanism](https://docs.oracle.com/javase/tutorial/ext/basics/spi.html) to provide the correct implementation of various services.  The service lookup will always scan all services on the classpath, so there is nothing needed apart from adding a library to the classpath to have it work.
+
+For example: our widget factories are in [fenxlib.factories.api](fenxlib.factories.api/README.MD)
+This same library has default factories that returns a JavaFX widget.
+However, if you add in the 'fenxlib.factories.materialfx' library, you will get a MaterialFX widget.
+You can further extend this by adding your own service to augment or usurp the existing widget factories.
+
+To tie into this framework add an META-INF/services for file for the Service you are implementing.
+
+### Notifications
+
+
+### Services
+| Service | Description | Defining module | Implementing Modules | Description |
+| ------- | ----------- | --------------- | -------------------- | ----------- |
+| ConfigService | Loads/saves the application configuration | fenxlib.core | fenxlib.core | Saves in directory in appropriate location for filesystem
+| AlertService | Handles application alerts | fenxlib.core | fenxlib.core | Displays alerts in a popup over the defined location |
+| IconLoaderService | Loads TTF Icons | fenxlib.core | fenxlib.icons.standard | Provides default IcoMoon-Free icons
+| NodeInstantiationService | Instantiates controls for types of controls in javafx.controls module | fenxlib.core | fenxlib.core | Instantiates JavaFX controls 
+| | |  | fenxlib.controls.materialfx | Instantiates MaterialFX controls 
+
+#### examples
+##### ControlsFactory
+
+```java
+public class Example {
+  public TextField makeTextField() {
+    return ControlsFactory.make(TextField.class);
+  }
+}
+```
+Will return a text field based on the preferred factory on the classpath.
+
+The preference is numeric based on Integer.MIN_VALUE < pref < Integer.MAX_VALUE
+
+| Module | Default value | Description |
+| ------- | ------------- | ----------- |
+| fenxlib.core | 0 | Produce plain JavaFX components |
+| fenxlib.controls.materialfx | -100 | Produce MaterialFX components |
+
+### Services
+#### ConfigService
+Responsible for loading and saving config files.
+The default ConfigService loads/saves files in JSON in the appropriate place for the OS
+- Linux, MacOSX: The .{app.name} folder in $user.home
+- Windows: %APPDATA%\Roaming\{app.name}
+
+#### AlertService
 
 ## Usage
 Since version 2.0.0.0, this library has been made module-friendly, and hence the artifacts use dots as separators instead of traditional dashes.
@@ -22,6 +73,8 @@ implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', versio
 ```
 
 ### Widgets
+All widgets are combinations of widgets created via the fenxlib.factories.api, so if you have fenxlib.factories.materialfx on your classpath it will use MaterialFX components, otherwise plain javafx widgets.
+
 - [fenxlib.widgets.about](fenxlib.widgets.about/README.md)
   - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
@@ -59,33 +112,24 @@ implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '2.1
 implementation group: 'com.legyver', name: 'fenxlib.controls.svg', version: '2.1.2.6'
 ```
 
-### Icons
-Add icons to your application by supplying any artifact that loads SVGs (See com.legyver.fenxlib.core.api.icons.IconService)
-- fenxlib.icons.fa
-  - Bootstraps an application with fa-free-regular and fa-free-solid svg icons
-```gradle
-implementation group: 'com.legyver', name: 'fenxlib.icons.fa', version: '2.1.2.6'
-```
-
-- fenxlib.icons.icomoon
-  - Bootstraps an application with icomoon svg icons
-```gradle
-implementation group: 'com.legyver', name: 'fenxlib.icons.icomoon', version: '2.1.2.6'
-```
-
 ## Samples
 Sample projects are available on the [fenxlib-samples](https://github.com/Legyver/fenxlib-samples) repository.
 
 ## Getting Started
 ### Prerequisites
-This is a gradle project.  You will either need an IDE that supports gradle, or have gradle installed in order to build.  Since this uses modules, it is recommended to use gradle 6.7 or newer.
+- This library is a Gradle project and uses a Gradle wrapper to manage the Gradle version.  Therefore, Gradle does not need to be installed.
+- This library pulls in JavaFX as a maven dependency, as such does not require a JDK with JavaFX be installed.
+- This library requires that the plain JDK 17+ be on the path to build.
+- If you have a JDK installed that includes JavaFX, you may get warning messages in your IDE that a package is read from both package.a and package.b.  To resolve this, point it to a plain JDK that does not contain the JavaFX binaries.
+
 
 ### Building the library to your local repo
 gradlew install
 
 ## Built With
 * [Gradle](https://gradle.org/) - Dependency Management
-* [JFoenix](http://www.jfoenix.com/) - Material Design port library for JavaFX
+* (1.X-2.X) [JFoenix](http://www.jfoenix.com/) - Material Design port library for JavaFX
+* (3.X+) [MaterialFX](https://github.com/palexdev/MaterialFX) - Material Design port library for JavaFX
 
 ## Authors
 * **Ben Arnold** - *Initial work* - [benfarnold](https://github.com/benfarnold)

@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.impl.util;
 
-import com.legyver.fenxlib.core.impl.uimodel.FileOptions;
-import com.legyver.fenxlib.core.impl.uimodel.RecentFileAware;
+import com.legyver.fenxlib.core.api.files.FileOptions;
+import com.legyver.fenxlib.core.api.uimodel.RecentFileAware;
 
 import java.util.ArrayList;
 import java.util.List;

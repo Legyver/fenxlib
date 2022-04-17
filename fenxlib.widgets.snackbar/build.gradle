@@ -4,7 +4,7 @@ apply from: publishBuildScript
 
 dependencies {
     //exception
-    api project(':fenxlib.core.impl')
+    api project(':fenxlib.core')
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'

@@ -8,9 +8,9 @@ dependencies {
     //ui
     api group: 'com.jfoenix', name: 'jfoenix', version: jfoenixVersion
 
-    api project(':fenxlib.core.api')
+    api project(':fenxlib.core')
 
-    testImplementation project(':fenxlib.core.impl')
+    testImplementation project(':fenxlib.core')
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
     testImplementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'

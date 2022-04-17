@@ -1,10 +1,15 @@
 package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
-import com.legyver.fenxlib.core.impl.factory.JFXDialogLayoutFactory;
-import com.legyver.fenxlib.core.impl.factory.menu.IMenuItemFactory;
-import com.legyver.fenxlib.core.impl.factory.menu.PopupMenuItemFactory;
+import com.legyver.fenxlib.core.controls.ControlsFactory;
+import com.legyver.fenxlib.core.controls.factory.SceneFactory;
+import com.legyver.fenxlib.core.controls.popup.LaunchPopupAction;
+import com.legyver.fenxlib.core.layout.Target;
+import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.core.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
+import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
+import com.legyver.fenxlib.core.util.MapBuilder;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 
@@ -32,9 +37,18 @@ public class AboutMenuItemFactory implements IMenuItemFactory {
 	}
 
 	@Override
-	public MenuItem makeItem(LocationContext locationContext) throws CoreException {
-		PopupMenuItemFactory popupMenuItemFactory = new PopupMenuItemFactory(name, dialogContainerSupplier,
-				new JFXDialogLayoutFactory(aboutPageOptions.getTitle(), new AboutPageFactory(aboutPageOptions)));
-		return popupMenuItemFactory.makeItem(locationContext);
+	public MenuItem makeNode(LocationContext locationContext) throws CoreException {
+		AboutPage aboutPage = new AboutPageFactory(aboutPageOptions).makeNode(locationContext);
+		//place centered
+		Target target = new Target.Builder()
+				.centered()
+				.build();
+		//over main application screen
+		ComponentQuery mainApplicationScreenQuery = new ComponentQuery.QueryBuilder().inRegion(SceneFactory.FENXLIB_MAIN_APPLICATION_PANE).only();
+
+		MenuItem menuItem = ControlsFactory.make(MenuItem.class, locationContext, MapBuilder
+				.of(MenuItemFactory.PARAM_NAME, name)
+				.with(MenuItemFactory.PARAM_ACTION, new LaunchPopupAction(aboutPage, mainApplicationScreenQuery, target)).build());
+		return menuItem;
 	}
 }

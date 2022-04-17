@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.widgets.license;
 
-import com.legyver.fenxlib.core.impl.web.DesktopWeblink;
+import com.legyver.fenxlib.core.web.DesktopWeblink;
 import javafx.geometry.HPos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;

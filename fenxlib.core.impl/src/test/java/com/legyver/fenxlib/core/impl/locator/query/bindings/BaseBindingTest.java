@@ -1,10 +1,9 @@
 package com.legyver.fenxlib.core.impl.locator.query.bindings;
 
 import com.legyver.fenxlib.core.api.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.locator.LocationContext;
 import com.legyver.fenxlib.core.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.api.locator.query.IRegionDiscriminator;
-import com.legyver.fenxlib.core.impl.context.ApplicationContext;
 import com.legyver.fenxlib.core.api.locator.query.QueryableComponentRegistry;
 
 import java.time.LocalDate;

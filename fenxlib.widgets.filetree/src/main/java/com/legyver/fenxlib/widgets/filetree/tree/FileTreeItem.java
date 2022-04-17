@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
-import com.legyver.fenxlib.core.api.locator.IPropertyAware;
+import com.legyver.fenxlib.core.locator.IPropertyAware;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.search.BinarySearch;
 import com.legyver.fenxlib.widgets.filetree.search.INamedItem;

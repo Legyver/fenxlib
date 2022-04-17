@@ -8,7 +8,7 @@ import com.legyver.fenxlib.widgets.blade.factory.blade.NameListClickOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.ShowMoreLabelOption;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.locator.LocationContext;
 
 /**
  * Visitor to apply the column constraints to a grid-layout

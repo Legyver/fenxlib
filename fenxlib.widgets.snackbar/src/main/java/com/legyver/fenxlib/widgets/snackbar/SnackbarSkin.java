@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.widgets.snackbar;
 
-import com.legyver.fenxlib.core.api.alert.Level;
+import com.legyver.fenxlib.core.alert.Level;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;

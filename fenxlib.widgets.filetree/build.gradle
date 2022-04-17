@@ -5,9 +5,8 @@ apply from: publishBuildScript
 dependencies {
     //exception
     api group: 'com.legyver', name: 'core', version: legyverCoreVersion
-    api project(':fenxlib.core.impl')
+    api project(':fenxlib.core')
     api project(':fenxlib.controls.svg')
-    api project(':fenxlib.icons.fa')
     api project(':fenxlib.extensions.tuktukfx')
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'

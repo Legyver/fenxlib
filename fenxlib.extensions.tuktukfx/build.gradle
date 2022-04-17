@@ -5,7 +5,7 @@ apply from: publishBuildScript
 dependencies {
     //task management
     api group: 'com.legyver', name: 'tuktukfx', version: '1.2.0.0'
-    api project(':fenxlib.core.api')
+    api project(':fenxlib.core')
 
     testImplementation 'junit:junit:4.13'
 }

@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.impl.config.options;
 
-import com.legyver.fenxlib.core.impl.config.options.init.RecentFilesApplicationLifecycleHook;
+import com.legyver.fenxlib.core.config.options.init.RecentFilesApplicationLifecycleHook;
 
 /**
  * Same package as ApplicationOptions because we want to use set to bypass file validation for tests

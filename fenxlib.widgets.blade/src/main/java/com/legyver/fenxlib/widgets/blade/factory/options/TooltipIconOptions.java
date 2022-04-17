@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.widgets.blade.factory.options;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.impl.factory.options.IconOptions;
+import com.legyver.fenxlib.core.icons.options.IconOptions;
 import com.legyver.fenxlib.widgets.blade.factory.visitor.IconOptionVisitor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,14 +18,15 @@ public class TooltipIconOptions extends IconOptions implements IconWidgetVisitor
 	/**
 	 * Construct options that contain the icon, iconColor, toolTip, onClick-handler, iconSize and blend mode
 	 * @param icon the icon to use
+	 * @param iconFontFamily the family of the icon font
 	 * @param iconColor the color to paint the icon
 	 * @param toolTip the tooltip to display for the icon
 	 * @param onClick the action to trigger when clicked
 	 * @param iconSize the size of the icon
 	 * @param blendMode the blend mode of the icon
 	 */
-	public TooltipIconOptions(String icon, String iconColor, String toolTip, EventHandler<ActionEvent> onClick, double iconSize, BlendMode blendMode) {
-		super(icon, iconColor, iconSize, blendMode);
+	public TooltipIconOptions(String icon, String iconFontFamily, String iconColor, String toolTip, EventHandler<ActionEvent> onClick, double iconSize, BlendMode blendMode) {
+		super(icon, iconFontFamily, iconColor, iconSize, blendMode);
 		this.toolTip = toolTip;
 		this.onClick = onClick;
 	}
@@ -33,13 +34,14 @@ public class TooltipIconOptions extends IconOptions implements IconWidgetVisitor
 	/**
 	 * Construct options that contain the icon, iconColor, toolTip, onClick-handler and iconSize
 	 * @param icon the icon to use
+	 * @param iconFontFamily the family of the icon font
 	 * @param iconColor the color to paint the icon
 	 * @param toolTip the tooltip to display for the icon
 	 * @param onClick the action to trigger when clicked
 	 * @param iconSize the size of the icon
 	 */
-	public TooltipIconOptions(String icon, String iconColor, String toolTip, EventHandler<ActionEvent> onClick, double iconSize) {
-		this(icon, iconColor, toolTip, onClick, iconSize, null);
+	public TooltipIconOptions(String icon, String iconFontFamily, String iconColor, String toolTip, EventHandler<ActionEvent> onClick, double iconSize) {
+		this(icon, iconFontFamily, iconColor, toolTip, onClick, iconSize, null);
 	}
 
 	/**

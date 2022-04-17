@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.widgets.about;
 
+import com.legyver.fenxlib.core.controls.popup.Popup;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
@@ -8,7 +9,7 @@ import java.util.Properties;
 /**
  * Widget to create an 'About' page for an application
  */
-public class AboutPage extends Control {
+public class AboutPage extends Popup {
 
 	private final String intro;
 	private final String gist;

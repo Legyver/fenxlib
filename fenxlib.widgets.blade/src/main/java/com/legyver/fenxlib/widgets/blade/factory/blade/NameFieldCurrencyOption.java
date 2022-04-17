@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.widgets.blade.factory.blade;
 
 import com.jfoenix.controls.JFXTextField;
-import com.legyver.fenxlib.core.api.factory.NodeInstantiator;
+import com.legyver.fenxlib.core.controls.factory.NodeInstantiator;
 import com.legyver.fenxlib.skins.number.CurrencyFieldSkin;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
 import javafx.scene.control.Skin;

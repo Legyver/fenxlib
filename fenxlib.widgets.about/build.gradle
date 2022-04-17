@@ -8,7 +8,7 @@ dependencies {
     //graph
     api group: 'com.legyver', name: 'utils.propcross', version: legyverUtilsVersion
 
-    api project(':fenxlib.core.impl')
+    api project(':fenxlib.core')
 
     api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
     //Expression language for conditional validation

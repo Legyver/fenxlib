@@ -1,4 +1,22 @@
 # Releases
+## 3.0.0.0
+Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the scope of the changes.
+
+Not the least of this will be how factories are handled. Instead of calling a factory explicitly, you will call the general factory which will spit out the output of the first related implementation on the classpath, be it raw JavaFX or MaterialFX.  For example if the materialfx factory is on the classpath, when calling for a text box you will get a MaterialFX text box.
+If nothing is on the classpath, you will get the plain JavaFX TextBox.  This will be extendable by allowing you to bring your own factory.  If your factory has a higher preference than others (JavaFX is 0, MaterialFX is 100; the lower the number, the higher the preference) it will usurp other factories for that specific control.  You can also define a factory for custom types that has a lower preference and your factory will still be picked up.
+
+### Refactoring
+- Core
+  - Pushed out factories into separate API
+  - Pulled icons into core
+- Factories.API
+  - New API for factories that returns the default javafx widget
+  - package: com.legyver.fenxlib.factories.api
+- Factories.MaterialFX
+  - Host the new MaterialFX (preferred) factories
+  - package: com.legyver.fenxlib.factories.materialfx
+- Icons.FA/IcoMoon
+  - Deleted.  We no longer follow the SVG pattern from JFoenix, but rather rely on specific TTFs the user is expected to supply or override.
 ## 2.1.2.6
 ### Maintenance
 - All
@@ -55,7 +73,7 @@
   - fenxlib.icons.fa -> com.legyver.fenxlib.icons.fa
   - fenxlib.icons.icomoon -> com.legyver.fenxlib.icons.icomoon
 - Moved classes from core.impl to core.api
-  - com.legyver.fenxlib.core.impl.util.GuidUtil to com.legyver.fenxlib.core.api.util.GuidUtil
+  - com.legyver.fenxlib.core.impl.util.GuidUtil to com.legyver.fenxlib.core.util.GuidUtil
 - Added SHUTDOWN lifecycle hook to follow PRE_SHUTDOWN lifecycle hooks.
   - File > Exit now triggers SHUTDOWN lifecycle hook, as does closing the window
   - fenxlib.extensions.tuktukfx now shuts down the thread pool on SHUTDOWN lifecycle hook

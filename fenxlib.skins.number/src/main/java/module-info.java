@@ -4,7 +4,7 @@
 module com.legyver.fenxlib.skins.number {
 	requires com.jfoenix;
 	requires javafx.graphics;
-	requires com.legyver.fenxlib.core.api;
+	requires com.legyver.fenxlib.core;
 	requires javafx.controls;
 
 	exports com.legyver.fenxlib.skins.number;

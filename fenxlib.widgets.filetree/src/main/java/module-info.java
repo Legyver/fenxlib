@@ -4,15 +4,15 @@
 module com.legyver.fenxlib.widgets.filetree {
     requires javafx.base;
     requires javafx.controls;
-    requires com.jfoenix;
+
+    requires org.apache.commons.io;
+    requires org.apache.logging.log4j;
+
     requires com.legyver.core;
-    requires com.legyver.fenxlib.core.api;
-    requires com.legyver.fenxlib.core.impl;
+    requires com.legyver.fenxlib.core;
     requires com.legyver.fenxlib.controls.svg;
-    requires com.legyver.fenxlib.icons.fa;
     requires com.legyver.fenxlib.extensions.tuktukfx;
     requires com.legyver.tuktukfx;
-    requires org.apache.commons.io;
 
     exports com.legyver.fenxlib.widgets.filetree;
     exports com.legyver.fenxlib.widgets.filetree.factory;
@@ -23,6 +23,6 @@ module com.legyver.fenxlib.widgets.filetree {
     exports com.legyver.fenxlib.widgets.filetree.tree;
 
     provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.filetree.license.LicenseServiceImpl;
-
-
+    provides com.legyver.fenxlib.widgets.filetree.service.FileTreeIconService with com.legyver.fenxlib.widgets.filetree.service.DefaultFileTreeIconService;
+    uses com.legyver.fenxlib.widgets.filetree.service.FileTreeIconService;
 }

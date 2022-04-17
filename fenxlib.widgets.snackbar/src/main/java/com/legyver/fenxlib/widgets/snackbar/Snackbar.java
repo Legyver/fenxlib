@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.widgets.snackbar;
 
-import com.legyver.fenxlib.core.api.alert.Level;
+import com.legyver.fenxlib.core.alert.IAlert;
+import com.legyver.fenxlib.core.alert.Level;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,7 +16,7 @@ import javafx.scene.control.Skin;
  * - The body text
  * - (optional) buttons for disposing the alert
  */
-public class Snackbar extends Control {
+public class Snackbar extends Control implements IAlert {
 
     /**
      * The message text.  This will be displayed in the body of the alert.

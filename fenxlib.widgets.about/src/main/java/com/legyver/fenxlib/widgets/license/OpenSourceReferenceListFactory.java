@@ -1,15 +1,15 @@
 package com.legyver.fenxlib.widgets.license;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.api.factory.NodeFactory;
-import com.legyver.fenxlib.core.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.core.locator.LocationContext;
 
 import java.util.Properties;
 
 /**
  * Factory to create an OpenSourceReferenceList
  */
-public class OpenSourceReferenceListFactory implements NodeFactory<OpenSourceReferenceList> {
+public class OpenSourceReferenceListFactory implements StyleableFactory<OpenSourceReferenceList> {
 	private final Properties properties;
 
 	/**
