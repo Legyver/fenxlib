@@ -2,7 +2,7 @@
 ## Usage
 ### Dependency
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '2.1.2.5'
+    implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0.0.alpha.1'
 ```
 ## Code
 ```java

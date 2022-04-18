@@ -2,6 +2,15 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.11' apply false
 }
 
+allprojects {
+    tasks.register("readme") {
+        println version
+        ant.replaceregexp(match:'version\\: \'([0-9\\.A-Za-z]+)', replace: "version: \'${version}", flags:'g', byline:true) {
+            fileset(dir: '.', includes: 'README.md')
+        }
+    }
+}
+
 subprojects {
 
     ext {
