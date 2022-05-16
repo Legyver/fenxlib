@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.widgets.snackbar.alert;
 
-import com.legyver.fenxlib.core.alert.AlertFactory;
-import com.legyver.fenxlib.core.alert.IAlert;
-import com.legyver.fenxlib.core.alert.Level;
+import com.legyver.fenxlib.api.alert.AlertFactory;
+import com.legyver.fenxlib.api.alert.IAlert;
+import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.widgets.snackbar.Snackbar;
 
 /**

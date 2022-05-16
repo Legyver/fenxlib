@@ -2,14 +2,14 @@ package com.legyver.fenxlib.core.layout.factory;
 
 import com.legyver.core.exception.CoreException;
 
+import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.core.controls.factory.SpaceableFactory;
 import com.legyver.fenxlib.core.layout.options.CenterOptions;
 import com.legyver.fenxlib.core.layout.options.LeftMenuOptions;
 import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;
 import com.legyver.fenxlib.core.layout.options.RightMenuOptions;
-import com.legyver.fenxlib.core.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.menu.factory.MenuFactory;
 import javafx.beans.value.ObservableValue;
 import javafx.css.Styleable;
@@ -85,7 +85,7 @@ public class TopRegionFactory implements SpaceableFactory, RegionFactory {
 
 	private MenuBar getMenuBar(MenuFactory[] menuFactories) throws CoreException {
 		MenuBar bar = new MenuBar();
-		LocationContext locationContext = new DefaultLocationContext(MenuFactory.REGION_NAME);
+		LocationContext locationContext = new DefaultLocationContext(ApplicationRegions.MENUS.getName());
 		if (menuFactories != null) {
 			List<Menu> menus = CoreException.unwrap(() -> Stream.of(menuFactories)
 					.map(f -> CoreException.wrap(() -> f.makeNode(locationContext)))

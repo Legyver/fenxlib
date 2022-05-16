@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.extensions.tuktukfx.config;
 
-import com.legyver.fenxlib.core.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
 
 /**
  * Mixin for shutting down the thread pool on application exit

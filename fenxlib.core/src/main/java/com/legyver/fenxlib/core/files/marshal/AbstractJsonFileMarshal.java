@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.files.marshal;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.files.FileOptions;
+import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.core.files.marshal.converter.ConverterPlugin;
 import org.apache.commons.io.IOUtils;
 

@@ -1,5 +1,5 @@
 # Releases
-## 3.0.0.0
+## 3.0.0
 Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the scope of the changes. Not the least of this will be how factories are handled.
 
 Instead of calling a factory explicitly, you will call the general factory which will spit out the output of the first related implementation on the classpath, be it raw JavaFX or MaterialFX.  For example if the materialfx factory is on the classpath, when calling for a text box you will get a MaterialFX text box.
@@ -8,11 +8,19 @@ If nothing is on the classpath, you will get the plain JavaFX TextBox.  This wil
 
 Even though we plan on supporting MaterialFX controls, we will not be using their alert system as it does not work on multi-monitor displays (alerts are always displayed over primary monitor).
 
+### Versioning
+From 3.0.0-alpha.1 we are switching to [Semantic Versioning](https://semver.org/).
+
 ### Refactoring
+- fenxlib.api
+  - Renamed from fenxlib.core.api
+  - Contains just enough to bootstrap the fenxlib.test
 - fenxlib.core
-  - Consolidated fenxlib.core.api and fenxlib.core.impl into fenxlib.core 
+  - Renamed from fenxlib.core.impl 
   - Pulled icon handling into core
     - Devs are expected to either use the fenxlib.icons.standard font or supply their own ttf
+  - Rather than building a UI out of nested factories (as was the case in 1.0-2.X), use a static factory to lookup to instantiate the control via the appropriate service.
+    - This also means that developers will be expected to extend Control and SkinBase to build their custom UIs.
 - fenxlib.controls.materialfx
   - Host the new MaterialFX (preferred) factories
   - package: com.legyver.fenxlib.controls.materialfx
@@ -21,6 +29,11 @@ Even though we plan on supporting MaterialFX controls, we will not be using thei
 - fenxlib.icons.standard
   - IcoMoon-Free icons
   - This is a separate module because of licensing.  Licensing should only include IcoMoon if you're using them.
+
+### Testing
+- IntegrationTests are now moved out of the individual modules and into their own top-level directory ([integration_tests](integration_tests/README.md)).
+- Unit tests that do not require JavaFX or the Fenxlib framework, can remain in the test directory of the relevant project.
+- We also provide a [fenxlib.tests](fenxlib.test/README.md)
 
 ## 2.1.2.6
 ### Maintenance

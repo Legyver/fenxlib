@@ -1,9 +1,8 @@
 package com.legyver.fenxlib.widgets.filetree;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.Fenxlib;
 import com.legyver.fenxlib.core.controls.ControlsFactory;
-import com.legyver.fenxlib.core.controls.factory.TreeViewFactory;
+import com.legyver.fenxlib.core.scene.controls.factory.TreeViewFactory;
 import com.legyver.fenxlib.core.event.handlers.ShowContextMenuEventHandler;
 import com.legyver.fenxlib.core.util.MapBuilder;
 import javafx.scene.control.SkinBase;

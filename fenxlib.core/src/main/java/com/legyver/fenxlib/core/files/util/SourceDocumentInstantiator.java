@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.files.util;
 
+import com.legyver.fenxlib.api.files.util.MapDecoratorPojoInstantiator;
 import com.legyver.utils.mapqua.mapbacked.RawMapAware;
 
 /**

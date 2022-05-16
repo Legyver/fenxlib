@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import javafx.collections.ObservableList;
 import javafx.css.Styleable;
 

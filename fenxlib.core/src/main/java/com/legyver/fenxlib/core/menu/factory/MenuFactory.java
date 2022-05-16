@@ -1,21 +1,19 @@
 package com.legyver.fenxlib.core.menu.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import javafx.scene.control.Menu;
 
 /**
  * Factory to create a menu
  */
 public class MenuFactory implements StyleableFactory<Menu> {
-	/**
-	 * Default region name for any menus.  Used in programmatically selecting menus/menu items
-	 */
-	public static final String REGION_NAME = "menu";
+
 	/**
 	 * Construct param to pass the name to the factory in the map
 	 */
@@ -34,7 +32,7 @@ public class MenuFactory implements StyleableFactory<Menu> {
 	public Menu makeNode(LocationContext locationContext) throws CoreException {
 		Menu menu = new Menu(name);
 		if (locationContext == null || locationContext.getName() == null) {
-			locationContext = new DefaultLocationContext(REGION_NAME);
+			locationContext = new DefaultLocationContext(ApplicationRegions.MENUS.getName());
 		}
 
 		LocationContextDecorator decorator = new LocationContextDecorator(locationContext);

@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.files.DefaultFileBrowseLocation;
+import com.legyver.fenxlib.api.files.DefaultFileBrowseLocation;
 import javafx.beans.property.StringProperty;
 import javafx.stage.FileChooser;
 

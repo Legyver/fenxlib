@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.extensions.tuktukfx.bindings;
 
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.locator.query.bindings.BaseBinding;
 import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
 

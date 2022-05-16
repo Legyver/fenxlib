@@ -1,17 +1,19 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.config.ApplicationConfig;
-import com.legyver.fenxlib.core.context.ApplicationContext;
-import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
-import com.legyver.fenxlib.core.uimodel.IUiModel;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
+import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.uimodel.IUiModel;
 
 /**
  * Lifecycle hook to sync aspects of application state from the application config to the UI model when the application starts
  * @param <T> the type of the application config
  * @param <U> the type of the UI model
  */
-public class UiModelConfigInitializer<T extends ApplicationConfig, U extends IUiModel> implements ApplicationLifecycleHook {
+public class UiModelConfigInitializer<T extends FileAwareApplicationConfig, U extends IUiModel> implements ApplicationLifecycleHook {
 	@Override
 	public LifecyclePhase getLifecyclePhase() {
 		return LifecyclePhase.INIT;
@@ -24,6 +26,11 @@ public class UiModelConfigInitializer<T extends ApplicationConfig, U extends IUi
 			U applicationUIModel = (U) ApplicationContext.getUiModel();
 			syncToUiModel(applicationConfig, applicationUIModel);
 		};
+	}
+
+	@Override
+	public String getName() {
+		return UiModelConfigInitializer.class.getSimpleName();
 	}
 
 	/**

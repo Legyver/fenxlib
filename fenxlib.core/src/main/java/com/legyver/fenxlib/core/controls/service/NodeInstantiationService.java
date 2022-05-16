@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.controls.service;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.service.OrderedService;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.service.OrderedService;
 import javafx.css.Styleable;
 
 import java.util.Map;

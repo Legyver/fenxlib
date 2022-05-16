@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Load the licenses information of open source libraries used by this module
+ * Load the license information of open source libraries used by this module
  */
 public class LicenseServiceImpl implements LicenseService {
 	@Override

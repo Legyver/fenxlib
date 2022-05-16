@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.legyver.fenxlib.core.layout.factory.RegionFactory;
 import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;
+import com.legyver.fenxlib.core.scene.controls.factory.TitledPaneFactory;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;

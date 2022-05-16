@@ -1,11 +1,11 @@
 package com.legyver.fenxlib.core.controls.decorator;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import javafx.scene.Node;
 
 /**

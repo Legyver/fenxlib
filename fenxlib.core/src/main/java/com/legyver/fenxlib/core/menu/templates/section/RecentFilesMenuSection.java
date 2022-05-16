@@ -1,20 +1,19 @@
 package com.legyver.fenxlib.core.menu.templates.section;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.Fenxlib;
-import com.legyver.fenxlib.core.config.parts.IRecentlyModified;
-import com.legyver.fenxlib.core.config.parts.RecentlyViewedFile;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.config.parts.IRecentlyModified;
+import com.legyver.fenxlib.api.config.parts.IRecentlyViewedFile;
+import com.legyver.fenxlib.api.regions.ApplicationRegions;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.ControlsFactory;
-import com.legyver.fenxlib.core.files.DefaultFileOptions;
-import com.legyver.fenxlib.core.files.FileOptions;
-import com.legyver.fenxlib.core.files.action.OpenRecentFileAction;
-import com.legyver.fenxlib.core.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.files.DefaultFileOptions;
+import com.legyver.fenxlib.api.files.FileOptions;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import com.legyver.fenxlib.core.menu.factory.MenuFactory;
-import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
 import com.legyver.fenxlib.core.menu.operator.MenuOperator;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
 import com.legyver.fenxlib.core.menu.section.MenuSectionOptions;
@@ -86,9 +85,9 @@ public class RecentFilesMenuSection implements MenuSection {
 
     private List<FileOptions> getRecentFiles() throws CoreException {
         IRecentlyModified recentlyModified = ApplicationContext.getApplicationConfig().getRecentlyModified();
-        List<RecentlyViewedFile> recentlyViewedFiles = recentlyModified.getValues();
+        List<IRecentlyViewedFile> recentlyViewedFiles = recentlyModified.getValues();
         List<FileOptions> recentFileList = new ArrayList<>();
-        for (RecentlyViewedFile recentlyViewedFile : recentlyViewedFiles) {
+        for (IRecentlyViewedFile recentlyViewedFile : recentlyViewedFiles) {
             FileOptions fileOptions = new DefaultFileOptions();
             fileOptions.setFileName(recentlyViewedFile.getName());
             fileOptions.setFilePath(recentlyViewedFile.getPath());
@@ -99,7 +98,7 @@ public class RecentFilesMenuSection implements MenuSection {
 
     @Override
     public List<? extends IMenuItemFactory> getFactories(MenuSectionOptions menuSectionOptions) throws CoreException {
-        LocationContext locationContext = new LocationContextDecorator(new DefaultLocationContext(MenuFactory.REGION_NAME));
+        LocationContext locationContext = new LocationContextDecorator(new DefaultLocationContext(ApplicationRegions.MENUS.getName()));
         locationContext.setName(parentMenuName);
 
         Menu fileMenu = makeFileMenuIfNotExisting(parentMenuName, locationContext);

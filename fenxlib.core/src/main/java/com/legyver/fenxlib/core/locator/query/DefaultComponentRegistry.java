@@ -1,7 +1,10 @@
 package com.legyver.fenxlib.core.locator.query;
 
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.visitor.LocationKeyVisitor;
+import com.legyver.fenxlib.api.locator.query.INamedComponentQuery;
+import com.legyver.fenxlib.api.locator.query.ITypedComponentQuery;
+import com.legyver.fenxlib.api.locator.query.QueryableComponentRegistry;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.visitor.LocationKeyVisitor;
 import com.legyver.fenxlib.core.util.GuidUtil;
 import com.legyver.utils.nippe.Base;
 import com.legyver.utils.nippe.Step;
@@ -24,9 +27,17 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 
 	@Override
 	public <T extends EventTarget> void register(LocationContext context, T target, boolean typedOnly) {
-		String key = context.accept(new LocationKeyVisitor());
-		if (!typedOnly) {
-			nodes.put(key, target);
+		String key;
+		if (context == null) {
+			key = "";
+		} else {
+			key = context.accept(new LocationKeyVisitor());
+			if (!typedOnly) {
+				nodes.put(key, target);
+			}
+			if (target instanceof Node) {
+				GuidUtil.setGuid((Node) target, key);
+			}
 		}
 
 		TypedCtx typed = typedNodes.get(key);
@@ -35,9 +46,6 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 			typedNodes.put(key, typed);
 		}
 		typed.typedNodes.put(target.getClass(), target);
-		if (target instanceof Node) {
-			GuidUtil.setGuid((Node) target, key);
-		}
 	}
 
 	/**

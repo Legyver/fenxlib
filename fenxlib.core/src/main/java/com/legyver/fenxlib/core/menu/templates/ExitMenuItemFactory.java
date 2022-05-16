@@ -1,10 +1,10 @@
 package com.legyver.fenxlib.core.menu.templates;
 
 import com.legyver.fenxlib.core.event.correlation.CorrelatingEventHandlerFactory;
-import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
-import com.legyver.fenxlib.core.lifecycle.hooks.HookExecutingAction;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.hooks.HookExecutingAction;
 import com.legyver.fenxlib.core.lifecycle.hooks.ShutdownHookDecorator;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import javafx.scene.control.MenuItem;
 

@@ -1,10 +1,9 @@
 package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.icons.IconPane;
 import com.legyver.fenxlib.core.icons.IconRegistry;
 import com.legyver.fenxlib.core.icons.options.IconOptions;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import javafx.scene.text.Text;
 
 /**

@@ -1,7 +1,9 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
-import com.legyver.fenxlib.core.config.load.ApplicationHome;
-import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
+import com.legyver.fenxlib.api.config.load.ApplicationHome;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 
 import java.io.File;
 
@@ -54,6 +56,11 @@ public class InitLoggingApplicationLifecycleHook implements ApplicationLifecycle
 			//set a system variable to be read for logging
 			System.setProperty(appName.toLowerCase() + APP_HOME_LOGGING_SUFFIX, logDirectory.getAbsolutePath());
 		};
+	}
+
+	@Override
+	public String getName() {
+		return InitLoggingApplicationLifecycleHook.class.getSimpleName();
 	}
 
 }

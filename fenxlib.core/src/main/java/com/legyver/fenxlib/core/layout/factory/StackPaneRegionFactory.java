@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.layout.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.factory.AbstractWrappingFactory;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;

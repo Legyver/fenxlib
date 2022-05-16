@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.locator.query.bindings;
 
-import com.legyver.fenxlib.core.locator.query.ComponentQuery;
-import com.legyver.fenxlib.core.locator.query.IQueryDiscriminator;
+import com.legyver.fenxlib.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.api.locator.query.IQueryDiscriminator;
 
 /**
  * Base binding mixin that provides query finalization

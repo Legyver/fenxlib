@@ -1,13 +1,13 @@
 package com.legyver.fenxlib.core.layout.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.factory.AlignedNodeFactory;
 import com.legyver.fenxlib.core.controls.factory.SpaceableFactory;
 import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;
-import com.legyver.fenxlib.core.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import javafx.beans.binding.When;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;

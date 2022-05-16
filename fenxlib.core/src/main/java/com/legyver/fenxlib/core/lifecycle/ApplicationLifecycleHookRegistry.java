@@ -1,9 +1,11 @@
 package com.legyver.fenxlib.core.lifecycle;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.ResettableApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.core.context.ApplicationStateMachine;
-import com.legyver.fenxlib.core.lifecycle.hooks.ExecutableHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
 
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -12,7 +14,7 @@ import java.util.TreeMap;
 /**
  * An application lifecycle hook registry to keep track of all lifecycle hooks and the application current state
  */
-public class ApplicationLifecycleHookRegistry implements IApplicationLifecycleHookRegistry {
+public class ApplicationLifecycleHookRegistry implements ResettableApplicationLifecycleHookRegistry {
 
 	private final EnumMap<LifecyclePhase, TreeMap<Integer, ExecutableHook>> lifecycleHooks = new EnumMap<>(LifecyclePhase.class);
 	private final ApplicationStateMachine applicationStateMachine = new ApplicationStateMachine();
@@ -80,6 +82,7 @@ public class ApplicationLifecycleHookRegistry implements IApplicationLifecycleHo
 	/**
 	 * Clear all lifecycle hooks and reset the application state machine
 	 */
+	@Override
 	public void reset() {
 		lifecycleHooks.clear();
 		applicationStateMachine.reset();

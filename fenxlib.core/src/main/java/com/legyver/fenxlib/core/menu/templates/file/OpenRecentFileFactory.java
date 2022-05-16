@@ -2,19 +2,13 @@ package com.legyver.fenxlib.core.menu.templates.file;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.controls.ControlsFactory;
-import com.legyver.fenxlib.core.event.correlation.CorrelatingEventHandlerFactory;
-import com.legyver.fenxlib.core.files.FileOptions;
-import com.legyver.fenxlib.core.files.action.OpenFileAction;
+import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.core.files.action.OpenRecentFileAction;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
 import com.legyver.fenxlib.core.util.MapBuilder;
-import javafx.css.Styleable;
 import javafx.scene.control.MenuItem;
-
-import java.io.File;
-import java.util.function.Consumer;
 
 /**
  * Factory to create a menu item to open a recent file

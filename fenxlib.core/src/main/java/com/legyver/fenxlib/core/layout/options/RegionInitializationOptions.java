@@ -2,8 +2,8 @@ package com.legyver.fenxlib.core.layout.options;
 
 
 import com.legyver.fenxlib.core.layout.factory.RegionFactory;
-import com.legyver.fenxlib.core.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 
 /**
  * Initialization options for the application regions based on

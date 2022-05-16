@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.controls.popup;
 
-import com.legyver.fenxlib.core.alert.IAlert;
+import com.legyver.fenxlib.api.alert.IAlert;
+import com.legyver.fenxlib.api.alert.IAlertPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
@@ -9,7 +10,7 @@ import javafx.scene.control.Skin;
 /**
  * Alert pane that will display application alerts over either the top-right, top-left, bottom-right or bottom-left of an application
  */
-public class AlertPane extends Control {
+public class AlertPane extends Control implements IAlertPane {
 
     private final ObservableList<IAlert> topLeftAlerts = FXCollections.observableArrayList();
     private final ObservableList<IAlert> topRightAlerts = FXCollections.observableArrayList();

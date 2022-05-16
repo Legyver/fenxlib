@@ -3,7 +3,7 @@ package com.legyver.fenxlib.core.controls.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.controls.popup.ButtonPopup;
 import com.legyver.fenxlib.core.controls.popup.Popup;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

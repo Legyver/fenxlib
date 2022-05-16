@@ -1,12 +1,12 @@
 package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 
 import java.util.List;
 
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 

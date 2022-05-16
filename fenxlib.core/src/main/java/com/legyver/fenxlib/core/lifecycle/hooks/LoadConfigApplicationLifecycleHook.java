@@ -1,11 +1,13 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
-import com.legyver.fenxlib.core.config.ApplicationConfig;
-import com.legyver.fenxlib.core.config.ApplicationConfigInstantiator;
-import com.legyver.fenxlib.core.config.ConfigServiceRegistry;
-import com.legyver.fenxlib.core.config.load.ApplicationConfigProvider;
-import com.legyver.fenxlib.core.context.ApplicationContext;
-import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
+import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
+import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
+import com.legyver.fenxlib.api.config.ConfigServiceRegistry;
+import com.legyver.fenxlib.api.config.load.ApplicationConfigProvider;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 
 import java.util.HashMap;
 
@@ -36,11 +38,16 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 	public ExecutableHook getExecutableHook() {
 		return () -> {
 			ConfigServiceRegistry.getInstance().setConfigServiceInitializer(configService -> configService.init(appConfigInstantiator));
-			ApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(applicationConfigProvider.getApplicationConfigFilename());
+			FileAwareApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(applicationConfigProvider.getApplicationConfigFilename());
 			if (applicationConfig == null) {
-				applicationConfig = (ApplicationConfig) appConfigInstantiator.init(new HashMap());
+				applicationConfig = (FileAwareApplicationConfig) appConfigInstantiator.init(new HashMap());
 			}
 			ApplicationContext.setApplicationConfig(applicationConfig);
 		};
+	}
+
+	@Override
+	public String getName() {
+		return LoadConfigApplicationLifecycleHook.class.getSimpleName();
 	}
 }

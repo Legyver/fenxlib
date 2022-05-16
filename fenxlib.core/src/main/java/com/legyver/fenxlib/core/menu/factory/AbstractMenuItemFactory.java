@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.core.menu.factory;
 
 
-import com.legyver.fenxlib.core.Fenxlib;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import javafx.scene.control.MenuItem;
 
 /**

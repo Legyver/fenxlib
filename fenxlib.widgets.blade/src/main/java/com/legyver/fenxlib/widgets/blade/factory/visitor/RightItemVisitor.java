@@ -7,7 +7,7 @@ import com.legyver.fenxlib.core.controls.decorator.CssClassDecorator;
 import com.legyver.fenxlib.core.controls.factory.IconFactory;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.widgets.blade.factory.MoreFieldFactory;
 import com.legyver.fenxlib.widgets.blade.factory.blade.AbstractNameFieldOption;
 import com.legyver.fenxlib.widgets.blade.factory.blade.NameDatePickerOption;

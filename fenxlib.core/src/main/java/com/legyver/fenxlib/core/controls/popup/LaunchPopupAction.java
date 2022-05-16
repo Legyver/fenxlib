@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.core.controls.popup;
 
-import com.legyver.fenxlib.core.Fenxlib;
+import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.SceneFactory;
 import com.legyver.fenxlib.core.layout.Target;
-import com.legyver.fenxlib.core.locator.query.ComponentQuery;
+import com.legyver.fenxlib.api.locator.query.ComponentQuery;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;

@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.menu.templates;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import javafx.css.Styleable;
 import javafx.scene.control.MenuItem;

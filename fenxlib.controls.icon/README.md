@@ -5,5 +5,5 @@ Standalone control for turning an icon into a control
     - SVGControlSkin
 
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.controls.svg', version: '3.0.0.0.alpha.1'
+    implementation group: 'com.legyver', name: 'fenxlib.controls.svg', version: '3.0.0-alpha.1'
 ```

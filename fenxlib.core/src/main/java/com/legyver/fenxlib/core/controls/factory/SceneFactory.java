@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.controls.factory;
 
-import com.legyver.fenxlib.core.Fenxlib;
-import com.legyver.fenxlib.core.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;

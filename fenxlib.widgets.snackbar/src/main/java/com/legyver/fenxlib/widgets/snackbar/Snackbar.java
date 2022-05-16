@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.widgets.snackbar;
 
-import com.legyver.fenxlib.core.alert.IAlert;
-import com.legyver.fenxlib.core.alert.Level;
+import com.legyver.fenxlib.api.alert.IAlert;
+import com.legyver.fenxlib.api.alert.Level;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

@@ -1,0 +1,10 @@
+description = 'Config for Fenxlib applications based on a JSON config file'
+
+apply from: publishBuildScript
+
+dependencies {
+    api project(':fenxlib.api')
+    //file-based config
+    api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+}
+

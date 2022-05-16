@@ -1,0 +1,14 @@
+description = 'Integration tests for the fenxlib.widgets.blade module'
+
+dependencies {
+    testImplementation project(':fenxlib.widgets.blade')
+    testImplementation project(':fenxlib.test')
+
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.19.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

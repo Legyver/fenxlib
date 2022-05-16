@@ -1,11 +1,11 @@
 plugins {
     id 'org.openjfx.javafxplugin' version '0.0.11' apply false
+    id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
 }
 
 allprojects {
     tasks.register("readme") {
-        println version
-        ant.replaceregexp(match:'version\\: \'([0-9\\.A-Za-z]+)', replace: "version: \'${version}", flags:'g', byline:true) {
+        ant.replaceregexp(match:'version\\: \'^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$', replace: "version: \'${version}", flags:'g', byline:true) {
             fileset(dir: '.', includes: 'README.md')
         }
     }
@@ -21,7 +21,9 @@ subprojects {
         commonsLogVersion = '2.17.1'
         commonsIoVersion = '2.7'
         commonsLangVersion = '3.11'
-
+        //JavaFX
+        javaFxVersion ='17.0.2'
+        //publishing
         publishBuildScript = 'https://raw.githubusercontent.com/Legyver/common-build/1.5/publishLibraryModule.gradle' //java 9+ multi-module
     }
 
@@ -34,8 +36,14 @@ subprojects {
     apply plugin: 'org.openjfx.javafxplugin'
 
     javafx {
-        version = "17.0.2"
+        version = javaFxVersion
         modules = ['javafx.controls', 'javafx.media', 'javafx.swing', 'javafx.web']
     }
+
+//    tasks.withType(JavaCompile) {
+//        options.compilerArgs.addAll(Arrays.asList(
+//                "--add-exports", "javafx.graphics/com.sun.javafx.tk=com.legyver." + project.name + ".test"
+//        ))
+//    }
 
 }

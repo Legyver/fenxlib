@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
-import com.legyver.fenxlib.core.locator.query.IRegionDiscriminator;
+import com.legyver.fenxlib.api.locator.query.IRegionDiscriminator;
 import com.legyver.fenxlib.core.locator.query.bindings.BaseBinding;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
 import javafx.beans.property.ObjectProperty;

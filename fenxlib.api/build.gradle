@@ -1,0 +1,21 @@
+description = 'API for Fenxlib'
+
+apply from: publishBuildScript
+
+dependencies {
+    //exception
+    api group: 'com.legyver', name: 'core', version: legyverCoreVersion
+    //file-based config
+    api group: 'com.legyver', name:'utils.mapqua', version: legyverUtilsVersion
+    //not-null sugar
+    api group: 'com.legyver', name:'utils.nippe', version: legyverUtilsVersion
+    //logging
+    api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
+
+    api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
+
+}
+
+test {
+    useJUnitPlatform()
+}

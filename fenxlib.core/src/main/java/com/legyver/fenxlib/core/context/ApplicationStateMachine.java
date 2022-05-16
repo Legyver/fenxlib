@@ -2,7 +2,8 @@ package com.legyver.fenxlib.core.context;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.core.function.ThrowingConsumer;
-import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.context.AppStateObserver;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.utils.graphrunner.Graph;
 import com.legyver.utils.graphrunner.GraphExecutedCommand;
 import com.legyver.utils.graphrunner.RunWithDependentsStrategy;

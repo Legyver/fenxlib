@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.extensions.tuktukfx.config;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.lifecycle.LifecyclePhase;
-import com.legyver.fenxlib.core.lifecycle.hooks.ApplicationLifecycleHook;
-import com.legyver.fenxlib.core.lifecycle.hooks.ExecutableHook;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
 import com.legyver.fenxlib.extensions.tuktukfx.task.exec.TaskExecutor;
 
 /**
@@ -45,5 +45,10 @@ public class TaskExecutorShutdownApplicationLifecycleHook implements Application
 			}
 			TaskExecutor.INSTANCE.shutdownNow();//shutdown thread-pool;
 		};
+	}
+
+	@Override
+	public String getName() {
+		return TaskExecutorShutdownApplicationLifecycleHook.class.getName();
 	}
 }

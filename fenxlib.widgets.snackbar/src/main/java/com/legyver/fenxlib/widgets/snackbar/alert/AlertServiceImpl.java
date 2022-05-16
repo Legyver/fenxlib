@@ -1,12 +1,12 @@
 package com.legyver.fenxlib.widgets.snackbar.alert;
 
-import com.legyver.fenxlib.core.alert.AlertFactory;
-import com.legyver.fenxlib.core.alert.AlertService;
-import com.legyver.fenxlib.core.alert.IAlert;
-import com.legyver.fenxlib.core.alert.Level;
+import com.legyver.fenxlib.api.alert.AlertFactory;
+import com.legyver.fenxlib.api.alert.AlertService;
+import com.legyver.fenxlib.api.alert.IAlert;
+import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.core.controls.factory.SceneFactory;
 import com.legyver.fenxlib.core.controls.popup.AlertPane;
-import com.legyver.fenxlib.core.locator.query.ComponentQuery;
+import com.legyver.fenxlib.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.util.DelayedAction;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;

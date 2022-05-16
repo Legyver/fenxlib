@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.files.action;
 
-import com.legyver.fenxlib.core.context.ApplicationContext;
-import com.legyver.fenxlib.core.files.FileOptions;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.files.FileOptions;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

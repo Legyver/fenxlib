@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.widgets.filetree.service;
 
 import com.legyver.fenxlib.core.icons.options.IconOptions;
-import com.legyver.fenxlib.core.service.OrderedServiceDelagator;
+import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 
 import java.util.*;
@@ -11,12 +11,12 @@ import java.util.*;
  * Provide your own FileTreeIconService with a lower than 0 order to override {@link DefaultFileTreeIconService}
  */
 public class FileTreeIconRegistry {
-    private final OrderedServiceDelagator<FileTreeIconService> orderedServiceDelagator;
+    private final OrderedServiceDelegator<FileTreeIconService> orderedServiceDelegator;
     private static FileTreeIconRegistry instance;
 
     private FileTreeIconRegistry() {
         ServiceLoader<FileTreeIconService> serviceLoader = ServiceLoader.load(FileTreeIconService.class);
-        orderedServiceDelagator = new OrderedServiceDelagator<>(serviceLoader);
+        orderedServiceDelegator = new OrderedServiceDelegator<>(serviceLoader);
     }
 
     /**
@@ -44,7 +44,7 @@ public class FileTreeIconRegistry {
     public IconOptions getIcon(IFileReference fileReference) {
         IconOptions foundIcon = null;
 
-        for (Iterator<FileTreeIconService> it = orderedServiceDelagator.iterator(); it.hasNext(); ) {
+        for (Iterator<FileTreeIconService> it = orderedServiceDelegator.iterator(); it.hasNext(); ) {
             FileTreeIconService fileTreeIconService = it.next();
             if (fileReference.isDirectory()) {
                 foundIcon = fileTreeIconService.getCodeForDirectory(fileReference);

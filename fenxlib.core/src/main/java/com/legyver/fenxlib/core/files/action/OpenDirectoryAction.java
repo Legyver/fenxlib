@@ -2,7 +2,7 @@ package com.legyver.fenxlib.core.files.action;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.core.function.ThrowingConsumer;
-import com.legyver.fenxlib.core.files.FileOptions;
+import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.core.menu.factory.internal.DirectoryOptionsChooserFactory;
 import com.legyver.fenxlib.core.files.action.internal.FileChooserAction;
 import javafx.event.ActionEvent;

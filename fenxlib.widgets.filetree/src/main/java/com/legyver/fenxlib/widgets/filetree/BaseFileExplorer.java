@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.widgets.filetree;
 
+import com.legyver.fenxlib.api.locator.IComponentRegistry;
 import com.legyver.fenxlib.core.util.GuidUtil;
 import com.legyver.fenxlib.extensions.tuktukfx.task.adapter.JavaFxAdapter;
 import com.legyver.fenxlib.extensions.tuktukfx.task.exec.TaskExecutor;
@@ -54,7 +55,7 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
     /**
      * Construct a BaseFileExplorer with the supplied file registry and fileWatch handler.
      * This constructor
-     * - Registers the root tree node with the {@link com.legyver.fenxlib.core.locator.IComponentRegistry} so it can be queried from anywhere in the application.
+     * - Registers the root tree node with the {@link IComponentRegistry} so it can be queried from anywhere in the application.
      * -- format will be the registered name of the file explorer + "_root"
      * - Adds a listener to the root files of the registry associated with this file explorer.
      * --  use the {@link FileTreeRegistry#addToRoot(INodeReference)} method when adding root-level folders.

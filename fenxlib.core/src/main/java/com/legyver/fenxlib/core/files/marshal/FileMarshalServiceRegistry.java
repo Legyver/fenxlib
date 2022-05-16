@@ -1,14 +1,14 @@
 package com.legyver.fenxlib.core.files.marshal;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.files.FileOptions;
+import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.core.files.marshal.contenttype.ContentTypeBasedFileMarshal;
 import com.legyver.fenxlib.core.files.marshal.exception.UnmarshalableContentTypeException;
 import com.legyver.fenxlib.core.files.marshal.exception.UnmarshalableFileException;
 import com.legyver.fenxlib.core.files.marshal.exception.UnmarshalableFileExtensionException;
 import com.legyver.fenxlib.core.files.marshal.extension.ExtensionBasedFileMarshal;
-import com.legyver.fenxlib.core.service.IOrderedServiceDelegator;
-import com.legyver.fenxlib.core.service.OrderedServiceDelagator;
+import com.legyver.fenxlib.api.service.IOrderedServiceDelegator;
+import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 
 import java.util.*;
 
@@ -22,11 +22,11 @@ public class FileMarshalServiceRegistry {
 
     private FileMarshalServiceRegistry() {
         ServiceLoader<ExtensionBasedFileMarshal> extFileMarshalServiceLoader = ServiceLoader.load(ExtensionBasedFileMarshal.class);
-        IOrderedServiceDelegator<ExtensionBasedFileMarshal> extensionBasedOrderedServiceDelegator = new OrderedServiceDelagator<>(extFileMarshalServiceLoader);
+        IOrderedServiceDelegator<ExtensionBasedFileMarshal> extensionBasedOrderedServiceDelegator = new OrderedServiceDelegator<>(extFileMarshalServiceLoader);
         fileMarshalsByFileSuffix = extensionBasedOrderedServiceDelegator.split(fileMarshal -> fileMarshal.getSupportedFileSuffix());
 
         ServiceLoader<ContentTypeBasedFileMarshal> cntFileMarshalServiceLoader = ServiceLoader.load(ContentTypeBasedFileMarshal.class);
-        IOrderedServiceDelegator<ContentTypeBasedFileMarshal> cntBasedOrderedServiceDelegator = new OrderedServiceDelagator<>(cntFileMarshalServiceLoader);
+        IOrderedServiceDelegator<ContentTypeBasedFileMarshal> cntBasedOrderedServiceDelegator = new OrderedServiceDelegator<>(cntFileMarshalServiceLoader);
         fileMarshalsByContentType = cntBasedOrderedServiceDelegator.split(fileMarshal -> fileMarshal.getSupportedContentType());
     }
 

@@ -4,7 +4,7 @@ import com.legyver.core.exception.CoreException;
 
 import com.legyver.fenxlib.core.controls.factory.ITitleFactory;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
-import com.legyver.fenxlib.core.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import javafx.scene.Node;
 
 /**

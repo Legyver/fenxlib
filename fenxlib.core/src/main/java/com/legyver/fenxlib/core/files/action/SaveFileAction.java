@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.files.action;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
-import com.legyver.fenxlib.core.files.FileOptions;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.core.files.marshal.FileMarshalServiceRegistry;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

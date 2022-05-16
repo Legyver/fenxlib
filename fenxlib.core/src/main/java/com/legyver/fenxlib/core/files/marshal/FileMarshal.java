@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.files.marshal;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.files.FileOptions;
-import com.legyver.fenxlib.core.service.OrderedService;
+import com.legyver.fenxlib.api.files.FileOptions;
+import com.legyver.fenxlib.api.service.OrderedService;
 
 /**
  * A Marshaller responsible for converting an object into the appropriate format for saving to file

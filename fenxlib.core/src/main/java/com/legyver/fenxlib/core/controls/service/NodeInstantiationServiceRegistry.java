@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.controls.service;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.service.OrderedServiceDelagator;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import javafx.css.Styleable;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.ServiceLoader;
  * Registry that {@link NodeInstantiationService} register with.
  */
 public class NodeInstantiationServiceRegistry {
-    private final OrderedServiceDelagator<NodeInstantiationService> orderedServiceDelagator;
+    private final OrderedServiceDelegator<NodeInstantiationService> orderedServiceDelegator;
     private final Map<Class, NodeInstantiationService> preferredLoaderForClass = new HashMap<>();
     private static NodeInstantiationServiceRegistry instance;
 
@@ -23,7 +23,7 @@ public class NodeInstantiationServiceRegistry {
      */
     public NodeInstantiationServiceRegistry() {
         ServiceLoader<NodeInstantiationService> nodeInstantiationServiceLoader = ServiceLoader.load(NodeInstantiationService.class);
-        orderedServiceDelagator = new OrderedServiceDelagator<>(nodeInstantiationServiceLoader);
+        orderedServiceDelegator = new OrderedServiceDelegator<>(nodeInstantiationServiceLoader);
     }
 
     /**
@@ -60,7 +60,7 @@ public class NodeInstantiationServiceRegistry {
             //figure out the preferred loader for this class
             synchronized (this) {
                 int score = Integer.MAX_VALUE;
-                for (Iterator<NodeInstantiationService> it = orderedServiceDelagator.iterator(); it.hasNext(); ) {
+                for (Iterator<NodeInstantiationService> it = orderedServiceDelegator.iterator(); it.hasNext(); ) {
                     NodeInstantiationService service = it.next();
                     T temp = service.instantiate(klass, locationContext, options);
                     if (temp != null) {//only prefer this loader if it actually works

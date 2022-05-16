@@ -7,21 +7,22 @@ Note: The distribution of this library is compiled on Java 17.
 ### Extensibility via META-INF/services
 We use the [Java service mechanism](https://docs.oracle.com/javase/tutorial/ext/basics/spi.html) to provide the correct implementation of various services.  The service lookup will always scan all services on the classpath, so there is nothing needed apart from adding a library to the classpath to have it work.
 
-For example: our widget factories are in [fenxlib.factories.api](fenxlib.factories.api/README.MD)
-This same library has default factories that returns a JavaFX widget.
+For example: our widget factories are in [fenxlib.core](fenxlib.core/README.MD)
+This library also has default factories that returns a regular JavaFX widget.
 However, if you add in the 'fenxlib.factories.materialfx' library, you will get a MaterialFX widget.
 You can further extend this by adding your own service to augment or usurp the existing widget factories.
 
 To tie into this framework add an META-INF/services for file for the Service you are implementing.
 
 ### Notifications
-
+TBD
 
 ### Services
 | Service | Description | Defining module | Implementing Modules | Description |
 | ------- | ----------- | --------------- | -------------------- | ----------- |
-| ConfigService | Loads/saves the application configuration | fenxlib.core | fenxlib.core | Saves in directory in appropriate location for filesystem
-| AlertService | Handles application alerts | fenxlib.core | fenxlib.core | Displays alerts in a popup over the defined location |
+| ConfigService | Loads/saves the application configuration | fenxlib.api | fenxlib.config.json | Saves in directory in appropriate location for filesystem
+| LifecycleHookService | Initializes the application lifecycle hooks | fenxlib.api | fenxlib.core | Initializes the application lifecycle registry and hooks based on the configured application options
+| AlertService | Handles application alerts | fenxlib.api | fenxlib.core | Displays alerts in a popup over the defined location |
 | IconLoaderService | Loads TTF Icons | fenxlib.core | fenxlib.icons.standard | Provides default IcoMoon-Free icons
 | NodeInstantiationService | Instantiates controls for types of controls in javafx.controls module | fenxlib.core | fenxlib.core | Instantiates JavaFX controls 
 | | |  | fenxlib.controls.materialfx | Instantiates MaterialFX controls 
@@ -60,7 +61,7 @@ Since version 2.0.0.0, this library has been made module-friendly, and hence the
 The main functionality of this library is in the fenxlib.core.impl module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '3.0.0-alpha.1'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
@@ -69,7 +70,7 @@ There are several extensions, widgets and skins available as well as independent
 - [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx/README.MD)
     - an extension for TukTukFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '3.0.0-alpha.1'
 ```
 
 ### Widgets
@@ -79,22 +80,22 @@ All widgets are combinations of widgets created via the fenxlib.factories.api, s
   - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.0-alpha.1'
 ```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '3.0.0-alpha.1'
 ```
 - [fenxlib.widgets.filetree](fenxlib.widgets.filetree/README.md)
   - a pre-made, customizable and extendable file explorer that monitors the filesystem for file operations on added files/folders.
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-alpha.1'
 ```
 - [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar/README.md)
   - a notification widget that displays info/warning/error notifications in a snackbar
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-alpha.1'
 ```
 ### Skins
 - [fenxlib.skins.number](fenxlib.skins.number/README.MD)
@@ -102,14 +103,14 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: 
     - currency
     - percentages
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-alpha.1'
 ```
 
 ### Controls
 - [fenxlib.controls.icon](fenxlib.controls.icon/README.md)
   - Control that attaches an action to an icon
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0.0.alpha.1'
+implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-alpha.1'
 ```
 
 ## Samples
@@ -140,11 +141,7 @@ gradlew install
 
 
 ## Versioning
-Release.Breaking.Feature.Fix
-- Release: Used for major milestone releases.
-- Breaking: Used when the change breaks backward compatibility.
-- Feature: Used when introducing features that do not break backward compatibility.
-- Fix: Used for small bug fixes
+Please follow [Semantic Versioning](https://semver.org/) conventions.
 
 ## Releases
 * [Release Notes](https://github.com/Legyver/fenxlib/blob/master/RELEASE.MD)

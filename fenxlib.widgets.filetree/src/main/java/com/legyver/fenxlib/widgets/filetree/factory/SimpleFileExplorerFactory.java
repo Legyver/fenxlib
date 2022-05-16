@@ -1,20 +1,18 @@
 package com.legyver.fenxlib.widgets.filetree.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.locator.IComponentRegistry;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.core.files.action.OpenDirectoryAction;
-import com.legyver.fenxlib.core.locator.LocationContext;
-import com.legyver.fenxlib.core.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.core.menu.factory.ContextMenuFactory;
-import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
-import com.legyver.fenxlib.core.menu.templates.file.SelectDirectoryMenuFactory;
 import com.legyver.fenxlib.widgets.filetree.SimpleFileExplorer;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.scan.FileWatchHandler;
-import javafx.css.Styleable;
 import javafx.scene.control.ContextMenu;
 
 /**
@@ -26,7 +24,7 @@ public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExp
      */
     public static final String DEFAULT_EXPLORER_NAME = "fileExplorer";
     /**
-     * The name to register the file explorer as.  This is used for querying the file explorer from the {@link com.legyver.fenxlib.core.locator.IComponentRegistry}
+     * The name to register the file explorer as.  This is used for querying the file explorer from the {@link IComponentRegistry}
      */
     private final String name;
     /**
@@ -45,7 +43,7 @@ public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExp
 
     /**
      * Construct a FileExplorerFactory
-     * @param name the name to register the file explorer as with the {@link com.legyver.fenxlib.core.locator.IComponentRegistry}
+     * @param name the name to register the file explorer as with the {@link IComponentRegistry}
      * @param fileTreeRegistry the registry that stores a record of files this file explorer will be responsible for
      * @param fileWatchHandler the handler that handles any new/deleted/modified files that are added or discovered under watched directories
      * @param areaContextMenuFactory the factory to produce the context menu for the file explorer

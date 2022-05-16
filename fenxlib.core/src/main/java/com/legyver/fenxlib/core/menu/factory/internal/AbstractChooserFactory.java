@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.config.parts.ILastOpened;
-import com.legyver.fenxlib.core.context.ApplicationContext;
-import com.legyver.fenxlib.core.files.DefaultFileBrowseLocation;
+import com.legyver.fenxlib.api.config.parts.ILastOpened;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.files.DefaultFileBrowseLocation;
 import javafx.beans.property.ObjectProperty;
 
 import java.io.File;

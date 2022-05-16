@@ -1,7 +1,6 @@
 package com.legyver.fenxlib.core.locator.query.bindings;
 
-import com.legyver.fenxlib.core.locator.query.IRegionDiscriminator;
-import com.legyver.fenxlib.core.locator.query.bindings.BaseBinding;
+import com.legyver.fenxlib.api.locator.query.IRegionDiscriminator;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.DatePicker;
 

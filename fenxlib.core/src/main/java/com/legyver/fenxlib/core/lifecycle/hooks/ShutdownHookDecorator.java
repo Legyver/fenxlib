@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
+import com.legyver.fenxlib.api.lifecycle.hooks.HookExecutingAction;
+import com.legyver.fenxlib.api.lifecycle.hooks.HookExecutionDecorator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
