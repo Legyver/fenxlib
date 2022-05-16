@@ -33,7 +33,7 @@ From 3.0.0-alpha.1 we are switching to [Semantic Versioning](https://semver.org/
 ### Testing
 - IntegrationTests are now moved out of the individual modules and into their own top-level directory ([integration_tests](integration_tests/README.md)).
 - Unit tests that do not require JavaFX or the Fenxlib framework, can remain in the test directory of the relevant project.
-- We also provide a [fenxlib.tests](fenxlib.test/README.md)
+- We also provide a [fenxlib.test](fenxlib.test/README.md) base test case built on TestFx
 
 ## 2.1.2.6
 ### Maintenance
