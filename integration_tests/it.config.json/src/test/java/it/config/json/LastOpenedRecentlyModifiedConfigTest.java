@@ -1,18 +1,16 @@
-package it.core.config;
+package it.config.json;
 
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.FileOptions;
-import com.legyver.fenxlib.tests.base.FenxlibTest;
 import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
 import com.legyver.fenxlib.tests.base.ui.TestUiModel;
 import org.junit.jupiter.api.Test;
+import org.testfx.assertions.api.Assertions;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @FenxlibConfiguration("TestApplicationConfig_lastAndRecentlyAdded.json")
-public class LastOpenedRecentlyModifiedConfigTest extends FenxlibTest {
+public class LastOpenedRecentlyModifiedConfigTest extends BaseJsonConfigFenxlibTest {
 
 	/**
 	 * @ignore Need a better way of testing this
@@ -21,12 +19,12 @@ public class LastOpenedRecentlyModifiedConfigTest extends FenxlibTest {
 	public void openLastOpenedRecentlyModifiedConfig() {
 		TestUiModel uiModel = (TestUiModel) ApplicationContext.getUiModel();
 		List<FileOptions> fileOptions = uiModel.getRecentFiles();
-		assertThat(fileOptions.size()).isEqualTo(2);
+		Assertions.assertThat(fileOptions.size()).isEqualTo(2);
 		//sorted by most recently accessed
 		FileOptions file0 = fileOptions.get(0);
-		assertThat(file0.getFileName()).isEqualTo("Name 2.ext");
+		Assertions.assertThat(file0.getFileName()).isEqualTo("Name 2.ext");
 		FileOptions file1 = fileOptions.get(1);
-		assertThat(file1.getFileName()).isEqualTo("Name 1.ext");
+		Assertions.assertThat(file1.getFileName()).isEqualTo("Name 1.ext");
 	}
 
 }

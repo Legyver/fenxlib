@@ -3,7 +3,6 @@ package com.legyver.fenxlib.core.lifecycle.hooks;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.config.ConfigServiceRegistry;
 import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
-import com.legyver.fenxlib.api.config.load.ApplicationConfigProvider;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
@@ -13,14 +12,14 @@ import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
  * Lifecycle hook to auto-save the application config data on shutdown
  */
 public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
-	private final ApplicationConfigProvider appConfigProvider;
+	private final String appConfigFileName;
 
 	/**
 	 * Construct an application lifecycle hook to auto-save the application state to the config.
-	 * @param applicationConfigProvider the provider for the application config
+	 * @param appConfigFileName the application config filename
 	 */
-	public AutoSaveConfigApplicationLifecycleHook(ApplicationConfigProvider applicationConfigProvider) {
-		this.appConfigProvider = applicationConfigProvider;
+	public AutoSaveConfigApplicationLifecycleHook(String appConfigFileName) {
+		this.appConfigFileName = appConfigFileName;
 	}
 
 	@Override
@@ -52,7 +51,7 @@ public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecy
 	}
 
 	private void saveFile(FileAwareApplicationConfig applicationConfig) throws CoreException {
-		ConfigServiceRegistry.getInstance().saveConfig(appConfigProvider.getApplicationConfigFilename(), applicationConfig);
+		ConfigServiceRegistry.getInstance().saveConfig(appConfigFileName, applicationConfig);
 	}
 
 }

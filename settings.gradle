@@ -12,6 +12,8 @@ include 'fenxlib.widgets.about'
 include 'fenxlib.widgets.blade'
 include 'fenxlib.widgets.filetree'
 include 'fenxlib.widgets.snackbar'
+include 'integration_tests:it.config.json'
 include 'integration_tests:it.core'
 include 'integration_tests:it.widgets.about'
 include 'integration_tests:it.widgets.blade'
+

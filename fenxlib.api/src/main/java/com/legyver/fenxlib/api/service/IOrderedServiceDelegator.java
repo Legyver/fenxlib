@@ -33,4 +33,10 @@ public interface IOrderedServiceDelegator<T extends OrderedService> {
      * @return true if at least one service exists
      */
     boolean isEmpty();
+
+    /**
+     * Get the number of services of this type
+     * @return the number of services
+     */
+    int size();
 }

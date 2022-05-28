@@ -1,3 +1,5 @@
+import com.legyver.fenxlib.api.io.IOService;
+
 /**
  * API for the fenxlib library
  * @since 3.0
@@ -30,6 +32,13 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.config.parts.util;
     exports com.legyver.fenxlib.api.config.options;
     exports com.legyver.fenxlib.api.config.load;
+    exports com.legyver.fenxlib.api.io;
+    exports com.legyver.fenxlib.api.io.content;
+    exports com.legyver.fenxlib.api.files.marshal;
+    exports com.legyver.fenxlib.api.files.marshal.contenttype;
+    exports com.legyver.fenxlib.api.files.marshal.extension;
+    exports com.legyver.fenxlib.api.files.marshal.exception;
 
+    uses IOService;
     uses com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService;
 }

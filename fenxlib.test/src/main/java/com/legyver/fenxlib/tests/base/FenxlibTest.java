@@ -1,12 +1,12 @@
 package com.legyver.fenxlib.tests.base;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.IApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.api.lifecycle.ResettableApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.tests.base.config.TestApplicationOptionsBuilder;
-import com.legyver.fenxlib.tests.base.config.TestApplicationResource;
 import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,11 @@ public class FenxlibTest extends ApplicationTest {
         FenxlibConfiguration fenxlibConfiguration = getClass().getAnnotation(FenxlibConfiguration.class);
         TestApplicationOptionsBuilder builder = TestApplicationOptionsBuilder.defaultBuilder();
         if (fenxlibConfiguration != null && validateAnnotatedConfiguration(fenxlibConfiguration)) {
-            builder.customAppConfigProvider(new TestApplicationResource(fenxlibConfiguration.value()));
+            builder.appConfigName(fenxlibConfiguration.value());
+            ApplicationConfigInstantiator applicationConfigInstantiator = getCustomInstantiator();
+            if (applicationConfigInstantiator != null) {
+                builder.customAppConfigInstantiator(applicationConfigInstantiator);
+            }
         }
         ApplicationOptions applicationOptions = builder.build();
         applicationOptions.startup(new ApplicationAdapter(this));
@@ -36,6 +40,14 @@ public class FenxlibTest extends ApplicationTest {
 
     private boolean validateAnnotatedConfiguration(FenxlibConfiguration fenxlibConfiguration) {
         return fenxlibConfiguration.value() != null && fenxlibConfiguration.value() != null && !fenxlibConfiguration.value().equals("");
+    }
+
+    /**
+     * Hook to override the application config instantiator
+     * @return the instantiator for the application config
+     */
+    protected ApplicationConfigInstantiator getCustomInstantiator() {
+        return null;
     }
 
     /**

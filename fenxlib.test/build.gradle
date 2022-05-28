@@ -3,8 +3,8 @@ description = 'Base test setup for Fenxlib library'
 apply from: publishBuildScript
 
 dependencies {
-    api project(':fenxlib.api')
-    api project(':fenxlib.config.json')
+    api project(':fenxlib.core')
+    api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
 
     api 'org.testfx:testfx-junit5:4.0.16-alpha'
     api 'org.junit.jupiter:junit-jupiter-api:5.7.2'

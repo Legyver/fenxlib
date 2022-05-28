@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.files.marshal.exception;
+package com.legyver.fenxlib.api.files.marshal.exception;
 
 import com.legyver.core.exception.CoreException;
 

@@ -11,8 +11,7 @@ module com.legyver.fenxlib.tests.base {
     requires org.junit.jupiter.api;
     requires org.testfx.junit5;
     requires com.legyver.core;
-    requires fenxlib.config.json;
     requires com.legyver.utils.mapqua;
 
-    provides com.legyver.fenxlib.api.config.ConfigService with com.legyver.fenxlib.tests.base.config.DefaultTestConfigService;
+    provides com.legyver.fenxlib.api.io.IOService with com.legyver.fenxlib.tests.base.io.ClasspathIOService;
 }

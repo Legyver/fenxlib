@@ -26,7 +26,6 @@ public @interface FenxlibConfiguration {
     /**
      * The application config json to load
      * If the value starts with '/', it will be assumed to be an absolute path as is customary with Java resources
-     * Otherwise it will attempt to resolve it in the same package as {@link com.legyver.fenxlib.tests.base.config.DefaultTestConfigService}.
      * Failing this it will attempt to resolve it against a config directory at the root of the classpath (ie: src/test/resources/config/test_application.json)
      * @return the name of the resource to load the config from
      */

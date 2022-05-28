@@ -1,19 +1,20 @@
-package com.legyver.fenxlib.core.files.marshal;
+package com.legyver.fenxlib.api.files.marshal;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.files.FileOptions;
-import com.legyver.fenxlib.core.files.marshal.contenttype.ContentTypeBasedFileMarshal;
-import com.legyver.fenxlib.core.files.marshal.exception.UnmarshalableContentTypeException;
-import com.legyver.fenxlib.core.files.marshal.exception.UnmarshalableFileException;
-import com.legyver.fenxlib.core.files.marshal.exception.UnmarshalableFileExtensionException;
-import com.legyver.fenxlib.core.files.marshal.extension.ExtensionBasedFileMarshal;
+import com.legyver.fenxlib.api.files.marshal.contenttype.ContentTypeBasedFileMarshal;
+import com.legyver.fenxlib.api.files.marshal.exception.UnmarshalableContentTypeException;
+import com.legyver.fenxlib.api.files.marshal.exception.UnmarshalableFileException;
+import com.legyver.fenxlib.api.files.marshal.exception.UnmarshalableFileExtensionException;
+import com.legyver.fenxlib.api.files.marshal.extension.ExtensionBasedFileMarshal;
+import com.legyver.fenxlib.api.io.content.OutputContentWrapper;
 import com.legyver.fenxlib.api.service.IOrderedServiceDelegator;
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 
 import java.util.*;
 
 /**
- * Registry for file marshallers
+ * Registry for file marshal services
  */
 public class FileMarshalServiceRegistry {
     private static FileMarshalServiceRegistry instance;
@@ -54,15 +55,18 @@ public class FileMarshalServiceRegistry {
      * it will throw an exception.
      * @param content the content to marshall
      * @param fileOptions options describing the file
+     * @return wrapper for converted (marshalled) content
      * @throws CoreException if no marshaller exists, or there is an error during marshalling or saving the file
      */
-    public void marshal(Object content, FileOptions fileOptions) throws CoreException {
+    public OutputContentWrapper marshal(Object content, FileOptions fileOptions) throws CoreException {
         validateContentAndFileOptions(content, fileOptions);
+        OutputContentWrapper outputContentWrapper = null;
         try {
-            marshalByContentTypeInternal(content, fileOptions);
+            outputContentWrapper = marshalByContentTypeInternal(content, fileOptions);
         } catch (UnmarshalableContentTypeException exception) {
-            marshalByFileExtensionInternal(content, fileOptions);
+            outputContentWrapper = marshalByFileExtensionInternal(content, fileOptions);
         }
+        return outputContentWrapper;
     }
 
     /**
@@ -79,7 +83,7 @@ public class FileMarshalServiceRegistry {
         marshalByFileExtensionInternal(content, fileOptions);
     }
 
-    private void marshalByFileExtensionInternal(Object content, FileOptions fileOptions) throws CoreException {
+    private OutputContentWrapper marshalByFileExtensionInternal(Object content, FileOptions fileOptions) throws CoreException {
         String fileExtension = fileOptions.getFileExtension();
         if (fileExtension == null) {
             throw new UnmarshalableFileExtensionException("Unable to marshal file when extension is unknown for file " + fileOptions.getFileName());
@@ -89,7 +93,7 @@ public class FileMarshalServiceRegistry {
             throw new UnmarshalableFileExtensionException("Unknown content type: " );
         }
         ExtensionBasedFileMarshal delegate = fileMarshal.getDelegate();
-        delegate.marshal(content, fileOptions);
+        return delegate.marshal(content, fileOptions);
     }
 
     /**
@@ -99,14 +103,15 @@ public class FileMarshalServiceRegistry {
      * it will throw an exception.
      * @param content the content to marshall
      * @param fileOptions options describing the file
+     * @return a wrapper wrapping the marshalled content to output
      * @throws CoreException if no marshaller exists, or there is an error during marshalling or saving the file
      */
-    public void marshalByContentType(Object content, FileOptions fileOptions) throws CoreException {
+    public OutputContentWrapper marshalByContentType(Object content, FileOptions fileOptions) throws CoreException {
         validateContentAndFileOptions(content, fileOptions);
-        marshalByContentTypeInternal(content, fileOptions);
+        return marshalByContentTypeInternal(content, fileOptions);
     }
 
-    private void marshalByContentTypeInternal(Object content, FileOptions fileOptions) throws CoreException {
+    private OutputContentWrapper marshalByContentTypeInternal(Object content, FileOptions fileOptions) throws CoreException {
 
         String contentType = fileOptions.getContentType();
         if (contentType == null) {
@@ -117,7 +122,7 @@ public class FileMarshalServiceRegistry {
             throw new UnmarshalableContentTypeException("Unknown content type: " );
         }
         ContentTypeBasedFileMarshal delegate = fileMarshal.getDelegate();
-        delegate.marshal(content, fileOptions);
+        return delegate.marshal(content, fileOptions);
     }
 
     private void validateContentAndFileOptions(Object content, FileOptions fileOptions) throws UnmarshalableFileException {

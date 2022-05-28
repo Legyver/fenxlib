@@ -10,7 +10,7 @@ import com.legyver.utils.mapqua.mapbacked.RawMapAware;
  * @param <M> the type of the recently modified config object.
  * @param <O> the type of the last opened config object
  */
-public interface IApplicationConfig<M extends IRecentlyModified, O extends ILastOpened> extends RawMapAware {
+public interface IApplicationConfig<M extends IRecentlyModified, O extends ILastOpened> {
     /**
      * Retrieve the "recently-modified" section of the config
      * @return the "recently-modified" section of the config

@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.core.files.marshal.extension;
 
+import com.legyver.fenxlib.api.files.marshal.extension.ExtensionBasedFileMarshal;
+import com.legyver.fenxlib.api.io.content.StringContentWrapper;
 import com.legyver.fenxlib.core.files.marshal.AbstractJsonFileMarshal;
 import com.legyver.fenxlib.core.files.marshal.converter.ConverterPlugin;
 import com.legyver.fenxlib.core.files.marshal.converter.JsonConverterPlugin;
@@ -8,7 +10,7 @@ import com.legyver.fenxlib.core.files.marshal.converter.MapquaConverterDecorator
 /**
  * Marshaller to marshal content to a .json file
  */
-public class JsonExtensionFileMarshal extends AbstractJsonFileMarshal implements ExtensionBasedFileMarshal {
+public class JsonExtensionFileMarshal extends AbstractJsonFileMarshal implements ExtensionBasedFileMarshal<StringContentWrapper> {
     private final ConverterPlugin<String> converter = new MapquaConverterDecorator(new JsonConverterPlugin());
 
     @Override

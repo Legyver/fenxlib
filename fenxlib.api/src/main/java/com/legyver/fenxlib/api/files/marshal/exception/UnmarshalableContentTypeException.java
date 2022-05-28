@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.files.marshal.exception;
+package com.legyver.fenxlib.api.files.marshal.exception;
 
 /**
  * Exception thrown if there is no known marshaller for the defined content-type

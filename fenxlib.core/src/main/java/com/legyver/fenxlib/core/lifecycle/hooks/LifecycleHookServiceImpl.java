@@ -1,8 +1,6 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
-import com.legyver.fenxlib.api.config.load.ApplicationConfigProvider;
-import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookMap;
@@ -21,29 +19,25 @@ public class LifecycleHookServiceImpl implements LifecycleHookService {
      * @param lifecycleHookMap the map of hooks to add them to
      */
     protected void addDefaultHooks(ApplicationOptions applicationOptions, LifecycleHookMap lifecycleHookMap) {
-        ApplicationConfigProvider applicationConfigProvider = applicationOptions.getApplicationConfigProvider();
+        String applicationConfigName = applicationOptions.getApplicationConfigName();
 
-        lifecycleHookMap.computeIfAbsent(InitLoggingApplicationLifecycleHook.class, (name) -> {
+        lifecycleHookMap.computeIfAbsent(InitLoggingApplicationLifecycleHook.class, name -> {
             InitLoggingApplicationLifecycleHook result = null;
-            if (applicationOptions.isUsesLogging() && !lifecycleHookMap.containsHook(InitLoggingApplicationLifecycleHook.class.getName())) {
+            if (applicationOptions.isUsesLogging()) {
                 String appName = applicationOptions.getApplicationName();
-                if (applicationConfigProvider instanceof ApplicationHome) {
-                    result = new InitLoggingApplicationLifecycleHook((ApplicationHome) applicationConfigProvider, appName);
-                } else {
-                    result = new InitLoggingApplicationLifecycleHook(appName);
-                }
+                result = new InitLoggingApplicationLifecycleHook(appName);
             }
             return result;
         });
 
         ApplicationConfigInstantiator appConfigInstantiator = applicationOptions.getAppConfigInstantiator();
         lifecycleHookMap.computeIfAbsent(LoadConfigApplicationLifecycleHook.class, name -> {
-            return new LoadConfigApplicationLifecycleHook(appConfigInstantiator, applicationConfigProvider);
+            return new LoadConfigApplicationLifecycleHook(appConfigInstantiator, applicationConfigName);
         });
         //save config Mixin
         if (applicationOptions.isUsesAutoSaveConfig()) {
             lifecycleHookMap.computeIfAbsent(PreShutdownConfigSyncLifecycleHook.class, name -> new PreShutdownConfigSyncLifecycleHook());
-            lifecycleHookMap.computeIfAbsent(AutoSaveConfigApplicationLifecycleHook.class, name -> new AutoSaveConfigApplicationLifecycleHook(applicationConfigProvider));
+            lifecycleHookMap.computeIfAbsent(AutoSaveConfigApplicationLifecycleHook.class, name -> new AutoSaveConfigApplicationLifecycleHook(applicationConfigName));
         }
         lifecycleHookMap.computeIfAbsent(InitComponentRegistryLifecycleHook.class, name -> new InitComponentRegistryLifecycleHook());
     }

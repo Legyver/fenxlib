@@ -28,7 +28,7 @@ public class TestApplicationOptionsBuilder extends ApplicationOptions.Builder<Te
 	public static TestApplicationOptionsBuilder defaultBuilder() {
 		return new TestApplicationOptionsBuilder()
 				.appName("Test")
-				.customAppConfigInstantiator(map -> new TestConfig(map))
+				.customAppConfigInstantiator(map -> new TestConfig())
 				.uiModel(new TestUiModel())
 				.customRecentFilesMixin(new RecentFilesApplicationLifecycleHook() {
 					@Override

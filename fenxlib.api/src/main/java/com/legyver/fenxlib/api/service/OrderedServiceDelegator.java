@@ -100,6 +100,11 @@ public class OrderedServiceDelegator<T extends OrderedService> implements IOrder
     }
 
     @Override
+    public int size() {
+        return services.size();
+    }
+
+    @Override
     public Map<String, IOrderedServiceDelegator<T>> split(Function keyMapper) {
         if (!initialized) {
             initialize();
@@ -142,6 +147,11 @@ public class OrderedServiceDelegator<T extends OrderedService> implements IOrder
         @Override
         public boolean isEmpty() {
             return services.isEmpty();
+        }
+
+        @Override
+        public int size() {
+            return services.size();
         }
     }
 

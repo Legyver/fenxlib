@@ -21,7 +21,7 @@ public class JsonFileIOUtil extends BaseFileIOUtil {
 	 * Construct a FileIOUtil that saves/reads to/from a [format] file
 	 * @param instantiator instantiates a new POJO if one does not exist
 	 */
-	public JsonFileIOUtil(MapDecoratorPojoInstantiator instantiator) {
+	public JsonFileIOUtil(JsonConfigInstantiator instantiator) {
 		super(new DecoratedMapConversionStrategy(instantiator));
 	}
 

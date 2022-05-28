@@ -1,0 +1,13 @@
+description = 'Integration tests for the fenxlib.config.json module'
+
+dependencies {
+    testImplementation project(':fenxlib.config.json')
+    testImplementation project(':fenxlib.test')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,7 +1,9 @@
+import com.legyver.fenxlib.config.json.JsonConfigService;
+
 /**
  * Handle the loading/saving of application config files for applications that use a JSON config
  */
-module fenxlib.config.json {
+module com.legyver.fenxlib.config.json {
     exports com.legyver.fenxlib.config.json;
     exports com.legyver.fenxlib.config.json.util;
     //legyver dependencies
@@ -12,5 +14,5 @@ module fenxlib.config.json {
     //third party dependencies
     requires org.apache.commons.io;
 
-    provides com.legyver.fenxlib.api.config.ConfigService with com.legyver.fenxlib.config.json.ConfigServiceImpl;
+    provides com.legyver.fenxlib.api.config.ConfigService with JsonConfigService;
 }

@@ -8,11 +8,6 @@ import java.util.Map;
  * @param <T> the type of the POJO
  */
 @FunctionalInterface
-public interface MapDecoratorPojoInstantiator<T extends RawMapAware> {
-	/**
-	 * Initialize a POJO from a Map of values
-	 * @param map the values to set on the POJO
-	 * @return the POJO
-	 */
-	T init(Map map);
+public interface MapDecoratorPojoInstantiator<T extends RawMapAware> extends ConfigInstantiator<T> {
+
 }

@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.core.files.marshal.contenttype;
 
+import com.legyver.fenxlib.api.files.marshal.contenttype.ContentTypeBasedFileMarshal;
+import com.legyver.fenxlib.api.io.content.StringContentWrapper;
 import com.legyver.fenxlib.core.files.marshal.AbstractJsonFileMarshal;
 import com.legyver.fenxlib.core.files.marshal.converter.ConverterPlugin;
 import com.legyver.fenxlib.core.files.marshal.converter.JsonConverterPlugin;
@@ -8,7 +10,7 @@ import com.legyver.fenxlib.core.files.marshal.converter.MapquaConverterDecorator
 /**
  * Marshaller for application/json that registers by that content-type
  */
-public class ApplicationJsonContentTypeFileMarshal extends AbstractJsonFileMarshal implements ContentTypeBasedFileMarshal {
+public class ApplicationJsonContentTypeFileMarshal extends AbstractJsonFileMarshal implements ContentTypeBasedFileMarshal<StringContentWrapper> {
     /**
      * Type content-type this marshaller handles
      */

@@ -3,6 +3,7 @@ package com.legyver.fenxlib.api.context;
 import com.legyver.fenxlib.api.alert.AlertServiceRegistry;
 import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.config.IApplicationConfig;
+import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.files.FileRegistry;
 import com.legyver.fenxlib.api.lifecycle.IApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.api.locator.query.QueryableComponentRegistry;
@@ -29,10 +30,15 @@ public class ApplicationContext {
 	 * The UI model for the application
 	 */
 	private static IUiModel uiModel;
+
 	/**
 	 * The primary stage
 	 */
 	private static Stage primaryStage;
+	/**
+	 * The application config file
+	 */
+	private static ApplicationHome applicationHome;
 	/**
 	 * The application config file
 	 */
@@ -108,6 +114,22 @@ public class ApplicationContext {
 	 */
 	public static void setApplicationConfig(IApplicationConfig applicationConfig) {
 		ApplicationContext.applicationConfig = applicationConfig;
+	}
+
+	/**
+	 * Get the application home
+	 * @return the application home
+	 */
+	public static ApplicationHome getApplicationHome() {
+		return applicationHome;
+	}
+
+	/**
+	 * Set the application home.
+	 * @param applicationHome the application home
+	 */
+	public static void setApplicationHome(ApplicationHome applicationHome) {
+		ApplicationContext.applicationHome = applicationHome;
 	}
 
 	/**

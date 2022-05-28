@@ -1,3 +1,5 @@
+import com.legyver.fenxlib.api.files.marshal.FileMarshalService;
+
 /**
  * Core API for Fenxlib widgets
  */
@@ -54,12 +56,14 @@ module com.legyver.fenxlib.core {
 
 	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;
+	provides com.legyver.fenxlib.api.io.IOService with com.legyver.fenxlib.core.io.DiskFileIoService;
 	provides com.legyver.fenxlib.core.controls.service.NodeInstantiationService with com.legyver.fenxlib.core.controls.service.DefaultNodeInstantiationService;
-	provides com.legyver.fenxlib.core.files.marshal.FileMarshal with com.legyver.fenxlib.core.files.marshal.contenttype.ApplicationJsonContentTypeFileMarshal;
+	provides FileMarshalService with com.legyver.fenxlib.core.files.marshal.contenttype.ApplicationJsonContentTypeFileMarshal;
+
 
 	uses com.legyver.fenxlib.api.config.ConfigService;
 	uses com.legyver.fenxlib.core.controls.service.NodeInstantiationService;
 	uses com.legyver.fenxlib.core.icons.service.IconLoaderService;
-	uses com.legyver.fenxlib.core.files.marshal.FileMarshal;
+	uses FileMarshalService;
 
 }

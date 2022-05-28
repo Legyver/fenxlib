@@ -14,7 +14,7 @@ import java.io.File;
  *   config
  *   logs
  */
-public class ApplicationHome implements ApplicationConfigProvider {
+public class ApplicationHome {
 	/**
 	 * suffix used in setting up logging
 	 * ie: (src/main/resources/log4j2.xml)
@@ -91,10 +91,5 @@ public class ApplicationHome implements ApplicationConfigProvider {
 	 */
 	public File getCacheFile(String name) {
 		return cacheDirectory.loadFileFromDir(name);
-	}
-
-	@Override
-	public String getApplicationConfigFilename() {
-		return configDirectory.getFullFilename("config.json");
 	}
 }

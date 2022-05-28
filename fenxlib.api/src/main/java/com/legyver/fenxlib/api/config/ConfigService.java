@@ -1,14 +1,16 @@
 package com.legyver.fenxlib.api.config;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.config.adapter.ConfigAdapterPartType;
 import com.legyver.fenxlib.api.config.adapter.IConfigAdapter;
+import com.legyver.fenxlib.api.files.util.ConfigInstantiator;
 import com.legyver.fenxlib.api.service.OrderedService;
 
 /**
  * Loads the application config from file.
  * This was moved to a service to make tests more sensible.
  */
-public interface ConfigService<I, C extends IApplicationConfig> extends OrderedService<ConfigService>, InitializableService<I> {
+public interface ConfigService<C extends IApplicationConfig> extends OrderedService<ConfigService>, InitializableService<ConfigInstantiator> {
 	/**
 	 * Load the application config from file.
 	 * @param filename the filename
@@ -28,9 +30,16 @@ public interface ConfigService<I, C extends IApplicationConfig> extends OrderedS
 
 	/**
 	 * Get the requested adapter
-	 * @param forName the adapter to get.  This may be one of {@link com.legyver.fenxlib.api.config.adapter.ConfigAdapters}
+	 * @param forName the adapter to get.  This may be one of {@link ConfigAdapterPartType}
 	 * @return the adapter
 	 */
 	IConfigAdapter getAdapter(String forName);
+
+	/**
+	 * Get the requested adapter
+	 * @param partType the adapter to get.
+	 * @return the adapter
+	 */
+	IConfigAdapter getAdapter(ConfigAdapterPartType partType);
 
 }

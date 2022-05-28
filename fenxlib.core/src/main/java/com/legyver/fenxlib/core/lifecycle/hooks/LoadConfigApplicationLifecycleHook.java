@@ -1,13 +1,12 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
-import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
-import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
-import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.api.config.ConfigServiceRegistry;
-import com.legyver.fenxlib.api.config.load.ApplicationConfigProvider;
+import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
 
 import java.util.HashMap;
 
@@ -16,17 +15,17 @@ import java.util.HashMap;
  */
 public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final ApplicationConfigInstantiator appConfigInstantiator;
-	private final ApplicationConfigProvider applicationConfigProvider;
+	private final String applicationConfigFileName;
 
 	/**
 	 * Construct an Application Lifecycle Hook to load the config.
 	 * By default this happens during {@link LifecyclePhase#PRE_INIT}
 	 * @param appConfigInstantiator instantiates the config if it does not exist
-	 * @param applicationConfigProvider provides the config filename
+	 * @param applicationConfigFileName the config filename
 	 */
-	public LoadConfigApplicationLifecycleHook(ApplicationConfigInstantiator appConfigInstantiator, ApplicationConfigProvider applicationConfigProvider) {
+	public LoadConfigApplicationLifecycleHook(ApplicationConfigInstantiator appConfigInstantiator, String applicationConfigFileName) {
 		this.appConfigInstantiator = appConfigInstantiator;
-		this.applicationConfigProvider = applicationConfigProvider;
+		this.applicationConfigFileName = applicationConfigFileName;
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 	public ExecutableHook getExecutableHook() {
 		return () -> {
 			ConfigServiceRegistry.getInstance().setConfigServiceInitializer(configService -> configService.init(appConfigInstantiator));
-			FileAwareApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(applicationConfigProvider.getApplicationConfigFilename());
+			FileAwareApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(applicationConfigFileName);
 			if (applicationConfig == null) {
 				applicationConfig = (FileAwareApplicationConfig) appConfigInstantiator.init(new HashMap());
 			}

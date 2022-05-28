@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.api.config;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.config.adapter.ConfigAdapters;
+import com.legyver.fenxlib.api.config.adapter.ConfigAdapterPartType;
 import com.legyver.fenxlib.api.config.adapter.IConfigAdapter;
 import com.legyver.fenxlib.api.config.parts.IRecentlyViewedFile;
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
@@ -110,7 +110,7 @@ public class ConfigServiceRegistry {
 	 * @throws CoreException if there is an error adapting the file
 	 */
 	public <T extends IRecentlyViewedFile> T adaptRecentlyViewedFile(File file) throws CoreException {
-		IConfigAdapter<File, IRecentlyViewedFile> adapter = orderedServiceDelegator.getDelegate().getAdapter(ConfigAdapters.RECENTLY_VIEWED_FILE.name());
+		IConfigAdapter<File, IRecentlyViewedFile> adapter = orderedServiceDelegator.getDelegate().getAdapter(ConfigAdapterPartType.RECENTLY_VIEWED_FILE.name());
 		return (T) adapter.adapt(file);
 	}
 

@@ -3,8 +3,6 @@ package com.legyver.fenxlib.api.config.options;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
-import com.legyver.fenxlib.api.config.load.ApplicationConfigProvider;
-import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
@@ -24,17 +22,17 @@ public class ApplicationOptions {
 	private final IUiModel uiModel;
 	private final boolean usesLogging;
 	private final boolean usesAutoSaveConfig;
-	private final ApplicationConfigProvider applicationConfigProvider;
+	private final String applicationConfigName;
 	private final ApplicationConfigInstantiator appConfigInstantiator;
 	private final List<ApplicationLifecycleHook> hooksToRegister;
 
 
-	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, ApplicationConfigProvider applicationConfigProvider, ApplicationConfigInstantiator appConfigInstantiator, List<ApplicationLifecycleHook> hooksToRegister) {
+	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, List<ApplicationLifecycleHook> hooksToRegister) {
 		this.applicationName = applicationName;
 		this.uiModel = uiModel;
 		this.usesLogging = usesLogging;
 		this.usesAutoSaveConfig = usesAutoSaveConfig;
-		this.applicationConfigProvider = applicationConfigProvider;
+		this.applicationConfigName = appConfigName;
 		this.appConfigInstantiator = appConfigInstantiator;
 		this.hooksToRegister = hooksToRegister;
 	}
@@ -121,14 +119,6 @@ public class ApplicationOptions {
 	}
 
 	/**
-	 * Get the application config provider
-	 * @return the application config provider
-	 */
-	public ApplicationConfigProvider getApplicationConfigProvider() {
-		return applicationConfigProvider;
-	}
-
-	/**
 	 * Get the instantiator responsible for instantiating the application config
 	 * @return the application config instantiator
 	 */
@@ -142,6 +132,14 @@ public class ApplicationOptions {
 	 */
 	public String getApplicationName() {
 		return applicationName;
+	}
+
+	/**
+	 * Get the application config file name
+	 * @return the config file name
+	 */
+	public String getApplicationConfigName() {
+		return applicationConfigName;
 	}
 
 	/**
@@ -162,10 +160,6 @@ public class ApplicationOptions {
 		 */
 		protected IUiModel uiModel;
 		/**
-		 * Provides the application config file name to the framework
-		 */
-		protected ApplicationConfigProvider applicationConfigProvider;
-		/**
 		 * Instantiator for the application config
 		 */
 		protected ApplicationConfigInstantiator appConfigInstantiator;
@@ -177,6 +171,10 @@ public class ApplicationOptions {
 		 * The application name.  This is the directory name that all config and log files specific to the application will be saved in
 		 */
 		protected String appName;
+		/**
+		 * The application config name.  If not specified, it will default to the same as the appName with a .json extension
+		 */
+		protected String appConfigName;
 		/**
 		 * Flag to enable autosave of the application config (on by default)
 		 */
@@ -200,7 +198,7 @@ public class ApplicationOptions {
 		public ApplicationOptions build() throws CoreException {
 			validate();
 			defaultUnspecified();
-			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, applicationConfigProvider, appConfigInstantiator, hooksToRegister);
+			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, hooksToRegister);
 			options.bootstrap();
 			return options;
 		}
@@ -220,12 +218,12 @@ public class ApplicationOptions {
 
 		/**
 		 * Default unspecified values
-		 * - load the config from the {@link ApplicationHome} if no other mechanism set
+		 * - if the appConfigName has not been set, default it to the appName + .json file extension
 		 * - populate the recent files menu via the default {@link RecentFilesApplicationLifecycleHook} if no other mechanism RecentFilesApplicationLifecycleHook
 		 */
 		protected void defaultUnspecified() {
-			if (applicationConfigProvider == null) {
-				applicationConfigProvider = new ApplicationHome(appName);
+			if (appConfigName == null) {
+				appConfigName = appName + ".json";
 			}
 			if (recentFilesHook == null) {
 				recentFilesHook = new RecentFilesApplicationLifecycleHook();
@@ -252,6 +250,15 @@ public class ApplicationOptions {
 		}
 
 		/**
+		 * Specify the application config name.
+		 * @param appConfigName the application config filename name
+		 * @return this builder
+		 */
+		public B appConfigName(String appConfigName) {
+			return set(() -> this.appConfigName = appConfigName);
+		}
+
+		/**
 		 * Disable auto-saving the config when exiting the application (on by default)
 		 * @return this builder
 		 */
@@ -273,15 +280,6 @@ public class ApplicationOptions {
 		 */
 		public B disableRememberOpenedFiles() {
 			return set(() -> this.rememberOpenedFiles = false);
-		}
-
-		/**
-		 * Specify the provider of the application config
-		 * @param applicationConfigProvider the provider for the config file
-		 * @return this builder
-		 */
-		public B customAppConfigProvider(ApplicationConfigProvider applicationConfigProvider) {
-			return set(() -> this.applicationConfigProvider = applicationConfigProvider);
 		}
 
 		/**
