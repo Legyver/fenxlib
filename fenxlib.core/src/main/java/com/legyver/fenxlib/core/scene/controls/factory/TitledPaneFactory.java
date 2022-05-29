@@ -69,9 +69,11 @@ public class TitledPaneFactory<T extends Pane> implements StyleableFactory<Title
 		} else {
 			content = this.content;
 		}
-		Region spacer = new Region();
-		spacer.setMinSize(200, 10);
-		content.getChildren().add(spacer);
+		if (content != null) {
+			Region spacer = new Region();
+			spacer.setMinSize(200, 10);
+			content.getChildren().add(spacer);
+		}
 
 		TitledPane titledPane = makeTitledPane();
 		titledPane.setText(title);

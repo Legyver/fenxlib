@@ -4,7 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.controls.ControlsFactory;
 import com.legyver.fenxlib.core.scene.controls.factory.TreeViewFactory;
 import com.legyver.fenxlib.core.event.handlers.ShowContextMenuEventHandler;
-import com.legyver.fenxlib.core.util.MapBuilder;
+import com.legyver.fenxlib.core.util.map.MapBuilder;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;

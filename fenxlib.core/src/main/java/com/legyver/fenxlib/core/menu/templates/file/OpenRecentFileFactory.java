@@ -7,7 +7,7 @@ import com.legyver.fenxlib.core.files.action.OpenRecentFileAction;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
-import com.legyver.fenxlib.core.util.MapBuilder;
+import com.legyver.fenxlib.core.util.map.MapBuilder;
 import javafx.scene.control.MenuItem;
 
 /**

@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.util;
+package com.legyver.fenxlib.core.util.map;
 
 import java.util.HashMap;
 import java.util.Map;

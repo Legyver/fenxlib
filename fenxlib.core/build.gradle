@@ -7,6 +7,8 @@ dependencies {
     api group: 'com.legyver', name: 'core', version: legyverCoreVersion
     //exception conversion
     api group: 'com.legyver', name:'utils.adaptex', version: legyverUtilsVersion
+    //typed map conversion
+    api group: 'com.legyver', name:'utils.mapadapt', version: legyverUtilsVersion
     //file-based config
     api group: 'com.legyver', name:'utils.mapqua', version: legyverUtilsVersion
     //lifecycle graph

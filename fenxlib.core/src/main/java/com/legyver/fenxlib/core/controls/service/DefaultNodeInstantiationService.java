@@ -10,6 +10,8 @@ import com.legyver.fenxlib.core.scene.layout.factory.*;
 import com.legyver.fenxlib.core.scene.text.factory.TextFactory;
 import com.legyver.fenxlib.core.scene.text.factory.TextFlowFactory;
 import com.legyver.fenxlib.core.scene.web.factory.WebViewFactory;
+import com.legyver.fenxlib.core.util.map.FenxlibTypedMapAdapter;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.css.Styleable;
@@ -32,38 +34,38 @@ import java.util.function.Function;
  */
 public class DefaultNodeInstantiationService implements NodeInstantiationService {
 
-    private static final Map<Class, Function<Map, StyleableFactory>> instantiators = new HashMap<>();
+    private static final Map<Class, Function<FenxlibTypedMapAdapter, StyleableFactory>> instantiators = new HashMap<>();
 
     static {
         //javafx.scene.control
         instantiators.put(Accordion.class, map -> new AccordionFactory());
         instantiators.put(ButtonBar.class, map -> new ButtonBarFactory());
         instantiators.put(Button.class, map -> new ButtonFactory(
-                (String) map.get(ButtonFactory.CONSTRUCTOR_PARAM_TEXT),
-                (Boolean) map.get(ButtonFactory.CONSTRUCTOR_PARAM_IS_CANCEL_BUTTON),
-                (Boolean) map.get(ButtonFactory.CONSTRUCTOR_PARAM_IS_DEFAULT_BUTTON)
+                map.getString(ButtonFactory.CONSTRUCTOR_PARAM_TEXT),
+                map.getBoolean(ButtonFactory.CONSTRUCTOR_PARAM_IS_CANCEL_BUTTON),
+                map.getBoolean(ButtonFactory.CONSTRUCTOR_PARAM_IS_DEFAULT_BUTTON)
         ));
         instantiators.put(CheckBox.class, map -> new CheckBoxFactory(
-                (String) map.get(CheckBoxFactory.CONSTRUCTOR_PARAM_TEXT),
-                (Boolean) map.get(CheckBoxFactory.CONSTRUCTOR_PARAM_IS_SELECTED)
+                map.getString(CheckBoxFactory.CONSTRUCTOR_PARAM_TEXT),
+                map.getBoolean(CheckBoxFactory.CONSTRUCTOR_PARAM_IS_SELECTED)
         ));
         instantiators.put(CheckMenuItem.class, map -> new CheckMenuItemFactory(
-                (String) map.get(CheckMenuItemFactory.CONSTRUCTOR_PARAM_TEXT),
-                (Boolean) map.get(CheckMenuItemFactory.CONSTRUCTOR_PARAM_IS_SELECTED),
-                (Boolean) map.get(CheckMenuItemFactory.CONSTRUCTOR_PARAM_IS_DISABLED)
+                map.getString(CheckMenuItemFactory.CONSTRUCTOR_PARAM_TEXT),
+                map.getBoolean(CheckMenuItemFactory.CONSTRUCTOR_PARAM_IS_SELECTED),
+                map.getBoolean(CheckMenuItemFactory.CONSTRUCTOR_PARAM_IS_DISABLED)
         ));
-        instantiators.put(ChoiceBox.class, map -> new ChoiceBoxFactory((List) map.get(ChoiceBoxFactory.CONSTRUCTOR_PARAM_ITEMS)));
+        instantiators.put(ChoiceBox.class, map -> new ChoiceBoxFactory(map.get(ChoiceBoxFactory.CONSTRUCTOR_PARAM_ITEMS, List.class)));
         instantiators.put(ColorPicker.class, map -> new ColorPickerFactory());
-        instantiators.put(ComboBox.class, map -> new ComboBoxFactory((List) map.get(ComboBoxFactory.CONSTRUCTOR_PARAM_ITEMS)));
+        instantiators.put(ComboBox.class, map -> new ComboBoxFactory(map.get(ComboBoxFactory.CONSTRUCTOR_PARAM_ITEMS, List.class)));
         instantiators.put(ContextMenu.class, map -> new ContextMenuFactory());
         instantiators.put(CustomMenuItem.class, map -> new CustomMenuItemFactory());
         instantiators.put(DateCell.class, map -> new DateCellFactory());
-        instantiators.put(Hyperlink.class, map -> new SystemBrowserHyperlinkFactory((String) map.get(SystemBrowserHyperlinkFactory.URL), null));
+        instantiators.put(Hyperlink.class, map -> new SystemBrowserHyperlinkFactory(map.getString(SystemBrowserHyperlinkFactory.URL), null));
         instantiators.put(Label.class, map -> new LabelFactory(
-                (StringProperty) map.get(LabelFactory.BIND_TO),
-                (String) map.get(LabelFactory.DEFAULT_TEXT)
+                map.getStringProperty(LabelFactory.BIND_TO),
+                map.getString(LabelFactory.DEFAULT_TEXT)
         ));
-        instantiators.put(ListView.class, map -> new ListViewFactory((Boolean) map.get(ListViewFactory.IS_EDITABLE)));
+        instantiators.put(ListView.class, map -> new ListViewFactory(map.getBoolean(ListViewFactory.IS_EDITABLE)));
         instantiators.put(Pagination.class, map -> new PaginationFactory());
         instantiators.put(PasswordField.class, map -> new PasswordFieldFactory());
         instantiators.put(ProgressBar.class, map -> new ProgressBarFactory());
@@ -76,14 +78,22 @@ public class DefaultNodeInstantiationService implements NodeInstantiationService
         instantiators.put(SeparatorMenuItem.class, map -> new SeparatorMenuItemFactory());
         instantiators.put(Spinner.class, map -> new SpinnerFactory());
         instantiators.put(Tab.class, map -> new TabFactory());
-        instantiators.put(TextArea.class, map -> new TextAreaFactory());
-        instantiators.put(TextField.class, map -> new TextFieldFactory(
-                (StringProperty) map.get(TextFieldFactory.BIND_TO),
-                (String) map.get(TextFieldFactory.DEFAULT_TEXT),
-                (BooleanProperty) map.get(TextFieldFactory.BIND_TO_EDITABLE),
-                (Boolean) map.get(TextFieldFactory.IS_EDITABLE)
+        instantiators.put(TextArea.class, map -> new TextAreaFactory(
+                map.getStringProperty(TextAreaFactory.BIND_TO),
+                map.getString(TextAreaFactory.DEFAULT_TEXT),
+                map.getBooleanProperty(TextAreaFactory.BIND_TO_EDITABLE),
+                map.getBoolean(TextAreaFactory.IS_EDITABLE)
         ));
-        instantiators.put(ToggleButton.class, map -> new ToggleButtonFactory());
+        instantiators.put(TextField.class, map -> new TextFieldFactory(
+                map.getStringProperty(TextFieldFactory.BIND_TO),
+                map.getString(TextFieldFactory.DEFAULT_TEXT),
+                map.getBooleanProperty(TextFieldFactory.BIND_TO_EDITABLE),
+                map.getBoolean(TextFieldFactory.IS_EDITABLE)
+        ));
+        instantiators.put(ToggleButton.class, map -> new ToggleButtonFactory(
+                map.getString(ToggleButtonFactory.DEFAULT_TEXT),
+                map.getBoolean(ToggleButtonFactory.SELECTED)
+        ));
         instantiators.put(ToolBar.class, map -> new ToolBarFactory());
 
         //  javafx.scene.layout
@@ -98,37 +108,37 @@ public class DefaultNodeInstantiationService implements NodeInstantiationService
         instantiators.put(TilePane.class, map -> new TilePaneFactory());
 
         instantiators.put(TitledPane.class, map -> new TitledPaneFactory(
-                (String) map.get(TitledPaneFactory.CONTENT),
-                (Pane) map.get(TitledPaneFactory.CONTENT)
+                map.getString(TitledPaneFactory.TITLE),
+                map.get(TitledPaneFactory.CONTENT, Pane.class)
         ));
-        instantiators.put(TabPane.class, map -> new TabPaneFactory((List<? extends Tab>) map.get(TabPaneFactory.TABS)));
+        instantiators.put(TabPane.class, map -> new TabPaneFactory((List<? extends Tab>) map.get(TabPaneFactory.TABS, List.class)));
         instantiators.put(VBox.class, map -> new VBoxFactory());
-        instantiators.put(StackPane.class, map -> new StackPaneFactory());
 
        //javafx.scene.text
-        instantiators.put(Text.class, map -> new TextFactory((String) map.get(TextFactory.TEXT)));
-        instantiators.put(TextFlow.class, map -> new TextFlowFactory((List<Styleable>) map.get(TextFlowFactory.CHILDREN)));
+        instantiators.put(Text.class, map -> new TextFactory(map.getString(TextFactory.TEXT)));
+        instantiators.put(TextFlow.class, map -> new TextFlowFactory((List<Styleable>) map.get(TextFlowFactory.CHILDREN, List.class)));
 
         //javafx.scene.web
         instantiators.put(WebView.class, map -> new WebViewFactory());
 
         //custom
         instantiators.put(Popup.class, map -> new PopupFactory(
-                (Node) map.get(PopupFactory.PARAM_CONTENT),
-                (List<Button>) map.get(PopupFactory.PARAM_BUTTONS)));
+                map.get(PopupFactory.PARAM_CONTENT, Node.class),
+                (List<Button>) map.get(PopupFactory.PARAM_BUTTONS, List.class)));
         instantiators.put(MenuItem.class, map -> new MenuItemFactory(
-                (String) map.get(MenuItemFactory.PARAM_NAME),
-                (EventHandler<ActionEvent>) map.get(MenuItemFactory.PARAM_ACTION)));
+                map.getString(MenuItemFactory.PARAM_NAME),
+                (EventHandler<ActionEvent>) map.get(MenuItemFactory.PARAM_ACTION, EventHandler.class)));
 
     }
 
     @Override
     public <T extends Styleable> T instantiate(Class<T> klass, LocationContext locationContext, Map options) throws CoreException {
-        Function<Map, StyleableFactory> factoryFunction = instantiators.get(klass);
+        Function<FenxlibTypedMapAdapter, StyleableFactory> factoryFunction = instantiators.get(klass);
         if (factoryFunction == null) {
             throw new CoreException("No factory registered for class: " + klass);
         } else {
-            StyleableFactory<T> nodeFactory = factoryFunction.apply(options == null ? new HashMap() : options);
+            FenxlibTypedMapAdapter adapter = new FenxlibTypedMapAdapter(options == null ? new HashMap() : options);
+            StyleableFactory<T> nodeFactory = factoryFunction.apply(adapter);
             return nodeFactory.makeNode(locationContext);
         }
     }

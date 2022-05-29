@@ -1,20 +1,29 @@
 package com.legyver.fenxlib.core.scene.controls.factory;
 
-import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.Fenxlib;
-import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextArea;
 
 /**
  * Factory to create a TextArea control
  */
-public class TextAreaFactory implements StyleableFactory<TextArea> {
+public class TextAreaFactory<T extends TextArea> extends AbstractInputTextControlsFactory<T> implements NodeFactory<T> {
+
+    /**
+     * Construct a factory to produce a Text Area
+     * @param textProperty the text property to bind to (if any)
+     * @param defaultText the default text (if any)
+     * @param isEditableProperty property to bind editability to
+     * @param isEditable flag that determines if a field is editable
+     */
+    public TextAreaFactory(StringProperty textProperty, String defaultText, BooleanProperty isEditableProperty, Boolean isEditable) {
+        super(textProperty, defaultText, isEditableProperty, isEditable);
+    }
+
     @Override
-    public TextArea makeNode(LocationContext locationContext) throws CoreException {
-        TextArea textArea = makeTextArea();
-        Fenxlib.register(locationContext, textArea);
-        return textArea;
+    protected T makeInputControl() {
+        return (T) makeTextArea();
     }
 
     /**

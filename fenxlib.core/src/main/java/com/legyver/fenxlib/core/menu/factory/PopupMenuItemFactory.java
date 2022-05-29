@@ -6,7 +6,7 @@ import com.legyver.fenxlib.core.controls.factory.PopupFactory;
 import com.legyver.fenxlib.core.controls.popup.Popup;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.query.ComponentQuery;
-import com.legyver.fenxlib.core.util.MapBuilder;
+import com.legyver.fenxlib.core.util.map.MapBuilder;
 import javafx.css.Styleable;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;

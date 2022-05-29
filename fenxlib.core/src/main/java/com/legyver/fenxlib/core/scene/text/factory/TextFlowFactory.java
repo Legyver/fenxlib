@@ -6,6 +6,7 @@ import com.legyver.fenxlib.core.controls.factory.AbstractWrappingFactory;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.util.map.MapBuilder;
 import javafx.css.Styleable;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextFlow;
@@ -22,7 +23,7 @@ public class TextFlowFactory extends AbstractWrappingFactory implements Styleabl
      * @param nodeFactories factories producing child content
      * @deprecated Use {@link ControlsFactory#make(Class, java.util.Map)}.
      * Use {@link TextFlowFactory#CHILDREN} to specify children.
-     * It may behoove you to use {@link com.legyver.fenxlib.core.util.MapBuilder} for this.
+     * It may behoove you to use {@link MapBuilder} for this.
      * This ultimately designates to {@link TextFlowFactory(List)}
      */
     @Deprecated

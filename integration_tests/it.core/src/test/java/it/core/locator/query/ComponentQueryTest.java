@@ -33,7 +33,7 @@ public class ComponentQueryTest extends FenxlibTest {
 						new LeftMenuOptions(
 								new MenuFactory("File")
 						),
-						new CenterOptions(new TextFieldFactory(false)),
+						new CenterOptions(new TextFieldFactory(null, null, null, null)),
 						new RightMenuOptions()))
 				)
 				.build();
@@ -67,7 +67,7 @@ public class ComponentQueryTest extends FenxlibTest {
 		LocationContext decorated = new LocationContextDecorator(start);
 		decorated.setName("here");
 
-		TextFieldFactory tff = new TextFieldFactory(false);
+		TextFieldFactory<TextField> tff = new TextFieldFactory<>(null, null, null, null);
 		TextField tf1 = tff.makeNode(decorated);
 
 		Optional<TextField> node = new ComponentQuery.QueryBuilder()

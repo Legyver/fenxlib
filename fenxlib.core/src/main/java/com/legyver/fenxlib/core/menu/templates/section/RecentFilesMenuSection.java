@@ -18,7 +18,7 @@ import com.legyver.fenxlib.core.menu.operator.MenuOperator;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
 import com.legyver.fenxlib.core.menu.section.MenuSectionOptions;
 import com.legyver.fenxlib.core.menu.templates.file.OpenRecentFileFactory;
-import com.legyver.fenxlib.core.util.MapBuilder;
+import com.legyver.fenxlib.core.util.map.MapBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
