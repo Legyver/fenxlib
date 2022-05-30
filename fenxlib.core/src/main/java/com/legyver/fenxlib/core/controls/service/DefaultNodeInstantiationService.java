@@ -12,8 +12,6 @@ import com.legyver.fenxlib.core.scene.text.factory.TextFlowFactory;
 import com.legyver.fenxlib.core.scene.web.factory.WebViewFactory;
 import com.legyver.fenxlib.core.util.map.FenxlibTypedMapAdapter;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
 import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,7 +38,7 @@ public class DefaultNodeInstantiationService implements NodeInstantiationService
         //javafx.scene.control
         instantiators.put(Accordion.class, map -> new AccordionFactory());
         instantiators.put(ButtonBar.class, map -> new ButtonBarFactory());
-        instantiators.put(Button.class, map -> new ButtonFactory(
+        instantiators.put(Button.class, map -> new ButtonFactory<Button>(
                 map.getString(ButtonFactory.CONSTRUCTOR_PARAM_TEXT),
                 map.getBoolean(ButtonFactory.CONSTRUCTOR_PARAM_IS_CANCEL_BUTTON),
                 map.getBoolean(ButtonFactory.CONSTRUCTOR_PARAM_IS_DEFAULT_BUTTON)

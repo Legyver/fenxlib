@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 /**
  * Factory to create a Button control
  */
-public class ButtonFactory implements NodeFactory<Button> {
+public class ButtonFactory<M extends Button> implements NodeFactory<Button> {
     /**
      * Constructor parameter to specify text for the button
      */

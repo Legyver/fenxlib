@@ -1,0 +1,9 @@
+description = 'Extension to brind MaterialFX controls to Fenxlib'
+
+apply from: publishBuildScript
+
+dependencies {
+    api project(':fenxlib.core')
+    api group: 'io.github.palexdev', name: 'materialfx', version: '11.13.5'
+}
+

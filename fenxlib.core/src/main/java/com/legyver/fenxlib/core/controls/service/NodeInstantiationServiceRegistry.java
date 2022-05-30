@@ -1,9 +1,11 @@
 package com.legyver.fenxlib.core.controls.service;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import javafx.css.Styleable;
+import javafx.event.EventTarget;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,6 +75,9 @@ public class NodeInstantiationServiceRegistry {
                 }
                 preferredLoaderForClass.put(klass, nodeInstantiationService);
             }
+        }
+        if (result instanceof EventTarget) {
+            Fenxlib.register(locationContext, (EventTarget) result);
         }
 
         return result;

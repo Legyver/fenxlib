@@ -9,6 +9,7 @@ private/**
 /fenxlib.config.json/build/
 /fenxlib.controls.icon/build/
 /fenxlib.core/build/
+/fenxlib.extensions.materialfx/build
 /fenxlib.extensions.tuktukfx/build
 /fenxlib.icons.standard/build/
 /fenxlib.skins.number/build/
@@ -17,6 +18,7 @@ private/**
 /fenxlib.widgets.blade/build/
 /fenxlib.widgets.filetree/build/
 /fenxlib.widgets.snackbar/build/
+/integration_tests/it.config.json/build/
 /integration_tests/it.core/build/
 /integration_tests/it.widgets.about/
 /integration_tests/it.widgets.blade/

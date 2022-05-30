@@ -16,7 +16,7 @@ This project provides a base class and configs to get started with integration t
 
 # Usage
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.tests.base', version: '3.0.0-alpha.4'
+    implementation group: 'com.legyver', name: 'fenxlib.tests.base', version: '3.0.0-alpha.5'
 ```
 
 ```java
