@@ -28,6 +28,7 @@ module com.legyver.fenxlib.core {
 	exports com.legyver.fenxlib.core.controls.service;
 	exports com.legyver.fenxlib.core.event.correlation;
 	exports com.legyver.fenxlib.core.event.handlers;
+	exports com.legyver.fenxlib.core.factory.adapters;
 	exports com.legyver.fenxlib.core.files.action;
 	exports com.legyver.fenxlib.core.files.action.internal;
 	exports com.legyver.fenxlib.core.files.util;
@@ -58,6 +59,12 @@ module com.legyver.fenxlib.core {
     exports com.legyver.fenxlib.core.controls.options;
 	exports com.legyver.fenxlib.core.controls.builder;
 	exports com.legyver.fenxlib.core.scene.controls.options;
+
+	//for reflection in Options Mixins
+	opens com.legyver.fenxlib.core.scene.controls.options to org.apache.commons.lang3;
+	opens com.legyver.fenxlib.core.scene.layout.options to org.apache.commons.lang3;
+	opens com.legyver.fenxlib.core.scene.text.options to org.apache.commons.lang3;
+	opens com.legyver.fenxlib.core.scene.web.options to org.apache.commons.lang3;
 
 	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;

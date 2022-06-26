@@ -21,7 +21,7 @@ import javafx.scene.control.ContextMenu;
 public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExplorer, SimpleFileExplorerOptions> {
 
     /**
-     * Make the SimpleFileExplorer and register it as the {@link #name} under the parent item.
+     * Make the SimpleFileExplorer.
      * @param locationContext the (parent) location context to register the widget under
      * @return the new FileExplorer
      */

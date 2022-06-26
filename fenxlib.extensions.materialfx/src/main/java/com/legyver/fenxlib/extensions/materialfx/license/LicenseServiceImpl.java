@@ -13,7 +13,7 @@ public class LicenseServiceImpl  implements LicenseService {
     @Override
     public Properties loadLicenseProperties() throws IOException {
         Properties properties = new Properties();
-        try (InputStream inputStream = com.legyver.fenxlib.core.license.LicenseServiceImpl.class.getResourceAsStream("license.properties")) {
+        try (InputStream inputStream = LicenseServiceImpl.class.getResourceAsStream("license.properties")) {
             properties.load(inputStream);
         }
         return properties;
