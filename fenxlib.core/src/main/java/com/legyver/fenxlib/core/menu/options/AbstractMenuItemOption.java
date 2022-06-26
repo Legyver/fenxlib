@@ -38,7 +38,7 @@ public class AbstractMenuItemOption {
      */
     public MenuItem makeMenuItem(LocationContext locationContext) throws CoreException {
         MenuItem menuItem = ControlsFactory.make(MenuItem.class, locationContext, new MenuItemOptions()
-                .name(text)
+                .text(text)
                 .eventHandler(eventHandler)
         );
         return menuItem;
