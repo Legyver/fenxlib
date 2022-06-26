@@ -34,6 +34,9 @@ public interface LocationContext {
 	 * @return the decorated location context
 	 */
 	default LocationContext decorateWith(String name) {
+		if (this.getName() == null || this.getName().isEmpty() || this.getName().isBlank()) {
+			return new DefaultLocationContext(name);
+		}
 		LocationContextDecorator locationContextDecorator = new LocationContextDecorator(this);
 		locationContextDecorator.setName(name != null ? name : UUID.randomUUID().toString());
 		return locationContextDecorator;

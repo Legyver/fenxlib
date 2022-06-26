@@ -46,13 +46,16 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 			}
 			propertyMap.put(LOCATION_CONTEXT_PROPERTY, context);
 		}
+		if (key == null) {
+			key = "";
+		}
 
 		//typed are referenced by parent location
 		int lastSeparator = key.lastIndexOf(LocationKeyVisitor.KEY_SEPARATOR);
 		if (lastSeparator > 0) {
 			String parentKey = key.substring(0, lastSeparator);
-			String simple =  key.substring(lastSeparator);
-			TypedCtx typed = typedNodes.get(key);
+			String simple =  key.substring(lastSeparator + LocationKeyVisitor.KEY_SEPARATOR.length());
+			TypedCtx typed = typedNodes.get(parentKey);
 			if (typed == null) {
 				typed = new TypedCtx();
 				typedNodes.put(parentKey, typed);

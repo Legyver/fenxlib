@@ -8,6 +8,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
+import javafx.stage.Window;
 
 /**
  * Extract the properties map for JavaFX controls that do not have a common ancestor
@@ -35,6 +36,8 @@ public class PropertyMapExtractor {
             result = ((Node) eventTarget).getProperties();
         } else if (eventTarget instanceof Tab) {
             result = ((Tab) eventTarget).getProperties();
+        } else if (eventTarget instanceof Window) {
+            result = ((Window) eventTarget).getProperties();
         } else if (eventTarget instanceof IPropertyAware) {
             result = ((IPropertyAware) eventTarget).getProperties();
         }

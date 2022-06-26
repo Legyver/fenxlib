@@ -1,9 +1,11 @@
 package com.legyver.fenxlib.core.menu.templates;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.IComponentRegistry;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.core.controls.ControlsFactory;
 import com.legyver.fenxlib.core.menu.section.IMenuable;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
@@ -32,7 +34,9 @@ public class MenuBuilder {
      * @throws CoreException if there is an error producing a Menu or MenuItem control
      */
     public Menu build() throws CoreException {
-        Menu menu = ControlsFactory.make(Menu.class, new MenuOptions().text(name));
+        LocationContext menuContext = new DefaultLocationContext(ApplicationRegions.MENUS.getName());
+        Menu menu = ControlsFactory.make(Menu.class, menuContext, new MenuOptions()
+                .text(name));
         Map<Object, Object> menuProperties = new PropertyMapExtractor(menu).get();
         LocationContext locationContext = (LocationContext) menuProperties.get(IComponentRegistry.LOCATION_CONTEXT_PROPERTY);
         for (MenuSectionOptions menuSectionBuilder: sections) {

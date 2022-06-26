@@ -80,9 +80,6 @@ public class NodeInstantiationServiceRegistry {
         if (result == null && nodeInstantiationService != null) {
             result = nodeInstantiationService.instantiate(klass, locationContext, options);
         }
-        if (result instanceof EventTarget) {
-            Fenxlib.register(locationContext, (EventTarget) result);
-        }
 
         return result;
     }

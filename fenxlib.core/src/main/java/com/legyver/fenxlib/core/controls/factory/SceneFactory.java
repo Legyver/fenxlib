@@ -1,16 +1,25 @@
 package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.core.layout.BaseApplicationLayout;
 import com.legyver.fenxlib.core.layout.IApplicationLayout;
+import com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,6 +66,15 @@ public class SceneFactory<T extends IApplicationLayout> {
     public Scene makeScene(T layout) {
         Pane decorator = makeContainer(layout);
         Scene scene = new Scene(decorator, layout.getWidth(), layout.getHeight());
+        scene.addEventHandler(EventType.ROOT, event -> {
+            logger.info("event type: {}, target: {} source: {}", event.getEventType(), event.getTarget(), event.getSource());
+        });
+        if (scene.getWindow() != null) {
+            scene.getWindow().onCloseRequestProperty().addListener((observable, oldValue, newValue) -> {
+                logger.info("Setting shutting down to true");
+                ApplicationContext.getAppState().setShuttingDown(true);
+            });
+        }
         initStage(scene, layout);
         if (stylesheetUrls != null) {
             Stream.of(stylesheetUrls).map(url -> url.toExternalForm())
@@ -90,10 +108,15 @@ public class SceneFactory<T extends IApplicationLayout> {
         Fenxlib.register(mainLocationContext, mainPane);
 
         MenuBar menuBar = layout.getMenuBar();
+        Pane applicationPane = layout.getMainPane();
         if (menuBar != null) {
             mainPane.getChildren().add(menuBar);
+            double menuBarHeight = menuBar.getHeight();
+            mainPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+                applicationPane.setMaxHeight(newValue.doubleValue() - menuBarHeight);
+            });
+            applicationPane.setPrefHeight(mainPane.getHeight());
         }
-        Pane applicationPane = layout.getMainPane();
         if (applicationPane != null) {
             mainPane.getChildren().add(applicationPane);
         } else {

@@ -29,4 +29,13 @@ public interface ControlFactory<T, U extends ControlOptions<T>> {
      * @return new options
      */
     U newOptions() throws CoreException;
+
+    /**
+     * Most factories don't have their own built-in handling for instantiating a location context.
+     * By default, this method returns true.  Override if yours does.
+     * @return true if the factory does not support instantiating a standalone location context.
+     */
+    default boolean requiresLocationContext() {
+        return true;
+    }
 }

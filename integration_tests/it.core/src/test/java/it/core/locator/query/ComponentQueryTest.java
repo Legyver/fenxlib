@@ -89,7 +89,7 @@ public class ComponentQueryTest extends FenxlibTest {
 		 * Construct a factory to create the scene without loading any stylesheets or applying settings to a stage
 		 */
 		public TestSceneFactory() {
-			super(null, null);
+			super(null);
 		}
 
 		@Override
