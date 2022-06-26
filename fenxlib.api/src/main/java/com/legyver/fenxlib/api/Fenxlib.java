@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.api;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.DefaultFileBrowseLocation;
 import com.legyver.fenxlib.api.files.FileRegistry;
@@ -40,7 +41,7 @@ public abstract class Fenxlib {
      * @param name the name of the menu
      * @return the menu, if it is registered
      */
-    public static Optional<Menu> getMenu(String name) {
+    public static Optional<Menu> getMenu(String name) throws CoreException {
         LocationContext rootMenuContext = new LocationContextDecorator(menusLocation());
         rootMenuContext.setName(name);
         return getMenu(rootMenuContext);
@@ -51,8 +52,9 @@ public abstract class Fenxlib {
      * @param locationContext the location of the menu item
      * @return the menu, if it is registered
      */
-    public static Optional<Menu> getMenu(LocationContext locationContext) {
-        return new ComponentQuery.QueryBuilder().fromLocation(locationContext).only().execute();
+    public static Optional<Menu> getMenu(LocationContext locationContext) throws CoreException {
+        return new ComponentQuery.QueryBuilder().fromLocation(locationContext)
+                .typed(Menu.class).execute();
     }
 
     /**

@@ -4,17 +4,24 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.PasswordFieldOptions;
 import javafx.scene.control.PasswordField;
 
 /**
  * Factory to create a PasswordField control
  */
-public class PasswordFieldFactory implements NodeFactory<PasswordField> {
+public class PasswordFieldFactory implements NodeFactory<PasswordField, PasswordFieldOptions> {
+
     @Override
-    public PasswordField makeNode(LocationContext locationContext) throws CoreException {
+    public PasswordField makeNode(LocationContext locationContext, PasswordFieldOptions options) throws CoreException {
         PasswordField passwordField = makePasswordField();
-        Fenxlib.register(locationContext, passwordField);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), passwordField);
         return passwordField;
+    }
+
+    @Override
+    public PasswordFieldOptions newOptions() {
+        return new PasswordFieldOptions();
     }
 
     /**

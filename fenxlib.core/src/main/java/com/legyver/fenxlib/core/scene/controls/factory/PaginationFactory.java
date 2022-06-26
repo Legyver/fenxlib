@@ -4,17 +4,24 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.PaginationOptions;
 import javafx.scene.control.Pagination;
 
 /**
  * Factory to create a Pagination control
  */
-public class PaginationFactory implements NodeFactory<Pagination> {
+public class PaginationFactory implements NodeFactory<Pagination, PaginationOptions> {
+
     @Override
-    public Pagination makeNode(LocationContext locationContext) throws CoreException {
+    public Pagination makeNode(LocationContext locationContext, PaginationOptions options) throws CoreException {
         Pagination pagination = makePagination();
-        Fenxlib.register(locationContext, pagination);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), pagination);
         return pagination;
+    }
+
+    @Override
+    public PaginationOptions newOptions() {
+        return new PaginationOptions();
     }
 
     /**

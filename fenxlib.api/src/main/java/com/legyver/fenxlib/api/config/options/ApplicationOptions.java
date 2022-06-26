@@ -10,6 +10,7 @@ import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookServiceRegistry;
 import com.legyver.fenxlib.api.lifecycle.hooks.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +42,12 @@ public class ApplicationOptions {
 	 * Starts up application by executing the first three phases: bootstrap, pre-init and init
 	 * @param application the application that is being bootstrapped.  If null, HostServices will not be available in supported framework functionality.
 	 *                    See {@link ApplicationContext#getHostServices()}
+	 * @param primaryStage the primary stage for the application. If null, popups and new stages will not be able to function correctly
 	 * @throws CoreException if there is a problem with any of the startup lifecycle phases
 	 */
-	public void startup(Application application) throws CoreException {
+	public void startup(Application application, Stage primaryStage) throws CoreException {
 		Fenxlib.registerApplication(application);
+		ApplicationContext.setPrimaryStage(primaryStage);
 		postInit();
 	}
 

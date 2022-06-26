@@ -4,17 +4,24 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.RadioMenuItemOptions;
 import javafx.scene.control.RadioMenuItem;
 
 /**
  * Factory to create a RadioMenuItem control
  */
-public class RadioMenuItemFactory implements StyleableFactory<RadioMenuItem> {
+public class RadioMenuItemFactory implements StyleableFactory<RadioMenuItem, RadioMenuItemOptions> {
+
     @Override
-    public RadioMenuItem makeNode(LocationContext locationContext) throws CoreException {
+    public RadioMenuItem makeNode(LocationContext locationContext, RadioMenuItemOptions options) throws CoreException {
         RadioMenuItem radioMenuItem = makeRadioMenuItem();
-        Fenxlib.register(locationContext, radioMenuItem);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), radioMenuItem);
         return radioMenuItem;
+    }
+
+    @Override
+    public RadioMenuItemOptions newOptions() {
+        return new RadioMenuItemOptions();
     }
 
     /**

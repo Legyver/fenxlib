@@ -14,7 +14,9 @@ import static com.legyver.core.exception.CoreException.wrap;
 
 /**
  * In olden-days this was just called BorderPaneFactory.  Since this is really specific to application layout, renaming it
+ * @deprecated Use {@link com.legyver.fenxlib.core.layout.BorderPaneApplicationLayout}
  */
+@Deprecated
 public class ApplicationBorderPaneLayoutFactory {
     private FactoryAction centerFactory;
     private FactoryAction topFactory;

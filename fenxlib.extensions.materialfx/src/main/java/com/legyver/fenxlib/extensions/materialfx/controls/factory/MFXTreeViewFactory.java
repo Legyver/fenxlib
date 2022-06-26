@@ -3,38 +3,30 @@ package com.legyver.fenxlib.extensions.materialfx.controls.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXTreeViewOptions;
 import io.github.palexdev.materialfx.controls.MFXTreeItem;
 import io.github.palexdev.materialfx.controls.MFXTreeView;
 
 /**
  * Factory to produce a MFXTreeView
- * @param <T> the type of data associated with the tree view
  */
-public class MFXTreeViewFactory<T> implements NodeFactory<MFXTreeView<T>> {
-    /**
-     * Constructor param to specify a root for the tree view
-     */
-    public static final String CONSTRUCTOR_PARAM_ROOT = "root";
-
-    private final MFXTreeItem<T> root;
-
-    /**
-     * Construct a factory using the specified tree item as the root
-     * @param root the root for the tree view
-     */
-    public MFXTreeViewFactory(MFXTreeItem<T> root) {
-        this.root = root;
-    }
+public class MFXTreeViewFactory implements NodeFactory<MFXTreeView, MFXTreeViewOptions> {
 
     @Override
-    public MFXTreeView<T> makeNode(LocationContext locationContext) throws CoreException {
+    public MFXTreeView makeNode(LocationContext locationContext, MFXTreeViewOptions options) throws CoreException {
         MFXTreeView treeView;
-        if (root != null) {
-            treeView = new MFXTreeView(root);
+        if (options.getRoot() != null) {
+            treeView = new MFXTreeView(options.getRoot());
         } else {
             treeView = new MFXTreeView();
         }
 
         return treeView;
+    }
+
+    @Override
+    public MFXTreeViewOptions newOptions() {
+        return new MFXTreeViewOptions();
     }
 }

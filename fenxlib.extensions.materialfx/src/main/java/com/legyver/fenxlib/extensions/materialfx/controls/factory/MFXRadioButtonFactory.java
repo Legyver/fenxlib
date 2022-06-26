@@ -8,6 +8,7 @@ import javafx.scene.control.RadioButton;
  * Factory to produce a MFXRadioButton
  */
 public class MFXRadioButtonFactory extends RadioButtonFactory {
+
     @Override
     protected RadioButton makeRadioButton() {
         return new MFXRadioButton();

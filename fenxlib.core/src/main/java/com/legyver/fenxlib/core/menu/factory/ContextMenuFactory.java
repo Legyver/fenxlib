@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.scene.controls.options.MenuItemOptions;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
@@ -50,7 +51,7 @@ public class ContextMenuFactory {
 		if (factories != null) {
 			List<MenuItem> menuItems = new ArrayList<>(factories.length);
 			for (IMenuItemFactory menuItemFactory : factories) {
-				MenuItem menuItem = (MenuItem) menuItemFactory.makeNode(decorator);
+				MenuItem menuItem = (MenuItem) menuItemFactory.makeNode(decorator, new MenuItemOptions());
 				menuItems.add(menuItem);
 			}
 			menu.getItems().addAll(menuItems);

@@ -29,12 +29,12 @@ public class DiskFileIoService implements IOService {
     }
 
     @Override
-    public InputStream loadInputStream(String name, boolean relativeToApplicationHome) throws CoreException {
+    public InputStream loadInputStream(String appName, String name, boolean relativeToApplicationHome) throws CoreException {
         if (relativeToApplicationHome) {
             ApplicationHome applicationHome = ApplicationContext.getApplicationHome();
             if (applicationHome == null) {
-                logger.error("No Application home set.");
-                throw new CoreException("Unable to save file " + name + " to application home: ApplicationHome is null");
+                applicationHome = new ApplicationHome(appName);
+                ApplicationContext.setApplicationHome(applicationHome);
             }
             File appHomeDir = applicationHome.getAppHome();
             Path homeDirPath = appHomeDir.toPath();

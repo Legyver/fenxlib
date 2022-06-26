@@ -58,10 +58,11 @@ public class ConfigServiceRegistry {
 	/**
 	 * Load the config from the first {@link ConfigService} that returns a non-null result.
 	 * @param <T> the type of the config file
+	 * @param appName the name of the application
 	 * @param filename the filename
 	 * @return the config
 	 */
-	public <T extends IApplicationConfig> T loadConfig(String filename) {
+	public <T extends IApplicationConfig> T loadConfig(String appName, String filename) {
 		if (!initialized) {
 			initialize();
 		}
@@ -69,7 +70,7 @@ public class ConfigServiceRegistry {
 		for (Iterator<ConfigService> it = orderedServiceDelegator.iterator(); result == null && it.hasNext(); ) {
 			ConfigService next = it.next();
 			try {
-				result = (T) next.loadConfig(filename);
+				result = (T) next.loadConfig(appName, filename);
 			} catch (CoreException e) {
 				logger.error("Unable to read file[" + filename + "] with " + next.getClass(), e);
 			}

@@ -41,4 +41,5 @@ module com.legyver.fenxlib.api {
 
     uses IOService;
     uses com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService;
+    uses com.legyver.fenxlib.api.config.ConfigService;
 }

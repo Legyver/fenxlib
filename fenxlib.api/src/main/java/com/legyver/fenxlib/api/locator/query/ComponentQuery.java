@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.api.locator.query;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.visitor.LocationKeyVisitor;
@@ -33,7 +34,7 @@ public abstract class ComponentQuery {
 	 * Execute the query
 	 * @return the component
 	 */
-	public abstract Optional execute();
+	public abstract Optional execute() throws CoreException;
 
 	private static class NamedComponentQuery extends ComponentQuery implements INamedComponentQuery {
 
@@ -42,7 +43,7 @@ public abstract class ComponentQuery {
 		}
 
 		@Override
-		public Optional execute() {
+		public Optional execute() throws CoreException {
 			return Optional.ofNullable(registry.get(this));
 		}
 	}
@@ -62,7 +63,7 @@ public abstract class ComponentQuery {
 		}
 
 		@Override
-		public Optional execute() {
+		public Optional execute() throws CoreException {
 			return Optional.ofNullable(registry.get(this));
 		}
 	}
@@ -102,12 +103,18 @@ public abstract class ComponentQuery {
 			return new RegionQueryBuilder(this);
 		}
 
+		public ComponentQuery build() {
+			return build(new ArrayDeque<>());
+		}
+
 		@Override
 		ComponentQuery build(Deque<String> stack) {
 			if (name != null) {
 				stack.push(name);
 			}
-			return new NamedComponentQuery(stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)));
+			return new NamedComponentQuery(
+					stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR))
+			);
 		}
 
 		@Override
@@ -115,7 +122,10 @@ public abstract class ComponentQuery {
 			stack.push(name);
 			stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR));
 
-			return new TypedComponentQuery(stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)), type);
+			return new TypedComponentQuery(
+					stack.stream().collect(Collectors.joining(LocationKeyVisitor.KEY_SEPARATOR)),
+					type
+			);
 		}
 	}
 
@@ -132,7 +142,7 @@ public abstract class ComponentQuery {
 		 * @return the query
 		 */
 		@Override
-		public ComponentQuery only() {
+		public ComponentQuery build() {
 			return build(new ArrayDeque<>());
 		}
 
@@ -154,7 +164,7 @@ public abstract class ComponentQuery {
 		 * @return the Query
 		 */
 		@Override
-		public ComponentQuery type(Class type) {
+		public ComponentQuery typed(Class type) {
 			return build(new ArrayDeque<>(), type);
 		}
 	}
@@ -190,7 +200,6 @@ public abstract class ComponentQuery {
 			}
 			return parent.build(stack, type);
 		}
-
 	}
 
 }

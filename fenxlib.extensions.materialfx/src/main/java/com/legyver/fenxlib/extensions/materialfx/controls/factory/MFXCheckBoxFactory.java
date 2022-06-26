@@ -9,16 +9,6 @@ import javafx.scene.control.CheckBox;
  */
 public class MFXCheckBoxFactory extends CheckBoxFactory {
 
-    /**
-     * Construct a Button.
-     *
-     * @param text     the text for the checkbox
-     * @param selected true if the checkbox is selected
-     */
-    public MFXCheckBoxFactory(String text, Boolean selected) {
-        super(text, selected);
-    }
-
     @Override
     protected CheckBox makeCheckBox() {
         return new MFXCheckbox();

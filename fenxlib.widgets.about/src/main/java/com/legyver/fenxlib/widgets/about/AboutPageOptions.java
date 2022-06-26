@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.widgets.about;
 
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.widgets.license.service.LicenseServiceRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +13,8 @@ import java.util.Properties;
 /**
  * Options for specifying an AboutPage
  */
-public class AboutPageOptions {
+public class AboutPageOptions extends BaseControlBuilder<AboutPageOptions> implements StyleableControlOptions<AboutPage> {
+
 	private static final Logger logger = LogManager.getLogger(AboutPageOptions.class);
 	private final String title;
 	private final String intro;

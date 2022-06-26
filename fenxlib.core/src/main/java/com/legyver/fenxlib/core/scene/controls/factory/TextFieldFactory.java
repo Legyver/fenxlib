@@ -1,30 +1,46 @@
 package com.legyver.fenxlib.core.scene.controls.factory;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.scene.controls.options.TextFieldOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
  * Factory to create a TextField
- * @param <T> The Type of the TextField
  */
-public class TextFieldFactory<T extends TextField> extends AbstractInputTextControlsFactory<T> implements NodeFactory<T> {
+public class TextFieldFactory implements NodeFactory<TextField, TextFieldOptions> {
 
-	/**
-	 * Construct a TextFieldFactory that creates a TextField
-	 * @param textProperty the text property to bind to (if any)
-	 * @param defaultText the default text (if any)
-	 * @param isEditableProperty property to bind editability to
-	 * @param isEditable flag that determines if a field is editable
-	 */
-	public TextFieldFactory(StringProperty textProperty, String defaultText, BooleanProperty isEditableProperty, Boolean isEditable) {
-		super(textProperty, defaultText, isEditableProperty, isEditable);
+	@Override
+	public TextField makeNode(LocationContext locationContext, TextFieldOptions options) throws CoreException {
+		TextField textControl = makeTextField();
+
+		ApplicationContext.getComponentRegistry().register(locationContext, textControl);
+		if (options.getEditableProperty() != null) {
+			textControl.editableProperty().bindBidirectional(options.getEditableProperty());
+		}
+		if (options.isEditable() != null) {
+			textControl.setEditable(options.isEditable());
+		}
+
+		if (options.getTextProperty() != null) {
+			textControl.textProperty().bindBidirectional(options.getTextProperty());
+		}
+
+		if (options.getText() != null) {
+			textControl.setText(options.getText());
+		}
+
+		return textControl;
 	}
 
 	@Override
-	protected T makeInputControl() {
-		return (T) makeTextField();
+	public TextFieldOptions newOptions() {
+		return new TextFieldOptions();
 	}
 
 	/**
@@ -35,4 +51,5 @@ public class TextFieldFactory<T extends TextField> extends AbstractInputTextCont
 	protected TextField makeTextField() {
 		return new TextField();
 	}
+
 }

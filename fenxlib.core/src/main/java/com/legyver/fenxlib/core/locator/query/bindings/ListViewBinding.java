@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.locator.query.bindings;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.query.IRegionDiscriminator;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -17,7 +18,7 @@ public class ListViewBinding extends BaseBinding {
 	 * @param query the query that identifies the ListView
 	 * @param named the (optional) name of the ListView
 	 */
-	public static void bindListView(Consumer<ObservableList<String>> setter, IRegionDiscriminator query, String named) {
+	public static void bindListView(Consumer<ObservableList<String>> setter, IRegionDiscriminator query, String named) throws CoreException {
 		Optional<ListView> listView = finalizeQuery(query, named).execute();
 		setter.accept(listView.get().getItems());
 	}

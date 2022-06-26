@@ -4,17 +4,24 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.ProgressBarOptions;
 import javafx.scene.control.ProgressBar;
 
 /**
  * Factory to create a ProgressBar control
  */
-public class ProgressBarFactory implements NodeFactory<ProgressBar> {
+public class ProgressBarFactory implements NodeFactory<ProgressBar, ProgressBarOptions> {
+
     @Override
-    public ProgressBar makeNode(LocationContext locationContext) throws CoreException {
+    public ProgressBar makeNode(LocationContext locationContext, ProgressBarOptions options) throws CoreException {
         ProgressBar progressBar = makeProgressBar();
-        Fenxlib.register(locationContext, progressBar);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), progressBar);
         return progressBar;
+    }
+
+    @Override
+    public ProgressBarOptions newOptions() {
+        return new ProgressBarOptions();
     }
 
     /**

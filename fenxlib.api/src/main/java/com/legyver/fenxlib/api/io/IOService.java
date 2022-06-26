@@ -17,12 +17,14 @@ public interface IOService extends OrderedService<IOService> {
 
     /**
      * Load an input stream from a file/resource
+     *
+     * @param appName the name of the application used to determine the application home
      * @param name the name of the file/resource
      * @param relativeToApplicationHome true if the name should be resolved relative to the application home directory
      * @return the input stream, or null if it does not exist
      * @throws CoreException if there is an error loading the input stream
      */
-    InputStream loadInputStream(String name, boolean relativeToApplicationHome) throws CoreException;
+    InputStream loadInputStream(String appName, String name, boolean relativeToApplicationHome) throws CoreException;
 
     /**
      * Save content to a file.

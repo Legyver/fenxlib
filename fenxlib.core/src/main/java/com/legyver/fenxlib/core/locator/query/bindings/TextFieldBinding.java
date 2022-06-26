@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.locator.query.bindings;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.query.IRegionDiscriminator;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextField;
@@ -16,7 +17,7 @@ public class TextFieldBinding extends BaseBinding {
 	 * @param query the query locating the text field
 	 * @param named the (optional) name of the text field
 	 */
-	public static void bindTextField(StringProperty property, IRegionDiscriminator query, String named) {
+	public static void bindTextField(StringProperty property, IRegionDiscriminator query, String named) throws CoreException {
 		Optional<TextField> text = finalizeQuery(query, named).execute();
 		String value = property.get();
 		property.bindBidirectional(text.get().textProperty());

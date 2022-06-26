@@ -16,7 +16,7 @@ public abstract class BaseBinding {
 	 */
 	protected static ComponentQuery finalizeQuery(IQueryDiscriminator query, String named) {
 		if (named == null) {
-			return query.only();
+			return query.build();
 		} else {
 			return query.named(named);
 		}

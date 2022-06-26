@@ -2,9 +2,9 @@ package it.core.controls.service;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.core.controls.service.DefaultNodeInstantiationService;
-import com.legyver.fenxlib.core.scene.controls.factory.*;
-import com.legyver.fenxlib.core.util.map.MapBuilder;
+import com.legyver.fenxlib.core.scene.controls.options.*;
 import com.legyver.fenxlib.tests.base.FenxlibTest;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,16 +51,13 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(instantiated.isCancelButton()).isFalse();
             assertThat(instantiated.isDefaultButton()).isFalse();
         });
-        test(Button.class, MapBuilder.of(ButtonFactory.CONSTRUCTOR_PARAM_TEXT, "test")
-                .with(ButtonFactory.CONSTRUCTOR_PARAM_IS_CANCEL_BUTTON, true)
-                .build(), instantiated -> {
+        test(Button.class, new ButtonOptions().text("test").cancelButton(true), instantiated -> {
             assertThat(instantiated).isInstanceOfAny(Button.class);
             assertThat(instantiated.getText()).isEqualTo("test");
             assertThat(instantiated.isCancelButton()).isTrue();
             assertThat(instantiated.isDefaultButton()).isFalse();
         });
-        test(Button.class, MapBuilder.of(ButtonFactory.CONSTRUCTOR_PARAM_IS_DEFAULT_BUTTON, true)
-                .build(), instantiated -> {
+        test(Button.class, new ButtonOptions().defaultButton(true), instantiated -> {
             assertThat(instantiated).isInstanceOfAny(Button.class);
             assertThat(instantiated.getText()).isNull();
             assertThat(instantiated.isCancelButton()).isFalse();
@@ -76,9 +72,7 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(instantiated.getText()).isNull();
             assertThat(instantiated.isSelected()).isFalse();
         });
-        test(CheckBox.class, MapBuilder.of(CheckBoxFactory.CONSTRUCTOR_PARAM_TEXT, "test")
-                .with(CheckBoxFactory.CONSTRUCTOR_PARAM_IS_SELECTED, true)
-                .build(), instantiated -> {
+        test(CheckBox.class, new CheckBoxOptions().text("test").selected(true), instantiated -> {
             assertThat(instantiated.getText()).isEqualTo("test");
             assertThat(instantiated.isSelected()).isTrue();
         });
@@ -92,15 +86,12 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(instantiated.isSelected()).isFalse();
             assertThat(instantiated.isDisable()).isFalse();
         });
-        test(CheckMenuItem.class, MapBuilder.of(CheckMenuItemFactory.CONSTRUCTOR_PARAM_TEXT, "test")
-                .with(CheckMenuItemFactory.CONSTRUCTOR_PARAM_IS_SELECTED, true)
-                .build(), instantiated -> {
+        test(CheckMenuItem.class, new CheckMenuItemOptions().text("test").selected(true), instantiated -> {
             assertThat(instantiated.getText()).isEqualTo("test");
             assertThat(instantiated.isSelected()).isTrue();
             assertThat(instantiated.isDisable()).isFalse();
         });
-        test(CheckMenuItem.class, MapBuilder.of(CheckMenuItemFactory.CONSTRUCTOR_PARAM_IS_DISABLED, true)
-                .build(), instantiated -> {
+        test(CheckMenuItem.class, new CheckMenuItemOptions().text("test").disabled(true), instantiated -> {
             assertThat(instantiated.isDisable()).isTrue();
         });
     }
@@ -112,12 +103,12 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(instantiated.getItems()).isEmpty();
         });
         List<String> itemList = Arrays.asList("One", "Two");
-        test(ChoiceBox.class, Map.of(ChoiceBoxFactory.CONSTRUCTOR_PARAM_ITEMS, itemList), instantiated -> {
+        test(ChoiceBox.class, new ChoiceBoxOptions().items(itemList), instantiated -> {
             assertThat(instantiated.getItems()).containsExactlyElementsOf(itemList);
         });
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.add("One");
-        test(ChoiceBox.class, Map.of(ChoiceBoxFactory.CONSTRUCTOR_PARAM_ITEMS, observableList), instantiated -> {
+        test(ChoiceBox.class, new ChoiceBoxOptions().items(observableList), instantiated -> {
             assertThat(instantiated.getItems()).containsExactly("One");
             observableList.add("Two");
             assertThat(instantiated.getItems()).containsExactly("One", "Two");
@@ -137,12 +128,12 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(instantiated).isInstanceOfAny(ComboBox.class);
         });
        List<String> itemList = Arrays.asList("One", "Two");
-       test(ComboBox.class, Map.of(ComboBoxFactory.CONSTRUCTOR_PARAM_ITEMS, itemList), instantiated -> {
+       test(ComboBox.class, new ComboBoxOptions().items(itemList), instantiated -> {
            assertThat(instantiated.getItems()).containsExactlyElementsOf(itemList);
        });
        ObservableList<String> observableList = FXCollections.observableArrayList();
        observableList.add("One");
-       test(ComboBox.class, Map.of(ComboBoxFactory.CONSTRUCTOR_PARAM_ITEMS, observableList), instantiated -> {
+       test(ComboBox.class, new ComboBoxOptions().items(observableList), instantiated -> {
            assertThat(instantiated.getItems()).containsExactly("One");
            observableList.add("Two");
            assertThat(instantiated.getItems()).containsExactly("One", "Two");
@@ -155,11 +146,11 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
         test(Label.class, null, label -> {
             assertThat(label.getText()).isNullOrEmpty();
         });
-        test(Label.class, Map.of(LabelFactory.DEFAULT_TEXT, "test"), label -> {
+        test(Label.class, new LabelOptions().text("test"), label -> {
             assertThat(label.getText()).isEqualTo("test");
         });
         StringProperty bindTo = new SimpleStringProperty("test");
-        test(Label.class, Map.of(LabelFactory.BIND_TO, bindTo), label -> {
+        test(Label.class, new LabelOptions().bindToTextProperty(bindTo), label -> {
             assertThat(label.getText()).isEqualTo("test");
             bindTo.set("test2");
             assertThat(label.getText()).isEqualTo("test2");
@@ -178,7 +169,7 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(listView.getItems()).isEmpty();
             assertThat(listView.isEditable()).isFalse();
         });
-        test(ListView.class, Map.of(ListViewFactory.IS_EDITABLE, true), listView -> {
+        test(ListView.class, new ListViewOptions().editable(true), listView -> {
             assertThat(listView.getItems()).isEmpty();
             assertThat(listView.isEditable()).isTrue();
         });
@@ -273,11 +264,11 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
         test(TextArea.class, null, textField -> {
             assertThat(textField).isNotNull();
         });
-        test(TextArea.class, Map.of(TextAreaFactory.DEFAULT_TEXT, "test"), textArea -> {
+        test(TextArea.class, new TextAreaOptions().text("test"), textArea -> {
             assertThat(textArea.getText()).isEqualTo("test");
         });
         StringProperty bindTo = new SimpleStringProperty("test");
-        test(TextArea.class, Map.of(TextAreaFactory.BIND_TO, bindTo), textArea -> {
+        test(TextArea.class, new TextAreaOptions().bindToTextProperty(bindTo), textArea -> {
             assertThat(textArea.getText()).isEqualTo("test");
             bindTo.set("test2");
             assertThat(textArea.getText()).isEqualTo("test2");
@@ -291,11 +282,11 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
         test(TextField.class, null, textField -> {
             assertThat(textField).isNotNull();
         });
-        test(TextField.class, Map.of(TextFieldFactory.DEFAULT_TEXT, "test"), textField -> {
+        test(TextField.class, new TextFieldOptions().text("test"), textField -> {
             assertThat(textField.getText()).isEqualTo("test");
         });
         StringProperty bindTo = new SimpleStringProperty("test");
-        test(TextField.class, Map.of(TextFieldFactory.BIND_TO, bindTo), textField -> {
+        test(TextField.class, new TextFieldOptions().bindToTextProperty(bindTo), textField -> {
             assertThat(textField.getText()).isEqualTo("test");
             bindTo.set("test2");
             assertThat(textField.getText()).isEqualTo("test2");
@@ -310,13 +301,13 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
             assertThat(toggleButton).isNotNull();
             assertThat(toggleButton.isSelected()).isFalse();
         });
-        test(ToggleButton.class, Map.of(ToggleButtonFactory.DEFAULT_TEXT, "test"), toggleButton -> {
+        test(ToggleButton.class, new ToggleButtonOptions().text("test"), toggleButton -> {
             assertThat(toggleButton.getText()).isEqualTo("test");
         });
-        test(ToggleButton.class, Map.of(ToggleButtonFactory.SELECTED, true), toggleButton -> {
+        test(ToggleButton.class, new ToggleButtonOptions().selected(true), toggleButton -> {
             assertThat(toggleButton.isSelected()).isTrue();
         });
-        test(ToggleButton.class, Map.of(ToggleButtonFactory.SELECTED, false), toggleButton -> {
+        test(ToggleButton.class, new ToggleButtonOptions().selected(false), toggleButton -> {
             assertThat(toggleButton.isSelected()).isFalse();
         });
     }
@@ -396,11 +387,11 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
         test(TitledPane.class, null, titledPane -> {
             assertThat(titledPane).isNotNull();
         });
-        test(TitledPane.class, Map.of(TitledPaneFactory.TITLE, "test"), titledPane -> {
+        test(TitledPane.class, new TitledPaneOptions().text("test"), titledPane -> {
             assertThat(titledPane.getText()).isEqualTo("test");
         });
         Pane pane = new Pane();
-        test(TitledPane.class, Map.of(TitledPaneFactory.CONTENT, pane), titledPane -> {
+        test(TitledPane.class, new TitledPaneOptions().content(pane), titledPane -> {
             assertThat(titledPane.getContent()).isEqualTo(pane);
         });
     }
@@ -452,7 +443,7 @@ public class DefaultNodeInstantiationServiceTest extends FenxlibTest {
         });
     }
 
-    private static <T extends Styleable> void test(Class<T> klassToInstantiate, Map options, Consumer<T> asserter) throws CoreException {
+    private static <T extends Styleable> void test(Class<T> klassToInstantiate, StyleableControlOptions<T> options, Consumer<T> asserter) throws CoreException {
         T instantiated = service.instantiate(klassToInstantiate, new DefaultLocationContext("Test"), options);
         asserter.accept(instantiated);
     }

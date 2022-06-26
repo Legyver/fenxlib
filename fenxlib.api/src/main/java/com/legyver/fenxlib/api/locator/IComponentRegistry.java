@@ -6,6 +6,11 @@ import javafx.event.EventTarget;
  * Registry of all registered components in the application
  */
 public interface IComponentRegistry {
+	/**
+	 * Property used to set/get the location context on a UI control
+	 */
+	String LOCATION_CONTEXT_PROPERTY = "location_context";
+	String LOCATION_CONTEXT_SIMPLE_NAME = "location_context_simple_name";
 
 	/**
 	 * Register a component with the registry

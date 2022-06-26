@@ -3,9 +3,8 @@ package com.legyver.fenxlib.core.controls.service;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.service.OrderedService;
+import com.legyver.fenxlib.core.controls.options.ControlOptions;
 import javafx.css.Styleable;
-
-import java.util.Map;
 
 /**
  * Service to provide the default instantiation of JavaFX Controls based on type.
@@ -14,14 +13,14 @@ public interface NodeInstantiationService extends OrderedService<NodeInstantiati
 
     /**
      * Instantiate a JavaFX control
+     * @param <T> the type of the JavaFX control
      * @param klass the control you want to instantiate
      * @param locationContext the location to register the control in
      * @param options any options to provide the constructor during instantiation
-     * @param <T> the type of the JavaFX control
      * @return the new control
      * @throws CoreException if there is an error constructing the control
      */
-    <T extends Styleable> T instantiate(Class<T> klass, LocationContext locationContext, Map options) throws CoreException;
+    <T extends Styleable> T instantiate(Class<T> klass, LocationContext locationContext, ControlOptions<T> options) throws CoreException;
 
     /**
      * Get the preference for the instantiation service.  The default pure JavaFX instantiation service preference is 0.

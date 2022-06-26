@@ -3,46 +3,13 @@ package com.legyver.fenxlib.core.scene.controls.factory;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.SliderOptions;
 import javafx.scene.control.Slider;
 
 /**
  * Factory to create sliders
  */
-public class SliderFactory implements StyleableFactory<Slider> {
-	/**
-	 * Param for passing the min value to the constructor
-	 */
-	public static final String CONSTRUCTOR_PARAM_MIN = "min";
-	/**
-	 * Param for passing the max value to the constructor
-	 */
-	public static final String CONSTRUCTOR_PARAM_MAX= "max";
-	/**
-	 * Param for passing the initial value to the constructor
-	 */
-	public static final String CONSTRUCTOR_PARAM_INITIAL = "initial";
-	private final Double min;
-	private final Double max;
-	private final Double value;
-
-	/**
-	 * Construct a factory to make sliders with the specified min, max and default values
-	 * @param min the minimum value
-	 * @param max the maximum value
-	 * @param initial the initial value
-	 */
-	public SliderFactory(Double min, Double max, Double initial) {
-		this.min = min;
-		this.max = max;
-		this.value = initial;
-	}
-
-	/**
-	 * Construct a factory to make sliders with unspecified min, max and default values
-	 */
-	public SliderFactory() {
-		this(null, null, null);
-	}
+public class SliderFactory implements StyleableFactory<Slider, SliderOptions> {
 
 	/**
 	 * Make the slider and register it with the application context.
@@ -51,19 +18,18 @@ public class SliderFactory implements StyleableFactory<Slider> {
 	 * @return the new slider
 	 */
 	@Override
-	public Slider makeNode(LocationContext locationContext) {
+	public Slider makeNode(LocationContext locationContext, SliderOptions options) {
 		Slider slider = makeSlider();
-		if (min != null) {
-			slider.setMin(min);
-		}
-		if (max != null) {
-			slider.setMax(max);
-		}
-		if (value != null) {
-			slider.setValue(value);
-		}
-		ApplicationContext.getComponentRegistry().register(locationContext, slider, true);
+		options.minAdapter().setNotNull((d) -> slider.setMin(d));
+		options.maxAdapter().setNotNull((d) -> slider.setMax(d));
+		options.valueAdapter().setNotNull((d) -> slider.setValue(d));
+		ApplicationContext.getComponentRegistry().register(locationContext.decorateWith(options.getName()), slider, true);
 		return slider;
+	}
+
+	@Override
+	public SliderOptions newOptions() {
+		return new SliderOptions();
 	}
 
 	/**

@@ -3,32 +3,27 @@ package com.legyver.fenxlib.core.scene.controls.factory;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.ListViewOptions;
 import javafx.scene.control.ListView;
+
+import java.util.UUID;
 
 /**
  * Factory to create a ListView
  */
-public class ListViewFactory implements NodeFactory<ListView> {
-	/**
-	 * Constructor parameter to indicate if the ListView should be editable
-	 */
-	public static final String IS_EDITABLE = "is_editable";
-	private final boolean isEditable;
+public class ListViewFactory implements NodeFactory<ListView, ListViewOptions> {
 
-	/**
-	 * Construct a factory to create a ListView
-	 * @param isEditable if the ListView is editable
-	 */
-	public ListViewFactory(Boolean isEditable) {
-		this.isEditable = isEditable != null ? isEditable : false;
+	@Override
+	public ListView makeNode(LocationContext locationContext, ListViewOptions options) {
+		ListView listView = makeListView();
+		options.editableAdapter().setNotNull((editable) -> listView.setEditable(editable));
+		ApplicationContext.getComponentRegistry().register(locationContext.decorateWith(options.getName()), listView);
+		return listView;
 	}
 
 	@Override
-	public ListView makeNode(LocationContext locationContext) {
-		ListView listView = makeListView();
-		listView.setEditable(isEditable);
-		ApplicationContext.getComponentRegistry().register(locationContext, listView);
-		return listView;
+	public ListViewOptions newOptions() {
+		return new ListViewOptions();
 	}
 
 	/**

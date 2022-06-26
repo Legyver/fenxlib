@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
  * Factory to produce an MFXScrollPane
  */
 public class MFXScrollPaneFactory extends ScrollPaneFactory {
+
     @Override
     protected ScrollPane makeScrollPane() {
         return new MFXScrollPane();

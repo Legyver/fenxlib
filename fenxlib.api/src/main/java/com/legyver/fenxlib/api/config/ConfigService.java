@@ -13,11 +13,12 @@ import com.legyver.fenxlib.api.service.OrderedService;
 public interface ConfigService<C extends IApplicationConfig> extends OrderedService<ConfigService>, InitializableService<ConfigInstantiator> {
 	/**
 	 * Load the application config from file.
+	 * @param appName the name of the application
 	 * @param filename the filename
 	 * @return the config
 	 * @throws CoreException if the file does not exist or there is an error reading it
 	 */
-	C loadConfig(String filename) throws CoreException;
+	C loadConfig(String appName, String filename) throws CoreException;
 
 	/**
 	 * Write the application config to file

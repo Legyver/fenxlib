@@ -10,17 +10,6 @@ import javafx.scene.control.TextField;
  * Factory to produce a MFXTextField
  */
 public class MFXTextFieldFactory extends TextFieldFactory {
-    /**
-     * Construct a TextFieldFactory that creates a TextField
-     *
-     * @param textProperty       the text property to bind to (if any)
-     * @param defaultText        the default text (if any)
-     * @param isEditableProperty property to bind editability to
-     * @param isEditable         flag that determines if a field is editable
-     */
-    public MFXTextFieldFactory(StringProperty textProperty, String defaultText, BooleanProperty isEditableProperty, Boolean isEditable) {
-        super(textProperty, defaultText, isEditableProperty, isEditable);
-    }
 
     @Override
     protected TextField makeTextField() {

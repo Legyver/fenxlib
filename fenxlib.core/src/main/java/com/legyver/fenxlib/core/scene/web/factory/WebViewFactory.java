@@ -2,21 +2,27 @@ package com.legyver.fenxlib.core.scene.web.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
-import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.core.scene.web.options.WebViewOptions;
 import javafx.scene.web.WebView;
 
 
 /**
  * Factory to create a WebView
  */
-public class WebViewFactory implements StyleableFactory<WebView> {
+public class WebViewFactory implements StyleableFactory<WebView, WebViewOptions> {
 
 	@Override
-	public WebView makeNode(LocationContext lc) throws CoreException {
+	public WebView makeNode(LocationContext lc, WebViewOptions options) throws CoreException {
 		WebView webView = makeWebView();
-		ApplicationContext.getComponentRegistry().register(lc, webView);
+		ApplicationContext.getComponentRegistry().register(lc.decorateWith(options.getName()), webView);
 		return webView;
+	}
+
+	@Override
+	public WebViewOptions newOptions() {
+		return new WebViewOptions();
 	}
 
 	/**

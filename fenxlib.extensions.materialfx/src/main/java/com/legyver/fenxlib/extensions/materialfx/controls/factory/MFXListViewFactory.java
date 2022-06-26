@@ -5,6 +5,9 @@ import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.core.factory.adapters.ItemsAdapter;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.core.controls.builder.ItemsMixin;
+import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXListViewOptions;
 import io.github.palexdev.materialfx.controls.MFXListView;
 
 import java.util.List;
@@ -12,27 +15,18 @@ import java.util.List;
 /**
  * Factory to produce a MFXListView
  */
-public class MFXListViewFactory implements NodeFactory<MFXListView> {
-    /**
-     * Constructor param to specify items for the MFXListView
-     */
-    public static final String CONSTRUCTOR_PARAM_ITEMS = "items";
+public class MFXListViewFactory implements NodeFactory<MFXListView, MFXListViewOptions> {
 
-    private final ItemsAdapter items;
-
-    /**
-     * Construct a factory to produce a MFXListView
-     * @param items the items to place in the list view
-     */
-    public MFXListViewFactory(List items) {
-        this.items = new ItemsAdapter(items);
+    @Override
+    public MFXListView makeNode(LocationContext locationContext, MFXListViewOptions options) throws CoreException {
+        MFXListView listView = new MFXListView();
+        options.itemsAdapter().setNotNull(listView::setItems);
+        Fenxlib.register(locationContext, listView);
+        return listView;
     }
 
     @Override
-    public MFXListView makeNode(LocationContext locationContext) throws CoreException {
-        MFXListView listView = new MFXListView();
-        items.setNotNull(listView::setItems);
-        Fenxlib.register(locationContext, listView);
-        return listView;
+    public MFXListViewOptions newOptions() {
+        return new MFXListViewOptions();
     }
 }

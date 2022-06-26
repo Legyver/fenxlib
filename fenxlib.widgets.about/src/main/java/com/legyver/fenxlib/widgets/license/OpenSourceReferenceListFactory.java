@@ -9,19 +9,15 @@ import java.util.Properties;
 /**
  * Factory to create an OpenSourceReferenceList
  */
-public class OpenSourceReferenceListFactory implements StyleableFactory<OpenSourceReferenceList> {
-	private final Properties properties;
+public class OpenSourceReferenceListFactory implements StyleableFactory<OpenSourceReferenceList, OpenSourceReferenceListOptions> {
 
-	/**
-	 * Construct an OpenSourceReferenceListFactory based on given properties
-	 * @param properties properties containing open source references
-	 */
-	public OpenSourceReferenceListFactory(Properties properties) {
-		this.properties = properties;
+	@Override
+	public OpenSourceReferenceList makeNode(LocationContext locationContext, OpenSourceReferenceListOptions options) throws CoreException {
+		return new OpenSourceReferenceList(options.getProperties());
 	}
 
 	@Override
-	public OpenSourceReferenceList makeNode(LocationContext locationContext) throws CoreException {
-		return new OpenSourceReferenceList(properties);
+	public OpenSourceReferenceListOptions newOptions() {
+		return new OpenSourceReferenceListOptions();
 	}
 }

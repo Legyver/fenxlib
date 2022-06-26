@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.tests.base;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
 import com.legyver.fenxlib.api.context.ApplicationContext;
@@ -35,7 +36,7 @@ public class FenxlibTest extends ApplicationTest {
             }
         }
         ApplicationOptions applicationOptions = builder.build();
-        applicationOptions.startup(new ApplicationAdapter(this));
+        applicationOptions.startup(new FenxlibApplicationAdapter(this), null);
     }
 
     private boolean validateAnnotatedConfiguration(FenxlibConfiguration fenxlibConfiguration) {

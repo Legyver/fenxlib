@@ -8,10 +8,10 @@ package com.legyver.fenxlib.api.locator.query;
  */
 public interface IQueryDiscriminator {
 	/**
-	 * Query for the only component at the specified location
-	 * @return the query
+	 * build a query
+	 * @return the built query
 	 */
-	ComponentQuery only();
+	ComponentQuery build();
 
 	/**
 	 * Query for the component named a specific value at the specified location
@@ -25,5 +25,5 @@ public interface IQueryDiscriminator {
 	 * @param type the type of the component
 	 * @return the Query
 	 */
-	ComponentQuery type(Class type);
+	ComponentQuery typed(Class type);
 }

@@ -1,21 +1,30 @@
 package com.legyver.fenxlib.core.controls.popup;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.controls.factory.SceneFactory;
 import com.legyver.fenxlib.core.layout.Target;
-import com.legyver.fenxlib.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.core.menu.options.ShowPopupMenuOption;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Action to launch a popup
+ * @deprecated Not sure if this is still the way forward, but maybe it just needs to be refactored and combined with {@link ShowPopupMenuOption}
  */
+@Deprecated
 public class LaunchPopupAction implements EventHandler<ActionEvent> {
+    private static final Logger logger = LogManager.getLogger(LaunchPopupAction.class);
+
     private final Popup popup;
     private final ComponentQuery anchorComponentQuery;
     private final Target target;
@@ -39,7 +48,8 @@ public class LaunchPopupAction implements EventHandler<ActionEvent> {
     public LaunchPopupAction(Popup popup) {
         this(popup, new ComponentQuery.QueryBuilder()
                 .inRegion(SceneFactory.FENXLIB_MAIN_APPLICATION_PANE)
-                .only(),
+                        .typed(StackPane.class)
+                ,
                 new Target.Builder()
                         .prefWidth(200.0)
                         .prefHeight(100.0)
@@ -51,7 +61,12 @@ public class LaunchPopupAction implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         Stage stage = Fenxlib.getPrimaryStage();
-        Pane pane = (Pane) anchorComponentQuery.execute().get();
+        Pane pane = null;
+        try {
+            pane = (Pane) anchorComponentQuery.execute().get();
+        } catch (CoreException e) {
+            logger.error("Unable to launch popup", e);
+        }
         Bounds bounds = pane.getLayoutBounds();
 
         Double leftX = null;

@@ -1,3 +1,13 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            name = 'localPluginRepository'
+            url = 'C:/dev/local-plugin-repository'
+        }
+    }
+}
 rootProject.name = 'fenxlib'
 
 include 'fenxlib.api'
@@ -10,11 +20,9 @@ include 'fenxlib.icons.standard'
 include 'fenxlib.skins.number'
 include 'fenxlib.test'
 include 'fenxlib.widgets.about'
-include 'fenxlib.widgets.blade'
 include 'fenxlib.widgets.filetree'
 include 'fenxlib.widgets.snackbar'
 include 'integration_tests:it.config.json'
 include 'integration_tests:it.core'
 include 'integration_tests:it.widgets.about'
-include 'integration_tests:it.widgets.blade'
 

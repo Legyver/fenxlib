@@ -3,20 +3,27 @@ package com.legyver.fenxlib.core.controls.factory;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.layout.BaseApplicationLayout;
+import com.legyver.fenxlib.core.layout.IApplicationLayout;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.stream.Stream;
 
 /**
  * Factory to create a Fenxlib Application Scene.
- * See {@link #makeContainer(Stage, BorderPane)} for customization
+ * See {@link #makeContainer(IApplicationLayout)} for customization
  */
-public class SceneFactory {
+public class SceneFactory<T extends IApplicationLayout> {
+    private static final Logger logger = LogManager.getLogger(SceneFactory.class);
+
     /**
      * The Fenxlib Main application stack pane
      */
@@ -32,40 +39,40 @@ public class SceneFactory {
 
     private final URL[] stylesheetUrls;
     private final Stage stage;
-    private final double width;
-    private final double height;
-
     /**
      * Construct a factory to create the scene with the appropriate size/width and load any stylesheets
      * @param stage the stage for the scene
-     * @param width the default width for the scene
-     * @param height the default height for the scene
      * @param stylesheetUrls any resources to be loaded that need to be incorporated into the scene
      */
-    public SceneFactory(Stage stage, double width, double height, URL... stylesheetUrls) {
+    public SceneFactory(Stage stage, URL... stylesheetUrls) {
         this.stylesheetUrls = stylesheetUrls;
         this.stage = stage;
-        this.width = width;
-        this.height = height;
     }
 
     /**
      * Make the scene
-     * @param root the main application layout border pane
+     * @param layout the main application layout
      * @return the scene
      */
-    public Scene makeScene(BorderPane root) {
-        Pane decorator = makeContainer(stage, root);
-        if (decorator == null) {
-            decorator = root;
-        }
-        Scene scene = new Scene(decorator, width, height);
+    public Scene makeScene(T layout) {
+        Pane decorator = makeContainer(layout);
+        Scene scene = new Scene(decorator, layout.getWidth(), layout.getHeight());
+        initStage(scene, layout);
         if (stylesheetUrls != null) {
             Stream.of(stylesheetUrls).map(url -> url.toExternalForm())
                     .forEach(styleSheet -> scene.getStylesheets().add(styleSheet));
         }
-
         return scene;
+    }
+
+    /**
+     * Set the scene and title properties on the stage
+     * @param scene the scene
+     * @param layout the layout
+     */
+    protected void initStage(Scene scene, T layout) {
+        stage.setScene(scene);
+        stage.titleProperty().bind(layout.titleProperty());
     }
 
     /**
@@ -74,18 +81,24 @@ public class SceneFactory {
      *  - The lowest layer on the stack is the Application Border pane passed in.
      *  - Above application layer is a layer to display application alerts
      *  - Above alert layer is a layer to display popups.
-     * @param stage the main application stage
-     * @param root the root node to show in the scene
+     * @param layout the root node to show in the scene
      * @return the main application container.
      */
-    public Pane makeContainer(Stage stage, BorderPane root) {
+    protected Pane makeContainer(T layout) {
         LocationContext mainLocationContext = new DefaultLocationContext(FENXLIB_MAIN_APPLICATION_PANE);
         AnchorPane mainPane = new AnchorPane();
         Fenxlib.register(mainLocationContext, mainPane);
 
-        mainPane.getChildren().addAll(root);
-
-
+        MenuBar menuBar = layout.getMenuBar();
+        if (menuBar != null) {
+            mainPane.getChildren().add(menuBar);
+        }
+        Pane applicationPane = layout.getMainPane();
+        if (applicationPane != null) {
+            mainPane.getChildren().add(applicationPane);
+        } else {
+            logger.warn("No main application pane supplied");
+        }
         return mainPane;
     }
 }

@@ -4,17 +4,24 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.SeparatorMenuItemOptions;
 import javafx.scene.control.SeparatorMenuItem;
 
 /**
  * Factory to create a SeparatorMenuItem control
  */
-public class SeparatorMenuItemFactory implements StyleableFactory<SeparatorMenuItem> {
+public class SeparatorMenuItemFactory implements StyleableFactory<SeparatorMenuItem, SeparatorMenuItemOptions> {
+
     @Override
-    public SeparatorMenuItem makeNode(LocationContext locationContext) throws CoreException {
+    public SeparatorMenuItem makeNode(LocationContext locationContext, SeparatorMenuItemOptions options) throws CoreException {
         SeparatorMenuItem separator = makeSeparatorMenuItem();
-        Fenxlib.register(locationContext, separator);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), separator);
         return separator;
+    }
+
+    @Override
+    public SeparatorMenuItemOptions newOptions() {
+        return new SeparatorMenuItemOptions();
     }
 
     /**

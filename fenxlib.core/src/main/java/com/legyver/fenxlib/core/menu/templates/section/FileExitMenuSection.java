@@ -1,21 +1,20 @@
 package com.legyver.fenxlib.core.menu.templates.section;
 
-import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
-import com.legyver.fenxlib.core.menu.section.MenuSectionOptions;
-import com.legyver.fenxlib.core.menu.templates.ExitMenuItemFactory;
+import com.legyver.fenxlib.core.menu.templates.ExitMenuItemAction;
+import com.legyver.fenxlib.core.menu.options.FileExitMenuOption;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
- * Menu section containing an Exit menu option factory.  See {@link ExitMenuItemFactory}
+ * Menu section containing an Exit menu option factory.  See {@link ExitMenuItemAction}
  */
-public class FileExitMenuSection implements MenuSection {
+public class FileExitMenuSection extends AbstractMenuSection implements MenuSection {
 
-	@Override
-	public List<IMenuItemFactory> getFactories(MenuSectionOptions menuSectionOptions) {
-		return Arrays.asList(new ExitMenuItemFactory("Exit"));
+	/**
+	 * Construct a MenuSection that contains a menu item to exit the application
+	 */
+	public FileExitMenuSection() {
+		super(Arrays.asList(new FileExitMenuOption("Exit")));
 	}
-
 }

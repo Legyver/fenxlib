@@ -9,7 +9,11 @@ public enum ApplicationRegions {
     /**
      * The menus region of the application
      */
-    MENUS("menus");
+    MENUS("menus"),
+    /**
+     * The center region of the menu bar
+     */
+    TITLE_BAR_CENTER("menubar_center");
     private final String name;
 
     ApplicationRegions(String name) {

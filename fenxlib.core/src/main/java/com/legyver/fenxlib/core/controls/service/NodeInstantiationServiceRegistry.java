@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
+import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import javafx.css.Styleable;
 import javafx.event.EventTarget;
 
@@ -47,18 +48,18 @@ public class NodeInstantiationServiceRegistry {
      * Instantiate a node based on the available {@link NodeInstantiationService} on the classpath.
      * The {@link DefaultNodeInstantiationService} is only used if another is not provided.
      * If none can load the type of node, the returned value is null
+     * @param <T> The type of the JavaFX control to load
      * @param klass the class of the control to instantiate
      * @param locationContext the location to register the control in
      * @param options options to use during control instantiation
-     * @param <T> The type of the JavaFX control to load
      * @return the node
      * @throws CoreException if there is an error constructing the control
      */
-    public <T extends Styleable> T instantiate(Class<T> klass, LocationContext locationContext, Map options) throws CoreException {
+    public <T extends Styleable> T instantiate(Class<T> klass, LocationContext locationContext, StyleableControlOptions<T> options) throws CoreException {
         NodeInstantiationService nodeInstantiationService = preferredLoaderForClass.get(klass);
 
         T result = null;
-        if (nodeInstantiationService ==  null) {
+        if (nodeInstantiationService == null) {
             //figure out the preferred loader for this class
             synchronized (this) {
                 int score = Integer.MAX_VALUE;
@@ -75,6 +76,9 @@ public class NodeInstantiationServiceRegistry {
                 }
                 preferredLoaderForClass.put(klass, nodeInstantiationService);
             }
+        }
+        if (result == null && nodeInstantiationService != null) {
+            result = nodeInstantiationService.instantiate(klass, locationContext, options);
         }
         if (result instanceof EventTarget) {
             Fenxlib.register(locationContext, (EventTarget) result);

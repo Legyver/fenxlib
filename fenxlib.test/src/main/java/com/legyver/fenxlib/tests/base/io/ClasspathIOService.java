@@ -16,7 +16,7 @@ import java.io.InputStream;
  */
 public class ClasspathIOService implements IOService {
     @Override
-    public InputStream loadInputStream(String name, boolean relativeToApplicationHome) throws CoreException {
+    public InputStream loadInputStream(String appName, String name, boolean relativeToApplicationHome) throws CoreException {
         InputStream inputStream = getClass().getResourceAsStream(name);
         if (inputStream == null) {
             inputStream = getClass().getResourceAsStream("/config/" + name);

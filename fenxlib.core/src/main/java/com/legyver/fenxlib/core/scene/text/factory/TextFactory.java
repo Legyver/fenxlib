@@ -1,33 +1,29 @@
 package com.legyver.fenxlib.core.scene.text.factory;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.core.scene.text.options.TextOptions;
 import javafx.scene.text.Text;
 
 /**
  * Factory to create a Text field
  */
-public class TextFactory implements StyleableFactory<Text> {
-    /**
-     * Constructor parameter for the text value to set by default on the text.
-     */
-    public static final String TEXT = "text";
-    private final String text;
+public class TextFactory implements StyleableFactory<Text, TextOptions> {
 
-    /**
-     * Construct a TextFactory to create Text with specified text
-     * @param text the text to use
-     */
-    public TextFactory(String text) {
-        this.text = text;
+    @Override
+    public Text makeNode(LocationContext locationContext, TextOptions textOptions) throws CoreException {
+        Text text = makeText();
+        text.setText(textOptions.getText());
+        Fenxlib.register(locationContext.decorateWith(textOptions.getName()), text);
+        return text;
     }
 
     @Override
-    public Text makeNode(LocationContext locationContext) throws CoreException {
-        Text text = makeText();
-        text.setText(this.text);
-        return text;
+    public TextOptions newOptions() {
+        return new TextOptions();
     }
 
     /**

@@ -15,16 +15,19 @@ import java.util.HashMap;
  */
 public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private final ApplicationConfigInstantiator appConfigInstantiator;
+	private final String appName;
 	private final String applicationConfigFileName;
 
 	/**
 	 * Construct an Application Lifecycle Hook to load the config.
 	 * By default this happens during {@link LifecyclePhase#PRE_INIT}
 	 * @param appConfigInstantiator instantiates the config if it does not exist
+	 * @param appName the name of the application used to determine the application home
 	 * @param applicationConfigFileName the config filename
 	 */
-	public LoadConfigApplicationLifecycleHook(ApplicationConfigInstantiator appConfigInstantiator, String applicationConfigFileName) {
+	public LoadConfigApplicationLifecycleHook(ApplicationConfigInstantiator appConfigInstantiator, String appName, String applicationConfigFileName) {
 		this.appConfigInstantiator = appConfigInstantiator;
+		this.appName = appName;
 		this.applicationConfigFileName = applicationConfigFileName;
 	}
 
@@ -37,7 +40,7 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 	public ExecutableHook getExecutableHook() {
 		return () -> {
 			ConfigServiceRegistry.getInstance().setConfigServiceInitializer(configService -> configService.init(appConfigInstantiator));
-			FileAwareApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(applicationConfigFileName);
+			FileAwareApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(appName, applicationConfigFileName);
 			if (applicationConfig == null) {
 				applicationConfig = (FileAwareApplicationConfig) appConfigInstantiator.init(new HashMap());
 			}

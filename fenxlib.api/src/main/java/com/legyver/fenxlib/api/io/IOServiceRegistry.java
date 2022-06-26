@@ -3,10 +3,8 @@ package com.legyver.fenxlib.api.io;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.files.DefaultFileOptions;
 import com.legyver.fenxlib.api.files.FileOptions;
-import com.legyver.fenxlib.api.files.marshal.FileMarshalService;
 import com.legyver.fenxlib.api.files.marshal.FileMarshalServiceRegistry;
 import com.legyver.fenxlib.api.io.content.OutputContentWrapper;
-import com.legyver.fenxlib.api.io.content.StringContentWrapper;
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,19 +45,21 @@ public class IOServiceRegistry {
 
     /**
      * Acquire an input stream from a specified source file/resource
+     *
+     * @param appName the name of the application used in determining the application home
      * @param name the name of the file/resource
      * @param relativeToApplicationHome true if the file path (name) should be resolved relative to the application home
      * @return the input stream of the file/resources
      * @throws CoreException if there is an error determining a loader to use, or loading the input stream
      */
-    public InputStream loadInputStream(String name, boolean relativeToApplicationHome) throws CoreException {
+    public InputStream loadInputStream(String appName, String name, boolean relativeToApplicationHome) throws CoreException {
         InputStream loaded = null;
         CoreException thrownException = null;
         for (Iterator<IOService> it = orderedServiceDelegator.iterator(); it.hasNext() && loaded == null; ) {
             IOService service = it.next();
             logger.debug("Trying to load file {} using {} with priority {}.", name, service, service.order());
             try {
-                loaded = service.loadInputStream(name, relativeToApplicationHome);
+                loaded = service.loadInputStream(appName, name, relativeToApplicationHome);
             } catch (CoreException coreException) {
                 logger.warn(service + " failed to load file " + name + ". Perhaps use a lower preference for this implementation?", coreException);
                 thrownException = coreException;

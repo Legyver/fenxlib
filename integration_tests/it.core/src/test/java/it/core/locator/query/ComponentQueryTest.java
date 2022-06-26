@@ -4,17 +4,21 @@ import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.api.locator.query.ComponentQuery;
-import com.legyver.fenxlib.core.layout.factory.ApplicationBorderPaneLayoutFactory;
-import com.legyver.fenxlib.core.layout.factory.StackPaneRegionFactory;
-import com.legyver.fenxlib.core.layout.factory.TopRegionFactory;
-import com.legyver.fenxlib.core.layout.options.*;
-import com.legyver.fenxlib.core.menu.factory.MenuFactory;
-import com.legyver.fenxlib.core.scene.controls.factory.ListViewFactory;
+import com.legyver.fenxlib.api.regions.ApplicationRegions;
+import com.legyver.fenxlib.core.controls.ControlsFactory;
+import com.legyver.fenxlib.core.controls.factory.SceneFactory;
+import com.legyver.fenxlib.core.layout.IApplicationLayout;
+import com.legyver.fenxlib.core.layout.SinglePaneApplicationLayout;
+import com.legyver.fenxlib.core.menu.templates.MenuBuilder;
+import com.legyver.fenxlib.core.menu.templates.section.FileExitMenuSection;
 import com.legyver.fenxlib.core.scene.controls.factory.TextFieldFactory;
 import com.legyver.fenxlib.tests.base.FenxlibTest;
-import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -25,38 +29,42 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ComponentQueryTest extends FenxlibTest {
 
 	@Test
-	public void findOnlyMenuBarComponent() throws Exception {
-		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
-				.top(new RegionInitializationOptions.Builder()
-					.displayContentByDefault()
-					.factory(new TopRegionFactory(
-						new LeftMenuOptions(
-								new MenuFactory("File")
-						),
-						new CenterOptions(new TextFieldFactory(null, null, null, null)),
-						new RightMenuOptions()))
-				)
+	public void findOnlyMenuInMenuBar() throws Exception {
+		SinglePaneApplicationLayout layout = new SinglePaneApplicationLayout.SinglePaneApplicationLayoutBuilder()
+				.menuBar(new MenuBar(new MenuBuilder()
+						.name("File")
+						.menuSection(new FileExitMenuSection())
+						.build()))
 				.build();
-		new ApplicationBorderPaneLayoutFactory(options).makeBorderPaneWithContent();
+		SceneFactory sceneFactory = new TestSceneFactory();
+		sceneFactory.makeScene(layout);
 
-		Optional<Node> node = new ComponentQuery.QueryBuilder()
-				.inRegion(BorderPaneInitializationOptions.REGION_TOP)
-				.only().execute();
-		assertThat(node.isPresent()).isTrue();
-		assertThat(node.get()).isInstanceOf(TextField.class);
+		Optional<Menu> fileMenu = new ComponentQuery.QueryBuilder()
+				.inRegion(ApplicationRegions.MENUS.getName())
+				.typed(Menu.class)
+				.execute();
+
+		assertThat(fileMenu.isPresent()).isTrue();
+		Menu menu = fileMenu.get();
+		assertThat(menu.getText()).isEqualTo("File");
 	}
 
 	@Test
 	public void findByType() throws Exception {
-		BorderPaneInitializationOptions options = new BorderPaneInitializationOptions.Builder()
-				.center(new RegionInitializationOptions.Builder()
-						.factory(new StackPaneRegionFactory(true, new ListViewFactory(true)))
-				).build();
-		new ApplicationBorderPaneLayoutFactory(options).makeBorderPaneWithContent();
+		ListView findMe = ControlsFactory.make(ListView.class, new DefaultLocationContext(SceneFactory.FENXLIB_MAIN_APPLICATION_PANE));
+
+		AnchorPane anchorPane = new AnchorPane();
+		anchorPane.getChildren().add(findMe);
+
+		SinglePaneApplicationLayout layout = new SinglePaneApplicationLayout.SinglePaneApplicationLayoutBuilder()
+				.pane(anchorPane)
+				.build();
+		SceneFactory sceneFactory = new TestSceneFactory();
+		sceneFactory.makeScene(layout);
 
 		Optional<ListView> node = new ComponentQuery.QueryBuilder()
-				.inRegion(BorderPaneInitializationOptions.REGION_CENTER)
-				.type(ListView.class).execute();
+				.inRegion(SceneFactory.FENXLIB_MAIN_APPLICATION_PANE)
+				.typed(ListView.class).execute();
 		assertThat(node.isPresent()).isTrue();
 		assertThat(node.get()).isInstanceOf(ListView.class);
 	}
@@ -67,14 +75,26 @@ public class ComponentQueryTest extends FenxlibTest {
 		LocationContext decorated = new LocationContextDecorator(start);
 		decorated.setName("here");
 
-		TextFieldFactory<TextField> tff = new TextFieldFactory<>(null, null, null, null);
-		TextField tf1 = tff.makeNode(decorated);
+		TextField tf1 = ControlsFactory.make(TextField.class, decorated);
 
 		Optional<TextField> node = new ComponentQuery.QueryBuilder()
 				.fromLocation(decorated)
-				.only().execute();
+				.build().execute();
 		assertThat(node.isPresent()).isTrue();
 		assertThat(node.get()).isEqualTo(tf1);
 	}
 
+	private class TestSceneFactory extends SceneFactory {
+		/**
+		 * Construct a factory to create the scene without loading any stylesheets or applying settings to a stage
+		 */
+		public TestSceneFactory() {
+			super(null, null);
+		}
+
+		@Override
+		protected void initStage(Scene scene, IApplicationLayout layout) {
+			//noop
+		}
+	}
 }

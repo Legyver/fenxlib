@@ -4,44 +4,21 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXPasswordFieldOptions;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 
 /**
  * Factory to product a MFXPasswordField
  */
-public class MFXPasswordFieldFactory implements NodeFactory<MFXPasswordField> {
-    /**
-     * Constructor param to specify the default text for a password field
-     */
-    public static final String CONSTRUCTOR_PARAM_TEXT = "text";
-    /**
-     * Constructor param to specify the prompt text for a password field
-     */
-    public static final String CONSTRUCTOR_PARAM_PROMPT_TEXT = "promptText";
-    /**
-     * Constructor param to specify the floating text for a password field
-     */
-    public static final String CONSTRUCTOR_PARAM_FLOAT_TEXT = "floatText";
-
-    private final String text;
-    private final String promptText;
-    private final String floatingText;
-
-    /**
-     * Construct a factory to produce a password field
-     * @param text the default text
-     * @param promptText the prompt text
-     * @param floatingText the floating text
-     */
-    public MFXPasswordFieldFactory(String text, String promptText, String floatingText) {
-        this.text = text;
-        this.promptText = promptText;
-        this.floatingText = floatingText;
-    }
+public class MFXPasswordFieldFactory implements NodeFactory<MFXPasswordField, MFXPasswordFieldOptions> {
 
     @Override
-    public MFXPasswordField makeNode(LocationContext locationContext) throws CoreException {
+    public MFXPasswordField makeNode(LocationContext locationContext, MFXPasswordFieldOptions options) throws CoreException {
         MFXPasswordField passwordField;
+        String text = options.getText();
+        String promptText = options.getPromptText();
+        String floatingText = options.getFloatingText();
         if (text != null && promptText != null && floatingText != null) {
             passwordField = new MFXPasswordField(text, promptText, floatingText);
         } else if (text != null && promptText != null) {
@@ -53,5 +30,44 @@ public class MFXPasswordFieldFactory implements NodeFactory<MFXPasswordField> {
         }
         Fenxlib.register(locationContext, passwordField);
         return passwordField;
+    }
+
+    @Override
+    public MFXPasswordFieldOptions newOptions() {
+        return new MFXPasswordFieldOptions();
+    }
+
+    public static class Options extends BaseControlBuilder<Options> {
+        private String text;
+        private String promptText;
+        private String floatingText;
+
+        public Options text(String text) {
+            this.text = text;
+            return me();
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public Options promptText(String promptText) {
+            this.promptText = promptText;
+            return me();
+        }
+
+
+        public String getPromptText() {
+            return promptText;
+        }
+
+        public Options floatingText(String floatingText) {
+            this.floatingText = floatingText;
+            return me();
+        }
+
+        public String getFloatingText() {
+            return floatingText;
+        }
     }
 }

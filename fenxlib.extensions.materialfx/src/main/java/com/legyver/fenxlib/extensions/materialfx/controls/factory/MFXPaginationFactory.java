@@ -4,37 +4,20 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXPaginationOptions;
 import io.github.palexdev.materialfx.controls.MFXPagination;
 
 /**
  * Factory to produce a MFXPagination control
  */
-public class MFXPaginationFactory implements NodeFactory<MFXPagination> {
-    /**
-     * Param to specify the maxpage attribute of a MFXPagination control
-     */
-    public static final String CONSTRUCTOR_PARAM_MAX_PAGE = "maxPage";
-    /**
-     * Param to specify the pagesToShow attribute of a MFXPagination control
-     */
-    public static final String CONSTRUCTOR_PARAM_PAGES_TO_SHOW = "pagesToShow";
-
-    private final Integer maxPage;
-    private final Integer pagesToShow;
-
-    /**
-     * Construct a factory to produce a MFXPagination
-     * @param maxPage the max page to show
-     * @param pagesToShow the pages to show
-     */
-    public MFXPaginationFactory(Integer maxPage, Integer pagesToShow) {
-        this.maxPage = maxPage;
-        this.pagesToShow = pagesToShow;
-    }
+public class MFXPaginationFactory implements NodeFactory<MFXPagination, MFXPaginationOptions> {
 
     @Override
-    public MFXPagination makeNode(LocationContext locationContext) throws CoreException {
+    public MFXPagination makeNode(LocationContext locationContext, MFXPaginationOptions options) throws CoreException {
         MFXPagination pagination;
+        Integer maxPage = options.getMaxPage();
+        Integer pagesToShow = options.getPagesToShow();
         if (maxPage != null && pagesToShow != null) {
             pagination = new MFXPagination(maxPage, pagesToShow);
         } else if (maxPage != null) {
@@ -42,7 +25,12 @@ public class MFXPaginationFactory implements NodeFactory<MFXPagination> {
         } else {
             pagination = new MFXPagination();
         }
-        Fenxlib.register(locationContext, pagination);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), pagination);
         return pagination;
+    }
+
+    @Override
+    public MFXPaginationOptions newOptions() {
+        return new MFXPaginationOptions();
     }
 }

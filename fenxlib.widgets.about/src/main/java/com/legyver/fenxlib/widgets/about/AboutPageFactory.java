@@ -13,43 +13,11 @@ import java.util.Properties;
 /**
  * Factory to create an AboutPage
  */
-public class AboutPageFactory implements StyleableFactory<AboutPage> {
-	private final String intro;
-	private final String gist;
-	private final String additionalInfo;
-	private final Properties licenseProperties;
-	private final Properties buildProperties;
-	private final Properties copyrightProperties;
-
-	/**
-	 * Construct an AboutPageFactory
-	 * @param intro the first paragraph
-	 * @param gist the second paragraph
-	 * @param additionalInfo the third paragraph
-	 * @param licenseProperties properties file containing any additional license information
-	 * @param buildProperties properties file containing application build information
-	 * @param copyrightProperties properties file containing application copyright information
-	 */
-	public AboutPageFactory(String intro, String gist, String additionalInfo, Properties licenseProperties, Properties buildProperties, Properties copyrightProperties) {
-		this.intro = intro;
-		this.gist = gist;
-		this.additionalInfo = additionalInfo;
-		this.licenseProperties = licenseProperties;
-		this.buildProperties = buildProperties;
-		this.copyrightProperties = copyrightProperties;
-	}
-
-	/**
-	 * Construct an AboutPageFactory
-	 * @param aboutPageOptions the options to use
-	 */
-	public AboutPageFactory(AboutPageOptions aboutPageOptions) {
-		this(aboutPageOptions.getIntro(), aboutPageOptions.getGist(), aboutPageOptions.getAdditionalInfo(), aboutPageOptions.getLicenseProperties(), aboutPageOptions.getBuildProperties(), aboutPageOptions.getCopyrightProperties());
-	}
+public class AboutPageFactory implements StyleableFactory<AboutPage, AboutPageOptions> {
 
 	@Override
-	public AboutPage makeNode(LocationContext locationContext) throws CoreException {
-		Map<String, Object> map = PropertyMap.of(buildProperties, copyrightProperties);
+	public AboutPage makeNode(LocationContext locationContext, AboutPageOptions aboutPageOptions) throws CoreException {
+		Map<String, Object> map = PropertyMap.of(aboutPageOptions.getBuildProperties(), aboutPageOptions.getCopyrightProperties());
 		PropertyGraph propertyGraph = new PropertyGraph(map);
 		propertyGraph.runGraph(new SlelOperationContext(".format"));
 
@@ -57,6 +25,17 @@ public class AboutPageFactory implements StyleableFactory<AboutPage> {
 		String version = (String) map.get("build.version");
 		String copyright = (String) map.get("copyright");
 
-		return new AboutPage(intro, gist, additionalInfo, version, buildDate, copyright, licenseProperties);
+		return new AboutPage(
+				aboutPageOptions.getIntro(),
+				aboutPageOptions.getGist(),
+				aboutPageOptions.getAdditionalInfo(),
+				version, buildDate, copyright,
+				aboutPageOptions.getLicenseProperties()
+		);
+	}
+
+	@Override
+	public AboutPageOptions newOptions() {
+		return new AboutPageOptions.Builder(null).build();
 	}
 }

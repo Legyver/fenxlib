@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
+import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookMap;
@@ -19,12 +20,12 @@ public class LifecycleHookServiceImpl implements LifecycleHookService {
      * @param lifecycleHookMap the map of hooks to add them to
      */
     protected void addDefaultHooks(ApplicationOptions applicationOptions, LifecycleHookMap lifecycleHookMap) {
+        String appName = applicationOptions.getApplicationName();
         String applicationConfigName = applicationOptions.getApplicationConfigName();
 
         lifecycleHookMap.computeIfAbsent(InitLoggingApplicationLifecycleHook.class, name -> {
             InitLoggingApplicationLifecycleHook result = null;
             if (applicationOptions.isUsesLogging()) {
-                String appName = applicationOptions.getApplicationName();
                 result = new InitLoggingApplicationLifecycleHook(appName);
             }
             return result;
@@ -32,7 +33,7 @@ public class LifecycleHookServiceImpl implements LifecycleHookService {
 
         ApplicationConfigInstantiator appConfigInstantiator = applicationOptions.getAppConfigInstantiator();
         lifecycleHookMap.computeIfAbsent(LoadConfigApplicationLifecycleHook.class, name -> {
-            return new LoadConfigApplicationLifecycleHook(appConfigInstantiator, applicationConfigName);
+            return new LoadConfigApplicationLifecycleHook(appConfigInstantiator, appName, applicationConfigName);
         });
         //save config Mixin
         if (applicationOptions.isUsesAutoSaveConfig()) {

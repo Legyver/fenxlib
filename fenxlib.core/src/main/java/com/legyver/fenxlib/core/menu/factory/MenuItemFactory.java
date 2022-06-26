@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.scene.controls.options.MenuItemOptions;
 import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,38 +13,21 @@ import javafx.scene.control.MenuItem;
 /**
  * Factory to construct a menu item
  */
-public class MenuItemFactory implements IMenuItemFactory {
-    /**
-     * Constructor param when passing the menu item name via a map
-     */
-    public static final String PARAM_NAME = "name";
-    /**
-     * Constructor param when passing the menu item event handler via a map
-     */
-    public static final String PARAM_ACTION = "action";
+public class MenuItemFactory implements IMenuItemFactory<MenuItem, MenuItemOptions> {
 
-    private final String name;
-    private final EventHandler<ActionEvent> action;
+    @Override
+    public MenuItem makeNode(LocationContext locationContext, MenuItemOptions options) throws CoreException {
+        MenuItem menuItem = makeMenuItem();
+        menuItem.setText(options.getText());
+        menuItem.setOnAction(options.getEventHandler());
 
-    /**
-     * Construct a factory to create a menu item
-     * @param name the name of the menu item
-     * @param action the action to take place when menu item is selected
-     */
-    public MenuItemFactory(String name, EventHandler<ActionEvent> action) {
-        this.name = name;
-        this.action = action;
+        Fenxlib.register(locationContext.decorateWith(options.getName()), menuItem);
+        return menuItem;
     }
 
     @Override
-    public Styleable makeNode(LocationContext locationContext) throws CoreException {
-        MenuItem menuItem = makeMenuItem();
-        menuItem.setText(name);
-        menuItem.setOnAction(action);
-        LocationContextDecorator decorator = new LocationContextDecorator(locationContext);
-        decorator.setName(name);
-        Fenxlib.register(decorator, menuItem);
-        return menuItem;
+    public MenuItemOptions newOptions() {
+        return new MenuItemOptions();
     }
 
 
@@ -54,4 +38,5 @@ public class MenuItemFactory implements IMenuItemFactory {
     protected MenuItem makeMenuItem() {
         return new MenuItem();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.skins.number.locator.query.bindings;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.query.IRegionDiscriminator;
 import com.legyver.fenxlib.core.locator.query.bindings.BaseBinding;
 import com.legyver.fenxlib.skins.number.SkinnableNumberField;
@@ -20,7 +21,7 @@ public class SkinnableNumberFieldBinding extends BaseBinding {
 	 * @param query the query that will locate the SkinnableNumberField
 	 * @param named the name of the skinnable number field
 	 */
-	public static void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) {
+	public static void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) throws CoreException {
 		Optional text = finalizeQuery(query, named).execute();
 		TextField textField = (TextField) text.get();
 		if (textField instanceof SkinnableNumberField) {

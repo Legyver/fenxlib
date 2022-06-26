@@ -1,19 +1,22 @@
 package com.legyver.fenxlib.core.locator.query;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.query.INamedComponentQuery;
 import com.legyver.fenxlib.api.locator.query.ITypedComponentQuery;
 import com.legyver.fenxlib.api.locator.query.QueryableComponentRegistry;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.visitor.LocationKeyVisitor;
+import com.legyver.fenxlib.core.locator.IPropertyAware;
 import com.legyver.fenxlib.core.util.GuidUtil;
+import com.legyver.fenxlib.core.util.PropertyMapExtractor;
 import com.legyver.utils.nippe.Base;
 import com.legyver.utils.nippe.Step;
+import javafx.collections.ObservableMap;
 import javafx.event.EventTarget;
 import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Component registry handling the registration and querying of components.
@@ -27,6 +30,7 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 
 	@Override
 	public <T extends EventTarget> void register(LocationContext context, T target, boolean typedOnly) {
+		ObservableMap<Object, Object> propertyMap = new PropertyMapExtractor(target).get();
 		String key;
 		if (context == null) {
 			key = "";
@@ -37,15 +41,26 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 			}
 			if (target instanceof Node) {
 				GuidUtil.setGuid((Node) target, key);
+			} else if (target instanceof IPropertyAware) {
+				GuidUtil.setGuid((IPropertyAware) target, key);
 			}
+			propertyMap.put(LOCATION_CONTEXT_PROPERTY, context);
 		}
 
-		TypedCtx typed = typedNodes.get(key);
-		if (typed == null) {
-			typed = new TypedCtx();
-			typedNodes.put(key, typed);
+		//typed are referenced by parent location
+		int lastSeparator = key.lastIndexOf(LocationKeyVisitor.KEY_SEPARATOR);
+		if (lastSeparator > 0) {
+			String parentKey = key.substring(0, lastSeparator);
+			String simple =  key.substring(lastSeparator);
+			TypedCtx typed = typedNodes.get(key);
+			if (typed == null) {
+				typed = new TypedCtx();
+				typedNodes.put(parentKey, typed);
+			}
+			List<EventTarget> targetList = typed.typedNodes.computeIfAbsent(target.getClass(), x -> new ArrayList<>());
+			targetList.add(target);
+			propertyMap.put(LOCATION_CONTEXT_SIMPLE_NAME, simple);
 		}
-		typed.typedNodes.put(target.getClass(), target);
 	}
 
 	/**
@@ -91,9 +106,21 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 	}
 
 	@Override
-	public <T extends EventTarget> T get(ITypedComponentQuery query) {
-		return (T) new Step<>(new Base<>(typedNodes.get(query.getQueryString())),
-				typed -> typed.typedNodes.get(query.getType())).execute();
+	public <T extends EventTarget> T get(ITypedComponentQuery query) throws CoreException {
+		return CoreException.unwrap(() -> (T) new Step<>(new Base<>(
+				typedNodes.get(query.getQueryString())
+		), typed -> CoreException.wrap(() -> {
+					List<EventTarget> targetList = typed.typedNodes.get(query.getType());
+					EventTarget result = null;
+					if (targetList != null) {
+						if (targetList.size() != 1) {
+							throw new CoreException("Unable to locate item. Too many candidates: " + targetList.size());
+						} else {
+							result = targetList.get(0);
+						}
+					}
+					return result;
+				})).execute());
 	}
 
 	@Override
@@ -107,14 +134,16 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 		EventTarget node = nodes.remove(key);
 		TypedCtx typed = typedNodes.get(key);
 		if (typed != null && node != null) {
-			typed.typedNodes.remove(node.getClass());
+			List<EventTarget> targetList = typed.typedNodes.get(node.getClass());
+			if (targetList != null) {
+				targetList.remove(node);
+			}
 		}
 	}
 
 	private class TypedCtx {
 
-		private final Map<Class, EventTarget> typedNodes = new HashMap<>();
+		private final Map<Class, List<EventTarget>> typedNodes = new HashMap<>();
 
 	}
-
 }

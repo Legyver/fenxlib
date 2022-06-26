@@ -19,10 +19,10 @@ module com.legyver.fenxlib.core {
 	requires transitive com.legyver.utils.nippe;
 	requires transitive com.legyver.fenxlib.api;
     requires com.legyver.utils.mapadapt;
+    requires org.apache.commons.lang3;
 
     exports com.legyver.fenxlib.core.context;
 	exports com.legyver.fenxlib.core.controls;
-	exports com.legyver.fenxlib.core.controls.decorator;
 	exports com.legyver.fenxlib.core.controls.factory;
 	exports com.legyver.fenxlib.core.controls.popup;
 	exports com.legyver.fenxlib.core.controls.service;
@@ -55,6 +55,9 @@ module com.legyver.fenxlib.core {
 	exports com.legyver.fenxlib.core.util;
     exports com.legyver.fenxlib.core.web;
 	exports com.legyver.fenxlib.core.util.map;
+    exports com.legyver.fenxlib.core.controls.options;
+	exports com.legyver.fenxlib.core.controls.builder;
+	exports com.legyver.fenxlib.core.scene.controls.options;
 
 	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;

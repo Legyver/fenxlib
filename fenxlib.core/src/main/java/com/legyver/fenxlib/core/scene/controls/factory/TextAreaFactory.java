@@ -1,6 +1,10 @@
 package com.legyver.fenxlib.core.scene.controls.factory;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.scene.controls.options.TextAreaOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextArea;
@@ -8,23 +12,7 @@ import javafx.scene.control.TextArea;
 /**
  * Factory to create a TextArea control
  */
-public class TextAreaFactory<T extends TextArea> extends AbstractInputTextControlsFactory<T> implements NodeFactory<T> {
-
-    /**
-     * Construct a factory to produce a Text Area
-     * @param textProperty the text property to bind to (if any)
-     * @param defaultText the default text (if any)
-     * @param isEditableProperty property to bind editability to
-     * @param isEditable flag that determines if a field is editable
-     */
-    public TextAreaFactory(StringProperty textProperty, String defaultText, BooleanProperty isEditableProperty, Boolean isEditable) {
-        super(textProperty, defaultText, isEditableProperty, isEditable);
-    }
-
-    @Override
-    protected T makeInputControl() {
-        return (T) makeTextArea();
-    }
+public class TextAreaFactory implements NodeFactory<TextArea, TextAreaOptions> {
 
     /**
      * Factory method to instantiate a TextArea.
@@ -32,5 +20,33 @@ public class TextAreaFactory<T extends TextArea> extends AbstractInputTextContro
      */
     protected TextArea makeTextArea() {
         return new TextArea();
+    }
+
+    @Override
+    public TextArea makeNode(LocationContext locationContext, TextAreaOptions options) throws CoreException {
+        TextArea textControl = makeTextArea();
+
+        ApplicationContext.getComponentRegistry().register(locationContext, textControl);
+        if (options.getEditableProperty() != null) {
+            textControl.editableProperty().bindBidirectional(options.getEditableProperty());
+        }
+        if (options.isEditable() != null) {
+            textControl.setEditable(options.isEditable());
+        }
+
+        if (options.getTextProperty() != null) {
+            textControl.textProperty().bindBidirectional(options.getTextProperty());
+        }
+
+        if (options.getText() != null) {
+            textControl.setText(options.getText());
+        }
+
+        return textControl;
+    }
+
+    @Override
+    public TextAreaOptions newOptions() {
+        return new TextAreaOptions();
     }
 }

@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.locator.query.bindings;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.query.IRegionDiscriminator;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.DatePicker;
@@ -18,7 +19,7 @@ public class DatePickerBinding extends BaseBinding {
 	 * @param query the query that identifies the date-picker
 	 * @param named the (optional) name of the date-picker
 	 */
-	public static void bindDatePicker(ObjectProperty<LocalDate> property, IRegionDiscriminator query, String named) {
+	public static void bindDatePicker(ObjectProperty<LocalDate> property, IRegionDiscriminator query, String named) throws CoreException {
 		Optional<DatePicker> picker = finalizeQuery(query, named).execute();
 		LocalDate value = property.get();
 		property.bind(picker.get().valueProperty());

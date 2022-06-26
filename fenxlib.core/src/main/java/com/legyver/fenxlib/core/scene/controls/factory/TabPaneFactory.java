@@ -1,7 +1,12 @@
 package com.legyver.fenxlib.core.scene.controls.factory;
 
-import com.legyver.fenxlib.core.controls.factory.AbstractTabPaneFactory;
-import com.legyver.fenxlib.core.controls.factory.TabContentFactory;
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.scene.controls.options.TabPaneOptions;
+import com.legyver.fenxlib.core.util.LocationContextOperator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -10,46 +15,38 @@ import java.util.List;
 /**
  * Factory to create a TabPane
  */
-public class TabPaneFactory extends AbstractTabPaneFactory<TabPane> {
-
-	/**
-	 * Construct a TabPaneFactory to create a TabPane with Tabs supplied by the child factories
-	 * @param name the name for the TabPane used to give context when registering child nodes
-	 * @param contentFactory  the content factories for any tabs
-	 * @deprecated Use ControlsFactory.make(TabPane.class, MapBuilder.of(TabPane.TABS, yourTabsHere).build())
-	 */
-	@Deprecated
-	public TabPaneFactory(String name, TabContentFactory<Tab>... contentFactory) {
-		super(name, contentFactory);
-	}
-
-	/**
-	 * Construct a TabPaneFactory to create a TabPane with Tabs supplied by the child factories
-	 * @param contentFactory factories producing the Tab content
-	 * @deprecated Use ControlsFactory.make(TabPane.class, MapBuilder.of(TabPane.TABS, yourTabsHere).build())
-	 */
-	@Deprecated
-	public TabPaneFactory(TabContentFactory<Tab>... contentFactory) {
-		super(contentFactory);
-	}
-
-
-	/**
-	 * Construct an AbstractTabPaneFactory wrapping optional tab content.
-	 * Note: the name defaults to {@link #DEFAULT_NAME}
-	 * @param tabs any tabs to be included in this tab pane
-	 */
-	public TabPaneFactory(List<? extends Tab> tabs) {
-		super(tabs);
-	}
+public class TabPaneFactory implements NodeFactory<TabPane, TabPaneOptions> {
 
 	/**
 	 * Create a new TabPane
 	 * @return a new TabPane
 	 */
-	@Override
 	protected TabPane newTabPane() {
 		return new TabPane();
 	}
 
+	@Override
+	public TabPane makeNode(LocationContext locationContext, TabPaneOptions options) throws CoreException {
+		TabPane tabPane = newTabPane();
+
+		LocationContextDecorator decoratedContext = new LocationContextDecorator(locationContext);
+		decoratedContext.setName(options.getName());
+		ApplicationContext.getComponentRegistry().register(decoratedContext, tabPane);
+
+		List<Tab> tabs = options.getTabs();
+		if (tabs != null) {
+			for (int i = 0; i < tabs.size(); i++) {
+				Tab tab = tabs.get(i);
+				new LocationContextOperator(tab).reRegister(decoratedContext, "tab_" + options.getName() + "_content_" + i);
+			}
+			tabPane.getTabs().addAll(tabs);
+		}
+
+		return tabPane;
+	}
+
+	@Override
+	public TabPaneOptions newOptions() {
+		return new TabPaneOptions();
+	}
 }

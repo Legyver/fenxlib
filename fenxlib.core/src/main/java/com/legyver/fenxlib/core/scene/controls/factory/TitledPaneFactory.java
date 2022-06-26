@@ -1,10 +1,13 @@
 package com.legyver.fenxlib.core.scene.controls.factory;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.controls.factory.TitledPaneContentFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.scene.controls.options.TitledPaneOptions;
+import com.legyver.fenxlib.core.util.LocationContextOperator;
+import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -13,44 +16,7 @@ import javafx.scene.layout.Region;
  * Factory to create a TitledPane
  *
  */
-public class TitledPaneFactory<T extends Pane> implements StyleableFactory<TitledPane> {
-	/**
-	 * Constructor parameter to indicate the title of the pane
-	 */
-	public static final String TITLE = "title";
-	/**
-	 * Constructor parameter to specify the content of the pane
-	 */
-	public static final String CONTENT = "content";
-
-	private final String title;
-	private final TitledPaneContentFactory<T> contentFactory;
-	private final T content;
-
-	/**
-	 * Construct a TitledPaneFactory with a given title and contentFactory
-	 * @param title the title of the TitledPane
-	 * @param contentFactory content factory that will create the content of the TitledPane
-	 * @deprecated Use {@link com.legyver.fenxlib.core.controls.ControlsFactory#make(Class, java.util.Map)}
-	 * This ultimately designates to {@link TitledPaneFactory(String, T)}   
-	 */
-	@Deprecated
-	public TitledPaneFactory(String title, TitledPaneContentFactory<T> contentFactory) {
-		this.title = title;
-		this.contentFactory = contentFactory;
-		this.content = null;
-	}
-
-	/**
-	 * Construct a factory to create a TitledPane with the specified title and content.
-	 * @param title the title of the pane
-	 * @param content the content of the pane
-	 */
-	public TitledPaneFactory(String title, T content) {
-		this.title = title;
-		this.content = content;
-		this.contentFactory = null;
-	}
+public class TitledPaneFactory<T extends Pane> implements StyleableFactory<TitledPane, TitledPaneOptions> {
 
 	/**
 	 * Make a TitledPane.
@@ -60,25 +26,28 @@ public class TitledPaneFactory<T extends Pane> implements StyleableFactory<Title
 	 * @throws CoreException if there is an Exception raised by the content factory
 	 */
 	@Override
-	public TitledPane makeNode(LocationContext locationContext) throws CoreException {
-		LocationContextDecorator decorated = new LocationContextDecorator(locationContext);
-		decorated.setName(title);
-		Pane content;
-		if (this.content == null && contentFactory != null) {
-			content = contentFactory.makeNode(decorated);
-		} else {
-			content = this.content;
-		}
+	public TitledPane makeNode(LocationContext locationContext, TitledPaneOptions options) throws CoreException {
+		LocationContext decorated = locationContext.decorateWith(options.getName());
+		Node content = options.getContent();
 		if (content != null) {
-			Region spacer = new Region();
-			spacer.setMinSize(200, 10);
-			content.getChildren().add(spacer);
+			if (content instanceof Pane) {
+				Region spacer = new Region();
+				spacer.setMinSize(200, 10);
+				((Pane) content).getChildren().add(spacer);
+			}
+			new LocationContextOperator(content).reRegister(decorated, "titledpane_" + options.getName() + "_content");
 		}
 
 		TitledPane titledPane = makeTitledPane();
-		titledPane.setText(title);
-		titledPane.setContent(content);
+		titledPane.setText(options.getText());
+		titledPane.setContent(options.getContent());
+		Fenxlib.register(decorated, titledPane);
 		return titledPane;
+	}
+
+	@Override
+	public TitledPaneOptions newOptions() {
+		return new TitledPaneOptions();
 	}
 
 	/**

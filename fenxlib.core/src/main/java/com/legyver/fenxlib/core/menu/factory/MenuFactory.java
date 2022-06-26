@@ -6,40 +6,28 @@ import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.scene.controls.options.MenuOptions;
 import javafx.scene.control.Menu;
 
 /**
  * Factory to create a menu
  */
-public class MenuFactory implements StyleableFactory<Menu> {
-
-	/**
-	 * Construct param to pass the name to the factory in the map
-	 */
-	public static final String PARAM_NAME = "name";
-	private final String name;
-
-	/**
-	 * Construct a factory to create a menu with the menu items provided by the wrapped factories
-	 * @param name the name of the menu
-	 */
-	public MenuFactory(String name) {
-		this.name = name;
-	}
+public class MenuFactory implements StyleableFactory<Menu, MenuOptions> {
 
 	@Override
-	public Menu makeNode(LocationContext locationContext) throws CoreException {
-		Menu menu = new Menu(name);
+	public Menu makeNode(LocationContext locationContext, MenuOptions options) throws CoreException {
+		Menu menu = new Menu(options.getText());
 		if (locationContext == null || locationContext.getName() == null) {
 			locationContext = new DefaultLocationContext(ApplicationRegions.MENUS.getName());
 		}
 
-		LocationContextDecorator decorator = new LocationContextDecorator(locationContext);
-		decorator.setName(name);
-
-		ApplicationContext.getComponentRegistry().register(decorator, menu);
+		ApplicationContext.getComponentRegistry().register(locationContext.decorateWith(options.getName()), menu);
 		return menu;
+	}
+
+	@Override
+	public MenuOptions newOptions() {
+		return new MenuOptions();
 	}
 
 	/**

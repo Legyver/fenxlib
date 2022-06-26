@@ -4,17 +4,24 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.scene.controls.options.ColorPickerOptions;
 import javafx.scene.control.ColorPicker;
 
 /**
  * Factory to create a ColorPicker control
  */
-public class ColorPickerFactory implements NodeFactory<ColorPicker> {
+public class ColorPickerFactory implements NodeFactory<ColorPicker, ColorPickerOptions> {
+
     @Override
-    public ColorPicker makeNode(LocationContext locationContext) throws CoreException {
+    public ColorPicker makeNode(LocationContext locationContext, ColorPickerOptions options) throws CoreException {
         ColorPicker colorPicker = makeColorPicker();
-        Fenxlib.register(locationContext, colorPicker);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), colorPicker);
         return colorPicker;
+    }
+
+    @Override
+    public ColorPickerOptions newOptions() {
+        return new ColorPickerOptions();
     }
 
     /**

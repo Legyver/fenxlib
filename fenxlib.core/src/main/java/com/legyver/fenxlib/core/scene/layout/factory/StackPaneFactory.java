@@ -4,17 +4,25 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.core.scene.layout.options.StackPaneOptions;
 import javafx.scene.layout.StackPane;
 
 /**
  * Factory to create a {@link StackPane}
  */
-public class StackPaneFactory implements NodeFactory<StackPane> {
+public class StackPaneFactory implements NodeFactory<StackPane, StackPaneOptions> {
+
     @Override
-    public StackPane makeNode(LocationContext locationContext) throws CoreException {
+    public StackPane makeNode(LocationContext locationContext, StackPaneOptions options) throws CoreException {
         StackPane pane = makeStackPane();
-        Fenxlib.register(locationContext, pane);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), pane);
         return pane;
+    }
+
+    @Override
+    public StackPaneOptions newOptions() {
+        return new StackPaneOptions();
     }
 
     /**

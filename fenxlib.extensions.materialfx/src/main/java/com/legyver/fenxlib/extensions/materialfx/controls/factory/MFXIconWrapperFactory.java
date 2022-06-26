@@ -4,6 +4,8 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXIconWrapperOptions;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -11,53 +13,17 @@ import javafx.scene.paint.Color;
 /**
  * Factory to produce a MFXIconWrapper
  */
-public class MFXIconWrapperFactory implements NodeFactory<MFXIconWrapper> {
-    /**
-     * Constructor param for specifying the icon node
-     */
-    public static final String CONSTRUCTOR_PARAM_ICON_NODE = "iconNode";
-    /**
-     * Constructor param for specifying the icon size
-     */
-    public static final String CONSTRUCTOR_PARAM_ICON_SIZE = "iconSize";
-    /**
-     * Constructor param for specifying the wrapper size
-     */
-    public static final String CONSTRUCTOR_PARAM_WRAPPER_SIZE = "wrapperSize";
-    /**
-     * Constructor param for specifying the icon color
-     */
-    public static final String CONSTRUCTOR_PARAM_ICON_COLOR = "iconColor";
-    /**
-     * Constructor param for specifying the icon description
-     */
-    public static final String CONSTRUCTOR_PARAM_ICON_DESCRIPTION = "iconDescription";
-
-    private final String iconDescription;
-    private final Node iconNode;
-    private final Double iconSize;
-    private final Double wrapperSize;
-    private final Color iconColor;
-
-    /**
-     * Construct a factory for creating an icon wrapper
-     * @param iconDescription the description of the icon
-     * @param iconNode an instantiated icon
-     * @param iconSize the size of the icon
-     * @param wrapperSize the size of the wrapper
-     * @param iconColor the color of the icon
-     */
-    public MFXIconWrapperFactory(String iconDescription, Node iconNode, Double iconSize, Double wrapperSize, Color iconColor) {
-        this.iconDescription = iconDescription;
-        this.iconNode = iconNode;
-        this.iconSize = iconSize;
-        this.wrapperSize = wrapperSize;
-        this.iconColor = iconColor;
-    }
+public class MFXIconWrapperFactory implements NodeFactory<MFXIconWrapper, MFXIconWrapperOptions> {
 
     @Override
-    public MFXIconWrapper makeNode(LocationContext locationContext) throws CoreException {
+    public MFXIconWrapper makeNode(LocationContext locationContext, MFXIconWrapperOptions options) throws CoreException {
         MFXIconWrapper iconWrapper;
+        String iconDescription = options.getIconDescription();
+        Double iconSize = options.getIconSize();
+        Double wrapperSize = options.getWrapperSize();
+        Color iconColor = options.getIconColor();
+        Node iconNode = options.getIconNode();
+
         if (iconDescription != null && iconSize != null && iconColor != null && wrapperSize != null) {
             iconWrapper = new MFXIconWrapper(iconDescription, iconSize, iconColor, wrapperSize);
         } else if (iconDescription != null && iconSize != null && wrapperSize != null) {
@@ -67,7 +33,12 @@ public class MFXIconWrapperFactory implements NodeFactory<MFXIconWrapper> {
         } else {
             iconWrapper = new MFXIconWrapper();
         }
-        Fenxlib.register(locationContext, iconWrapper);
+        Fenxlib.register(locationContext.decorateWith(options.getName()), iconWrapper);
         return iconWrapper;
+    }
+
+    @Override
+    public MFXIconWrapperOptions newOptions() {
+        return new MFXIconWrapperOptions();
     }
 }

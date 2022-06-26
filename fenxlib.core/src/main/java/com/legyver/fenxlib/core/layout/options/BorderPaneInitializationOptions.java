@@ -3,7 +3,9 @@ package com.legyver.fenxlib.core.layout.options;
 /**
  * Options describing the default layout of a fenxlib application.
  * This layout corresponds to the five sections of a BorderPane
+ * @deprecated Use {@link com.legyver.fenxlib.core.layout.BorderPaneApplicationLayout}
  */
+@Deprecated
 public class BorderPaneInitializationOptions {
 
 	/**

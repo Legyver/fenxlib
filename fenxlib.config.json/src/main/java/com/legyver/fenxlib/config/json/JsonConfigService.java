@@ -16,7 +16,6 @@ import com.legyver.utils.jackiso.JacksonObjectMapper;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,17 +31,17 @@ public class JsonConfigService<T extends JsonApplicationConfig> implements Confi
 	}
 
 	@Override
-	public T loadConfig(String filename) throws CoreException {
+	public T loadConfig(String appName, String filename) throws CoreException {
 		return (T) new ExceptionToCoreExceptionActionDecorator<T>( () -> {
-			InputStream temp = IOServiceRegistry.getInstance().loadInputStream(filename, true);
-			if (temp == null) {
-				throw new CoreException("Unable to load config: " + filename);
+			InputStream temp = IOServiceRegistry.getInstance().loadInputStream(appName, filename, true);
+			if (temp != null) {
+				try (InputStream inputStream = temp;
+					 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
+					Map configAsMap = JacksonObjectMapper.INSTANCE.readValue(bufferedInputStream, Map.class);
+					return (T) adapters.get(ConfigAdapterPartType.FULL_FILE).adapt(configAsMap);
+				}
 			}
-			try (InputStream inputStream = temp;
-				 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
-				Map configAsMap = JacksonObjectMapper.INSTANCE.readValue(bufferedInputStream, Map.class);
-				return (T) adapters.get(ConfigAdapterPartType.FULL_FILE).adapt(configAsMap);
-			}
+			return null;
 		}).execute();
 	}
 

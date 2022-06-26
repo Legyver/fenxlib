@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.controls.ControlsFactory;
 import com.legyver.fenxlib.core.scene.controls.factory.TreeViewFactory;
 import com.legyver.fenxlib.core.event.handlers.ShowContextMenuEventHandler;
+import com.legyver.fenxlib.core.scene.controls.options.TreeViewOptions;
 import com.legyver.fenxlib.core.util.map.MapBuilder;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TreeView;
@@ -26,7 +27,9 @@ public class FileExplorerSkin extends SkinBase<BaseFileExplorer> {
     public FileExplorerSkin(BaseFileExplorer fileExplorer) {
         super(fileExplorer);
         try {
-            jfxTreeView = ControlsFactory.make(TreeView.class, MapBuilder.of(TreeViewFactory.CONSTRUCTOR_PARAM_ROOT, fileExplorer.getPseudoRoot()).build());
+            jfxTreeView = ControlsFactory.make(TreeView.class, new TreeViewOptions()
+                    .root(fileExplorer.getPseudoRoot())
+            );
             jfxTreeView.setShowRoot(false);
             fileExplorer.refreshPulseProperty().addListener((observable, oldValue, newValue) -> jfxTreeView.refresh());
             jfxTreeView.setOnContextMenuRequested(new ShowContextMenuEventHandler(jfxTreeView, fileExplorer.getContextMenu()));

@@ -17,25 +17,25 @@ import javafx.scene.layout.Priority;
  * Factory to create an accordion menu
  *  Creates using the default {@link Accordion}
  */
-public class AccordionMenuFactory extends AbstractWrappingFactory<TitledPane> implements RegionFactory<Accordion, RegionInitializationOptions> {
+public class AccordionMenuFactory implements RegionFactory<Accordion, RegionInitializationOptions> {
 
-	/**
-	 * Construct a factory for accordion menus
-	 * @param titledPaneFactories titled pane factories for accordion menu sections
-	 */
-	public AccordionMenuFactory(TitledPaneFactory... titledPaneFactories) {
-		super(titledPaneFactories);
-	}
+//	/**
+//	 * Construct a factory for accordion menus
+//	 * @param titledPaneFactories titled pane factories for accordion menu sections
+//	 */
+//	public AccordionMenuFactory(TitledPaneFactory... titledPaneFactories) {
+//		super(titledPaneFactories);
+//	}
 
 	@Override
 	public Accordion makeRegion(BorderPane borderPane, RegionInitializationOptions regionInitOptions) throws CoreException {
-		List<TitledPane> panes = makeChildren(regionInitOptions.getLocationContext());
+//		List<TitledPane> panes = makeChildren(regionInitOptions.getLocationContext());
 
-		Accordion sideMenu = makeAccordion(panes);
-		GridPane.setHgrow(sideMenu, Priority.SOMETIMES);
-		GridPane.setVgrow(sideMenu, Priority.SOMETIMES);
-		sideMenu.setExpandedPane(panes.iterator().next());
-		return sideMenu;
+//		Accordion sideMenu = makeAccordion(panes);
+//		GridPane.setHgrow(sideMenu, Priority.SOMETIMES);
+//		GridPane.setVgrow(sideMenu, Priority.SOMETIMES);
+//		sideMenu.setExpandedPane(panes.iterator().next());
+		return null;
 	}
 
 	/**

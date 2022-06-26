@@ -2,6 +2,8 @@ package com.legyver.fenxlib.api.locator;
 
 import com.legyver.fenxlib.api.locator.visitor.LocationVisitor;
 
+import java.util.UUID;
+
 /**
  * The context that specifies the name to register a component as
  */
@@ -25,4 +27,15 @@ public interface LocationContext {
 	 * @return the visitor result
 	 */
 	<T> T accept(LocationVisitor<T> visitor);
+
+	/**
+	 * Decorate a location context
+	 * @param name the name of the decorating context.  If name is null, a UUID will be generated
+	 * @return the decorated location context
+	 */
+	default LocationContext decorateWith(String name) {
+		LocationContextDecorator locationContextDecorator = new LocationContextDecorator(this);
+		locationContextDecorator.setName(name != null ? name : UUID.randomUUID().toString());
+		return locationContextDecorator;
+	}
 }

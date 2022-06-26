@@ -4,6 +4,8 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.core.scene.controls.options.TreeViewOptions;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -11,28 +13,19 @@ import javafx.scene.control.TreeView;
  * Factory to create a tree view
  */
 @SuppressWarnings("unchecked")
-public class TreeViewFactory implements NodeFactory<TreeView> {
-    /**
-     * Param to specify the root of the tree view
-     */
-    public static final String CONSTRUCTOR_PARAM_ROOT = "root";
+public class TreeViewFactory implements NodeFactory<TreeView, TreeViewOptions> {
 
-    private final TreeItem root;
-
-    /**
-     * Construct a factory to produce a Tree View
-     * @param root the root of the tree
-     */
-    public TreeViewFactory(TreeItem root) {
-        this.root = root;
+    @Override
+    public TreeView makeNode(LocationContext locationContext, TreeViewOptions options) throws CoreException {
+        TreeView treeView = makeTreeView();
+        treeView.setRoot(options.getRoot());
+        Fenxlib.register(locationContext.decorateWith(options.getName()), treeView);
+        return treeView;
     }
 
     @Override
-    public TreeView makeNode(LocationContext locationContext) throws CoreException {
-        TreeView treeView = makeTreeView();
-        treeView.setRoot(root);
-        Fenxlib.register(locationContext, treeView);
-        return treeView;
+    public TreeViewOptions newOptions() {
+        return new TreeViewOptions();
     }
 
     /**

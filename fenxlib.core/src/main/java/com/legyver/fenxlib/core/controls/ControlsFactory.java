@@ -2,10 +2,9 @@ package com.legyver.fenxlib.core.controls;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.core.controls.service.NodeInstantiationServiceRegistry;
 import javafx.css.Styleable;
-
-import java.util.Map;
 
 /**
  * Entry point to creating widgets based on factories on the classpath.
@@ -30,7 +29,7 @@ public class ControlsFactory {
      * @return the produced component
      * @throws CoreException if there is an error producing the component
      */
-    public static <T extends Styleable> T make(Class<T> klass, Map options) throws CoreException {
+    public static <T extends Styleable> T make(Class<T> klass, StyleableControlOptions<T> options) throws CoreException {
         return make(klass, null, options);
     }
 
@@ -55,7 +54,7 @@ public class ControlsFactory {
      * @return the produced component
      * @throws CoreException if there is an error producing the component
      */
-    public static <T extends Styleable> T make(Class<T> klass, LocationContext locationContext, Map options) throws CoreException {
+    public static <T extends Styleable> T make(Class<T> klass, LocationContext locationContext, StyleableControlOptions<T> options) throws CoreException {
         return NodeInstantiationServiceRegistry.getInstance().instantiate(klass, locationContext, options);
     }
 }
