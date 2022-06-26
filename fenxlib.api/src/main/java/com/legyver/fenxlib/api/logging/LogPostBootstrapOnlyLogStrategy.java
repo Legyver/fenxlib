@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.api.logging;
 
-import com.legyver.fenxlib.api.logging.LogHandlingStrategy;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -25,12 +24,12 @@ public class LogPostBootstrapOnlyLogStrategy extends BaseLogStrategy implements 
 	}
 
 	@Override
-	public void handlePreBootstrap(Level level, String message, Throwable t) {
+	public void handlePreBootstrap(Level level, String message, Throwable t, Object...args) {
 		//noop
 	}
 
 	@Override
-	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t) {
+	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t, Object...args) {
 		logMessage(logger, level, message, t);
 	}
 }

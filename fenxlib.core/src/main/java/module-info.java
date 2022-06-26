@@ -23,7 +23,9 @@ module com.legyver.fenxlib.core {
 
     exports com.legyver.fenxlib.core.context;
 	exports com.legyver.fenxlib.core.controls;
+	exports com.legyver.fenxlib.core.controls.builder;
 	exports com.legyver.fenxlib.core.controls.factory;
+	exports com.legyver.fenxlib.core.controls.options;
 	exports com.legyver.fenxlib.core.controls.popup;
 	exports com.legyver.fenxlib.core.controls.service;
 	exports com.legyver.fenxlib.core.event.correlation;
@@ -49,16 +51,17 @@ module com.legyver.fenxlib.core {
 	exports com.legyver.fenxlib.core.menu.templates;
 	exports com.legyver.fenxlib.core.menu.templates.file;
 	exports com.legyver.fenxlib.core.menu.templates.section;
-	exports com.legyver.fenxlib.core.scene.text.factory;
-	exports com.legyver.fenxlib.core.scene.layout.factory;
 	exports com.legyver.fenxlib.core.scene.controls.factory;
+	exports com.legyver.fenxlib.core.scene.controls.options;
+	exports com.legyver.fenxlib.core.scene.layout.factory;
+	exports com.legyver.fenxlib.core.scene.layout.options;
+	exports com.legyver.fenxlib.core.scene.text.factory;
+	exports com.legyver.fenxlib.core.scene.text.options;
 	exports com.legyver.fenxlib.core.scene.web.factory;
+	exports com.legyver.fenxlib.core.scene.web.options;
 	exports com.legyver.fenxlib.core.util;
     exports com.legyver.fenxlib.core.web;
 	exports com.legyver.fenxlib.core.util.map;
-    exports com.legyver.fenxlib.core.controls.options;
-	exports com.legyver.fenxlib.core.controls.builder;
-	exports com.legyver.fenxlib.core.scene.controls.options;
 
 	//for reflection in Options Mixins
 	opens com.legyver.fenxlib.core.scene.controls.options to org.apache.commons.lang3;

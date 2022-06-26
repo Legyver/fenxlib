@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.api.service;
 
+import com.legyver.fenxlib.api.logging.LazyLog;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +15,7 @@ import java.util.function.Predicate;
  */
 @SuppressWarnings("unchecked")
 public class OrderedServiceDelegator<T extends OrderedService> implements IOrderedServiceDelegator {
-    private static final Logger logger = LogManager.getLogger(OrderedServiceDelegator.class);
+    private static final LazyLog logger = new LazyLog(OrderedServiceDelegator.class);
 
     private final ServiceLoader<T> serviceLoader;
     private final List<T> services = new ArrayList<>();
@@ -59,7 +60,7 @@ public class OrderedServiceDelegator<T extends OrderedService> implements IOrder
                 T service;
                 if (matchedDelegates.isEmpty()) {
                     service = services.iterator().next();
-                    logger.warn("No service matched predicate {}.  Using first service: {}", delegatePredicate, service);
+                    logger.debug("No service matched predicate {}.  Using first service: {}", delegatePredicate, service);
                 } else {
                     service = matchedDelegates.iterator().next();
                     logger.debug("Using highest preference service of {} matched services: {}", matchedDelegates.size(), service);

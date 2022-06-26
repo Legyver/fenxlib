@@ -28,5 +28,5 @@ public interface ControlFactory<T, U extends ControlOptions<T>> {
      * Instantiate new Options of the appropriate class as a safeguard against NPEs
      * @return new options
      */
-    U newOptions();
+    U newOptions() throws CoreException;
 }

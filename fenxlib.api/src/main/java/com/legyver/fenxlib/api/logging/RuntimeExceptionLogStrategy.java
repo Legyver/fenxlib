@@ -44,7 +44,7 @@ public class RuntimeExceptionLogStrategy extends BaseLogStrategy implements LogH
 	}
 
 	@Override
-	public void handlePreBootstrap(Level level, String message, Throwable t) {
+	public void handlePreBootstrap(Level level, String message, Throwable t, Object...args) {
 		super.handlePreBootstrap(level, message, t);
 		if (level.intLevel() > Level.OFF.intLevel() && (level.intLevel() <= threshold.intLevel())) {
 			throw new RuntimeException("Error received before logging application bootstrapped: " + message, t);
@@ -52,7 +52,7 @@ public class RuntimeExceptionLogStrategy extends BaseLogStrategy implements LogH
 	}
 
 	@Override
-	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t) {
+	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t, Object...args) {
 		super.handlePostBootstrap(logger, level, message, t);
 	}
 }

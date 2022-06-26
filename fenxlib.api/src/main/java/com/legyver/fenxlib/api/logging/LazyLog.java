@@ -35,23 +35,22 @@ public class LazyLog {
 		this(klass, new LogPostBootstrapOnlyLogStrategy(new RuntimeExceptionLogStrategy(Level.FATAL)));
 	}
 
-	private void log(Level level, String message, Throwable t) {
+	private void log(Level level, String message, Throwable t, Object... args) {
 		if (logger == null) {
 			synchronized (this) {
 				if (logger == null) {
 					if (ApplicationContext.getAppState().isBootstrapped()) {
 						logger = LogManager.getLogger(klass);
-						strategy.handlePostBootstrap(logger, level, message, t);
+						strategy.handlePostBootstrap(logger, level, message, t, args);
 					} else {
-						strategy.handlePreBootstrap(level, message, t);
-						throw new RuntimeException("Message received before logging has been initiated: " + message);
+						strategy.handlePreBootstrap(level, message, t, args);
 					}
 				} else {
-					strategy.handlePostBootstrap(logger, level, message, t);
+					strategy.handlePostBootstrap(logger, level, message, t, args);
 				}
 			}
 		} else {
-			strategy.handlePostBootstrap(logger, level, message, t);
+			strategy.handlePostBootstrap(logger, level, message, t, args);
 		}
 	}
 
@@ -93,8 +92,8 @@ public class LazyLog {
 	 * Log at level debug
 	 * @param message the message
 	 */
-	public void debug(String message) {
-		debug(message, null);
+	public void debug(String message, Object...args) {
+		debug(message, null, args);
 	}
 
 	/**
@@ -102,8 +101,8 @@ public class LazyLog {
 	 * @param message the message
 	 * @param t the throwable
 	 */
-	public void debug(String message, Throwable t) {
-		log(Level.DEBUG, message, t);
+	public void debug(String message, Throwable t, Object...args) {
+		log(Level.DEBUG, message, t, args);
 	}
 
 	/**
