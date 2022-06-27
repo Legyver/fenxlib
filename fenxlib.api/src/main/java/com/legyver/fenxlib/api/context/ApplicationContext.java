@@ -1,21 +1,28 @@
 package com.legyver.fenxlib.api.context;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.alert.AlertServiceRegistry;
 import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.config.IApplicationConfig;
 import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.files.FileRegistry;
 import com.legyver.fenxlib.api.lifecycle.IApplicationLifecycleHookRegistry;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.locator.query.QueryableComponentRegistry;
+import com.legyver.fenxlib.api.logging.LazyLog;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Base ApplicationContext that has the minimum static information required by the framework
  */
 public class ApplicationContext {
+	private static final LazyLog logger = new LazyLog(ApplicationContext.class);
+
 	/**
 	 * Any file that is opened within the application has a reference placed here
 	 */
@@ -97,6 +104,17 @@ public class ApplicationContext {
 	 */
 	public static void setPrimaryStage(Stage primaryStage) {
 		ApplicationContext.primaryStage = primaryStage;
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				logger.info("Primary stage closing. Executing SHUTDOWN hooks");
+				try {
+					ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(LifecyclePhase.SHUTDOWN);
+				} catch (CoreException e) {
+					logger.error("Error executing shutdown lifecycle hook", e);
+				}
+			}
+		});
 	}
 
 	/**

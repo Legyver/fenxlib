@@ -10,7 +10,9 @@ import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookServiceRegistry;
 import com.legyver.fenxlib.api.lifecycle.hooks.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,7 @@ public class ApplicationOptions {
 	public void startup(Application application, Stage primaryStage) throws CoreException {
 		Fenxlib.registerApplication(application);
 		ApplicationContext.setPrimaryStage(primaryStage);
+
 		postInit();
 	}
 

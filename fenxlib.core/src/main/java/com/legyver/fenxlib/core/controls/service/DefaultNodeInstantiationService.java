@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.controls.service;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.ControlFactory;
 import com.legyver.fenxlib.core.controls.factory.SystemBrowserHyperlinkFactory;
@@ -103,6 +104,9 @@ public class DefaultNodeInstantiationService implements NodeInstantiationService
             throw new CoreException("No factory registered for class: " + klass);
         } else {
             ControlFactory<T, ControlOptions<T>> controlFactory = factoryFunction.get();
+            if (locationContext == null && controlFactory.requiresLocationContext()) {
+                locationContext = new DefaultLocationContext("");
+            }
             if (options == null) {
                 //this will instantiate a new Options of the correct class, so we avoid NPEs
                 return controlFactory.makeNode(locationContext);
