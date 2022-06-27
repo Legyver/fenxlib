@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.layout.IApplicationLayout;
@@ -13,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Factory to create a Fenxlib Application Scene.
@@ -35,15 +36,12 @@ public class SceneFactory<T extends IApplicationLayout> {
      */
     public static final String FENXLIB_POPUP_PANE = "_FENXLIB_POPUP_PANE_";
 
-    private final URL[] stylesheetUrls;
     private final Stage stage;
     /**
      * Construct a factory to create the scene with the appropriate size/width and load any stylesheets
      * @param stage the stage for the scene
-     * @param stylesheetUrls any resources to be loaded that need to be incorporated into the scene
      */
-    public SceneFactory(Stage stage, URL... stylesheetUrls) {
-        this.stylesheetUrls = stylesheetUrls;
+    public SceneFactory(Stage stage) {
         this.stage = stage;
     }
 
@@ -56,8 +54,9 @@ public class SceneFactory<T extends IApplicationLayout> {
         Pane decorator = makeContainer(layout);
         Scene scene = new Scene(decorator, layout.getWidth(), layout.getHeight());
         initStage(scene, layout);
+        List<URL> stylesheetUrls = ApplicationContext.getStylesheets();
         if (stylesheetUrls != null) {
-            Stream.of(stylesheetUrls).map(url -> url.toExternalForm())
+            stylesheetUrls.stream().map(url -> url.toExternalForm())
                     .forEach(styleSheet -> scene.getStylesheets().add(styleSheet));
         }
         return scene;

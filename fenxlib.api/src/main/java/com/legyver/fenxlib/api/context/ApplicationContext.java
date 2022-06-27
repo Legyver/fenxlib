@@ -17,6 +17,9 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.net.URL;
+import java.util.List;
+
 /**
  * Base ApplicationContext that has the minimum static information required by the framework
  */
@@ -65,6 +68,8 @@ public class ApplicationContext {
 	 * Any application lifecycle hooks are registered here
 	 */
 	private static IApplicationLifecycleHookRegistry applicationLifecycleHookRegistry;
+
+	private static List<URL> stylesheets;
 
 	/**
 	 * Get the registry of files opened by the application
@@ -259,5 +264,13 @@ public class ApplicationContext {
 	 */
 	public static void setHostServices(HostServices hostServices) {
 		ApplicationContext.hostServices = hostServices;
+	}
+
+	public static void setStylesheets(List<URL> stylesheetURLs) {
+		ApplicationContext.stylesheets = stylesheetURLs;
+	}
+
+	public static List<URL> getStylesheets() {
+		return stylesheets;
 	}
 }

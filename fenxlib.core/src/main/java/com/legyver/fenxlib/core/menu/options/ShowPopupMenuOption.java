@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.net.URL;
+import java.util.List;
+
 /**
  * Option for a Menu Item that launches content in a popup.
  */
@@ -22,6 +25,11 @@ public class ShowPopupMenuOption extends AbstractMenuItemOption {
     public ShowPopupMenuOption(String text, Parent contentToShow, Modality modality, Target target) {
         super(text, event -> {
             Scene scene = new Scene(contentToShow);
+            List<URL> stylesheetUrls = ApplicationContext.getStylesheets();
+            if (stylesheetUrls != null) {
+                stylesheetUrls.stream().map(url -> url.toExternalForm())
+                        .forEach(styleSheet -> scene.getStylesheets().add(styleSheet));
+            }
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.initModality(modality);

@@ -10,10 +10,9 @@ import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookServiceRegistry;
 import com.legyver.fenxlib.api.lifecycle.hooks.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +26,18 @@ public class ApplicationOptions {
 	private final boolean usesAutoSaveConfig;
 	private final String applicationConfigName;
 	private final ApplicationConfigInstantiator appConfigInstantiator;
+	private final List<URL> stylesheetURLs;
 	private final List<ApplicationLifecycleHook> hooksToRegister;
 
 
-	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, List<ApplicationLifecycleHook> hooksToRegister) {
+	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, List<URL> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister) {
 		this.applicationName = applicationName;
 		this.uiModel = uiModel;
 		this.usesLogging = usesLogging;
 		this.usesAutoSaveConfig = usesAutoSaveConfig;
 		this.applicationConfigName = appConfigName;
 		this.appConfigInstantiator = appConfigInstantiator;
+		this.stylesheetURLs = stylesheetURLs;
 		this.hooksToRegister = hooksToRegister;
 	}
 
@@ -50,7 +51,7 @@ public class ApplicationOptions {
 	public void startup(Application application, Stage primaryStage) throws CoreException {
 		Fenxlib.registerApplication(application);
 		ApplicationContext.setPrimaryStage(primaryStage);
-
+		ApplicationContext.setStylesheets(stylesheetURLs);
 		postInit();
 	}
 
@@ -194,6 +195,8 @@ public class ApplicationOptions {
 		 */
 		protected boolean rememberOpenedFiles = true;
 
+		private List<URL> stylesheetUrls = new ArrayList<>();
+
 		private List<ApplicationLifecycleHook> hooksToRegister = new ArrayList<>();
 
 		/**
@@ -204,7 +207,7 @@ public class ApplicationOptions {
 		public ApplicationOptions build() throws CoreException {
 			validate();
 			defaultUnspecified();
-			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, hooksToRegister);
+			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, stylesheetUrls, hooksToRegister);
 			options.bootstrap();
 			return options;
 		}
@@ -262,6 +265,15 @@ public class ApplicationOptions {
 		 */
 		public B appConfigName(String appConfigName) {
 			return set(() -> this.appConfigName = appConfigName);
+		}
+
+		/**
+		 * Specify URLs for style sheets
+		 * @param url the URL of the stylesheet to include
+		 * @return this builder
+		 */
+		public B styleSheetUrl(URL url) {
+			return set(() -> this.stylesheetUrls.add(url));
 		}
 
 		/**
