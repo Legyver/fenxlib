@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,7 +84,8 @@ public class SceneFactory<T extends IApplicationLayout> {
      */
     protected Pane makeContainer(T layout) {
         LocationContext mainLocationContext = new DefaultLocationContext(FENXLIB_MAIN_APPLICATION_PANE);
-        AnchorPane mainPane = new AnchorPane();
+        VBox mainPane = new VBox();
+
         Fenxlib.register(mainLocationContext, mainPane);
 
         MenuBar menuBar = layout.getMenuBar();
@@ -92,7 +94,7 @@ public class SceneFactory<T extends IApplicationLayout> {
             mainPane.getChildren().add(menuBar);
             double menuBarHeight = menuBar.getHeight();
             mainPane.heightProperty().addListener((observable, oldValue, newValue) -> {
-                applicationPane.setMaxHeight(newValue.doubleValue() - menuBarHeight);
+                applicationPane.setPrefHeight(newValue.doubleValue() - menuBarHeight);
             });
             applicationPane.setPrefHeight(mainPane.getHeight());
         }
