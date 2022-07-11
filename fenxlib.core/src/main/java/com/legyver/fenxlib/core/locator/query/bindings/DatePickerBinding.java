@@ -18,6 +18,7 @@ public class DatePickerBinding extends BaseBinding {
 	 * @param property the property to bind as the value source
 	 * @param query the query that identifies the date-picker
 	 * @param named the (optional) name of the date-picker
+	 * @throws CoreException if there is an error querying the DatePicker
 	 */
 	public static void bindDatePicker(ObjectProperty<LocalDate> property, IRegionDiscriminator query, String named) throws CoreException {
 		Optional<DatePicker> picker = finalizeQuery(query, named).execute();

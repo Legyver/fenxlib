@@ -33,6 +33,7 @@ public class BaseLogStrategy implements LogHandlingStrategy {
 	 * @param level the level to log the message at
 	 * @param message the message to log
 	 * @param t any throwable
+	 * @param args any arguments
 	 */
 	protected void logMessage(Logger logger, Level level, String message, Throwable t, Object...args) {
 		if (logger.isEnabled(level)) {

@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 
+/**
+ * Options for a JavaFX TitledPane
+ */
 public class TitledPaneOptions extends BaseControlBuilder<TitledPaneOptions> implements StyleableControlOptions<TitledPane>,
         TextMixin<TitledPaneOptions>,
         NodeContentMixin<TitledPaneOptions> {

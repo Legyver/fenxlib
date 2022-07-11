@@ -6,6 +6,9 @@ import com.legyver.fenxlib.core.controls.builder.SelectedMixin;
 import com.legyver.fenxlib.core.controls.builder.TextMixin;
 import javafx.scene.control.CheckBox;
 
+/**
+ * Options for a JavaFX CheckBox
+ */
 public class CheckBoxOptions extends BaseControlBuilder<CheckBoxOptions> implements StyleableControlOptions<CheckBox>,
         SelectedMixin<CheckBoxOptions>,
         TextMixin<CheckBoxOptions> {

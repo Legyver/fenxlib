@@ -6,6 +6,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextArea;
 
+/**
+ * Options for a JavaFX TextArea
+ */
 public class TextAreaOptions extends BaseControlBuilder<TextAreaOptions> implements StyleableControlOptions<TextArea>,
         TextMixin<TextAreaOptions>,
         TextPropertyMixin<TextAreaOptions>,

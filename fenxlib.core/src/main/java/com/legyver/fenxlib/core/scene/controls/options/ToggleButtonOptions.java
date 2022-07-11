@@ -6,6 +6,9 @@ import com.legyver.fenxlib.core.controls.builder.SelectedMixin;
 import com.legyver.fenxlib.core.controls.builder.TextMixin;
 import javafx.scene.control.ToggleButton;
 
+/**
+ * Options for a JavaFX ToggleButton
+ */
 public class ToggleButtonOptions extends BaseControlBuilder<ToggleButtonOptions> implements StyleableControlOptions<ToggleButton>,
         TextMixin<ToggleButtonOptions>,
         SelectedMixin<ToggleButtonOptions> {

@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.builder.EventHandlerMixin;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Options for a JavaFX MenuItem
+ */
 public class MenuItemOptions extends BaseControlBuilder<MenuItemOptions> implements StyleableControlOptions<MenuItem>,
         TextMixin<MenuItemOptions>,
         EventHandlerMixin<MenuItemOptions> {

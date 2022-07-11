@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.icons.standard;
 
+import java.util.stream.Stream;
+
 /**
  * Icons in the IcoMoon free pack
  * See the collection at <a href=https://icomoon.io/#preview-free>IcoMoon</a>
@@ -11,1974 +13,1974 @@ package com.legyver.fenxlib.icons.standard;
  */
 public enum IcoMoonFontEnum {
     /**
-     * home icon
+     * Home icon
      */
-    HOME("&#xe900;", "home"),
+    ICON_HOME("icon-home", "\uE900"),
     /**
-     * home2 icon
+     * Home icon
      */
-    HOME2("&#xe901;", "home2"),
+    ICON_HOME2("icon-home2", "\uE901"),
     /**
-     * home3 icon
+     * Home icon
      */
-    HOME3("&#xe902;", "home3"),
+    ICON_HOME3("icon-home3", "\uE902"),
     /**
-     * office icon
+     * Office icon
      */
-    OFFICE("&#xe903;", "office"),
+    ICON_OFFICE("icon-office", "\uE903"),
     /**
-     * newspaper icon
+     * Newspaper icon
      */
-    NEWSPAPER("&#xe904;", "newspaper"),
+    ICON_NEWSPAPER("icon-newspaper", "\uE904"),
     /**
-     * pencil icon
+     * Pencil icon
      */
-    PENCIL("&#xe905;", "pencil"),
+    ICON_PENCIL("icon-pencil", "\uE905"),
     /**
-     * pencil2 icon
+     * Pencil icon
      */
-    PENCIL2("&#xe906;", "pencil2"),
+    ICON_PENCIL2("icon-pencil2", "\uE906"),
     /**
-     * quill icon
+     * Quill icon
      */
-    QUILL("&#xe907;", "quill"),
+    ICON_QUILL("icon-quill", "\uE907"),
     /**
-     * pen icon
+     * Pen icon
      */
-    PEN("&#xe908;", "pen"),
+    ICON_PEN("icon-pen", "\uE908"),
     /**
-     * blog icon
+     * Blog icon
      */
-    BLOG("&#xe909;", "blog"),
+    ICON_BLOG("icon-blog", "\uE909"),
     /**
-     * eyedropper icon
+     * Eyedropper icon
      */
-    EYEDROPPER("&#xe90a;", "eyedropper"),
+    ICON_EYEDROPPER("icon-eyedropper", "\uE90a"),
     /**
-     * droplet icon
+     * Droplet icon
      */
-    DROPLET("&#xe90b;", "droplet"),
+    ICON_DROPLET("icon-droplet", "\uE90b"),
     /**
-     * paint-format icon
+     * Paint format icon
      */
-    PAINT_FORMAT("&#xe90c;", "paint-format"),
+    ICON_PAINT_FORMAT("icon-paint-format", "\uE90c"),
     /**
-     * image icon
+     * Image icon
      */
-    IMAGE("&#xe90d;", "image"),
+    ICON_IMAGE("icon-image", "\uE90d"),
     /**
-     * images icon
+     * Images icon
      */
-    IMAGES("&#xe90e;", "images"),
+    ICON_IMAGES("icon-images", "\uE90e"),
     /**
-     * camera icon
+     * Camera icon
      */
-    CAMERA("&#xe90f;", "camera"),
+    ICON_CAMERA("icon-camera", "\uE90f"),
     /**
-     * headphones icon
+     * Headphones icon
      */
-    HEADPHONES("&#xe910;", "headphones"),
+    ICON_HEADPHONES("icon-headphones", "\uE910"),
     /**
-     * music icon
+     * Music icon
      */
-    MUSIC("&#xe911;", "music"),
+    ICON_MUSIC("icon-music", "\uE911"),
     /**
-     * play icon
+     * Play icon
      */
-    PLAY("&#xe912;", "play"),
+    ICON_PLAY("icon-play", "\uE912"),
     /**
-     * film icon
+     * Film icon
      */
-    FILM("&#xe913;", "film"),
+    ICON_FILM("icon-film", "\uE913"),
     /**
-     * video-camera icon
+     * Video camera icon
      */
-    VIDEO_CAMERA("&#xe914;", "video-camera"),
+    ICON_VIDEO_CAMERA("icon-video-camera", "\uE914"),
     /**
-     * dice icon
+     * Dice icon
      */
-    DICE("&#xe915;", "dice"),
+    ICON_DICE("icon-dice", "\uE915"),
     /**
-     * pacman icon
+     * Pacman icon
      */
-    PACMAN("&#xe916;", "pacman"),
+    ICON_PACMAN("icon-pacman", "\uE916"),
     /**
-     * spades icon
+     * Spades icon
      */
-    SPADES("&#xe917;", "spades"),
+    ICON_SPADES("icon-spades", "\uE917"),
     /**
-     * clubs icon
+     * Clubs icon
      */
-    CLUBS("&#xe918;", "clubs"),
+    ICON_CLUBS("icon-clubs", "\uE918"),
     /**
-     * diamonds icon
+     * Diamonds icon
      */
-    DIAMONDS("&#xe919;", "diamonds"),
+    ICON_DIAMONDS("icon-diamonds", "\uE919"),
     /**
-     * bullhorn icon
+     * Bullhorn icon
      */
-    BULLHORN("&#xe91a;", "bullhorn"),
+    ICON_BULLHORN("icon-bullhorn", "\uE91a"),
     /**
-     * connection icon
+     * Connection icon
      */
-    CONNECTION("&#xe91b;", "connection"),
+    ICON_CONNECTION("icon-connection", "\uE91b"),
     /**
-     * podcast icon
+     * Podcast icon
      */
-    PODCAST("&#xe91c;", "podcast"),
+    ICON_PODCAST("icon-podcast", "\uE91c"),
     /**
-     * feed icon
+     * Feed icon
      */
-    FEED("&#xe91d;", "feed"),
+    ICON_FEED("icon-feed", "\uE91d"),
     /**
-     * mic icon
+     * Mic icon
      */
-    MIC("&#xe91e;", "mic"),
+    ICON_MIC("icon-mic", "\uE91e"),
     /**
-     * book icon
+     * Book icon
      */
-    BOOK("&#xe91f;", "book"),
+    ICON_BOOK("icon-book", "\uE91f"),
     /**
-     * books icon
+     * Books icon
      */
-    BOOKS("&#xe920;", "books"),
+    ICON_BOOKS("icon-books", "\uE920"),
     /**
-     * library icon
+     * Library icon
      */
-    LIBRARY("&#xe921;", "library"),
+    ICON_LIBRARY("icon-library", "\uE921"),
     /**
-     * file-text icon
+     * Text file icon
      */
-    FILE_TEXT("&#xe922;", "file-text"),
+    ICON_FILE_TEXT("icon-file-text", "\uE922"),
     /**
-     * profile icon
+     * Profile icon
      */
-    PROFILE("&#xe923;", "profile"),
+    ICON_PROFILE("icon-profile", "\uE923"),
     /**
-     * file-empty icon
+     * Empty file icon
      */
-    FILE_EMPTY("&#xe924;", "file-empty"),
+    ICON_FILE_EMPTY("icon-file-empty", "\uE924"),
     /**
-     * files-empty icon
+     * Empty files icon
      */
-    FILES_EMPTY("&#xe925;", "files-empty"),
+    ICON_FILES_EMPTY("icon-files-empty", "\uE925"),
     /**
-     * file-text2 icon
+     * Text file icon
      */
-    FILE_TEXT2("&#xe926;", "file-text2"),
+    ICON_FILE_TEXT2("icon-file-text2", "\uE926"),
     /**
-     * file-picture icon
+     * Picture file icon
      */
-    FILE_PICTURE("&#xe927;", "file-picture"),
+    ICON_FILE_PICTURE("icon-file-picture", "\uE927"),
     /**
-     * file-music icon
+     * Music file icon
      */
-    FILE_MUSIC("&#xe928;", "file-music"),
+    ICON_FILE_MUSIC("icon-file-music", "\uE928"),
     /**
-     * file-play icon
+     * Play file icon
      */
-    FILE_PLAY("&#xe929;", "file-play"),
+    ICON_FILE_PLAY("icon-file-play", "\uE929"),
     /**
-     * file-video icon
+     * Video file icon
      */
-    FILE_VIDEO("&#xe92a;", "file-video"),
+    ICON_FILE_VIDEO("icon-file-video", "\uE92a"),
     /**
-     * file-zip icon
+     * Zip file icon
      */
-    FILE_ZIP("&#xe92b;", "file-zip"),
+    ICON_FILE_ZIP("icon-file-zip", "\uE92b"),
     /**
-     * copy icon
+     * Copy file icon
      */
-    COPY("&#xe92c;", "copy"),
+    ICON_COPY("icon-copy", "\uE92c"),
     /**
-     * paste icon
+     * Paste file icon
      */
-    PASTE("&#xe92d;", "paste"),
+    ICON_PASTE("icon-paste", "\uE92d"),
     /**
-     * stack icon
+     * Stack icon
      */
-    STACK("&#xe92e;", "stack"),
+    ICON_STACK("icon-stack", "\uE92e"),
     /**
-     * folder icon
+     * Folder icon
      */
-    FOLDER("&#xe92f;", "folder"),
+    ICON_FOLDER("icon-folder", "\uE92f"),
     /**
-     * folder-open icon
+     * Open folder icon
      */
-    FOLDER_OPEN("&#xe930;", "folder-open"),
+    ICON_FOLDER_OPEN("icon-folder-open", "\uE930"),
     /**
-     * folder-plus icon
+     * Folder '+' icon
      */
-    FOLDER_PLUS("&#xe931;", "folder-plus"),
+    ICON_FOLDER_PLUS("icon-folder-plus", "\uE931"),
     /**
-     * folder-minus icon
+     * Folder '-' icon
      */
-    FOLDER_MINUS("&#xe932;", "folder-minus"),
+    ICON_FOLDER_MINUS("icon-folder-minus", "\uE932"),
     /**
-     * folder-download icon
+     * Folder download icon
      */
-    FOLDER_DOWNLOAD("&#xe933;", "folder-download"),
+    ICON_FOLDER_DOWNLOAD("icon-folder-download", "\uE933"),
     /**
-     * folder-upload icon
+     * Folder upload icon
      */
-    FOLDER_UPLOAD("&#xe934;", "folder-upload"),
+    ICON_FOLDER_UPLOAD("icon-folder-upload", "\uE934"),
     /**
-     * price-tag icon
+     * Price tag icon
      */
-    PRICE_TAG("&#xe935;", "price-tag"),
+    ICON_PRICE_TAG("icon-price-tag", "\uE935"),
     /**
-     * price-tags icon
+     * Price tags icon
      */
-    PRICE_TAGS("&#xe936;", "price-tags"),
+    ICON_PRICE_TAGS("icon-price-tags", "\uE936"),
     /**
-     * barcode icon
+     * Barcode icon
      */
-    BARCODE("&#xe937;", "barcode"),
+    ICON_BARCODE("icon-barcode", "\uE937"),
     /**
-     * qrcode icon
+     * QR code icon
      */
-    QRCODE("&#xe938;", "qrcode"),
+    ICON_QRCODE("icon-qrcode", "\uE938"),
     /**
-     * ticket icon
+     * Ticket icon
      */
-    TICKET("&#xe939;", "ticket"),
+    ICON_TICKET("icon-ticket", "\uE939"),
     /**
-     * cart icon
+     * Cart icon
      */
-    CART("&#xe93a;", "cart"),
+    ICON_CART("icon-cart", "\uE93a"),
     /**
-     * coin-dollar icon
+     * Dollar coin icon
      */
-    COIN_DOLLAR("&#xe93b;", "coin-dollar"),
+    ICON_COIN_DOLLAR("icon-coin-dollar", "\uE93b"),
     /**
-     * coin-euro icon
+     * Euro coin icon
      */
-    COIN_EURO("&#xe93c;", "coin-euro"),
+    ICON_COIN_EURO("icon-coin-euro", "\uE93c"),
     /**
-     * coin-pound icon
+     * Pound coin icon
      */
-    COIN_POUND("&#xe93d;", "coin-pound"),
+    ICON_COIN_POUND("icon-coin-pound", "\uE93d"),
     /**
-     * coin-yen icon
+     * Yen coin icon
      */
-    COIN_YEN("&#xe93e;", "coin-yen"),
+    ICON_COIN_YEN("icon-coin-yen", "\uE93e"),
     /**
-     * credit-card icon
+     * Credit card icon
      */
-    CREDIT_CARD("&#xe93f;", "credit-card"),
+    ICON_CREDIT_CARD("icon-credit-card", "\uE93f"),
     /**
-     * calculator icon
+     * Calculator icon
      */
-    CALCULATOR("&#xe940;", "calculator"),
+    ICON_CALCULATOR("icon-calculator", "\uE940"),
     /**
-     * lifebuoy icon
+     * Lifebuoy icon
      */
-    LIFEBUOY("&#xe941;", "lifebuoy"),
+    ICON_LIFEBUOY("icon-lifebuoy", "\uE941"),
     /**
-     * phone icon
+     * Phone icon
      */
-    PHONE("&#xe942;", "phone"),
+    ICON_PHONE("icon-phone", "\uE942"),
     /**
-     * phone-hang-up icon
+     * Hangup phone icon
      */
-    PHONE_HANG_UP("&#xe943;", "phone-hang-up"),
+    ICON_PHONE_HANG_UP("icon-phone-hang-up", "\uE943"),
     /**
-     * address-book icon
+     * Address book icon
      */
-    ADDRESS_BOOK("&#xe944;", "address-book"),
+    ICON_ADDRESS_BOOK("icon-address-book", "\uE944"),
     /**
-     * envelop icon
+     * Envelope icon
      */
-    ENVELOP("&#xe945;", "envelop"),
+    ICON_ENVELOP("icon-envelop", "\uE945"),
     /**
-     * pushpin icon
+     * Pushpin icon
      */
-    PUSHPIN("&#xe946;", "pushpin"),
+    ICON_PUSHPIN("icon-pushpin", "\uE946"),
     /**
-     * location icon
+     * Location icon
      */
-    LOCATION("&#xe947;", "location"),
+    ICON_LOCATION("icon-location", "\uE947"),
     /**
-     * location2 icon
+     * Location icon
      */
-    LOCATION2("&#xe948;", "location2"),
+    ICON_LOCATION2("icon-location2", "\uE948"),
     /**
-     * compass icon
+     * Compass icon
      */
-    COMPASS("&#xe949;", "compass"),
+    ICON_COMPASS("icon-compass", "\uE949"),
     /**
-     * compass2 icon
+     * Compass icon
      */
-    COMPASS2("&#xe94a;", "compass2"),
+    ICON_COMPASS2("icon-compass2", "\uE94a"),
     /**
-     * map icon
+     * Map icon
      */
-    MAP("&#xe94b;", "map"),
+    ICON_MAP("icon-map", "\uE94b"),
     /**
-     * map2 icon
+     * Map icon
      */
-    MAP2("&#xe94c;", "map2"),
+    ICON_MAP2("icon-map2", "\uE94c"),
     /**
-     * history icon
+     * History icon
      */
-    HISTORY("&#xe94d;", "history"),
+    ICON_HISTORY("icon-history", "\uE94d"),
     /**
-     * clock icon
+     * Clock icon
      */
-    CLOCK("&#xe94e;", "clock"),
+    ICON_CLOCK("icon-clock", "\uE94e"),
     /**
-     * clock2 icon
+     * Clock icon
      */
-    CLOCK2("&#xe94f;", "clock2"),
+    ICON_CLOCK2("icon-clock2", "\uE94f"),
     /**
-     * alarm icon
+     * Alarm icon
      */
-    ALARM("&#xe950;", "alarm"),
+    ICON_ALARM("icon-alarm", "\uE950"),
     /**
-     * bell icon
+     * Bell icon
      */
-    BELL("&#xe951;", "bell"),
+    ICON_BELL("icon-bell", "\uE951"),
     /**
-     * stopwatch icon
+     * Stopwatch icon
      */
-    STOPWATCH("&#xe952;", "stopwatch"),
+    ICON_STOPWATCH("icon-stopwatch", "\uE952"),
     /**
-     * calendar icon
+     * Calendar icon
      */
-    CALENDAR("&#xe953;", "calendar"),
+    ICON_CALENDAR("icon-calendar", "\uE953"),
     /**
-     * printer icon
+     * Printer icon
      */
-    PRINTER("&#xe954;", "printer"),
+    ICON_PRINTER("icon-printer", "\uE954"),
     /**
-     * keyboard icon
+     * Keyboard icon
      */
-    KEYBOARD("&#xe955;", "keyboard"),
+    ICON_KEYBOARD("icon-keyboard", "\uE955"),
     /**
-     * display icon
+     * Display icon
      */
-    DISPLAY("&#xe956;", "display"),
+    ICON_DISPLAY("icon-display", "\uE956"),
     /**
-     * laptop icon
+     * Laptop icon
      */
-    LAPTOP("&#xe957;", "laptop"),
+    ICON_LAPTOP("icon-laptop", "\uE957"),
     /**
-     * mobile icon
+     * Mobile icon
      */
-    MOBILE("&#xe958;", "mobile"),
+    ICON_MOBILE("icon-mobile", "\uE958"),
     /**
-     * mobile2 icon
+     * Mobile icon
      */
-    MOBILE2("&#xe959;", "mobile2"),
+    ICON_MOBILE2("icon-mobile2", "\uE959"),
     /**
-     * tablet icon
+     * Tablet icon
      */
-    TABLET("&#xe95a;", "tablet"),
+    ICON_TABLET("icon-tablet", "\uE95a"),
     /**
-     * tv icon
+     * TV icon
      */
-    TV("&#xe95b;", "tv"),
+    ICON_TV("icon-tv", "\uE95b"),
     /**
-     * drawer icon
+     * Drawer icon
      */
-    DRAWER("&#xe95c;", "drawer"),
+    ICON_DRAWER("icon-drawer", "\uE95c"),
     /**
-     * drawer2 icon
+     * Drawer icon
      */
-    DRAWER2("&#xe95d;", "drawer2"),
+    ICON_DRAWER2("icon-drawer2", "\uE95d"),
     /**
-     * box-add icon
+     * Box add icon
      */
-    BOX_ADD("&#xe95e;", "box-add"),
+    ICON_BOX_ADD("icon-box-add", "\uE95e"),
     /**
-     * box-remove icon
+     * Box remove icon
      */
-    BOX_REMOVE("&#xe95f;", "box-remove"),
+    ICON_BOX_REMOVE("icon-box-remove", "\uE95f"),
     /**
-     * download icon
+     * Download icon
      */
-    DOWNLOAD("&#xe960;", "download"),
+    ICON_DOWNLOAD("icon-download", "\uE960"),
     /**
-     * upload icon
+     * Upload icon
      */
-    UPLOAD("&#xe961;", "upload"),
+    ICON_UPLOAD("icon-upload", "\uE961"),
     /**
-     * floppy-disk icon
+     * Floppy disk icon
      */
-    FLOPPY_DISK("&#xe962;", "floppy-disk"),
+    ICON_FLOPPY_DISK("icon-floppy-disk", "\uE962"),
     /**
-     * drive icon
+     * Drive icon
      */
-    DRIVE("&#xe963;", "drive"),
+    ICON_DRIVE("icon-drive", "\uE963"),
     /**
-     * database icon
+     * Dataset icon
      */
-    DATABASE("&#xe964;", "database"),
+    ICON_DATABASE("icon-database", "\uE964"),
     /**
-     * undo icon
+     * Undo icon
      */
-    UNDO("&#xe965;", "undo"),
+    ICON_UNDO("icon-undo", "\uE965"),
     /**
-     * redo icon
+     * Redo icon
      */
-    REDO("&#xe966;", "redo"),
+    ICON_REDO("icon-redo", "\uE966"),
     /**
-     * undo2 icon
+     * Undo icon
      */
-    UNDO2("&#xe967;", "undo2"),
+    ICON_UNDO2("icon-undo2", "\uE967"),
     /**
-     * redo2 icon
+     * Redo icon
      */
-    REDO2("&#xe968;", "redo2"),
+    ICON_REDO2("icon-redo2", "\uE968"),
     /**
-     * forward icon
+     * Forward icon
      */
-    FORWARD("&#xe969;", "forward"),
+    ICON_FORWARD("icon-forward", "\uE969"),
     /**
-     * reply icon
+     * Reply icon
      */
-    REPLY("&#xe96a;", "reply"),
+    ICON_REPLY("icon-reply", "\uE96a"),
     /**
-     * bubble icon
+     * Bubble icon
      */
-    BUBBLE("&#xe96b;", "bubble"),
+    ICON_BUBBLE("icon-bubble", "\uE96b"),
     /**
-     * bubbles icon
+     * Bubble icon
      */
-    BUBBLES("&#xe96c;", "bubbles"),
+    ICON_BUBBLES("icon-bubbles", "\uE96c"),
     /**
-     * bubbles2 icon
+     * Bubbles icon
      */
-    BUBBLES2("&#xe96d;", "bubbles2"),
+    ICON_BUBBLES2("icon-bubbles2", "\uE96d"),
     /**
-     * bubble2 icon
+     * Bubbles icon
      */
-    BUBBLE2("&#xe96e;", "bubble2"),
+    ICON_BUBBLE2("icon-bubble2", "\uE96e"),
     /**
-     * bubbles3 icon
+     * Bubbles icon
      */
-    BUBBLES3("&#xe96f;", "bubbles3"),
+    ICON_BUBBLES3("icon-bubbles3", "\uE96f"),
     /**
-     * bubbles4 icon
+     * Bubbles icon
      */
-    BUBBLES4("&#xe970;", "bubbles4"),
+    ICON_BUBBLES4("icon-bubbles4", "\uE970"),
     /**
-     * user icon
+     * User icon
      */
-    USER("&#xe971;", "user"),
+    ICON_USER("icon-user", "\uE971"),
     /**
-     * users icon
+     * Users icon
      */
-    USERS("&#xe972;", "users"),
+    ICON_USERS("icon-users", "\uE972"),
     /**
-     * user-plus icon
+     * Add user icon
      */
-    USER_PLUS("&#xe973;", "user-plus"),
+    ICON_USER_PLUS("icon-user-plus", "\uE973"),
     /**
-     * user-minus icon
+     * Remove user icon
      */
-    USER_MINUS("&#xe974;", "user-minus"),
+    ICON_USER_MINUS("icon-user-minus", "\uE974"),
     /**
-     * user-check icon
+     * Check user icon
      */
-    USER_CHECK("&#xe975;", "user-check"),
+    ICON_USER_CHECK("icon-user-check", "\uE975"),
     /**
-     * user-tie icon
+     * Tie user icon
      */
-    USER_TIE("&#xe976;", "user-tie"),
+    ICON_USER_TIE("icon-user-tie", "\uE976"),
     /**
-     * quotes-left icon
+     * Left quotes icon
      */
-    QUOTES_LEFT("&#xe977;", "quotes-left"),
+    ICON_QUOTES_LEFT("icon-quotes-left", "\uE977"),
     /**
-     * quotes-right icon
+     * Right quotes icon
      */
-    QUOTES_RIGHT("&#xe978;", "quotes-right"),
+    ICON_QUOTES_RIGHT("icon-quotes-right", "\uE978"),
     /**
-     * hour-glass icon
+     * Hourglass icon
      */
-    HOUR_GLASS("&#xe979;", "hour-glass"),
+    ICON_HOUR_GLASS("icon-hour-glass", "\uE979"),
     /**
-     * spinner icon
+     * Spinner icon
      */
-    SPINNER("&#xe97a;", "spinner"),
+    ICON_SPINNER("icon-spinner", "\uE97a"),
     /**
-     * spinner2 icon
+     * Spinner icon
      */
-    SPINNER2("&#xe97b;", "spinner2"),
+    ICON_SPINNER2("icon-spinner2", "\uE97b"),
     /**
-     * spinner3 icon
+     * Spinner icon
      */
-    SPINNER3("&#xe97c;", "spinner3"),
+    ICON_SPINNER3("icon-spinner3", "\uE97c"),
     /**
-     * spinner4 icon
+     * Spinner icon
      */
-    SPINNER4("&#xe97d;", "spinner4"),
+    ICON_SPINNER4("icon-spinner4", "\uE97d"),
     /**
-     * spinner5 icon
+     * Spinner icon
      */
-    SPINNER5("&#xe97e;", "spinner5"),
+    ICON_SPINNER5("icon-spinner5", "\uE97e"),
     /**
-     * spinner6 icon
+     * Spinner icon
      */
-    SPINNER6("&#xe97f;", "spinner6"),
+    ICON_SPINNER6("icon-spinner6", "\uE97f"),
     /**
-     * spinner7 icon
+     * Spinner icon
      */
-    SPINNER7("&#xe980;", "spinner7"),
+    ICON_SPINNER7("icon-spinner7", "\uE980"),
     /**
-     * spinner8 icon
+     * Spinner icon
      */
-    SPINNER8("&#xe981;", "spinner8"),
+    ICON_SPINNER8("icon-spinner8", "\uE981"),
     /**
-     * spinner9 icon
+     * Spinner icon
      */
-    SPINNER9("&#xe982;", "spinner9"),
+    ICON_SPINNER9("icon-spinner9", "\uE982"),
     /**
-     * spinner10 icon
+     * Spinner icon
      */
-    SPINNER10("&#xe983;", "spinner10"),
+    ICON_SPINNER10("icon-spinner10", "\uE983"),
     /**
-     * spinner11 icon
+     * Spinner icon
      */
-    SPINNER11("&#xe984;", "spinner11"),
+    ICON_SPINNER11("icon-spinner11", "\uE984"),
     /**
-     * binoculars icon
+     * Binoculars icon
      */
-    BINOCULARS("&#xe985;", "binoculars"),
+    ICON_BINOCULARS("icon-binoculars", "\uE985"),
     /**
-     * search icon
+     * Search icon
      */
-    SEARCH("&#xe986;", "search"),
+    ICON_SEARCH("icon-search", "\uE986"),
     /**
-     * zoom-in icon
+     * Zoom in icon
      */
-    ZOOM_IN("&#xe987;", "zoom-in"),
+    ICON_ZOOM_IN("icon-zoom-in", "\uE987"),
     /**
-     * zoom-out icon
+     * Zoom out icon
      */
-    ZOOM_OUT("&#xe988;", "zoom-out"),
+    ICON_ZOOM_OUT("icon-zoom-out", "\uE988"),
     /**
-     * enlarge icon
+     * Enlarge icon
      */
-    ENLARGE("&#xe989;", "enlarge"),
+    ICON_ENLARGE("icon-enlarge", "\uE989"),
     /**
-     * shrink icon
+     * Shrink icon
      */
-    SHRINK("&#xe98a;", "shrink"),
+    ICON_SHRINK("icon-shrink", "\uE98a"),
     /**
-     * enlarge2 icon
+     * Enlarge icon
      */
-    ENLARGE2("&#xe98b;", "enlarge2"),
+    ICON_ENLARGE2("icon-enlarge2", "\uE98b"),
     /**
-     * shrink2 icon
+     * Shrink icon
      */
-    SHRINK2("&#xe98c;", "shrink2"),
+    ICON_SHRINK2("icon-shrink2", "\uE98c"),
     /**
-     * key icon
+     * Key icon
      */
-    KEY("&#xe98d;", "key"),
+    ICON_KEY("icon-key", "\uE98d"),
     /**
-     * key2 icon
+     * Key icon
      */
-    KEY2("&#xe98e;", "key2"),
+    ICON_KEY2("icon-key2", "\uE98e"),
     /**
-     * lock icon
+     * Lock icon
      */
-    LOCK("&#xe98f;", "lock"),
+    ICON_LOCK("icon-lock", "\uE98f"),
     /**
-     * unlocked icon
+     * Unlocked icon
      */
-    UNLOCKED("&#xe990;", "unlocked"),
+    ICON_UNLOCKED("icon-unlocked", "\uE990"),
     /**
-     * wrench icon
+     * Wrench icon
      */
-    WRENCH("&#xe991;", "wrench"),
+    ICON_WRENCH("icon-wrench", "\uE991"),
     /**
-     * equalizer icon
+     * Equalizer icon
      */
-    EQUALIZER("&#xe992;", "equalizer"),
+    ICON_EQUALIZER("icon-equalizer", "\uE992"),
     /**
-     * equalizer2 icon
+     * Equalizer icon
      */
-    EQUALIZER2("&#xe993;", "equalizer2"),
+    ICON_EQUALIZER2("icon-equalizer2", "\uE993"),
     /**
-     * cog icon
+     * Cog icon
      */
-    COG("&#xe994;", "cog"),
+    ICON_COG("icon-cog", "\uE994"),
     /**
-     * cogs icon
+     * Cogs icon
      */
-    COGS("&#xe995;", "cogs"),
+    ICON_COGS("icon-cogs", "\uE995"),
     /**
-     * hammer icon
+     * Hammer icon
      */
-    HAMMER("&#xe996;", "hammer"),
+    ICON_HAMMER("icon-hammer", "\uE996"),
     /**
-     * magic-wand icon
+     * Magic wand icon
      */
-    MAGIC_WAND("&#xe997;", "magic-wand"),
+    ICON_MAGIC_WAND("icon-magic-wand", "\uE997"),
     /**
-     * aid-kit icon
+     * Aid kit icon
      */
-    AID_KIT("&#xe998;", "aid-kit"),
+    ICON_AID_KIT("icon-aid-kit", "\uE998"),
     /**
-     * bug icon
+     * Bug icon
      */
-    BUG("&#xe999;", "bug"),
+    ICON_BUG("icon-bug", "\uE999"),
     /**
-     * pie-chart icon
+     * Pie chart icon
      */
-    PIE_CHART("&#xe99a;", "pie-chart"),
+    ICON_PIE_CHART("icon-pie-chart", "\uE99a"),
     /**
-     * stats-dots icon
+     * Stats dots icon
      */
-    STATS_DOTS("&#xe99b;", "stats-dots"),
+    ICON_STATS_DOTS("icon-stats-dots", "\uE99b"),
     /**
-     * stats-bars icon
+     * Stats bars icon
      */
-    STATS_BARS("&#xe99c;", "stats-bars"),
+    ICON_STATS_BARS("icon-stats-bars", "\uE99c"),
     /**
-     * stats-bars2 icon
+     * Stats bars icon
      */
-    STATS_BARS2("&#xe99d;", "stats-bars2"),
+    ICON_STATS_BARS2("icon-stats-bars2", "\uE99d"),
     /**
-     * trophy icon
+     * Trophy icon
      */
-    TROPHY("&#xe99e;", "trophy"),
+    ICON_TROPHY("icon-trophy", "\uE99e"),
     /**
-     * gift icon
+     * Gift icon
      */
-    GIFT("&#xe99f;", "gift"),
+    ICON_GIFT("icon-gift", "\uE99f"),
     /**
-     * glass icon
+     * Glass icon
      */
-    GLASS("&#xe9a0;", "glass"),
+    ICON_GLASS("icon-glass", "\uE9a0"),
     /**
-     * glass2 icon
+     * Glass icon
      */
-    GLASS2("&#xe9a1;", "glass2"),
+    ICON_GLASS2("icon-glass2", "\uE9a1"),
     /**
-     * mug icon
+     * Mug icon
      */
-    MUG("&#xe9a2;", "mug"),
+    ICON_MUG("icon-mug", "\uE9a2"),
     /**
-     * spoon-knife icon
+     * Fork and spoon icon
      */
-    SPOON_KNIFE("&#xe9a3;", "spoon-knife"),
+    ICON_SPOON_KNIFE("icon-spoon-knife", "\uE9a3"),
     /**
-     * leaf icon
+     * Leaf icon
      */
-    LEAF("&#xe9a4;", "leaf"),
+    ICON_LEAF("icon-leaf", "\uE9a4"),
     /**
-     * rocket icon
+     * Rocket icon
      */
-    ROCKET("&#xe9a5;", "rocket"),
+    ICON_ROCKET("icon-rocket", "\uE9a5"),
     /**
-     * meter icon
+     * Meter icon
      */
-    METER("&#xe9a6;", "meter"),
+    ICON_METER("icon-meter", "\uE9a6"),
     /**
-     * meter2 icon
+     * Meter icon
      */
-    METER2("&#xe9a7;", "meter2"),
+    ICON_METER2("icon-meter2", "\uE9a7"),
     /**
-     * hammer2 icon
+     * Hammer icon
      */
-    HAMMER2("&#xe9a8;", "hammer2"),
+    ICON_HAMMER2("icon-hammer2", "\uE9a8"),
     /**
-     * fire icon
+     * Fire icon
      */
-    FIRE("&#xe9a9;", "fire"),
+    ICON_FIRE("icon-fire", "\uE9a9"),
     /**
-     * lab icon
+     * Lab icon
      */
-    LAB("&#xe9aa;", "lab"),
+    ICON_LAB("icon-lab", "\uE9aa"),
     /**
-     * magnet icon
+     * Magnet icon
      */
-    MAGNET("&#xe9ab;", "magnet"),
+    ICON_MAGNET("icon-magnet", "\uE9ab"),
     /**
-     * bin icon
+     * Bin icon
      */
-    BIN("&#xe9ac;", "bin"),
+    ICON_BIN("icon-bin", "\uE9ac"),
     /**
-     * bin2 icon
+     * Bin icon
      */
-    BIN2("&#xe9ad;", "bin2"),
+    ICON_BIN2("icon-bin2", "\uE9ad"),
     /**
-     * briefcase icon
+     * Briefcase icon
      */
-    BRIEFCASE("&#xe9ae;", "briefcase"),
+    ICON_BRIEFCASE("icon-briefcase", "\uE9ae"),
     /**
-     * airplane icon
+     * Airplane icon
      */
-    AIRPLANE("&#xe9af;", "airplane"),
+    ICON_AIRPLANE("icon-airplane", "\uE9af"),
     /**
-     * truck icon
+     * Truck icon
      */
-    TRUCK("&#xe9b0;", "truck"),
+    ICON_TRUCK("icon-truck", "\uE9b0"),
     /**
-     * road icon
+     * Road icon
      */
-    ROAD("&#xe9b1;", "road"),
+    ICON_ROAD("icon-road", "\uE9b1"),
     /**
-     * accessibility icon
+     * Accessibility icon
      */
-    ACCESSIBILITY("&#xe9b2;", "accessibility"),
+    ICON_ACCESSIBILITY("icon-accessibility", "\uE9b2"),
     /**
-     * target icon
+     * Target icon
      */
-    TARGET("&#xe9b3;", "target"),
+    ICON_TARGET("icon-target", "\uE9b3"),
     /**
-     * shield icon
+     * Shield icon
      */
-    SHIELD("&#xe9b4;", "shield"),
+    ICON_SHIELD("icon-shield", "\uE9b4"),
     /**
-     * power icon
+     * Power icon
      */
-    POWER("&#xe9b5;", "power"),
+    ICON_POWER("icon-power", "\uE9b5"),
     /**
-     * switch icon
+     * Switch icon
      */
-    SWITCH("&#xe9b6;", "switch"),
+    ICON_SWITCH("icon-switch", "\uE9b6"),
     /**
-     * power-cord icon
+     * Power cord icon
      */
-    POWER_CORD("&#xe9b7;", "power-cord"),
+    ICON_POWER_CORD("icon-power-cord", "\uE9b7"),
     /**
-     * clipboard icon
+     * Clipboard icon
      */
-    CLIPBOARD("&#xe9b8;", "clipboard"),
+    ICON_CLIPBOARD("icon-clipboard", "\uE9b8"),
     /**
-     * list-numbered icon
+     * Numbered list icon
      */
-    LIST_NUMBERED("&#xe9b9;", "list-numbered"),
+    ICON_LIST_NUMBERED("icon-list-numbered", "\uE9b9"),
     /**
-     * list icon
+     * List icon
      */
-    LIST("&#xe9ba;", "list"),
+    ICON_LIST("icon-list", "\uE9ba"),
     /**
-     * list2 icon
+     * List icon
      */
-    LIST2("&#xe9bb;", "list2"),
+    ICON_LIST2("icon-list2", "\uE9bb"),
     /**
-     * tree icon
+     * Tree icon
      */
-    TREE("&#xe9bc;", "tree"),
+    ICON_TREE("icon-tree", "\uE9bc"),
     /**
-     * menu icon
+     * Menu icon
      */
-    MENU("&#xe9bd;", "menu"),
+    ICON_MENU("icon-menu", "\uE9bd"),
     /**
-     * menu2 icon
+     * Menu icon
      */
-    MENU2("&#xe9be;", "menu2"),
+    ICON_MENU2("icon-menu2", "\uE9be"),
     /**
-     * menu3 icon
+     * Menu icon
      */
-    MENU3("&#xe9bf;", "menu3"),
+    ICON_MENU3("icon-menu3", "\uE9bf"),
     /**
-     * menu4 icon
+     * Menu icon
      */
-    MENU4("&#xe9c0;", "menu4"),
+    ICON_MENU4("icon-menu4", "\uE9c0"),
     /**
-     * cloud icon
+     * Cloud icon
      */
-    CLOUD("&#xe9c1;", "cloud"),
+    ICON_CLOUD("icon-cloud", "\uE9c1"),
     /**
-     * cloud-download icon
+     * Cloud download icon
      */
-    CLOUD_DOWNLOAD("&#xe9c2;", "cloud-download"),
+    ICON_CLOUD_DOWNLOAD("icon-cloud-download", "\uE9c2"),
     /**
-     * cloud-upload icon
+     * Cloud upload icon
      */
-    CLOUD_UPLOAD("&#xe9c3;", "cloud-upload"),
+    ICON_CLOUD_UPLOAD("icon-cloud-upload", "\uE9c3"),
     /**
-     * cloud-check icon
+     * Cloud with check icon
      */
-    CLOUD_CHECK("&#xe9c4;", "cloud-check"),
+    ICON_CLOUD_CHECK("icon-cloud-check", "\uE9c4"),
     /**
-     * download2 icon
+     * Download icon
      */
-    DOWNLOAD2("&#xe9c5;", "download2"),
+    ICON_DOWNLOAD2("icon-download2", "\uE9c5"),
     /**
-     * upload2 icon
+     * Upload icon
      */
-    UPLOAD2("&#xe9c6;", "upload2"),
+    ICON_UPLOAD2("icon-upload2", "\uE9c6"),
     /**
-     * download3 icon
+     * Download icon
      */
-    DOWNLOAD3("&#xe9c7;", "download3"),
+    ICON_DOWNLOAD3("icon-download3", "\uE9c7"),
     /**
-     * upload3 icon
+     * Upload icon
      */
-    UPLOAD3("&#xe9c8;", "upload3"),
+    ICON_UPLOAD3("icon-upload3", "\uE9c8"),
     /**
-     * sphere icon
+     * Sphere icon
      */
-    SPHERE("&#xe9c9;", "sphere"),
+    ICON_SPHERE("icon-sphere", "\uE9c9"),
     /**
-     * earth icon
+     * Earth icon
      */
-    EARTH("&#xe9ca;", "earth"),
+    ICON_EARTH("icon-earth", "\uE9ca"),
     /**
-     * link icon
+     * Link icon
      */
-    LINK("&#xe9cb;", "link"),
+    ICON_LINK("icon-link", "\uE9cb"),
     /**
-     * flag icon
+     * Flag icon
      */
-    FLAG("&#xe9cc;", "flag"),
+    ICON_FLAG("icon-flag", "\uE9cc"),
     /**
-     * attachment icon
+     * Attachment icon
      */
-    ATTACHMENT("&#xe9cd;", "attachment"),
+    ICON_ATTACHMENT("icon-attachment", "\uE9cd"),
     /**
-     * eye icon
+     * Eye icon
      */
-    EYE("&#xe9ce;", "eye"),
+    ICON_EYE("icon-eye", "\uE9ce"),
     /**
-     * eye-plus icon
+     * Plus eye icon
      */
-    EYE_PLUS("&#xe9cf;", "eye-plus"),
+    ICON_EYE_PLUS("icon-eye-plus", "\uE9cf"),
     /**
-     * eye-minus icon
+     * Minus eye icon
      */
-    EYE_MINUS("&#xe9d0;", "eye-minus"),
+    ICON_EYE_MINUS("icon-eye-minus", "\uE9d0"),
     /**
-     * eye-blocked icon
+     * Struck-out eye icon
      */
-    EYE_BLOCKED("&#xe9d1;", "eye-blocked"),
+    ICON_EYE_BLOCKED("icon-eye-blocked", "\uE9d1"),
     /**
-     * bookmark icon
+     * Bookmark icon
      */
-    BOOKMARK("&#xe9d2;", "bookmark"),
+    ICON_BOOKMARK("icon-bookmark", "\uE9d2"),
     /**
-     * bookmarks icon
+     * Bookmarks icon
      */
-    BOOKMARKS("&#xe9d3;", "bookmarks"),
+    ICON_BOOKMARKS("icon-bookmarks", "\uE9d3"),
     /**
-     * sun icon
+     * Sun icon
      */
-    SUN("&#xe9d4;", "sun"),
+    ICON_SUN("icon-sun", "\uE9d4"),
     /**
-     * contrast icon
+     * Contrast icon
      */
-    CONTRAST("&#xe9d5;", "contrast"),
+    ICON_CONTRAST("icon-contrast", "\uE9d5"),
     /**
-     * brightness-contrast icon
+     * Brightness-contrast icon
      */
-    BRIGHTNESS_CONTRAST("&#xe9d6;", "brightness-contrast"),
+    ICON_BRIGHTNESS_CONTRAST("icon-brightness-contrast", "\uE9d6"),
     /**
-     * star-empty icon
+     * Empty star icon
      */
-    STAR_EMPTY("&#xe9d7;", "star-empty"),
+    ICON_STAR_EMPTY("icon-star-empty", "\uE9d7"),
     /**
-     * star-half icon
+     * Half star icon
      */
-    STAR_HALF("&#xe9d8;", "star-half"),
+    ICON_STAR_HALF("icon-star-half", "\uE9d8"),
     /**
-     * star-full icon
+     * Full star icon
      */
-    STAR_FULL("&#xe9d9;", "star-full"),
+    ICON_STAR_FULL("icon-star-full", "\uE9d9"),
     /**
-     * heart icon
+     * Heart icon
      */
-    HEART("&#xe9da;", "heart"),
+    ICON_HEART("icon-heart", "\uE9da"),
     /**
-     * heart-broken icon
+     * Broken heart icon
      */
-    HEART_BROKEN("&#xe9db;", "heart-broken"),
+    ICON_HEART_BROKEN("icon-heart-broken", "\uE9db"),
     /**
-     * man icon
+     * Man icon
      */
-    MAN("&#xe9dc;", "man"),
+    ICON_MAN("icon-man", "\uE9dc"),
     /**
-     * woman icon
+     * Woman icon
      */
-    WOMAN("&#xe9dd;", "woman"),
+    ICON_WOMAN("icon-woman", "\uE9dd"),
     /**
-     * man-woman icon
+     * Man and woman icon
      */
-    MAN_WOMAN("&#xe9de;", "man-woman"),
+    ICON_MAN_WOMAN("icon-man-woman", "\uE9de"),
     /**
-     * happy icon
+     * Happy icon
      */
-    HAPPY("&#xe9df;", "happy"),
+    ICON_HAPPY("icon-happy", "\uE9df"),
     /**
-     * happy2 icon
+     * Happy icon
      */
-    HAPPY2("&#xe9e0;", "happy2"),
+    ICON_HAPPY2("icon-happy2", "\uE9e0"),
     /**
-     * smile icon
+     * Smile icon
      */
-    SMILE("&#xe9e1;", "smile"),
+    ICON_SMILE("icon-smile", "\uE9e1"),
     /**
-     * smile2 icon
+     * Smile icon
      */
-    SMILE2("&#xe9e2;", "smile2"),
+    ICON_SMILE2("icon-smile2", "\uE9e2"),
     /**
-     * tongue icon
+     * Tongue icon
      */
-    TONGUE("&#xe9e3;", "tongue"),
+    ICON_TONGUE("icon-tongue", "\uE9e3"),
     /**
-     * tongue2 icon
+     * Tongue icon
      */
-    TONGUE2("&#xe9e4;", "tongue2"),
+    ICON_TONGUE2("icon-tongue2", "\uE9e4"),
     /**
-     * sad icon
+     * Sad icon
      */
-    SAD("&#xe9e5;", "sad"),
+    ICON_SAD("icon-sad", "\uE9e5"),
     /**
-     * sad2 icon
+     * Sad icon
      */
-    SAD2("&#xe9e6;", "sad2"),
+    ICON_SAD2("icon-sad2", "\uE9e6"),
     /**
-     * wink icon
+     * Wink icon
      */
-    WINK("&#xe9e7;", "wink"),
+    ICON_WINK("icon-wink", "\uE9e7"),
     /**
-     * wink2 icon
+     * Wink icon
      */
-    WINK2("&#xe9e8;", "wink2"),
+    ICON_WINK2("icon-wink2", "\uE9e8"),
     /**
-     * grin icon
+     * Grin icon
      */
-    GRIN("&#xe9e9;", "grin"),
+    ICON_GRIN("icon-grin", "\uE9e9"),
     /**
-     * grin2 icon
+     * Grin icon
      */
-    GRIN2("&#xe9ea;", "grin2"),
+    ICON_GRIN2("icon-grin2", "\uE9ea"),
     /**
-     * cool icon
+     * Cool icon
      */
-    COOL("&#xe9eb;", "cool"),
+    ICON_COOL("icon-cool", "\uE9eb"),
     /**
-     * cool2 icon
+     * Cool icon
      */
-    COOL2("&#xe9ec;", "cool2"),
+    ICON_COOL2("icon-cool2", "\uE9ec"),
     /**
-     * angry icon
+     * Angry icon
      */
-    ANGRY("&#xe9ed;", "angry"),
+    ICON_ANGRY("icon-angry", "\uE9ed"),
     /**
-     * angry2 icon
+     * Angry icon
      */
-    ANGRY2("&#xe9ee;", "angry2"),
+    ICON_ANGRY2("icon-angry2", "\uE9ee"),
     /**
-     * evil icon
+     * Evil icon
      */
-    EVIL("&#xe9ef;", "evil"),
+    ICON_EVIL("icon-evil", "\uE9ef"),
     /**
-     * evil2 icon
+     * Evil icon
      */
-    EVIL2("&#xe9f0;", "evil2"),
+    ICON_EVIL2("icon-evil2", "\uE9f0"),
     /**
-     * shocked icon
+     * Shocked icon
      */
-    SHOCKED("&#xe9f1;", "shocked"),
+    ICON_SHOCKED("icon-shocked", "\uE9f1"),
     /**
-     * shocked2 icon
+     * Shocked icon
      */
-    SHOCKED2("&#xe9f2;", "shocked2"),
+    ICON_SHOCKED2("icon-shocked2", "\uE9f2"),
     /**
-     * baffled icon
+     * Baffled icon
      */
-    BAFFLED("&#xe9f3;", "baffled"),
+    ICON_BAFFLED("icon-baffled", "\uE9f3"),
     /**
-     * baffled2 icon
+     * Baffled icon
      */
-    BAFFLED2("&#xe9f4;", "baffled2"),
+    ICON_BAFFLED2("icon-baffled2", "\uE9f4"),
     /**
-     * confused icon
+     * Confused icon
      */
-    CONFUSED("&#xe9f5;", "confused"),
+    ICON_CONFUSED("icon-confused", "\uE9f5"),
     /**
-     * confused2 icon
+     * Confused icon
      */
-    CONFUSED2("&#xe9f6;", "confused2"),
+    ICON_CONFUSED2("icon-confused2", "\uE9f6"),
     /**
-     * neutral icon
+     * Neutral icon
      */
-    NEUTRAL("&#xe9f7;", "neutral"),
+    ICON_NEUTRAL("icon-neutral", "\uE9f7"),
     /**
-     * neutral2 icon
+     * Neutral icon
      */
-    NEUTRAL2("&#xe9f8;", "neutral2"),
+    ICON_NEUTRAL2("icon-neutral2", "\uE9f8"),
     /**
-     * hipster icon
+     * Hipster icon
      */
-    HIPSTER("&#xe9f9;", "hipster"),
+    ICON_HIPSTER("icon-hipster", "\uE9f9"),
     /**
-     * hipster2 icon
+     * Hipster icon
      */
-    HIPSTER2("&#xe9fa;", "hipster2"),
+    ICON_HIPSTER2("icon-hipster2", "\uE9fa"),
     /**
-     * wondering icon
+     * Wondering icon
      */
-    WONDERING("&#xe9fb;", "wondering"),
+    ICON_WONDERING("icon-wondering", "\uE9fb"),
     /**
-     * wondering2 icon
+     * Wondering icon
      */
-    WONDERING2("&#xe9fc;", "wondering2"),
+    ICON_WONDERING2("icon-wondering2", "\uE9fc"),
     /**
-     * sleepy icon
+     * Sleepy icon
      */
-    SLEEPY("&#xe9fd;", "sleepy"),
+    ICON_SLEEPY("icon-sleepy", "\uE9fd"),
     /**
-     * sleepy2 icon
+     * Sleepy icon
      */
-    SLEEPY2("&#xe9fe;", "sleepy2"),
+    ICON_SLEEPY2("icon-sleepy2", "\uE9fe"),
     /**
-     * frustrated icon
+     * Frustrated icon
      */
-    FRUSTRATED("&#xe9ff;", "frustrated"),
+    ICON_FRUSTRATED("icon-frustrated", "\uE9ff"),
     /**
-     * frustrated2 icon
+     * Frustrated icon
      */
-    FRUSTRATED2("&#xea00;", "frustrated2"),
+    ICON_FRUSTRATED2("icon-frustrated2", "\uEa00"),
     /**
-     * crying icon
+     * Crying icon
      */
-    CRYING("&#xea01;", "crying"),
+    ICON_CRYING("icon-crying", "\uEa01"),
     /**
-     * crying2 icon
+     * Crying icon
      */
-    CRYING2("&#xea02;", "crying2"),
+    ICON_CRYING2("icon-crying2", "\uEa02"),
     /**
-     * point-up icon
+     * Point up icon
      */
-    POINT_UP("&#xea03;", "point-up"),
+    ICON_POINT_UP("icon-point-up", "\uEa03"),
     /**
-     * point-right icon
+     * Point right icon
      */
-    POINT_RIGHT("&#xea04;", "point-right"),
+    ICON_POINT_RIGHT("icon-point-right", "\uEa04"),
     /**
-     * point-down icon
+     * Point down icon
      */
-    POINT_DOWN("&#xea05;", "point-down"),
+    ICON_POINT_DOWN("icon-point-down", "\uEa05"),
     /**
-     * point-left icon
+     * Point left icon
      */
-    POINT_LEFT("&#xea06;", "point-left"),
+    ICON_POINT_LEFT("icon-point-left", "\uEa06"),
     /**
-     * warning icon
+     * Warning icon
      */
-    WARNING("&#xea07;", "warning"),
+    ICON_WARNING("icon-warning", "\uEa07"),
     /**
-     * notification icon
+     * Notification icon
      */
-    NOTIFICATION("&#xea08;", "notification"),
+    ICON_NOTIFICATION("icon-notification", "\uEa08"),
     /**
-     * question icon
+     * Question icon
      */
-    QUESTION("&#xea09;", "question"),
+    ICON_QUESTION("icon-question", "\uEa09"),
     /**
-     * plus icon
+     * Plus icon
      */
-    PLUS("&#xea0a;", "plus"),
+    ICON_PLUS("icon-plus", "\uEa0a"),
     /**
-     * minus icon
+     * Minus icon
      */
-    MINUS("&#xea0b;", "minus"),
+    ICON_MINUS("icon-minus", "\uEa0b"),
     /**
-     * info icon
+     * Info icon
      */
-    INFO("&#xea0c;", "info"),
+    ICON_INFO("icon-info", "\uEa0c"),
     /**
-     * cancel-circle icon
+     * Circle cancel icon
      */
-    CANCEL_CIRCLE("&#xea0d;", "cancel-circle"),
+    ICON_CANCEL_CIRCLE("icon-cancel-circle", "\uEa0d"),
     /**
-     * blocked icon
+     * Blocked icon
      */
-    BLOCKED("&#xea0e;", "blocked"),
+    ICON_BLOCKED("icon-blocked", "\uEa0e"),
     /**
-     * cross icon
+     * Cross icon
      */
-    CROSS("&#xea0f;", "cross"),
+    ICON_CROSS("icon-cross", "\uEa0f"),
     /**
-     * checkmark icon
+     * Checkmark icon
      */
-    CHECKMARK("&#xea10;", "checkmark"),
+    ICON_CHECKMARK("icon-checkmark", "\uEa10"),
     /**
-     * checkmark2 icon
+     * Checkmark icon
      */
-    CHECKMARK2("&#xea11;", "checkmark2"),
+    ICON_CHECKMARK2("icon-checkmark2", "\uEa11"),
     /**
-     * spell-check icon
+     * Spell check icon
      */
-    SPELL_CHECK("&#xea12;", "spell-check"),
+    ICON_SPELL_CHECK("icon-spell-check", "\uEa12"),
     /**
-     * enter icon
+     * Enter icon
      */
-    ENTER("&#xea13;", "enter"),
+    ICON_ENTER("icon-enter", "\uEa13"),
     /**
-     * exit icon
+     * Exit icon
      */
-    EXIT("&#xea14;", "exit"),
+    ICON_EXIT("icon-exit", "\uEa14"),
     /**
-     * play2 icon
+     * PLay icon
      */
-    PLAY2("&#xea15;", "play2"),
+    ICON_PLAY2("icon-play2", "\uEa15"),
     /**
-     * pause icon
+     * Pause icon
      */
-    PAUSE("&#xea16;", "pause"),
+    ICON_PAUSE("icon-pause", "\uEa16"),
     /**
-     * stop icon
+     * Stop icon
      */
-    STOP("&#xea17;", "stop"),
+    ICON_STOP("icon-stop", "\uEa17"),
     /**
-     * previous icon
+     * Previous icon
      */
-    PREVIOUS("&#xea18;", "previous"),
+    ICON_PREVIOUS("icon-previous", "\uEa18"),
     /**
-     * next icon
+     * Next icon
      */
-    NEXT("&#xea19;", "next"),
+    ICON_NEXT("icon-next", "\uEa19"),
     /**
-     * backward icon
+     * Backward icon
      */
-    BACKWARD("&#xea1a;", "backward"),
+    ICON_BACKWARD("icon-backward", "\uEa1a"),
     /**
-     * forward2 icon
+     * Forward icon
      */
-    FORWARD2("&#xea1b;", "forward2"),
+    ICON_FORWARD2("icon-forward2", "\uEa1b"),
     /**
-     * play3 icon
+     * Play icon
      */
-    PLAY3("&#xea1c;", "play3"),
+    ICON_PLAY3("icon-play3", "\uEa1c"),
     /**
-     * pause2 icon
+     * Pause icon
      */
-    PAUSE2("&#xea1d;", "pause2"),
+    ICON_PAUSE2("icon-pause2", "\uEa1d"),
     /**
-     * stop2 icon
+     * Stop icon
      */
-    STOP2("&#xea1e;", "stop2"),
+    ICON_STOP2("icon-stop2", "\uEa1e"),
     /**
-     * backward2 icon
+     * Backward icon
      */
-    BACKWARD2("&#xea1f;", "backward2"),
+    ICON_BACKWARD2("icon-backward2", "\uEa1f"),
     /**
-     * forward3 icon
+     * Forward icon
      */
-    FORWARD3("&#xea20;", "forward3"),
+    ICON_FORWARD3("icon-forward3", "\uEa20"),
     /**
-     * first icon
+     * First icon
      */
-    FIRST("&#xea21;", "first"),
+    ICON_FIRST("icon-first", "\uEa21"),
     /**
-     * last icon
+     * Last icon
      */
-    LAST("&#xea22;", "last"),
+    ICON_LAST("icon-last", "\uEa22"),
     /**
-     * previous2 icon
+     * Previous icon
      */
-    PREVIOUS2("&#xea23;", "previous2"),
+    ICON_PREVIOUS2("icon-previous2", "\uEa23"),
     /**
-     * next2 icon
+     * Next icon
      */
-    NEXT2("&#xea24;", "next2"),
+    ICON_NEXT2("icon-next2", "\uEa24"),
     /**
-     * eject icon
+     * Eject icon
      */
-    EJECT("&#xea25;", "eject"),
+    ICON_EJECT("icon-eject", "\uEa25"),
     /**
-     * volume-high icon
+     * High volume icon
      */
-    VOLUME_HIGH("&#xea26;", "volume-high"),
+    ICON_VOLUME_HIGH("icon-volume-high", "\uEa26"),
     /**
-     * volume-medium icon
+     * Medium volume icon
      */
-    VOLUME_MEDIUM("&#xea27;", "volume-medium"),
+    ICON_VOLUME_MEDIUM("icon-volume-medium", "\uEa27"),
     /**
-     * volume-low icon
+     * Low volume icon
      */
-    VOLUME_LOW("&#xea28;", "volume-low"),
+    ICON_VOLUME_LOW("icon-volume-low", "\uEa28"),
     /**
-     * volume-mute icon
+     * Mute volume icon
      */
-    VOLUME_MUTE("&#xea29;", "volume-mute"),
+    ICON_VOLUME_MUTE("icon-volume-mute", "\uEa29"),
     /**
-     * volume-mute2 icon
+     * Mute volume icon
      */
-    VOLUME_MUTE2("&#xea2a;", "volume-mute2"),
+    ICON_VOLUME_MUTE2("icon-volume-mute2", "\uEa2a"),
     /**
-     * volume-increase icon
+     * Increase volume icon
      */
-    VOLUME_INCREASE("&#xea2b;", "volume-increase"),
+    ICON_VOLUME_INCREASE("icon-volume-increase", "\uEa2b"),
     /**
-     * volume-decrease icon
+     * Decrease volume icon
      */
-    VOLUME_DECREASE("&#xea2c;", "volume-decrease"),
+    ICON_VOLUME_DECREASE("icon-volume-decrease", "\uEa2c"),
     /**
-     * loop icon
+     * Loop icon
      */
-    LOOP("&#xea2d;", "loop"),
+    ICON_LOOP("icon-loop", "\uEa2d"),
     /**
-     * loop2 icon
+     * Loop icon
      */
-    LOOP2("&#xea2e;", "loop2"),
+    ICON_LOOP2("icon-loop2", "\uEa2e"),
     /**
-     * infinite icon
+     * Infinite icon
      */
-    INFINITE("&#xea2f;", "infinite"),
+    ICON_INFINITE("icon-infinite", "\uEa2f"),
     /**
-     * shuffle icon
+     * Shuffle icon
      */
-    SHUFFLE("&#xea30;", "shuffle"),
+    ICON_SHUFFLE("icon-shuffle", "\uEa30"),
     /**
-     * arrow-up-left icon
+     * Up-left arrow icon
      */
-    ARROW_UP_LEFT("&#xea31;", "arrow-up-left"),
+    ICON_ARROW_UP_LEFT("icon-arrow-up-left", "\uEa31"),
     /**
-     * arrow-up icon
+     * Up arrow icon
      */
-    ARROW_UP("&#xea32;", "arrow-up"),
+    ICON_ARROW_UP("icon-arrow-up", "\uEa32"),
     /**
-     * arrow-up-right icon
+     * Up-right arrow icon
      */
-    ARROW_UP_RIGHT("&#xea33;", "arrow-up-right"),
+    ICON_ARROW_UP_RIGHT("icon-arrow-up-right", "\uEa33"),
     /**
-     * arrow-right icon
+     * Right arrow icon
      */
-    ARROW_RIGHT("&#xea34;", "arrow-right"),
+    ICON_ARROW_RIGHT("icon-arrow-right", "\uEa34"),
     /**
-     * arrow-down-right icon
+     * Down-right arrow icon
      */
-    ARROW_DOWN_RIGHT("&#xea35;", "arrow-down-right"),
+    ICON_ARROW_DOWN_RIGHT("icon-arrow-down-right", "\uEa35"),
     /**
-     * arrow-down icon
+     * Down arrow icon
      */
-    ARROW_DOWN("&#xea36;", "arrow-down"),
+    ICON_ARROW_DOWN("icon-arrow-down", "\uEa36"),
     /**
-     * arrow-down-left icon
+     * Down-left arrow icon
      */
-    ARROW_DOWN_LEFT("&#xea37;", "arrow-down-left"),
+    ICON_ARROW_DOWN_LEFT("icon-arrow-down-left", "\uEa37"),
     /**
-     * arrow-left icon
+     * Left arrow icon
      */
-    ARROW_LEFT("&#xea38;", "arrow-left"),
+    ICON_ARROW_LEFT("icon-arrow-left", "\uEa38"),
     /**
-     * arrow-up-left2 icon
+     * Up left arrow icon
      */
-    ARROW_UP_LEFT2("&#xea39;", "arrow-up-left2"),
+    ICON_ARROW_UP_LEFT2("icon-arrow-up-left2", "\uEa39"),
     /**
-     * arrow-up2 icon
+     * Up arrow icon
      */
-    ARROW_UP2("&#xea3a;", "arrow-up2"),
+    ICON_ARROW_UP2("icon-arrow-up2", "\uEa3a"),
     /**
-     * arrow-up-right2 icon
+     * Up-right arrow icon
      */
-    ARROW_UP_RIGHT2("&#xea3b;", "arrow-up-right2"),
+    ICON_ARROW_UP_RIGHT2("icon-arrow-up-right2", "\uEa3b"),
     /**
-     * arrow-right2 icon
+     * Right arrow icon
      */
-    ARROW_RIGHT2("&#xea3c;", "arrow-right2"),
+    ICON_ARROW_RIGHT2("icon-arrow-right2", "\uEa3c"),
     /**
-     * arrow-down-right2 icon
+     * Down-right arrow icon
      */
-    ARROW_DOWN_RIGHT2("&#xea3d;", "arrow-down-right2"),
+    ICON_ARROW_DOWN_RIGHT2("icon-arrow-down-right2", "\uEa3d"),
     /**
-     * arrow-down2 icon
+     * Down arrow icon
      */
-    ARROW_DOWN2("&#xea3e;", "arrow-down2"),
+    ICON_ARROW_DOWN2("icon-arrow-down2", "\uEa3e"),
     /**
-     * arrow-down-left2 icon
+     * Down-left arrow icon
      */
-    ARROW_DOWN_LEFT2("&#xea3f;", "arrow-down-left2"),
+    ICON_ARROW_DOWN_LEFT2("icon-arrow-down-left2", "\uEa3f"),
     /**
-     * arrow-left2 icon
+     * Left arrow icon
      */
-    ARROW_LEFT2("&#xea40;", "arrow-left2"),
+    ICON_ARROW_LEFT2("icon-arrow-left2", "\uEa40"),
     /**
-     * circle-up icon
+     * Circle up arrow icon
      */
-    CIRCLE_UP("&#xea41;", "circle-up"),
+    ICON_CIRCLE_UP("icon-circle-up", "\uEa41"),
     /**
-     * circle-right icon
+     * Circle right arrow icon
      */
-    CIRCLE_RIGHT("&#xea42;", "circle-right"),
+    ICON_CIRCLE_RIGHT("icon-circle-right", "\uEa42"),
     /**
-     * circle-down icon
+     * Circle down arrow icon
      */
-    CIRCLE_DOWN("&#xea43;", "circle-down"),
+    ICON_CIRCLE_DOWN("icon-circle-down", "\uEa43"),
     /**
-     * circle-left icon
+     * Circle left arrow icon
      */
-    CIRCLE_LEFT("&#xea44;", "circle-left"),
+    ICON_CIRCLE_LEFT("icon-circle-left", "\uEa44"),
     /**
-     * tab icon
+     * Tab icon
      */
-    TAB("&#xea45;", "tab"),
+    ICON_TAB("icon-tab", "\uEa45"),
     /**
-     * move-up icon
+     * Move up icon
      */
-    MOVE_UP("&#xea46;", "move-up"),
+    ICON_MOVE_UP("icon-move-up", "\uEa46"),
     /**
-     * move-down icon
+     * Move down icon
      */
-    MOVE_DOWN("&#xea47;", "move-down"),
+    ICON_MOVE_DOWN("icon-move-down", "\uEa47"),
     /**
-     * sort-alpha-asc icon
+     * Sort alphabetic ascending
      */
-    SORT_ALPHA_ASC("&#xea48;", "sort-alpha-asc"),
+    ICON_SORT_ALPHA_ASC("icon-sort-alpha-asc", "\uEa48"),
     /**
-     * sort-alpha-desc icon
+     * Sort alphabetical descending
      */
-    SORT_ALPHA_DESC("&#xea49;", "sort-alpha-desc"),
+    ICON_SORT_ALPHA_DESC("icon-sort-alpha-desc", "\uEa49"),
     /**
-     * sort-numeric-asc icon
+     * Sort numeric ascending
      */
-    SORT_NUMERIC_ASC("&#xea4a;", "sort-numeric-asc"),
+    ICON_SORT_NUMERIC_ASC("icon-sort-numeric-asc", "\uEa4a"),
     /**
-     * sort-numberic-desc icon
+     * Sort numeric descending
      */
-    SORT_NUMBERIC_DESC("&#xea4b;", "sort-numberic-desc"),
+    ICON_SORT_NUMBERIC_DESC("icon-sort-numberic-desc", "\uEa4b"),
     /**
-     * sort-amount-asc icon
+     * Sort amount ascending
      */
-    SORT_AMOUNT_ASC("&#xea4c;", "sort-amount-asc"),
+    ICON_SORT_AMOUNT_ASC("icon-sort-amount-asc", "\uEa4c"),
     /**
-     * sort-amount-desc icon
+     * Sort amount descending
      */
-    SORT_AMOUNT_DESC("&#xea4d;", "sort-amount-desc"),
+    ICON_SORT_AMOUNT_DESC("icon-sort-amount-desc", "\uEa4d"),
     /**
-     * command icon
+     * Command icon
      */
-    COMMAND("&#xea4e;", "command"),
+    ICON_COMMAND("icon-command", "\uEa4e"),
     /**
-     * shift icon
+     * Shift icon
      */
-    SHIFT("&#xea4f;", "shift"),
+    ICON_SHIFT("icon-shift", "\uEa4f"),
     /**
-     * ctrl icon
+     * Ctrl icon
      */
-    CTRL("&#xea50;", "ctrl"),
+    ICON_CTRL("icon-ctrl", "\uEa50"),
     /**
-     * opt icon
+     * Opt icon
      */
-    OPT("&#xea51;", "opt"),
+    ICON_OPT("icon-opt", "\uEa51"),
     /**
-     * checkbox-checked icon
+     * Checked checkbox icon
      */
-    CHECKBOX_CHECKED("&#xea52;", "checkbox-checked"),
+    ICON_CHECKBOX_CHECKED("icon-checkbox-checked", "\uEa52"),
     /**
-     * checkbox-unchecked icon
+     * Unchecked checkbox icon
      */
-    CHECKBOX_UNCHECKED("&#xea53;", "checkbox-unchecked"),
+    ICON_CHECKBOX_UNCHECKED("icon-checkbox-unchecked", "\uEa53"),
     /**
-     * radio-checked icon
+     * Checked radio icon
      */
-    RADIO_CHECKED("&#xea54;", "radio-checked"),
+    ICON_RADIO_CHECKED("icon-radio-checked", "\uEa54"),
     /**
-     * radio-checked2 icon
+     * Checked radio icon
      */
-    RADIO_CHECKED2("&#xea55;", "radio-checked2"),
+    ICON_RADIO_CHECKED2("icon-radio-checked2", "\uEa55"),
     /**
-     * radio-unchecked icon
+     * Unchecked radio icon
      */
-    RADIO_UNCHECKED("&#xea56;", "radio-unchecked"),
+    ICON_RADIO_UNCHECKED("icon-radio-unchecked", "\uEa56"),
     /**
-     * crop icon
+     * Crop icon
      */
-    CROP("&#xea57;", "crop"),
+    ICON_CROP("icon-crop", "\uEa57"),
     /**
-     * make-group icon
+     * Make group icon
      */
-    MAKE_GROUP("&#xea58;", "make-group"),
+    ICON_MAKE_GROUP("icon-make-group", "\uEa58"),
     /**
-     * ungroup icon
+     * Ungroup icon
      */
-    UNGROUP("&#xea59;", "ungroup"),
+    ICON_UNGROUP("icon-ungroup", "\uEa59"),
     /**
-     * scissors icon
+     * Scissors icon
      */
-    SCISSORS("&#xea5a;", "scissors"),
+    ICON_SCISSORS("icon-scissors", "\uEa5a"),
     /**
-     * filter icon
+     * Filter icon
      */
-    FILTER("&#xea5b;", "filter"),
+    ICON_FILTER("icon-filter", "\uEa5b"),
     /**
-     * font icon
+     * Font icon
      */
-    FONT("&#xea5c;", "font"),
+    ICON_FONT("icon-font", "\uEa5c"),
     /**
-     * ligature icon
+     * Ligature icon
      */
-    LIGATURE("&#xea5d;", "ligature"),
+    ICON_LIGATURE("icon-ligature", "\uEa5d"),
     /**
-     * ligature2 icon
+     * Ligature icon
      */
-    LIGATURE2("&#xea5e;", "ligature2"),
+    ICON_LIGATURE2("icon-ligature2", "\uEa5e"),
     /**
-     * text-height icon
+     * Text height icon
      */
-    TEXT_HEIGHT("&#xea5f;", "text-height"),
+    ICON_TEXT_HEIGHT("icon-text-height", "\uEa5f"),
     /**
-     * text-width icon
+     * Text width icon
      */
-    TEXT_WIDTH("&#xea60;", "text-width"),
+    ICON_TEXT_WIDTH("icon-text-width", "\uEa60"),
     /**
-     * font-size icon
+     * Font size icon
      */
-    FONT_SIZE("&#xea61;", "font-size"),
+    ICON_FONT_SIZE("icon-font-size", "\uEa61"),
     /**
-     * bold icon
+     * Bold icon
      */
-    BOLD("&#xea62;", "bold"),
+    ICON_BOLD("icon-bold", "\uEa62"),
     /**
-     * underline icon
+     * Underline icon
      */
-    UNDERLINE("&#xea63;", "underline"),
+    ICON_UNDERLINE("icon-underline", "\uEa63"),
     /**
-     * italic icon
+     * Italic icon
      */
-    ITALIC("&#xea64;", "italic"),
+    ICON_ITALIC("icon-italic", "\uEa64"),
     /**
-     * strikethrough icon
+     * Strike-through icon
      */
-    STRIKETHROUGH("&#xea65;", "strikethrough"),
+    ICON_STRIKETHROUGH("icon-strikethrough", "\uEa65"),
     /**
-     * omega icon
+     * Omega icon
      */
-    OMEGA("&#xea66;", "omega"),
+    ICON_OMEGA("icon-omega", "\uEa66"),
     /**
-     * sigma icon
+     * Sigma icon
      */
-    SIGMA("&#xea67;", "sigma"),
+    ICON_SIGMA("icon-sigma", "\uEa67"),
     /**
-     * page-break icon
+     * Page break icon
      */
-    PAGE_BREAK("&#xea68;", "page-break"),
+    ICON_PAGE_BREAK("icon-page-break", "\uEa68"),
     /**
-     * superscript icon
+     * Superscript icon
      */
-    SUPERSCRIPT("&#xea69;", "superscript"),
+    ICON_SUPERSCRIPT("icon-superscript", "\uEa69"),
     /**
-     * subscript icon
+     * Subscript icon
      */
-    SUBSCRIPT("&#xea6a;", "subscript"),
+    ICON_SUBSCRIPT("icon-subscript", "\uEa6a"),
     /**
-     * superscript2 icon
+     * Superscript icon
      */
-    SUPERSCRIPT2("&#xea6b;", "superscript2"),
+    ICON_SUPERSCRIPT2("icon-superscript2", "\uEa6b"),
     /**
-     * subscript2 icon
+     * Subscript icon
      */
-    SUBSCRIPT2("&#xea6c;", "subscript2"),
+    ICON_SUBSCRIPT2("icon-subscript2", "\uEa6c"),
     /**
-     * text-color icon
+     * Color icon
      */
-    TEXT_COLOR("&#xea6d;", "text-color"),
+    ICON_TEXT_COLOR("icon-text-color", "\uEa6d"),
     /**
-     * pagebreak icon
+     * Pagebreak icon
      */
-    PAGEBREAK("&#xea6e;", "pagebreak"),
+    ICON_PAGEBREAK("icon-pagebreak", "\uEa6e"),
     /**
-     * clear-formatting icon
+     * Clear formatting icon
      */
-    CLEAR_FORMATTING("&#xea6f;", "clear-formatting"),
+    ICON_CLEAR_FORMATTING("icon-clear-formatting", "\uEa6f"),
     /**
-     * table icon
+     * Table icon
      */
-    TABLE("&#xea70;", "table"),
+    ICON_TABLE("icon-table", "\uEa70"),
     /**
-     * table2 icon
+     * Table icon
      */
-    TABLE2("&#xea71;", "table2"),
+    ICON_TABLE2("icon-table2", "\uEa71"),
     /**
-     * insert-template icon
+     * Insert template icon
      */
-    INSERT_TEMPLATE("&#xea72;", "insert-template"),
+    ICON_INSERT_TEMPLATE("icon-insert-template", "\uEa72"),
     /**
-     * pilcrow icon
+     * Pilcrow icon
      */
-    PILCROW("&#xea73;", "pilcrow"),
+    ICON_PILCROW("icon-pilcrow", "\uEa73"),
     /**
-     * ltr icon
+     * LTR icon
      */
-    LTR("&#xea74;", "ltr"),
+    ICON_LTR("icon-ltr", "\uEa74"),
     /**
-     * rtl icon
+     * RTL icon
      */
-    RTL("&#xea75;", "rtl"),
+    ICON_RTL("icon-rtl", "\uEa75"),
     /**
-     * section icon
+     * Section icon
      */
-    SECTION("&#xea76;", "section"),
+    ICON_SECTION("icon-section", "\uEa76"),
     /**
-     * paragraph-left icon
+     * Left-align paragraph icon
      */
-    PARAGRAPH_LEFT("&#xea77;", "paragraph-left"),
+    ICON_PARAGRAPH_LEFT("icon-paragraph-left", "\uEa77"),
     /**
-     * paragraph-center icon
+     * Center-align paragraph icon
      */
-    PARAGRAPH_CENTER("&#xea78;", "paragraph-center"),
+    ICON_PARAGRAPH_CENTER("icon-paragraph-center", "\uEa78"),
     /**
-     * paragraph-right icon
+     * Right-align paragraph icon
      */
-    PARAGRAPH_RIGHT("&#xea79;", "paragraph-right"),
+    ICON_PARAGRAPH_RIGHT("icon-paragraph-right", "\uEa79"),
     /**
-     * paragraph-justify icon
+     * Justify paragraph icon
      */
-    PARAGRAPH_JUSTIFY("&#xea7a;", "paragraph-justify"),
+    ICON_PARAGRAPH_JUSTIFY("icon-paragraph-justify", "\uEa7a"),
     /**
-     * indent-increase icon
+     * Increase indent icon
      */
-    INDENT_INCREASE("&#xea7b;", "indent-increase"),
+    ICON_INDENT_INCREASE("icon-indent-increase", "\uEa7b"),
     /**
-     * indent-decrease icon
+     * Decrease indent icon
      */
-    INDENT_DECREASE("&#xea7c;", "indent-decrease"),
+    ICON_INDENT_DECREASE("icon-indent-decrease", "\uEa7c"),
     /**
-     * share icon
+     * Share icon
      */
-    SHARE("&#xea7d;", "share"),
+    ICON_SHARE("icon-share", "\uEa7d"),
     /**
-     * new-tab icon
+     * New tab icon
      */
-    NEW_TAB("&#xea7e;", "new-tab"),
+    ICON_NEW_TAB("icon-new-tab", "\uEa7e"),
     /**
-     * embed icon
+     * Embed icon
      */
-    EMBED("&#xea7f;", "embed"),
+    ICON_EMBED("icon-embed", "\uEa7f"),
     /**
-     * embed2 icon
+     * Embed icon
      */
-    EMBED2("&#xea80;", "embed2"),
+    ICON_EMBED2("icon-embed2", "\uEa80"),
     /**
-     * terminal icon
+     * Terminal iconm
      */
-    TERMINAL("&#xea81;", "terminal"),
+    ICON_TERMINAL("icon-terminal", "\uEa81"),
     /**
-     * share2 icon
+     * Share icon
      */
-    SHARE2("&#xea82;", "share2"),
+    ICON_SHARE2("icon-share2", "\uEa82"),
     /**
-     * mail icon
+     * Mail icon
      */
-    MAIL("&#xea83;", "mail"),
+    ICON_MAIL("icon-mail", "\uEa83"),
     /**
-     * mail2 icon
+     * Mail icon
      */
-    MAIL2("&#xea84;", "mail2"),
+    ICON_MAIL2("icon-mail2", "\uEa84"),
     /**
-     * mail3 icon
+     * Mail icon
      */
-    MAIL3("&#xea85;", "mail3"),
+    ICON_MAIL3("icon-mail3", "\uEa85"),
     /**
-     * mail4 icon
+     * Mail icon
      */
-    MAIL4("&#xea86;", "mail4"),
+    ICON_MAIL4("icon-mail4", "\uEa86"),
     /**
-     * amazon icon
+     * Amazon icon
      */
-    AMAZON("&#xea87;", "amazon"),
+    ICON_AMAZON("icon-amazon", "\uEa87"),
     /**
-     * google icon
+     * Google icon
      */
-    GOOGLE("&#xea88;", "google"),
+    ICON_GOOGLE("icon-google", "\uEa88"),
     /**
-     * google2 icon
+     * Google icon
      */
-    GOOGLE2("&#xea89;", "google2"),
+    ICON_GOOGLE2("icon-google2", "\uEa89"),
     /**
-     * google3 icon
+     * Google icon
      */
-    GOOGLE3("&#xea8a;", "google3"),
+    ICON_GOOGLE3("icon-google3", "\uEa8a"),
     /**
-     * google-plus icon
+     * Google Plus icon
      */
-    GOOGLE_PLUS("&#xea8b;", "google-plus"),
+    ICON_GOOGLE_PLUS("icon-google-plus", "\uEa8b"),
     /**
-     * google-plus2 icon
+     * Google Plus icon
      */
-    GOOGLE_PLUS2("&#xea8c;", "google-plus2"),
+    ICON_GOOGLE_PLUS2("icon-google-plus2", "\uEa8c"),
     /**
-     * google-plus3 icon
+     * Google Plus icon
      */
-    GOOGLE_PLUS3("&#xea8d;", "google-plus3"),
+    ICON_GOOGLE_PLUS3("icon-google-plus3", "\uEa8d"),
     /**
-     * hangouts icon
+     * Hangouts icon
      */
-    HANGOUTS("&#xea8e;", "hangouts"),
+    ICON_HANGOUTS("icon-hangouts", "\uEa8e"),
     /**
-     * google-drive icon
+     * Google Drive icon
      */
-    GOOGLE_DRIVE("&#xea8f;", "google-drive"),
+    ICON_GOOGLE_DRIVE("icon-google-drive", "\uEa8f"),
     /**
-     * facebook icon
+     * Facebook icon
      */
-    FACEBOOK("&#xea90;", "facebook"),
+    ICON_FACEBOOK("icon-facebook", "\uEa90"),
     /**
-     * facebook2 icon
+     * Facebook icon
      */
-    FACEBOOK2("&#xea91;", "facebook2"),
+    ICON_FACEBOOK2("icon-facebook2", "\uEa91"),
     /**
-     * instagram icon
+     * Instagram icon
      */
-    INSTAGRAM("&#xea92;", "instagram"),
+    ICON_INSTAGRAM("icon-instagram", "\uEa92"),
     /**
-     * whatsapp icon
+     * Whatsapp icon
      */
-    WHATSAPP("&#xea93;", "whatsapp"),
+    ICON_WHATSAPP("icon-whatsapp", "\uEa93"),
     /**
-     * spotify icon
+     * Spotify icon
      */
-    SPOTIFY("&#xea94;", "spotify"),
+    ICON_SPOTIFY("icon-spotify", "\uEa94"),
     /**
-     * telegram icon
+     * Telegram icon
      */
-    TELEGRAM("&#xea95;", "telegram"),
+    ICON_TELEGRAM("icon-telegram", "\uEa95"),
     /**
-     * twitter icon
+     * Twitter icon
      */
-    TWITTER("&#xea96;", "twitter"),
+    ICON_TWITTER("icon-twitter", "\uEa96"),
     /**
-     * vine icon
+     * Vine icon
      */
-    VINE("&#xea97;", "vine"),
+    ICON_VINE("icon-vine", "\uEa97"),
     /**
-     * vk icon
+     * VK icon
      */
-    VK("&#xea98;", "vk"),
+    ICON_VK("icon-vk", "\uEa98"),
     /**
-     * renren icon
+     * Renren icon
      */
-    RENREN("&#xea99;", "renren"),
+    ICON_RENREN("icon-renren", "\uEa99"),
     /**
-     * sina-weibo icon
+     * Sina Weibo icon
      */
-    SINA_WEIBO("&#xea9a;", "sina-weibo"),
+    ICON_SINA_WEIBO("icon-sina-weibo", "\uEa9a"),
     /**
-     * rss icon
+     * RSS icon
      */
-    RSS("&#xea9b;", "rss"),
+    ICON_RSS("icon-rss", "\uEa9b"),
     /**
-     * rss2 icon
+     * RSS icon
      */
-    RSS2("&#xea9c;", "rss2"),
+    ICON_RSS2("icon-rss2", "\uEa9c"),
     /**
-     * youtube icon
+     * YouTube icon
      */
-    YOUTUBE("&#xea9d;", "youtube"),
+    ICON_YOUTUBE("icon-youtube", "\uEa9d"),
     /**
-     * youtube2 icon
+     * YouTube icon
      */
-    YOUTUBE2("&#xea9e;", "youtube2"),
+    ICON_YOUTUBE2("icon-youtube2", "\uEa9e"),
     /**
-     * twitch icon
+     * Twitch icon
      */
-    TWITCH("&#xea9f;", "twitch"),
+    ICON_TWITCH("icon-twitch", "\uEa9f"),
     /**
-     * vimeo icon
+     * Vimeo icon
      */
-    VIMEO("&#xeaa0;", "vimeo"),
+    ICON_VIMEO("icon-vimeo", "\uEaa0"),
     /**
-     * vimeo2 icon
+     * Vimeo icon
      */
-    VIMEO2("&#xeaa1;", "vimeo2"),
+    ICON_VIMEO2("icon-vimeo2", "\uEaa1"),
     /**
-     * lanyrd icon
+     * Lanyrd icon
      */
-    LANYRD("&#xeaa2;", "lanyrd"),
+    ICON_LANYRD("icon-lanyrd", "\uEaa2"),
     /**
-     * flickr icon
+     * Flickr icon
      */
-    FLICKR("&#xeaa3;", "flickr"),
+    ICON_FLICKR("icon-flickr", "\uEaa3"),
     /**
-     * flickr2 icon
+     * Flickr icon
      */
-    FLICKR2("&#xeaa4;", "flickr2"),
+    ICON_FLICKR2("icon-flickr2", "\uEaa4"),
     /**
-     * flickr3 icon
+     * Flickr icon
      */
-    FLICKR3("&#xeaa5;", "flickr3"),
+    ICON_FLICKR3("icon-flickr3", "\uEaa5"),
     /**
-     * flickr4 icon
+     * Flickr icon
      */
-    FLICKR4("&#xeaa6;", "flickr4"),
+    ICON_FLICKR4("icon-flickr4", "\uEaa6"),
     /**
-     * dribbble icon
+     * Dribble icon
      */
-    DRIBBBLE("&#xeaa7;", "dribbble"),
+    ICON_DRIBBBLE("icon-dribbble", "\uEaa7"),
     /**
-     * behance icon
+     * Behance icon
      */
-    BEHANCE("&#xeaa8;", "behance"),
+    ICON_BEHANCE("icon-behance", "\uEaa8"),
     /**
-     * behance2 icon
+     * Behance icon
      */
-    BEHANCE2("&#xeaa9;", "behance2"),
+    ICON_BEHANCE2("icon-behance2", "\uEaa9"),
     /**
-     * deviantart icon
+     * Deviant Art icon
      */
-    DEVIANTART("&#xeaaa;", "deviantart"),
+    ICON_DEVIANTART("icon-deviantart", "\uEaaa"),
     /**
      * 500px icon
      */
-    FIVE_HUNDRED_PX("&#xeaab;", "500px"),
+    ICON_500PX("icon-500px", "\uEaab"),
     /**
-     * steam icon
+     * Steam icon
      */
-    STEAM("&#xeaac;", "steam"),
+    ICON_STEAM("icon-steam", "\uEaac"),
     /**
-     * steam2 icon
+     * Steam icon
      */
-    STEAM2("&#xeaad;", "steam2"),
+    ICON_STEAM2("icon-steam2", "\uEaad"),
     /**
-     * dropbox icon
+     * DropBox icon
      */
-    DROPBOX("&#xeaae;", "dropbox"),
+    ICON_DROPBOX("icon-dropbox", "\uEaae"),
     /**
-     * onedrive icon
+     * OneDrive icon
      */
-    ONEDRIVE("&#xeaaf;", "onedrive"),
+    ICON_ONEDRIVE("icon-onedrive", "\uEaaf"),
     /**
-     * github icon
+     * GitHub icon
      */
-    GITHUB("&#xeab0;", "github"),
+    ICON_GITHUB("icon-github", "\uEab0"),
     /**
-     * npm icon
+     * NPM icon
      */
-    NPM("&#xeab1;", "npm"),
+    ICON_NPM("icon-npm", "\uEab1"),
     /**
-     * basecamp icon
+     * Base camp icon
      */
-    BASECAMP("&#xeab2;", "basecamp"),
+    ICON_BASECAMP("icon-basecamp", "\uEab2"),
     /**
-     * trello icon
+     * Trello icon
      */
-    TRELLO("&#xeab3;", "trello"),
+    ICON_TRELLO("icon-trello", "\uEab3"),
     /**
-     * wordpress icon
+     * Wordpress icon
      */
-    WORDPRESS("&#xeab4;", "wordpress"),
+    ICON_WORDPRESS("icon-wordpress", "\uEab4"),
     /**
-     * joomla icon
+     * Joomla icon
      */
-    JOOMLA("&#xeab5;", "joomla"),
+    ICON_JOOMLA("icon-joomla", "\uEab5"),
     /**
-     * ello icon
+     * Ello icon
      */
-    ELLO("&#xeab6;", "ello"),
+    ICON_ELLO("icon-ello", "\uEab6"),
     /**
-     * blogger icon
+     * Blogger icon
      */
-    BLOGGER("&#xeab7;", "blogger"),
+    ICON_BLOGGER("icon-blogger", "\uEab7"),
     /**
-     * blogger2 icon
+     * Blogger icon
      */
-    BLOGGER2("&#xeab8;", "blogger2"),
+    ICON_BLOGGER2("icon-blogger2", "\uEab8"),
     /**
-     * tumblr icon
+     * Tumblr icon
      */
-    TUMBLR("&#xeab9;", "tumblr"),
+    ICON_TUMBLR("icon-tumblr", "\uEab9"),
     /**
-     * tumblr2 icon
+     * Tumblr icon
      */
-    TUMBLR2("&#xeaba;", "tumblr2"),
+    ICON_TUMBLR2("icon-tumblr2", "\uEaba"),
     /**
-     * yahoo icon
+     * Yahoo icon
      */
-    YAHOO("&#xeabb;", "yahoo"),
+    ICON_YAHOO("icon-yahoo", "\uEabb"),
     /**
-     * yahoo2 icon
+     * Yahoo icon
      */
-    YAHOO2("&#xeabc;", "yahoo2"),
+    ICON_YAHOO2("icon-yahoo2", "\uEabc"),
     /**
-     * tux icon
+     * Tux icon
      */
-    TUX("&#xeabd;", "tux"),
+    ICON_TUX("icon-tux", "\uEabd"),
     /**
-     * appleinc icon
+     * Apple Inc. icon
      */
-    APPLEINC("&#xeabe;", "appleinc"),
+    ICON_APPLEINC("icon-appleinc", "\uEabe"),
     /**
-     * finder icon
+     * Finder icon
      */
-    FINDER("&#xeabf;", "finder"),
+    ICON_FINDER("icon-finder", "\uEabf"),
     /**
-     * android icon
+     * Android icon
      */
-    ANDROID("&#xeac0;", "android"),
+    ICON_ANDROID("icon-android", "\uEac0"),
     /**
-     * windows icon
+     * Windows icon
      */
-    WINDOWS("&#xeac1;", "windows"),
+    ICON_WINDOWS("icon-windows", "\uEac1"),
     /**
-     * windows8 icon
+     * Windows8 icon
      */
-    WINDOWS8("&#xeac2;", "windows8"),
+    ICON_WINDOWS8("icon-windows8", "\uEac2"),
     /**
-     * soundcloud icon
+     * Soundcloud icon
      */
-    SOUNDCLOUD("&#xeac3;", "soundcloud"),
+    ICON_SOUNDCLOUD("icon-soundcloud", "\uEac3"),
     /**
-     * soundcloud2 icon
+     * Soundcloud icon
      */
-    SOUNDCLOUD2("&#xeac4;", "soundcloud2"),
+    ICON_SOUNDCLOUD2("icon-soundcloud2", "\uEac4"),
     /**
-     * skype icon
+     * Skype icon
      */
-    SKYPE("&#xeac5;", "skype"),
+    ICON_SKYPE("icon-skype", "\uEac5"),
     /**
-     * reddit icon
+     * Reddit icon
      */
-    REDDIT("&#xeac6;", "reddit"),
+    ICON_REDDIT("icon-reddit", "\uEac6"),
     /**
-     * hackernews icon
+     * Hackernews icon
      */
-    HACKERNEWS("&#xeac7;", "hackernews"),
+    ICON_HACKERNEWS("icon-hackernews", "\uEac7"),
     /**
-     * wikipedia icon
+     * Wikipedia icon
      */
-    WIKIPEDIA("&#xeac8;", "wikipedia"),
+    ICON_WIKIPEDIA("icon-wikipedia", "\uEac8"),
     /**
-     * linkedin icon
+     * Linked in icon
      */
-    LINKEDIN("&#xeac9;", "linkedin"),
+    ICON_LINKEDIN("icon-linkedin", "\uEac9"),
     /**
-     * linkedin2 icon
+     * LinkedIn icon
      */
-    LINKEDIN2("&#xeaca;", "linkedin2"),
+    ICON_LINKEDIN2("icon-linkedin2", "\uEaca"),
     /**
-     * lastfm icon
+     * Last FM icon
      */
-    LASTFM("&#xeacb;", "lastfm"),
+    ICON_LASTFM("icon-lastfm", "\uEacb"),
     /**
-     * lastfm2 icon
+     * Last FM icon
      */
-    LASTFM2("&#xeacc;", "lastfm2"),
+    ICON_LASTFM2("icon-lastfm2", "\uEacc"),
     /**
-     * delicious icon
+     * Delicious icon
      */
-    DELICIOUS("&#xeacd;", "delicious"),
+    ICON_DELICIOUS("icon-delicious", "\uEacd"),
     /**
-     * stumbleupon icon
+     * Stumbleupon icon
      */
-    STUMBLEUPON("&#xeace;", "stumbleupon"),
+    ICON_STUMBLEUPON("icon-stumbleupon", "\uEace"),
     /**
-     * stumbleupon2 icon
+     * Stumbleupon icon
      */
-    STUMBLEUPON2("&#xeacf;", "stumbleupon2"),
+    ICON_STUMBLEUPON2("icon-stumbleupon2", "\uEacf"),
     /**
-     * stackoverflow icon
+     * Stackoverflow icon
      */
-    STACKOVERFLOW("&#xead0;", "stackoverflow"),
+    ICON_STACKOVERFLOW("icon-stackoverflow", "\uEad0"),
     /**
-     * pinterest icon
+     * Pinterest icon
      */
-    PINTEREST("&#xead1;", "pinterest"),
+    ICON_PINTEREST("icon-pinterest", "\uEad1"),
     /**
-     * pinterest2 icon
+     * Pinterest icon
      */
-    PINTEREST2("&#xead2;", "pinterest2"),
+    ICON_PINTEREST2("icon-pinterest2", "\uEad2"),
     /**
-     * xing icon
+     * Xing icon
      */
-    XING("&#xead3;", "xing"),
+    ICON_XING("icon-xing", "\uEad3"),
     /**
-     * xing2 icon
+     * Xing icon
      */
-    XING2("&#xead4;", "xing2"),
+    ICON_XING2("icon-xing2", "\uEad4"),
     /**
-     * flattr icon
+     * Flattr icon
      */
-    FLATTR("&#xead5;", "flattr"),
+    ICON_FLATTR("icon-flattr", "\uEad5"),
     /**
-     * foursquare icon
+     * Foursquare icon
      */
-    FOURSQUARE("&#xead6;", "foursquare"),
+    ICON_FOURSQUARE("icon-foursquare", "\uEad6"),
     /**
-     * yelp icon
+     * Yelp icon
      */
-    YELP("&#xead7;", "yelp"),
+    ICON_YELP("icon-yelp", "\uEad7"),
     /**
-     * paypal icon
+     * Paypal icon
      */
-    PAYPAL("&#xead8;", "paypal"),
+    ICON_PAYPAL("icon-paypal", "\uEad8"),
     /**
-     * chrome icon
+     * Chrome icon
      */
-    CHROME("&#xead9;", "chrome"),
+    ICON_CHROME("icon-chrome", "\uEad9"),
     /**
-     * firefox icon
+     * Firefox icon
      */
-    FIREFOX("&#xeada;", "firefox"),
+    ICON_FIREFOX("icon-firefox", "\uEada"),
     /**
-     * IE icon
+     * IE Icon
      */
-    IE("&#xeadb;", "IE"),
+    ICON_IE("icon-IE", "\uEadb"),
     /**
-     * edge icon
+     * Edge icon
      */
-    EDGE("&#xeadc;", "edge"),
+    ICON_EDGE("icon-edge", "\uEadc"),
     /**
-     * safari icon
+     * Safari icon
      */
-    SAFARI("&#xeadd;", "safari"),
+    ICON_SAFARI("icon-safari", "\uEadd"),
     /**
-     * opera icon
+     * Opera icon
      */
-    OPERA("&#xeade;", "opera"),
+    ICON_OPERA("icon-opera", "\uEade"),
     /**
-     * file-pdf icon
+     * PDF Icon
      */
-    FILE_PDF("&#xeadf;", "file-pdf"),
+    ICON_FILE_PDF("icon-file-pdf", "\uEadf"),
     /**
-     * file-openoffice icon
+     * Open Office icon
      */
-    FILE_OPENOFFICE("&#xeae0;", "file-openoffice"),
+    ICON_FILE_OPENOFFICE("icon-file-openoffice", "\uEae0"),
     /**
-     * file-word icon
+     * Word icon
      */
-    FILE_WORD("&#xeae1;", "file-word"),
+    ICON_FILE_WORD("icon-file-word", "\uEae1"),
     /**
-     * file-excel icon
+     * Excel icon
      */
-    FILE_EXCEL("&#xeae2;", "file-excel"),
+    ICON_FILE_EXCEL("icon-file-excel", "\uEae2"),
     /**
-     * libreoffice icon
+     * Libre Office icon
      */
-    LIBREOFFICE("&#xeae3;", "libreoffice"),
+    ICON_LIBREOFFICE("icon-libreoffice", "\uEae3"),
     /**
-     * html-five icon
+     * Five icon
      */
-    HTML_FIVE("&#xeae4;", "html-five"),
+    ICON_HTML_FIVE("icon-html-five", "\uEae4"),
     /**
-     * html-five2 icon
+     * Five icon
      */
-    HTML_FIVE2("&#xeae5;", "html-five2"),
+    ICON_HTML_FIVE2("icon-html-five2", "\uEae5"),
     /**
-     * css3 icon
+     * CSS icon
      */
-    CSS3("&#xeae6;", "css3"),
+    ICON_CSS3("icon-css3", "\uEae6"),
     /**
-     * git icon
+     * Git icon
      */
-    GIT("&#xeae7;", "git"),
+    ICON_GIT("icon-git", "\uEae7"),
     /**
-     * iconpen icon
+     * Codepen icon
      */
-    iconPEN("&#xeae8;", "codepen"),
+    ICON_CODEPEN("icon-codepen", "\uEae8"),
     /**
-     * svg icon
+     * SVG icon
      */
-    SVG("&#xeae9;", "svg"),
+    ICON_SVG("icon-svg", "\uEae9"),
     /**
-     * IcoMoon icon
+     * IcoMoon Icon
      */
-    ICOMOON("&#xeaea;", "IcoMoon");
+    ICON_ICOMOON("icon-IcoMoon", "\uEaea");
 
     private final String unicode;
     private final String glyphName;
 
-    IcoMoonFontEnum(String unicode, String glyphName) {
+    IcoMoonFontEnum(String glyphName, String unicode) {
         this.unicode = unicode;
         this.glyphName = glyphName;
     }

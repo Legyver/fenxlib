@@ -4,5 +4,8 @@ import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import javafx.scene.control.Pagination;
 
+/**
+ * Options for a JavaFX Pagination control
+ */
 public class PaginationOptions extends BaseControlBuilder<PaginationOptions> implements StyleableControlOptions<Pagination> {
 }

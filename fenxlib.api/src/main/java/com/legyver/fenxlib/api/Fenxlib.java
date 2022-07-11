@@ -40,6 +40,7 @@ public abstract class Fenxlib {
      * Get a menu by name
      * @param name the name of the menu
      * @return the menu, if it is registered
+     * @throws CoreException if there is an error executing the query
      */
     public static Optional<Menu> getMenu(String name) throws CoreException {
         LocationContext rootMenuContext = new LocationContextDecorator(menusLocation());
@@ -51,6 +52,7 @@ public abstract class Fenxlib {
      * Get a menu from a specific location
      * @param locationContext the location of the menu item
      * @return the menu, if it is registered
+     * @throws CoreException if there is an error executing the query
      */
     public static Optional<Menu> getMenu(LocationContext locationContext) throws CoreException {
         return new ComponentQuery.QueryBuilder().fromLocation(locationContext)

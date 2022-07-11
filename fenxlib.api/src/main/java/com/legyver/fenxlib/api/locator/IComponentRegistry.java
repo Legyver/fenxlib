@@ -10,6 +10,9 @@ public interface IComponentRegistry {
 	 * Property used to set/get the location context on a UI control
 	 */
 	String LOCATION_CONTEXT_PROPERTY = "location_context";
+	/**
+	 * Property used to set/get the simple name of a UI control
+	 */
 	String LOCATION_CONTEXT_SIMPLE_NAME = "location_context_simple_name";
 
 	/**

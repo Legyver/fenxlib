@@ -5,6 +5,9 @@ import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 
+/**
+ * Options for a JavaFX ScrollPane
+ */
 public class ScrollPaneOptions extends BaseControlBuilder<ScrollPaneOptions> implements StyleableControlOptions<ScrollPane> {
 
 }

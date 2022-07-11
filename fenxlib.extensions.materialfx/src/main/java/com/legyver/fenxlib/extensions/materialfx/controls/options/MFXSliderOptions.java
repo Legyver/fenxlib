@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.builder.DoubleValueMixin;
 import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXSlider;
 
+/**
+ * Options for a MFXSlider control
+ */
 public class MFXSliderOptions extends BaseControlBuilder<MFXSliderOptions> implements StyleableControlOptions<MFXSlider>,
         DoubleMaxMixin<MFXSliderOptions>,
         DoubleMinMixin<MFXSliderOptions>,

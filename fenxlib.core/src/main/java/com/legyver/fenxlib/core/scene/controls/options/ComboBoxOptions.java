@@ -7,6 +7,9 @@ import javafx.scene.control.ComboBox;
 
 import java.util.List;
 
+/**
+ * Options for a JavaFX ComboBox
+ */
 public class ComboBoxOptions extends BaseControlBuilder<ComboBoxOptions> implements StyleableControlOptions<ComboBox>,
         ItemsMixin<ComboBoxOptions> {
     private List items;

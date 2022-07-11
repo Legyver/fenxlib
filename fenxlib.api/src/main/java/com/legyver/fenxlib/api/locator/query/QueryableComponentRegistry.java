@@ -15,6 +15,7 @@ public interface QueryableComponentRegistry extends IComponentRegistry {
 	 * @param query the type query
 	 * @param <T> the type of the JavaFX Component
 	 * @return the component
+	 * @throws CoreException if there is an error executing the query
 	 */
 	<T extends EventTarget> T get(ITypedComponentQuery query) throws CoreException;
 
@@ -23,6 +24,7 @@ public interface QueryableComponentRegistry extends IComponentRegistry {
 	 * @param query the query to execute
 	 * @param <T> the type of the JavaFX Component
 	 * @return the node registered at that location.
+	 * @throws CoreException if there is an error executing the query
 	 */
 	<T extends EventTarget> T get(INamedComponentQuery query) throws CoreException;
 

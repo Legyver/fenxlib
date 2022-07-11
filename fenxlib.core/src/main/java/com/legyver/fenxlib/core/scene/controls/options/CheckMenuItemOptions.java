@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.builder.SelectedMixin;
 import com.legyver.fenxlib.core.controls.builder.TextMixin;
 import javafx.scene.control.CheckMenuItem;
 
+/**
+ * Options for a JavaFX CheckMenuItem
+ */
 public class CheckMenuItemOptions extends BaseControlBuilder<CheckMenuItemOptions> implements StyleableControlOptions<CheckMenuItem>,
         TextMixin<CheckMenuItemOptions>, SelectedMixin<CheckMenuItemOptions>, DisabledMixin<CheckMenuItemOptions> {
     private String text;

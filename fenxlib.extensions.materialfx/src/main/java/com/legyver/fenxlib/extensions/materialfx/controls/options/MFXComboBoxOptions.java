@@ -7,6 +7,9 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 
 import java.util.List;
 
+/**
+ * Options for a MFXComboBox control
+ */
 public class MFXComboBoxOptions extends BaseControlBuilder<MFXComboBoxOptions> implements StyleableControlOptions<MFXComboBox>,
         ItemsMixin<MFXComboBoxOptions> {
     private List items;

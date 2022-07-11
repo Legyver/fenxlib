@@ -4,6 +4,9 @@ import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Options for a JavaFX StackPane
+ */
 public class StackPaneOptions extends BaseControlBuilder<StackPaneOptions> implements StyleableControlOptions<StackPane> {
 
 }

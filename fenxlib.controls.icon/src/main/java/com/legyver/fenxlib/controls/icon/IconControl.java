@@ -33,6 +33,7 @@ public class IconControl extends Control {
 	public IconControl() {
 		getStyleClass().add("icon-button");
 		setFocusTraversable(true);
+		iconPaint.set(Paint.valueOf("#ccc37c"));//kinda a light puke-ish yellow
 	}
 
 	/**
@@ -46,7 +47,7 @@ public class IconControl extends Control {
 	public void setIconOptions(IconOptions iconOptions) {
 		iconName.setValue(iconOptions.getIcon());
 		iconFontFamily.setValue(iconOptions.getFamily());
-		iconPaint.setValue(Paint.valueOf(iconOptions.getIconColor()));
+		iconPaint.setValue(Paint.valueOf(iconOptions.getIconColorString()));
 		iconSize.setValue(iconOptions.getIconSize());
 	}
 

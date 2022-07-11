@@ -4,6 +4,11 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.options.ControlOptions;
 
+/**
+ * Factory responsible for making a control
+ * @param <T> the type of the control
+ * @param <U> the type of the options defining the control
+ */
 public interface ControlFactory<T, U extends ControlOptions<T>> {
     /**
      * Create a node
@@ -27,6 +32,7 @@ public interface ControlFactory<T, U extends ControlOptions<T>> {
     /**
      * Instantiate new Options of the appropriate class as a safeguard against NPEs
      * @return new options
+     * @throws CoreException if there is a problem creating the control
      */
     U newOptions() throws CoreException;
 

@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.builder.DoubleMinMixin;
 import com.legyver.fenxlib.core.controls.builder.DoubleValueMixin;
 import javafx.scene.control.Slider;
 
+/**
+ * Options for a JavaFX Slider
+ */
 public class SliderOptions extends BaseControlBuilder<SliderOptions> implements StyleableControlOptions<Slider>,
         DoubleMinMixin<SliderOptions>,
         DoubleMaxMixin<SliderOptions>,

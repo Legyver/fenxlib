@@ -4,6 +4,9 @@ import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXFilterPane;
 
+/**
+ * Options for a MFXFilterPane control
+ */
 public class MFXFilterPaneOptions extends BaseControlBuilder<MFXFilterPaneOptions> implements StyleableControlOptions<MFXFilterPane> {
 
 }

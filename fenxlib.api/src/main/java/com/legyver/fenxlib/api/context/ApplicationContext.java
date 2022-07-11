@@ -266,10 +266,19 @@ public class ApplicationContext {
 		ApplicationContext.hostServices = hostServices;
 	}
 
+	/**
+	 * Set the stylesheets to be used by the application.
+	 * These are automatically added to any new scene when launching a new scene
+	 * @param stylesheetURLs the urls of the stylesheets
+	 */
 	public static void setStylesheets(List<URL> stylesheetURLs) {
 		ApplicationContext.stylesheets = stylesheetURLs;
 	}
 
+	/**
+	 * Get the stylesheets to be used by the application
+	 * @return the stylesheets
+	 */
 	public static List<URL> getStylesheets() {
 		return stylesheets;
 	}

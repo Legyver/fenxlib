@@ -7,6 +7,9 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 
 import java.util.List;
 
+/**
+ * Options for a MFXTableView control
+ */
 public class MFXTableViewOptions extends BaseControlBuilder<MFXTableViewOptions> implements StyleableControlOptions<MFXTableView>,
         ItemsMixin<MFXTableViewOptions> {
 

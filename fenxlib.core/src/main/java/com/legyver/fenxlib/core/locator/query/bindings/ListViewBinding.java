@@ -17,6 +17,7 @@ public class ListViewBinding extends BaseBinding {
 	 * @param setter the setter that accepts the ObservableList of items of the ListView
 	 * @param query the query that identifies the ListView
 	 * @param named the (optional) name of the ListView
+	 * @throws CoreException if there is a problem with the query
 	 */
 	public static void bindListView(Consumer<ObservableList<String>> setter, IRegionDiscriminator query, String named) throws CoreException {
 		Optional<ListView> listView = finalizeQuery(query, named).execute();

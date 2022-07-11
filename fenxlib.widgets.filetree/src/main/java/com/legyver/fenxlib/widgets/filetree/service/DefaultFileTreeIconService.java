@@ -49,7 +49,7 @@ public class DefaultFileTreeIconService implements FileTreeIconService {
     protected IconOptions.Builder getDefaultIconOptionsBuilder() {
         return new IconOptions.Builder()
                 .family(getDefaultIconFontFamily())
-                .iconColor(getDefaultIconColor())
+                .iconColorString(getDefaultIconColor())
                 .iconSize(getDefaultIconSize());
     }
 
@@ -70,13 +70,14 @@ public class DefaultFileTreeIconService implements FileTreeIconService {
 
     @Override
     public IconOptions getCodeForFile(IFileReference fileReference) {
-        IconOptions result;
+        IconOptions result = null;
         if (fileReference.getFile().isDirectory()) {
             result = getCodeForDirectory(fileReference);
         } else if (fileReference.getFile() != null) {
             String fileExtension = getFileExtension(fileReference.getFile());
             result = lookupByFileExtension(fileExtension);
-        } else {
+        }
+        if (result == null) {
             result = getDefaultIconOptionsBuilder()
                     .icon(getDefaultIconForUnknownFile())
                     .build();

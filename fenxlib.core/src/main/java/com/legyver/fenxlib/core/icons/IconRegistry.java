@@ -1,10 +1,14 @@
 package com.legyver.fenxlib.core.icons;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.icons.options.IconOptions;
 import com.legyver.fenxlib.core.icons.service.FontMap;
 import com.legyver.fenxlib.core.icons.service.internal.IconCache;
+import com.legyver.fenxlib.core.icons.service.internal.IconServiceRegistry;
 import com.legyver.fenxlib.core.icons.service.internal.LazyFontInstaller;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 
@@ -12,6 +16,8 @@ import java.io.InputStream;
  * Registry of icons
  */
 public class IconRegistry {
+    private static final Logger logger = LogManager.getLogger(IconRegistry.class);
+
     private final IconCache cache;
     private static IconRegistry instance;
 
@@ -32,6 +38,11 @@ public class IconRegistry {
             synchronized (IconRegistry.class) {
                 if (instance == null) {
                     instance = new IconRegistry();
+                }
+                try {
+                    IconServiceRegistry.getInstance().loadIcons();
+                } catch (CoreException e) {
+                    logger.error("Error loading icons", e);
                 }
             }
         }

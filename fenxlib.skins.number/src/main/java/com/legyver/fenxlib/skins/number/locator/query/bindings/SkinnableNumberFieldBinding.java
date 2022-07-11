@@ -20,6 +20,7 @@ public class SkinnableNumberFieldBinding extends BaseBinding {
 	 * @param property the property to bind to
 	 * @param query the query that will locate the SkinnableNumberField
 	 * @param named the name of the skinnable number field
+	 * @throws CoreException if there is an error querying the text field
 	 */
 	public static void bindTextField(ObjectProperty<BigDecimal> property, IRegionDiscriminator query, String named) throws CoreException {
 		Optional text = finalizeQuery(query, named).execute();

@@ -37,37 +37,4 @@ public class MFXPasswordFieldFactory implements NodeFactory<MFXPasswordField, MF
         return new MFXPasswordFieldOptions();
     }
 
-    public static class Options extends BaseControlBuilder<Options> {
-        private String text;
-        private String promptText;
-        private String floatingText;
-
-        public Options text(String text) {
-            this.text = text;
-            return me();
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public Options promptText(String promptText) {
-            this.promptText = promptText;
-            return me();
-        }
-
-
-        public String getPromptText() {
-            return promptText;
-        }
-
-        public Options floatingText(String floatingText) {
-            this.floatingText = floatingText;
-            return me();
-        }
-
-        public String getFloatingText() {
-            return floatingText;
-        }
-    }
 }

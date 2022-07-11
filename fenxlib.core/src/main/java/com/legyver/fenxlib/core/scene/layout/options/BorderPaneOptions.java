@@ -4,6 +4,9 @@ import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Options for a JavaFX BorderPane
+ */
 public class BorderPaneOptions extends BaseControlBuilder<BorderPaneOptions> implements StyleableControlOptions<BorderPane> {
 
 }

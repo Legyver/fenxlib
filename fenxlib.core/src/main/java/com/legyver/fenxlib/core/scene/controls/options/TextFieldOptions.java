@@ -6,6 +6,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextField;
 
+/**
+ * Options for a JavaFX TextField
+ */
 public class TextFieldOptions extends BaseControlBuilder<TextFieldOptions> implements StyleableControlOptions<TextField>,
         TextMixin<TextFieldOptions>,
         TextPropertyMixin<TextFieldOptions>,

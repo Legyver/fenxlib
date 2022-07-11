@@ -37,7 +37,7 @@ public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExp
     }
 
     @Override
-    public SimpleFileExplorerOptions newOptions() {
+    public SimpleFileExplorerOptions newOptions() throws CoreException {
         return new SimpleFileExplorerOptions();
     }
 }

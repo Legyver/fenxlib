@@ -52,27 +52,4 @@ public class PopupFactory implements NodeFactory<Popup, PopupOptions> {
     protected List<Button> makeButtons() {
         return Collections.emptyList();
     }
-
-    public static class Options extends BaseControlBuilder<Options> {
-        private Node content;
-        private List<Button> buttons;
-
-        public Options content(Node content) {
-            this.content = content;
-            return me();
-        }
-
-        public Node getContent() {
-            return content;
-        }
-
-        public Options buttons(List<Button> buttons) {
-            this.buttons = buttons;
-            return me();
-        }
-
-        public List<Button> getButtons() {
-            return buttons;
-        }
-    }
 }

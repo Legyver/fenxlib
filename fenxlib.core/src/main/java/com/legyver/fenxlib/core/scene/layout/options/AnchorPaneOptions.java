@@ -4,5 +4,8 @@ import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Options for a JavaFX AnchorPane
+ */
 public class AnchorPaneOptions extends BaseControlBuilder<AnchorPaneOptions> implements StyleableControlOptions<AnchorPane> {
 }

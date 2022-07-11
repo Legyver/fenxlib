@@ -5,6 +5,9 @@ import com.legyver.fenxlib.core.controls.builder.NodeContentMixin;
 import com.legyver.fenxlib.core.controls.popup.Popup;
 import javafx.scene.Node;
 
+/**
+ * Options for a Legyver Popup
+ */
 public class PopupOptions extends BaseControlBuilder<PopupOptions> implements StyleableControlOptions<Popup>, NodeContentMixin<PopupOptions> {
     Node content;
 }

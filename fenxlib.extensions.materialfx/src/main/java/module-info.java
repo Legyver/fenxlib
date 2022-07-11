@@ -1,3 +1,6 @@
+/**
+ * MaterialFX extension for fenxlib
+ */
 module com.legyver.fenxlib.extensions.materialfx {
     requires com.legyver.core;
     requires com.legyver.fenxlib.api;

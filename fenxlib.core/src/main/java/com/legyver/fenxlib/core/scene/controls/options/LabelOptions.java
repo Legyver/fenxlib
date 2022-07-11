@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.builder.TextPropertyMixin;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 
+/**
+ * Options for a JavaFX Label
+ */
 public class LabelOptions extends BaseControlBuilder<LabelOptions> implements StyleableControlOptions<Label>,
         TextMixin<LabelOptions>,
         TextPropertyMixin<LabelOptions> {

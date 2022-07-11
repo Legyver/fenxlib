@@ -33,6 +33,7 @@ public abstract class ComponentQuery {
 	/**
 	 * Execute the query
 	 * @return the component
+	 * @throws CoreException if there is an error executing the query
 	 */
 	public abstract Optional execute() throws CoreException;
 
@@ -103,6 +104,10 @@ public abstract class ComponentQuery {
 			return new RegionQueryBuilder(this);
 		}
 
+		/**
+		 * Build a query
+		 * @return the query
+		 */
 		public ComponentQuery build() {
 			return build(new ArrayDeque<>());
 		}

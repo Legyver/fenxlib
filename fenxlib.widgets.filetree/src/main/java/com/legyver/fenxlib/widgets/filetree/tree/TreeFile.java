@@ -50,7 +50,7 @@ public class TreeFile extends FileTreeItem {
         IconOptions iconOptions = FileTreeIconRegistry.getInstance().getIcon(file);
         graphic.setIconOptions(iconOptions);
         graphic.iconPaintProperty().bind(color);
-        color.set(Paint.valueOf(iconOptions.getIconColor()));
+        color.set(Paint.valueOf(iconOptions.getIconColorString()));
     }
 
     /**

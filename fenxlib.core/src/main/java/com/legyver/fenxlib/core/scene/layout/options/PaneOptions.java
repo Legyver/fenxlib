@@ -4,6 +4,9 @@ import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
 import javafx.scene.layout.Pane;
 
+/**
+ * Options for a JavaFX Pane
+ */
 public class PaneOptions extends BaseControlBuilder<PaneOptions> implements StyleableControlOptions<Pane> {
 
 }

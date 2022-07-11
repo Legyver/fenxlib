@@ -16,6 +16,7 @@ public class TextFieldBinding extends BaseBinding {
 	 * @param property the property to use as the value source for the text field
 	 * @param query the query locating the text field
 	 * @param named the (optional) name of the text field
+	 * @throws CoreException if there is an error quering the text field
 	 */
 	public static void bindTextField(StringProperty property, IRegionDiscriminator query, String named) throws CoreException {
 		Optional<TextField> text = finalizeQuery(query, named).execute();

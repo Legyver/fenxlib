@@ -7,6 +7,9 @@ import com.legyver.fenxlib.core.controls.builder.TextMixin;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 
+/**
+ * Options for a JavaFX Tab
+ */
 public class TabOptions extends BaseControlBuilder<TabOptions> implements StyleableControlOptions<Tab>,
         TextMixin<TabOptions>,
         NodeContentMixin<TabOptions> {

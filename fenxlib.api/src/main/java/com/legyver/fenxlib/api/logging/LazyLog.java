@@ -91,6 +91,7 @@ public class LazyLog {
 	/**
 	 * Log at level debug
 	 * @param message the message
+	 * @param args any arguments
 	 */
 	public void debug(String message, Object...args) {
 		debug(message, null, args);
@@ -100,6 +101,7 @@ public class LazyLog {
 	 * Log at level debug
 	 * @param message the message
 	 * @param t the throwable
+	 * @param args any arguments
 	 */
 	public void debug(String message, Throwable t, Object...args) {
 		log(Level.DEBUG, message, t, args);

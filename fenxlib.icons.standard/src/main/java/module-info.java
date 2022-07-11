@@ -4,6 +4,7 @@
 module fenxlib.icons.standard {
     requires com.legyver.core;
     requires com.legyver.fenxlib.core;
+    requires javafx.graphics;
 
     exports com.legyver.fenxlib.icons.standard;
 

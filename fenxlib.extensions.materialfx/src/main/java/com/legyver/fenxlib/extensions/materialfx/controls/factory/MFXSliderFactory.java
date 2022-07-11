@@ -34,37 +34,4 @@ public class MFXSliderFactory implements NodeFactory<MFXSlider, MFXSliderOptions
     public MFXSliderOptions newOptions() {
         return new MFXSliderOptions();
     }
-
-    public static class Options extends BaseControlBuilder<Options> {
-        private Double min;
-        private Double max;
-        private Double initialValue;
-
-        public Options min(Double min) {
-            this.min = min;
-            return me();
-        }
-
-        public Double getMin() {
-            return min;
-        }
-
-        public Options max(Double max) {
-            this.max = max;
-            return me();
-        }
-
-        public Double getMax() {
-            return max;
-        }
-
-        public Options initialValue(Double initialValue) {
-            this.initialValue = initialValue;
-            return me();
-        }
-
-        public Double getInitialValue() {
-            return initialValue;
-        }
-    }
 }

@@ -7,6 +7,9 @@ import javafx.scene.control.ChoiceBox;
 
 import java.util.List;
 
+/**
+ * Options for a JavaFX ChoiceBox
+ */
 public class ChoiceBoxOptions extends BaseControlBuilder<ChoiceBoxOptions> implements StyleableControlOptions<ChoiceBox>,
         ItemsMixin<ChoiceBoxOptions> {
     private List items;
