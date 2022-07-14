@@ -9,6 +9,7 @@ import java.util.Map;
  * Context for managing fonts
  */
 public class FontContext {
+    private final String family;
     private final Map<Double, Font> fontsBySize = new HashMap<>();
 
     /**
@@ -18,6 +19,7 @@ public class FontContext {
      */
     public FontContext(Double size, Font font) {
         fontsBySize.put(size, font);
+        this.family = font.getFamily();
     }
 
     /**
@@ -26,7 +28,12 @@ public class FontContext {
      * @return the installed font
      */
     public Font get(Double size) {
-        return fontsBySize.get(size);
+        Font font = fontsBySize.get(size);
+        if (font == null) {
+            font = Font.font(family, size);
+            fontsBySize.put(size, font);
+        }
+        return font;
     }
 
 }

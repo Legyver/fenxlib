@@ -1,6 +1,7 @@
-package com.legyver.fenxlib.core.icons.service;
+package com.legyver.fenxlib.core.icons.fonts;
 
 import com.legyver.fenxlib.core.icons.options.IconOptions;
+import com.legyver.fenxlib.core.icons.service.UnknownIconDescriptionException;
 
 /**
  * Convert a description into the appropriate code

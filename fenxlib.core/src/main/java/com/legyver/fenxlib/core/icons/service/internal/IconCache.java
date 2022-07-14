@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.core.icons.service.internal;
 
 import com.legyver.fenxlib.core.icons.options.IconOptions;
-import com.legyver.fenxlib.core.icons.service.FontMap;
+import com.legyver.fenxlib.core.icons.fonts.FontMap;
 import com.legyver.fenxlib.core.icons.service.UnknownIconDescriptionException;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -24,6 +24,38 @@ public class IconCache {
     private final List<LazyFontInstaller> lazyFontInstallers = new ArrayList<>();
 
     /**
+     * Eagerly install all fonts so they can be used by css
+     */
+    public void installAll() {
+        if (fontMapsByFamily.isEmpty()) {
+            synchronized (this) {
+                if (fontMapsByFamily.isEmpty()) {
+                    logger.debug("Installing all fonts");
+                    installFonts(20.0);
+                }
+            }
+        }
+    }
+
+    private synchronized void installFonts(Double size) {
+        if (fontMapsByFamily.isEmpty()) {
+            logger.debug("Installing fonts");
+            for (LazyFontInstaller lazyFontInstaller : lazyFontInstallers) {
+                String family = lazyFontInstaller.getFontFamily();
+
+                if (!fontMapsByFamily.containsKey(family)) {
+                    logger.debug("Installing font: {}", family);
+                    Font font = lazyFontInstaller.install(size);
+                    fontMapsByFamily.put(font.getFamily(), lazyFontInstaller.getFontMap());
+                    fontCtxByFamily.put(font.getFamily(), new FontContext(size, font));
+                    logger.debug("Font {} installed", font.getFamily());
+                } else {
+                    logger.debug("Skipping font {} as already installed", family);
+                }
+            }
+        }
+    }
+    /**
      * Get the text icon.
      * @param iconOptions options to specify the text
      * @return the text
@@ -32,24 +64,7 @@ public class IconCache {
         Text text = null;
         if (fontMapsByFamily.isEmpty()) {
             Collections.sort(lazyFontInstallers);
-            synchronized (this) {
-                if (fontMapsByFamily.isEmpty()) {
-                    logger.debug("Installing fonts");
-                    for (LazyFontInstaller lazyFontInstaller : lazyFontInstallers) {
-                        String family = lazyFontInstaller.getFontFamily();
-
-                        if (!fontMapsByFamily.containsKey(family)) {
-                            logger.debug("Installing font: {}", family);
-                            Font font = lazyFontInstaller.install(iconOptions.getIconSize());
-                            fontMapsByFamily.put(font.getFamily(), lazyFontInstaller.getFontMap());
-                            fontCtxByFamily.put(font.getFamily(), new FontContext(iconOptions.getIconSize(), font));
-                            logger.debug("Font {} installed", font.getFamily());
-                        } else {
-                            logger.debug("Skipping font {} as already installed", family);
-                        }
-                    }
-                }
-            }
+            installFonts(iconOptions.getIconSize());
         }
         FontMap fontMap = fontMapsByFamily.get(iconOptions.getFamily());
         FontContext context = fontCtxByFamily.get(iconOptions.getFamily());

@@ -68,8 +68,9 @@ module com.legyver.fenxlib.core {
 	opens com.legyver.fenxlib.core.scene.layout.options to org.apache.commons.lang3;
 	opens com.legyver.fenxlib.core.scene.text.options to org.apache.commons.lang3;
 	opens com.legyver.fenxlib.core.scene.web.options to org.apache.commons.lang3;
+    exports com.legyver.fenxlib.core.icons.fonts;
 
-	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
+    provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;
 	provides com.legyver.fenxlib.api.io.IOService with com.legyver.fenxlib.core.io.DiskFileIoService;
 	provides com.legyver.fenxlib.core.controls.service.NodeInstantiationService with com.legyver.fenxlib.core.controls.service.DefaultNodeInstantiationService;
