@@ -2,11 +2,10 @@ package com.legyver.fenxlib.core.layout.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
-import com.legyver.fenxlib.core.controls.factory.SpaceableFactory;
-import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;
-import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
+import com.legyver.fenxlib.core.controls.factory.SpaceableFactory;
+import com.legyver.fenxlib.core.layout.options.RegionInitializationOptions;
 import javafx.beans.binding.When;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
@@ -14,11 +13,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-
-import static com.legyver.fenxlib.core.layout.options.BorderPaneInitializationOptions.REGION_BOTTOM;
 
 /**
  * Factory to create the bottom region of the main layout page.

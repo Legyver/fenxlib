@@ -35,7 +35,6 @@ module com.legyver.fenxlib.core {
 	exports com.legyver.fenxlib.core.files.action.internal;
 	exports com.legyver.fenxlib.core.files.util;
 	exports com.legyver.fenxlib.core.icons;
-	exports com.legyver.fenxlib.core.icons.options;
 	exports com.legyver.fenxlib.core.icons.service;
 	exports com.legyver.fenxlib.core.layout;
 	exports com.legyver.fenxlib.core.layout.factory;
@@ -68,7 +67,6 @@ module com.legyver.fenxlib.core {
 	opens com.legyver.fenxlib.core.scene.layout.options to org.apache.commons.lang3;
 	opens com.legyver.fenxlib.core.scene.text.options to org.apache.commons.lang3;
 	opens com.legyver.fenxlib.core.scene.web.options to org.apache.commons.lang3;
-    exports com.legyver.fenxlib.core.icons.fonts;
 
     provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;

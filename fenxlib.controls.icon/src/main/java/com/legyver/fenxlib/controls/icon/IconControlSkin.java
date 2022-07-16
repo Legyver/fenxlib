@@ -1,10 +1,9 @@
 package com.legyver.fenxlib.controls.icon;
 
 import com.legyver.fenxlib.core.icons.IconRegistry;
-import com.legyver.fenxlib.core.icons.options.IconOptions;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 import javafx.scene.control.SkinBase;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

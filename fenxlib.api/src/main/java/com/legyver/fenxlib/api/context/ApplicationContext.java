@@ -6,6 +6,7 @@ import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.config.IApplicationConfig;
 import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.files.FileRegistry;
+import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.api.lifecycle.IApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.locator.query.QueryableComponentRegistry;
@@ -70,6 +71,7 @@ public class ApplicationContext {
 	private static IApplicationLifecycleHookRegistry applicationLifecycleHookRegistry;
 
 	private static List<URL> stylesheets;
+	private static IconAliasMap iconAliasMap;
 
 	/**
 	 * Get the registry of files opened by the application
@@ -281,5 +283,21 @@ public class ApplicationContext {
 	 */
 	public static List<URL> getStylesheets() {
 		return stylesheets;
+	}
+
+	/**
+	 * Set the icons to use for generic application events or components
+	 * @param iconAliasMap the map of icons and their aliases
+	 */
+	public static void setIconAliasMap(IconAliasMap iconAliasMap) {
+		ApplicationContext.iconAliasMap = iconAliasMap;
+	}
+
+	/**
+	 * Get the alias map of application icons
+	 * @return the alias map
+	 */
+	public static IconAliasMap getIconAliasMap() {
+		return iconAliasMap;
 	}
 }

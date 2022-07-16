@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.widgets.filetree.service;
 
-import com.legyver.fenxlib.core.icons.options.IconOptions;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 import com.legyver.fenxlib.api.service.OrderedService;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 

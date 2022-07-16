@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.icons.service;
 
-import com.legyver.fenxlib.core.icons.fonts.FontMap;
+import com.legyver.fenxlib.api.icons.fonts.FontMap;
 
 import java.io.InputStream;
 

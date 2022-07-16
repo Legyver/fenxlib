@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.icons.options;
+package com.legyver.fenxlib.api.icons.options;
 
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;

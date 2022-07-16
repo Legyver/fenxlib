@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.icons.service.internal;
 
-import com.legyver.fenxlib.core.icons.options.IconOptions;
-import com.legyver.fenxlib.core.icons.fonts.FontMap;
-import com.legyver.fenxlib.core.icons.service.UnknownIconDescriptionException;
+import com.legyver.fenxlib.api.icons.exception.UnknownIconDescriptionException;
+import com.legyver.fenxlib.api.icons.fonts.FontMap;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -73,7 +73,7 @@ public class IconCache {
             text = new Text();
             String icon = null;
             try {
-                icon = fontMap.getCode(iconOptions);
+                icon = fontMap.getUnicode(iconOptions);
             } catch (UnknownIconDescriptionException e) {
                 logger.error("Unable to load {} from {}", iconOptions.getIcon(), iconOptions.getFamily());
             }

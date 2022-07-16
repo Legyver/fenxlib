@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.controls.icon;
 
-import com.legyver.fenxlib.core.icons.options.IconOptions;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 import javafx.beans.property.*;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;

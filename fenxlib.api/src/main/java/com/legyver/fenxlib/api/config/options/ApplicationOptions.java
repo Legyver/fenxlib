@@ -4,6 +4,8 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.icons.application.ApplicationIconAffiliated;
+import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
 import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookServiceRegistry;
@@ -28,9 +30,10 @@ public class ApplicationOptions {
 	private final ApplicationConfigInstantiator appConfigInstantiator;
 	private final List<URL> stylesheetURLs;
 	private final List<ApplicationLifecycleHook> hooksToRegister;
+	private final IconAliasMap iconAliasMap;
 
 
-	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, List<URL> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister) {
+	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, List<URL> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap) {
 		this.applicationName = applicationName;
 		this.uiModel = uiModel;
 		this.usesLogging = usesLogging;
@@ -39,6 +42,7 @@ public class ApplicationOptions {
 		this.appConfigInstantiator = appConfigInstantiator;
 		this.stylesheetURLs = stylesheetURLs;
 		this.hooksToRegister = hooksToRegister;
+		this.iconAliasMap = iconAliasMap;
 	}
 
 	/**
@@ -52,6 +56,7 @@ public class ApplicationOptions {
 		Fenxlib.registerApplication(application);
 		ApplicationContext.setPrimaryStage(primaryStage);
 		ApplicationContext.setStylesheets(stylesheetURLs);
+		ApplicationContext.setIconAliasMap(iconAliasMap);
 		postInit();
 	}
 
@@ -198,6 +203,7 @@ public class ApplicationOptions {
 		private List<URL> stylesheetUrls = new ArrayList<>();
 
 		private List<ApplicationLifecycleHook> hooksToRegister = new ArrayList<>();
+		private IconAliasMap iconAliasMap = IconAliasMap.withDefaultAlertIcons().build();
 
 		/**
 		 * Build the application options
@@ -207,7 +213,7 @@ public class ApplicationOptions {
 		public ApplicationOptions build() throws CoreException {
 			validate();
 			defaultUnspecified();
-			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, stylesheetUrls, hooksToRegister);
+			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, stylesheetUrls, hooksToRegister, iconAliasMap);
 			options.bootstrap();
 			return options;
 		}
@@ -307,6 +313,18 @@ public class ApplicationOptions {
 		 */
 		public B customAppConfigInstantiator(ApplicationConfigInstantiator appConfigInstantiator) {
 			return set(() -> this.appConfigInstantiator = appConfigInstantiator);
+		}
+
+		/**
+		 * Specify custom icons to use for the application
+		 * @param iconAliasMap map of icon aliases to merge in
+		 * @return this builder
+		 */
+		public B mergeIconAliasMap(IconAliasMap iconAliasMap) {
+			if (iconAliasMap != null) {
+				this.iconAliasMap.merge(iconAliasMap);
+			}
+			return (B) this;
 		}
 
 		/**

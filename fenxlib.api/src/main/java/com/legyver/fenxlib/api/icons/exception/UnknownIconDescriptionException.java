@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.core.icons.service;
+package com.legyver.fenxlib.api.icons.exception;
 
 import com.legyver.core.exception.CoreException;
 

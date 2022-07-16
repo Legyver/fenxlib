@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.icons;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.icons.options.IconOptions;
-import com.legyver.fenxlib.core.icons.fonts.FontMap;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
+import com.legyver.fenxlib.api.icons.fonts.FontMap;
 import com.legyver.fenxlib.core.icons.service.internal.IconCache;
 import com.legyver.fenxlib.core.icons.service.internal.IconServiceRegistry;
 import com.legyver.fenxlib.core.icons.service.internal.LazyFontInstaller;

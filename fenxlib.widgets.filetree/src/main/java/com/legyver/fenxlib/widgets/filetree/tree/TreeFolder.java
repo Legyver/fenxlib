@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
 import com.legyver.fenxlib.controls.icon.IconControl;
-import com.legyver.fenxlib.core.icons.options.IconOptions;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 import com.legyver.fenxlib.widgets.filetree.service.FileTreeIconRegistry;

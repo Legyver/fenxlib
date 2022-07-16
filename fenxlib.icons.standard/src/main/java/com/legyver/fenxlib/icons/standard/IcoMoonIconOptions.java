@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.icons.standard;
 
-import com.legyver.fenxlib.core.icons.options.IconOptions;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 
 /**
  * IconOptions specific to IcoMoon
