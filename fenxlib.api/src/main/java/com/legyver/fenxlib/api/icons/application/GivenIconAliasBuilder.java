@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.api.icons.application;
 
+import com.legyver.fenxlib.api.icons.options.IconOptions;
+
 import java.util.function.Predicate;
 
 /**
@@ -15,9 +17,31 @@ public interface GivenIconAliasBuilder extends IconAliasBuilder {
 
     /**
      * Specify the icon to use regardless of any predicate.
-     * @param icon the icon to use
+     * @param iconOptions the icon to use
      * @return the icon alias builder to allow specifying additional aliases or building the alias map
      */
-    IconAliasBuilder thenUseIcon(String icon);
+    IconAliasBuilder thenUseIcon(IconOptions iconOptions);
+
+    /**
+     * Specify the icon to use regardless of any predicate.
+     * @param builder the un-built icon options to use
+     * @return the icon alias builder to allow specifying additional aliases or building the alias map
+     */
+    default IconAliasBuilder thenUseIcon(IconOptions.Builder builder) {
+        return thenUseIcon(builder.build());
+    }
+
+    /**
+     * Specify the icon to use regardless of any predicate.
+     * @param family the family of the icon
+     * @param iconName the name of the icon
+     * @return the icon alias builder to allow specifying additional aliases or building the alias map
+     */
+    default IconAliasBuilder thenUseIcon(String family, String iconName) {
+        return thenUseIcon(new IconOptions.Builder<>()
+                .family(family)
+                .icon(iconName)
+        );
+    }
 
 }

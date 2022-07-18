@@ -2,6 +2,7 @@ package com.legyver.fenxlib.api.icons.application;
 
 import com.legyver.fenxlib.api.alert.ApplicationAlertIcons;
 import com.legyver.fenxlib.api.alert.Level;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,15 +13,15 @@ public class IconAliasMapTest {
     public void defaultApplicationIcons() {
         IconAliasMap iconAliasMap = IconAliasMap.withDefaultAlertIcons().build();
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO);
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO).getIcon();
             assertThat(iconName).isEqualTo(ApplicationAlertIcons.ICON_INFO.getIconName());
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.WARNING);
+            String iconName = iconAliasMap.lookupIconOptions(Level.WARNING).getIcon();
             assertThat(iconName).isEqualTo(ApplicationAlertIcons.ICON_WARNING.getIconName());
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.ERROR);
+            String iconName = iconAliasMap.lookupIconOptions(Level.ERROR).getIcon();
             assertThat(iconName).isEqualTo(ApplicationAlertIcons.ICON_NOTIFICATION.getIconName());
         }
     }
@@ -28,20 +29,20 @@ public class IconAliasMapTest {
     @Test
     public void overrideDefaultApplicationIcons() {
         IconAliasMap iconAliasMap = IconAliasMap.withDefaultAlertIcons()
-                .given(Level.INFO).thenUseIcon("test-info")
-                .given(Level.WARNING).thenUseIcon("test-warning")
-                .given(Level.ERROR).thenUseIcon("test-error")
+                .given(Level.INFO).thenUseIcon("test", "test-info")
+                .given(Level.WARNING).thenUseIcon("test", "test-warning")
+                .given(Level.ERROR).thenUseIcon("test", "test-error")
                 .build();
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO);
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO).getIcon();
             assertThat(iconName).isEqualTo("test-info");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.WARNING);
+            String iconName = iconAliasMap.lookupIconOptions(Level.WARNING).getIcon();
             assertThat(iconName).isEqualTo("test-warning");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.ERROR);
+            String iconName = iconAliasMap.lookupIconOptions(Level.ERROR).getIcon();
             assertThat(iconName).isEqualTo("test-error");
         }
     }
@@ -51,26 +52,26 @@ public class IconAliasMapTest {
         IconAliasMap iconAliasMap = IconAliasMap
                 .given(Level.INFO)
                     .when(o -> o instanceof Boolean && (Boolean) o)
-                        .thenUseIcon("test-info-true")
+                        .thenUseIcon("test", "test-info-true")
                     .when(o -> o instanceof Boolean && !(Boolean) o)
-                        .thenUseIcon("test-info-false")
-                .given(Level.WARNING).thenUseIcon("test-warning")
-                .given(Level.ERROR).thenUseIcon("test-error")
+                        .thenUseIcon("test", "test-info-false")
+                .given(Level.WARNING).thenUseIcon("test", "test-warning")
+                .given(Level.ERROR).thenUseIcon("test", "test-error")
                 .build();
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO, true);
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO, true).getIcon();
             assertThat(iconName).isEqualTo("test-info-true");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO, false);
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO, false).getIcon();
             assertThat(iconName).isEqualTo("test-info-false");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.WARNING);
+            String iconName = iconAliasMap.lookupIconOptions(Level.WARNING).getIcon();
             assertThat(iconName).isEqualTo("test-warning");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.ERROR);
+            String iconName = iconAliasMap.lookupIconOptions(Level.ERROR).getIcon();
             assertThat(iconName).isEqualTo("test-error");
         }
     }
@@ -82,7 +83,7 @@ public class IconAliasMapTest {
                 .given(Level.INFO)
                     //only named predicates can be overridden
                     //this first one should never be seen because it will be overridden
-                    .when(new IconAliasMap.NamedPredicate() {
+                    .when(new NamedPredicate() {
                         @Override
                         public String getName() {
                             return "value is null";
@@ -93,8 +94,8 @@ public class IconAliasMapTest {
                             return o == null;
                         }
                     })
-                        .thenUseIcon("test-info-null")
-                    .when(new IconAliasMap.NamedPredicate() {
+                        .thenUseIcon("test", "test-info-null")
+                    .when(new NamedPredicate() {
                         @Override
                         public String getName() {
                             return "value is not null";
@@ -105,20 +106,20 @@ public class IconAliasMapTest {
                             return o != null;
                         }
                     })
-                        .thenUseIcon("test-info-not-null")
+                        .thenUseIcon("test", "test-info-not-null")
                 .build();
 
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO, null);
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO, null).getIcon();
             assertThat(iconName).isEqualTo("test-info-null");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO, "not null");
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO, "not null").getIcon();
             assertThat(iconName).isEqualTo("test-info-not-null");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.ERROR);
-            assertThat(iconName).isNull();
+            IconOptions iconOptions = iconAliasMap.lookupIconOptions(Level.ERROR);
+            assertThat(iconOptions).isNull();
         }
     }
 
@@ -128,7 +129,7 @@ public class IconAliasMapTest {
                 .given(Level.INFO)
                     //only named predicates can be overridden
                     //this first one should never be seen because it will be overridden
-                    .when(new IconAliasMap.NamedPredicate() {
+                    .when(new NamedPredicate() {
                         @Override
                         public String getName() {
                             return "value is null";
@@ -139,8 +140,8 @@ public class IconAliasMapTest {
                             return o == null;
                         }
                     })
-                        .thenUseIcon("test-info-null")
-                    .when(new IconAliasMap.NamedPredicate() {
+                        .thenUseIcon("test", "test-info-null")
+                    .when(new NamedPredicate() {
                         @Override
                         public String getName() {
                             return "value is not null";
@@ -151,14 +152,14 @@ public class IconAliasMapTest {
                             return o != null;
                         }
                     })
-                        .thenUseIcon("test-info-not-null")
+                        .thenUseIcon("test", "test-info-not-null")
                 .build();
 
         //overrides
         IconAliasMap overrides = IconAliasMap
                 .given(Level.INFO)
                 //disable the value is null rule by changing the predicate to always return false
-                    .when(new IconAliasMap.NamedPredicate() {
+                    .when(new NamedPredicate() {
                         @Override
                         public String getName() {
                             return "value is null";
@@ -169,22 +170,22 @@ public class IconAliasMapTest {
                             return false;
                         }
                     })
-                        .thenUseIcon("never-see-this")
+                        .thenUseIcon("test", "never-see-this")
                 //add in another formerly unspecified given
-                .given(Level.ERROR).thenUseIcon("test-error")
+                .given(Level.ERROR).thenUseIcon("test", "test-error")
                     .build();
         //merge in overrides
         iconAliasMap.merge(overrides);
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO, null);
-            assertThat(iconName).isNull();
+            IconOptions iconOptions = iconAliasMap.lookupIconOptions(Level.INFO, null);
+            assertThat(iconOptions).isNull();
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.INFO, "not null");
+            String iconName = iconAliasMap.lookupIconOptions(Level.INFO, "not null").getIcon();
             assertThat(iconName).isEqualTo("test-info-not-null");
         }
         {
-            String iconName = iconAliasMap.lookupIconName(Level.ERROR);
+            String iconName = iconAliasMap.lookupIconOptions(Level.ERROR).getIcon();
             assertThat(iconName).isEqualTo("test-error");
         }
     }

@@ -25,7 +25,7 @@ public class IconControlSkin extends SkinBase<IconControl> {
 	 */
 	public IconControlSkin(IconControl iconControl) {
 		super(iconControl);
-		String name = iconControl.getIconFontFamily() + "." + iconControl.getIconName();
+
 		try {
 			IconOptions iconOptions = new IconOptions.Builder()
 					.family(iconControl.getIconFontFamily())
@@ -35,6 +35,7 @@ public class IconControlSkin extends SkinBase<IconControl> {
 					.build();
 			glyph = IconRegistry.getInstance().getIcon(iconOptions);
 		} catch (Exception exception) {
+			String name = iconControl.getIconFontFamily() + "." + iconControl.getIconName();
 			logger.error("Error loading control: " + name, exception);
 		}
 

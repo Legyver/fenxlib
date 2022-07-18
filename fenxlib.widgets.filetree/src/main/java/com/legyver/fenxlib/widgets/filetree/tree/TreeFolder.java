@@ -1,10 +1,12 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
-import com.legyver.fenxlib.controls.icon.IconControl;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.api.icons.options.IconOptions;
+import com.legyver.fenxlib.controls.icon.IconToggleControl;
+import com.legyver.fenxlib.widgets.filetree.icons.TreeNodeType;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
-import com.legyver.fenxlib.widgets.filetree.service.FileTreeIconRegistry;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Paint;
@@ -22,13 +24,19 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      */
     private final ObjectProperty<Paint> color = new SimpleObjectProperty<>();
 
-    private TreeFolder(String label, IconControl graphic, IFileReference fileReference) {
+    private TreeFolder(String label, IconToggleControl graphic, IFileReference fileReference) {
         super(label, graphic, fileReference);
         if (graphic != null) {
-            IconOptions iconOptions = FileTreeIconRegistry.getInstance().getIcon(fileReference);
-            graphic.setIconOptions(iconOptions);
+            IconAliasMap iconAliasMap = ApplicationContext.getIconAliasMap();
+
+            IconOptions closedIconOptions = iconAliasMap.lookupIconOptions(TreeNodeType.DIRECTORY, false);
+            IconOptions expandedIconOptions = iconAliasMap.lookupIconOptions(TreeNodeType.DIRECTORY, true);
+
+            graphic.setIconOptions(closedIconOptions);
+            graphic.setAlternateIconName(expandedIconOptions.getIcon());
             graphic.iconPaintProperty().bind(color);
-            graphic.setIconSize(iconOptions.getIconSize());
+            graphic.setIconSize(closedIconOptions.getIconSize());
+            graphic.showAlternateProperty().bind(expandedProperty());
             color.set(Paint.valueOf("#e7c9a9"));
         }
     }
@@ -39,7 +47,7 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      * @param fileReference the filesystem folder reference
      */
     public TreeFolder(String label, IFileReference fileReference) {
-        this(label, new IconControl(), fileReference);
+        this(label, new IconToggleControl(), fileReference);
     }
 
     /**

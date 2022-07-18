@@ -47,7 +47,11 @@ public class IconControl extends Control {
 	public void setIconOptions(IconOptions iconOptions) {
 		iconName.setValue(iconOptions.getIcon());
 		iconFontFamily.setValue(iconOptions.getFamily());
-		iconPaint.setValue(Paint.valueOf(iconOptions.getIconColorString()));
+		if (iconOptions.getColor() != null) {
+			iconPaint.setValue(iconOptions.getColor());
+		} else if (iconOptions.getIconColorString() != null) {
+			iconPaint.setValue(Paint.valueOf(iconOptions.getIconColorString()));
+		}
 		iconSize.setValue(iconOptions.getIconSize());
 	}
 

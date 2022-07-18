@@ -1,12 +1,11 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.controls.icon.IconControl;
 import com.legyver.fenxlib.api.icons.options.IconOptions;
+import com.legyver.fenxlib.widgets.filetree.icons.TreeNodeType;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
-import com.legyver.fenxlib.widgets.filetree.service.FileTreeIconRegistry;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.paint.Paint;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -16,10 +15,6 @@ import java.util.Iterator;
  */
 @SuppressWarnings("unchecked")
 public class TreeFile extends FileTreeItem {
-    /**
-     * The color property of the file icon
-     */
-    private final ObjectProperty<Paint> color = new SimpleObjectProperty<>();
 
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
@@ -47,10 +42,11 @@ public class TreeFile extends FileTreeItem {
     public TreeFile(FileReference file) {
         this(file, new IconControl());
         IconControl graphic = (IconControl) getGraphic();
-        IconOptions iconOptions = FileTreeIconRegistry.getInstance().getIcon(file);
-        graphic.setIconOptions(iconOptions);
-        graphic.iconPaintProperty().bind(color);
-        color.set(Paint.valueOf(iconOptions.getIconColorString()));
+        if (graphic != null) {
+            IconAliasMap iconAliasMap = ApplicationContext.getIconAliasMap();
+            IconOptions iconOptions = iconAliasMap.lookupIconOptions(TreeNodeType.FILE, file.getName());
+            graphic.setIconOptions(iconOptions);
+        }
     }
 
     /**

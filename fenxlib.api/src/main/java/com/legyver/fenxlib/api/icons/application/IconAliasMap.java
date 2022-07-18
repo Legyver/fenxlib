@@ -2,6 +2,7 @@ package com.legyver.fenxlib.api.icons.application;
 
 import com.legyver.fenxlib.api.alert.ApplicationAlertIcons;
 import com.legyver.fenxlib.api.alert.Level;
+import com.legyver.fenxlib.api.icons.options.IconOptions;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -21,8 +22,8 @@ public class IconAliasMap {
      * @param applicationIconAffiliated the control/event to look up the icon for
      * @return the icon name
      */
-    public String lookupIconName(ApplicationIconAffiliated applicationIconAffiliated) {
-        return lookupIconName(applicationIconAffiliated, null);
+    public IconOptions lookupIconOptions(ApplicationIconAffiliated applicationIconAffiliated) {
+        return lookupIconOptions(applicationIconAffiliated, null);
     }
 
     /**
@@ -31,12 +32,12 @@ public class IconAliasMap {
      * @param o an optional parameter to be assessed by the predicate in differentiating among aliases
      * @return the icon name
      */
-    public String lookupIconName(ApplicationIconAffiliated applicationIconAffiliated, Object o) {
+    public IconOptions lookupIconOptions(ApplicationIconAffiliated applicationIconAffiliated, Object o) {
         TypedIconMap typedIconMap = allAliasMap.get(applicationIconAffiliated);
         if (typedIconMap == null) {
             return null;
         }
-        return typedIconMap.lookupIconName(o);
+        return typedIconMap.lookupIconOptions(o);
     }
 
     /**
@@ -56,11 +57,26 @@ public class IconAliasMap {
     public static IconAliasBuilder withDefaultAlertIcons() {
         IconAliasMap iconAliasMap = new IconAliasMap();
         return new GivenBuilder(iconAliasMap, Level.INFO)
-                    .thenUseIcon(ApplicationAlertIcons.ICON_INFO.getIconName())
+                    .thenUseIcon(new IconOptions.Builder<>()
+                            .icon(ApplicationAlertIcons.ICON_INFO.getIconName())
+                            .family("icomoon")
+                            .iconSize(18)
+                            .iconColorString("#2eb1ec")
+                            .build())
                 .given(Level.WARNING)
-                    .thenUseIcon(ApplicationAlertIcons.ICON_WARNING.getIconName())
+                    .thenUseIcon(new IconOptions.Builder<>()
+                        .icon(ApplicationAlertIcons.ICON_WARNING.getIconName())
+                        .family("icomoon")
+                        .iconSize(18)
+                        .iconColorString("#ecb02e")
+                        .build())
                 .given(Level.ERROR)
-                    .thenUseIcon(ApplicationAlertIcons.ICON_NOTIFICATION.getIconName());
+                .thenUseIcon(new IconOptions.Builder<>()
+                        .icon(ApplicationAlertIcons.ICON_NOTIFICATION.getIconName())
+                        .family("icomoon")
+                        .iconSize(18)
+                        .iconColorString("#ec2e3e")
+                        .build());
     }
 
     /**
@@ -74,23 +90,20 @@ public class IconAliasMap {
     }
 
     private static class TypedIconMap {
-        private final String icon;
-        private final Map<Predicate, String> aliasMap = new HashMap<>();
-        private final Map<Class, Map<Predicate, String>> typedMap = new HashMap<>();
+        private IconOptions iconOptions;
+        private final Map<Predicate, IconOptions> aliasMap = new HashMap<>();
+        private final Map<Class, Map<Predicate, IconOptions>> typedMap = new HashMap<>();
 
-        private TypedIconMap(String icon) {
-            this.icon = icon;
+        private TypedIconMap(IconOptions iconOptions) {
+            this.iconOptions = iconOptions;
         }
 
-        private String lookupIconName(Object o) {
-            if (icon != null) {
-                return icon;
-            }
+        private IconOptions lookupIconOptions(Object o) {
             if (o != null) {
-                Map<Predicate, String> typedAliasMap = typedMap.computeIfAbsent(o.getClass(), x -> new HashMap<>());
+                Map<Predicate, IconOptions> typedAliasMap = typedMap.computeIfAbsent(o.getClass(), x -> new HashMap<>());
                 if (typedAliasMap.isEmpty()) {
-                    for (Iterator<Map.Entry<Predicate, String>> it = aliasMap.entrySet().iterator(); it.hasNext();) {
-                        Map.Entry<Predicate, String> entry = it.next();
+                    for (Iterator<Map.Entry<Predicate, IconOptions>> it = aliasMap.entrySet().iterator(); it.hasNext();) {
+                        Map.Entry<Predicate, IconOptions> entry = it.next();
                         Predicate predicate = entry.getKey();
                         if (predicate instanceof HandlesPredicate) {
                             if (((HandlesPredicate<?>) predicate).handles(o.getClass())) {
@@ -108,14 +121,14 @@ public class IconAliasMap {
                         }
                     }
                 }
-                for (Map.Entry<Predicate, String> entry: typedAliasMap.entrySet()) {
+                for (Map.Entry<Predicate, IconOptions> entry: typedAliasMap.entrySet()) {
                     Predicate predicate = entry.getKey();
                     if (predicate.test(o)) {
                         return entry.getValue();
                     }
                 }
             } else {
-                for (Map.Entry<Predicate, String> entry: aliasMap.entrySet()) {
+                for (Map.Entry<Predicate, IconOptions> entry: aliasMap.entrySet()) {
                     Predicate predicate = entry.getKey();
                     if (predicate.test(o)) {
                         return entry.getValue();
@@ -123,11 +136,16 @@ public class IconAliasMap {
                 }
             }
 
+            //if no predicate has matched, use default value
+            if (iconOptions != null) {
+                return iconOptions;
+            }
+
             return null;
         }
 
         private static TypedIconMap merge(TypedIconMap typedIconMap, TypedIconMap typedIconMap2) {
-            if (typedIconMap.icon != null && typedIconMap2.icon != null) {
+            if (typedIconMap.iconOptions != null && typedIconMap2.iconOptions != null) {
                 return typedIconMap2;
             }
 
@@ -138,7 +156,7 @@ public class IconAliasMap {
                 accumulateNamedPredicates(existingNamedPredicates, typedIconMap.aliasMap);
             }
 
-            for (Map.Entry<Predicate, String> entry : typedIconMap2.aliasMap.entrySet()) {
+            for (Map.Entry<Predicate, IconOptions> entry : typedIconMap2.aliasMap.entrySet()) {
                 Predicate predicate = entry.getKey();
                 if (predicate instanceof NamedPredicate) {
                     String name = ((NamedPredicate) predicate).getName();
@@ -153,7 +171,7 @@ public class IconAliasMap {
             return typedIconMap;
         }
 
-        private static void accumulateNamedPredicates(Map<String, Predicate> existingNamedPredicates, Map<Predicate, String> useMap) {
+        private static void accumulateNamedPredicates(Map<String, Predicate> existingNamedPredicates, Map<Predicate, IconOptions> useMap) {
             for (Predicate predicate : useMap.keySet()) {
                 if (predicate instanceof NamedPredicate) {
                     String name = ((NamedPredicate) predicate).getName();
@@ -163,29 +181,12 @@ public class IconAliasMap {
         }
     }
 
-    /**
-     * Predicate with an additional method that allows for testing type of argument it accepts in its test method
-     * @param <T> the type of the argument in the test method
-     */
-    interface HandlesPredicate<T> extends Predicate<T> {
-        boolean handles(Class<?> klass);
-    }
-
-    /**
-     * Predicate that can be named.
-     * This allows the particular predicate to be overridden by merging in an additional alias map with a different predicate of the same name
-     * @param <T> the type of the argument in the test method
-     */
-    interface NamedPredicate<T> extends Predicate<T> {
-        String getName();
-    }
-
     private static class GivenBuilder implements GivenIconAliasBuilder {
         private final IconAliasMap iconAliasMap;
         private final ApplicationIconAffiliated applicationIconAffiliated;
 
         private List<PredicateBuilder> predicateBuilders = new ArrayList<>();
-        private String icon;
+        private IconOptions iconOptions;
 
         private GivenBuilder(IconAliasMap iconAliasMap, ApplicationIconAffiliated applicationIconAffiliated) {
             this.iconAliasMap = iconAliasMap;
@@ -193,11 +194,14 @@ public class IconAliasMap {
         }
 
         public IconAliasMap build() {
-            TypedIconMap typedIconMap =  new TypedIconMap(icon);
+            TypedIconMap typedIconMap =  new TypedIconMap(iconOptions);
             for (PredicateBuilder predicateBuilder : predicateBuilders) {
                 TypedIconMap builtIconMap = predicateBuilder.buildMap();
-                for (Map.Entry<Predicate, String> entry : builtIconMap.aliasMap.entrySet()) {
+                for (Map.Entry<Predicate, IconOptions> entry : builtIconMap.aliasMap.entrySet()) {
                     typedIconMap.aliasMap.merge(entry.getKey(), entry.getValue(), (s1, s2) -> s1 != null ? s1 : s2);
+                }
+                if (builtIconMap.iconOptions != null) {
+                    typedIconMap.iconOptions = builtIconMap.iconOptions;
                 }
             }
             iconAliasMap.allAliasMap.put(applicationIconAffiliated, typedIconMap);
@@ -217,8 +221,9 @@ public class IconAliasMap {
             return predicateBuilder.when(predicate);
         }
 
-        public IconAliasBuilder thenUseIcon(String iconName) {
-            icon = iconName;
+        @Override
+        public IconAliasBuilder thenUseIcon(IconOptions iconOptions) {
+            this.iconOptions = iconOptions;
             return this;
         }
     }
@@ -226,7 +231,7 @@ public class IconAliasMap {
     private static class PredicateBuilder implements PredicateIconAliasBuilder {
         private final GivenBuilder givenBuilder;
         private List<WhenBuilder> whenBuilders = new ArrayList<>();
-        private String icon;
+        private IconOptions iconOptions;
 
         private PredicateBuilder(GivenBuilder givenBuilder) {
             this.givenBuilder = givenBuilder;
@@ -243,10 +248,10 @@ public class IconAliasMap {
         }
 
         private TypedIconMap buildMap() {
-            TypedIconMap typedIconMap = new TypedIconMap(icon);
+            TypedIconMap typedIconMap = new TypedIconMap(iconOptions);
             for (WhenBuilder whenBuilder : whenBuilders) {
                 if (whenBuilder.predicate != null && whenBuilder.thenBuilder != null) {
-                    typedIconMap.aliasMap.put(whenBuilder.predicate, whenBuilder.thenBuilder.icon);
+                    typedIconMap.aliasMap.put(whenBuilder.predicate, whenBuilder.thenBuilder.iconOptions);
                 }
             }
             return typedIconMap;
@@ -260,8 +265,14 @@ public class IconAliasMap {
         }
 
         @Override
-        public PredicateIconAliasBuilder thenUseIcon(String icon) {
-            this.icon = icon;
+        public IconAliasBuilder otherwise(IconOptions iconOptions) {
+            this.iconOptions = iconOptions;
+            return givenBuilder;
+        }
+
+        @Override
+        public PredicateIconAliasBuilder thenUseIcon(IconOptions iconOptions) {
+            this.iconOptions = iconOptions;
             return this;
         }
     }
@@ -278,8 +289,8 @@ public class IconAliasMap {
             this.predicate = predicate;
         }
 
-        public PredicateIconAliasBuilder thenUseIcon(String icon) {
-            thenBuilder = new ThenBuilder(givenBuilder, predicateBuilder, icon);
+        public PredicateIconAliasBuilder thenUseIcon(IconOptions iconOptions) {
+            thenBuilder = new ThenBuilder(givenBuilder, predicateBuilder, iconOptions);
             return this;
         }
 
@@ -298,17 +309,22 @@ public class IconAliasMap {
         public PredicateIconAliasBuilder when(Predicate predicate) {
             return givenBuilder.when(predicate);
         }
+
+        @Override
+        public IconAliasBuilder otherwise(IconOptions iconOptions) {
+            return predicateBuilder.otherwise(iconOptions);
+        }
     }
 
     private static class ThenBuilder implements IconAliasBuilder {
         private final GivenBuilder givenBuilder;
         private final PredicateBuilder builder;
-        private String icon;
+        private IconOptions iconOptions;
 
-        private ThenBuilder(GivenBuilder givenBuilder, PredicateBuilder builder, String icon) {
+        private ThenBuilder(GivenBuilder givenBuilder, PredicateBuilder builder, IconOptions iconOptions) {
             this.givenBuilder = givenBuilder;
             this.builder = builder;
-            this.icon = icon;
+            this.iconOptions = iconOptions;
         }
 
         @Override

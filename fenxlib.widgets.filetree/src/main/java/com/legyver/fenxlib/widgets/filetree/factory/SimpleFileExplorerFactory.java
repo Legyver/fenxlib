@@ -2,23 +2,34 @@ package com.legyver.fenxlib.widgets.filetree.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
-import com.legyver.fenxlib.api.locator.IComponentRegistry;
+import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.files.action.OpenDirectoryAction;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
-import com.legyver.fenxlib.core.menu.factory.ContextMenuFactory;
-import com.legyver.fenxlib.core.menu.factory.MenuItemFactory;
 import com.legyver.fenxlib.widgets.filetree.SimpleFileExplorer;
-import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
-import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
-import com.legyver.fenxlib.widgets.filetree.scan.FileWatchHandler;
+import com.legyver.fenxlib.widgets.filetree.icons.DefaultTreeIcons;
 import javafx.scene.control.ContextMenu;
 
 /**
  * Factory to create a {@link SimpleFileExplorer}
  */
 public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExplorer, SimpleFileExplorerOptions> {
+
+    /**
+     * Construct a factory to produce File Explorers with the specified tree icons
+     * @param fileTreeIcons the tree icons to use
+     */
+    public SimpleFileExplorerFactory(IconAliasMap fileTreeIcons) {
+        IconAliasMap applicationIcons = ApplicationContext.getIconAliasMap();
+        applicationIcons.merge(fileTreeIcons);
+    }
+
+    /**
+     * Construct a factory to produce File Explorers with the default tree icons
+     */
+    public SimpleFileExplorerFactory() {
+        this(DefaultTreeIcons.defaultTreeIcons().build());
+    }
 
     /**
      * Make the SimpleFileExplorer.

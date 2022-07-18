@@ -15,6 +15,12 @@ import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.scan.FileWatchHandler;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Options for a file explorer specifying
+ * - What to do when a file is deleted/added/modified ({@link FileWatchHandler}
+ * - The registry to register files with ({@link FileTreeRegistry})
+ * - The factory to use to produce a context menu on various nodes in the tree
+ */
 public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExplorerOptions> implements StyleableControlOptions<SimpleFileExplorer> {
     /**
      * The handler that handles new/deleted/modified files
@@ -29,6 +35,10 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
      */
     private ContextMenuFactory areaContextMenuFactory;
 
+    /**
+     * Construct options for the file explorer with default context menu factory
+     * @throws CoreException if there is an error
+     */
     public SimpleFileExplorerOptions() throws CoreException {
         MenuItemOptions addDirectoryOptions = new MenuItemOptions()
                 .text("Add directory")
@@ -39,29 +49,56 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
         areaContextMenuFactory = new ContextMenuFactory("area", new CachingMenuItemFactory(addDirectoryOptions));
     }
 
+    /**
+     * Add a file watch handler
+     * @param fileWatchHandler the handler to use
+     * @return this builder
+     */
     public SimpleFileExplorerOptions fileWatchHandler(FileWatchHandler fileWatchHandler) {
         this.fileWatchHandler = fileWatchHandler;
         return me();
     }
 
+    /**
+     * Add a file tree registry
+     * @param fileTreeRegistry the registry to register files with
+     * @return this builder
+     */
     public SimpleFileExplorerOptions fileTreeRegistry(FileTreeRegistry<FileReference> fileTreeRegistry) {
         this.fileTreeRegistry = fileTreeRegistry;
         return me();
     }
 
+    /**
+     * Custom factory to produce a context menu in the tree
+     * @param areaContextMenuFactory the factory to use to produce context menus
+     * @return this builder
+     */
     public SimpleFileExplorerOptions areaContextMenuFactory(ContextMenuFactory areaContextMenuFactory) {
         this.areaContextMenuFactory = areaContextMenuFactory;
         return me();
     }
 
+    /**
+     * Get the file watch handler
+     * @return the file watch handler
+     */
     public FileWatchHandler getFileWatchHandler() {
         return fileWatchHandler;
     }
 
+    /**
+     * Get the file tree registry
+     * @return the file tree registry
+     */
     public FileTreeRegistry<FileReference> getFileTreeRegistry() {
         return fileTreeRegistry;
     }
 
+    /**
+     * Get the factory to produce context menus
+     * @return the factory
+     */
     public ContextMenuFactory getAreaContextMenuFactory() {
         return areaContextMenuFactory;
     }
