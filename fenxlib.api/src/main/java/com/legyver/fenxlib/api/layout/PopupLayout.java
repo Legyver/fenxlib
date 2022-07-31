@@ -19,6 +19,8 @@ import org.apache.logging.log4j.Logger;
  */
 public class PopupLayout implements IApplicationLayout {
     private static final Logger logger = LogManager.getLogger(PopupLayout.class);
+    private static final double insetSize = 20d;
+
     private final ScrollPane scrollPane;
     private final StringProperty popupTitle = new SimpleStringProperty();
     private final PopupDimensions popupDimensions;
@@ -35,7 +37,9 @@ public class PopupLayout implements IApplicationLayout {
             pane = ControlsFactory.make(ScrollPane.class, new ScrollPaneOptions()
                     .name(popupName)
                     .content(content));
-            pane.setPadding(new Insets(20));
+            pane.setPadding(new Insets(insetSize));
+            pane.setFitToWidth(true);
+            pane.setFitToHeight(true);
         } catch (CoreException exception) {
             logger.error(exception);
         }
@@ -66,11 +70,11 @@ public class PopupLayout implements IApplicationLayout {
 
     @Override
     public double getHeight() {
-        return popupDimensions.getPrefHeight();
+        return popupDimensions.getPrefHeight() + insetSize * 2;
     }
 
     @Override
     public double getWidth() {
-        return popupDimensions.getPrefWidth();
+        return popupDimensions.getPrefWidth() + insetSize * 2;
     }
 }
