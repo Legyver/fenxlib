@@ -28,7 +28,7 @@ public class FenxlibApplicationAdapter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         applicationFixture.start(primaryStage);
-        ApplicationContext.setPrimaryStage(primaryStage);
+        ApplicationContext.registerStage(primaryStage);
     }
 
     @Override

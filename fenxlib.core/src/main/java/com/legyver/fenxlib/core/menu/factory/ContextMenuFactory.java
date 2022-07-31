@@ -4,7 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
-import com.legyver.fenxlib.core.scene.controls.options.MenuItemOptions;
+import com.legyver.fenxlib.api.scene.controls.options.MenuItemOptions;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 

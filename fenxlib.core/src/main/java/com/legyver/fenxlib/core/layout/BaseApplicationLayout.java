@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.core.layout;
 
+import com.legyver.fenxlib.api.layout.IApplicationLayout;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.MenuBar;

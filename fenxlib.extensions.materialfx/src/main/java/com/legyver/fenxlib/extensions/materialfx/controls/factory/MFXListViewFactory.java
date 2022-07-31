@@ -4,13 +4,8 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
-import com.legyver.fenxlib.core.factory.adapters.ItemsAdapter;
-import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.core.controls.builder.ItemsMixin;
 import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXListViewOptions;
 import io.github.palexdev.materialfx.controls.MFXListView;
-
-import java.util.List;
 
 /**
  * Factory to produce a MFXListView

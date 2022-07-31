@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.layout.Target;
+import com.legyver.fenxlib.api.layout.PopupDimensions;
 import com.legyver.fenxlib.core.menu.options.ShowPopupMenuOption;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
 import com.legyver.fenxlib.core.menu.templates.section.AbstractMenuSection;
@@ -37,8 +37,8 @@ public class AboutMenuSection extends AbstractMenuSection implements MenuSection
         return null;
     }
 
-    private static Target initTarget() {
-        return new Target.Builder()
+    private static PopupDimensions initTarget() {
+        return new PopupDimensions.Builder()
                 .prefHeight(400.0)
                 .prefWidth(500.0)
                 .build();

@@ -1,6 +1,6 @@
 # Releases
 ## 3.0.0
-Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the scope of the changes. Not the least of this will be how factories are handled.
+Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the resourceScope of the changes. Not the least of this will be how factories are handled.
 
 Instead of calling a factory explicitly, you will call the general factory which will spit out the output of the first related implementation on the classpath, be it raw JavaFX or MaterialFX.  For example if the materialfx factory is on the classpath, when calling for a text box you will get a MaterialFX text box.
 

@@ -4,9 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
-import com.legyver.fenxlib.core.scene.controls.options.TextAreaOptions;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
+import com.legyver.fenxlib.api.scene.controls.options.TextAreaOptions;
 import javafx.scene.control.TextArea;
 
 /**

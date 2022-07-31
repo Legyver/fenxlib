@@ -1,3 +1,5 @@
+import com.legyver.fenxlib.api.alert.AlertService;
+import com.legyver.fenxlib.api.controls.service.NodeInstantiationService;
 import com.legyver.fenxlib.api.io.IOService;
 
 /**
@@ -12,6 +14,8 @@ module com.legyver.fenxlib.api {
     requires javafx.controls;
     requires com.legyver.utils.mapqua;
     requires org.apache.logging.log4j;
+    requires org.apache.commons.lang3;
+    requires javafx.web;
 
     exports com.legyver.fenxlib.api;
     exports com.legyver.fenxlib.api.alert;
@@ -22,6 +26,11 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.config.parts;
     exports com.legyver.fenxlib.api.config.parts.util;
     exports com.legyver.fenxlib.api.context;
+    exports com.legyver.fenxlib.api.controls;
+    exports com.legyver.fenxlib.api.controls.builder;
+    exports com.legyver.fenxlib.api.controls.options;
+    exports com.legyver.fenxlib.api.controls.service;
+    exports com.legyver.fenxlib.api.factory.adapters;
     exports com.legyver.fenxlib.api.files;
     exports com.legyver.fenxlib.api.files.marshal;
     exports com.legyver.fenxlib.api.files.marshal.contenttype;
@@ -34,6 +43,8 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.icons.options;
     exports com.legyver.fenxlib.api.io;
     exports com.legyver.fenxlib.api.io.content;
+    exports com.legyver.fenxlib.api.layout;
+    exports com.legyver.fenxlib.api.layout.anchor;
     exports com.legyver.fenxlib.api.lifecycle;
     exports com.legyver.fenxlib.api.lifecycle.hooks;
     exports com.legyver.fenxlib.api.locator;
@@ -41,10 +52,19 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.locator.visitor;
     exports com.legyver.fenxlib.api.logging;
     exports com.legyver.fenxlib.api.regions;
+    exports com.legyver.fenxlib.api.scene.controls.options;
+    exports com.legyver.fenxlib.api.scene.layout.options;
+    exports com.legyver.fenxlib.api.scene.text.options;
+    exports com.legyver.fenxlib.api.scene.web.options;
     exports com.legyver.fenxlib.api.service;
     exports com.legyver.fenxlib.api.uimodel;
 
+    //for reflection in Options Mixins
+    opens com.legyver.fenxlib.api.scene.controls.options to org.apache.commons.lang3;
+
+    uses AlertService;
     uses IOService;
+    uses NodeInstantiationService;
     uses com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService;
     uses com.legyver.fenxlib.api.config.ConfigService;
 }

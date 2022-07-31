@@ -4,8 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.scene.controls.options.ScrollBarOptions;
-import com.legyver.fenxlib.core.scene.controls.options.ScrollPaneOptions;
+import com.legyver.fenxlib.api.scene.controls.options.ScrollPaneOptions;
 import javafx.scene.control.ScrollPane;
 
 /**
@@ -16,6 +15,7 @@ public class ScrollPaneFactory implements NodeFactory<ScrollPane, ScrollPaneOpti
     @Override
     public ScrollPane makeNode(LocationContext locationContext, ScrollPaneOptions options) throws CoreException {
         ScrollPane scrollPane = makeScrollPane();
+        scrollPane.setContent(options.getContent());
         Fenxlib.register(locationContext.decorateWith(options.getName()), scrollPane);
         return scrollPane;
     }

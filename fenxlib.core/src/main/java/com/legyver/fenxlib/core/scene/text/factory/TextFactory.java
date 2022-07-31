@@ -4,8 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.core.scene.text.options.TextOptions;
+import com.legyver.fenxlib.api.scene.text.options.TextOptions;
 import javafx.scene.text.Text;
 
 /**

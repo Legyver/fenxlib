@@ -2,6 +2,7 @@ package com.legyver.fenxlib.api.alert;
 
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 
+import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
@@ -49,15 +50,16 @@ public class AlertServiceRegistry {
     }
 
     /**
-     * Set the alert factory to be used by all {@link AlertService} when generating alerts
-     * @param alertFactory the alert factory to use.
+     * Set the default level alert locations
+     * @param targetRegionEnumMap map specifying level-specific alert locations
      */
-    public void setFactory(AlertFactory<? extends IAlert> alertFactory) {
-        if (alertFactory != null) {
-            for (Iterator<AlertService> it = orderedServiceDelegator.iterator(); it.hasNext();) {
+    public void defaultLevelAlertLocations(EnumMap<Level, IAlert.TargetRegion> targetRegionEnumMap) {
+        if (targetRegionEnumMap != null) {
+            for (Iterator<AlertService> it = orderedServiceDelegator.iterator(); it.hasNext(); ) {
                 AlertService alertService = it.next();
-                alertService.setFactory(alertFactory);
+                alertService.defaultLevelAlertLocations(targetRegionEnumMap);
             }
+
         }
     }
 }

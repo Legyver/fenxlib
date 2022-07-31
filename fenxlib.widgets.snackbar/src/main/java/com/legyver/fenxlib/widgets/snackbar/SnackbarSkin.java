@@ -1,17 +1,23 @@
 package com.legyver.fenxlib.widgets.snackbar;
 
 import com.legyver.fenxlib.api.alert.Level;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 /**
  * Skin for a Snackbar alert
  */
 public class SnackbarSkin extends SkinBase<Snackbar> {
-    private final VBox vBox;
+    /**
+     * The VBox encapsulating the snackbar content
+     */
+    protected final VBox vBox;
     private final TextFlow body;
 
     /**
@@ -27,7 +33,6 @@ public class SnackbarSkin extends SkinBase<Snackbar> {
         body = makeBody(snackbar.getMessage(), snackbar.getLevel());
         vBox.getChildren().add(body);
         VBox.setVgrow(body, Priority.ALWAYS);
-
         getChildren().add(vBox);
     }
 

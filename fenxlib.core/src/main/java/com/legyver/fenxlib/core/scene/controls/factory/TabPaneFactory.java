@@ -5,7 +5,7 @@ import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
-import com.legyver.fenxlib.core.scene.controls.options.TabPaneOptions;
+import com.legyver.fenxlib.api.scene.controls.options.TabPaneOptions;
 import com.legyver.fenxlib.core.util.LocationContextOperator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

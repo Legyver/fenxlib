@@ -1,3 +1,4 @@
+import com.legyver.fenxlib.api.alert.AlertFactory;
 import com.legyver.fenxlib.api.alert.AlertService;
 
 /**
@@ -12,5 +13,6 @@ module com.legyver.fenxlib.widgets.snackbar {
 
     provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.snackbar.license.LicenseServiceImpl;
     provides AlertService with com.legyver.fenxlib.widgets.snackbar.alert.AlertServiceImpl;
-
+    provides AlertFactory with com.legyver.fenxlib.widgets.snackbar.alert.DefaultAlertFactory;
+    uses AlertFactory;
 }

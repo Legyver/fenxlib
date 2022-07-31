@@ -1,8 +1,7 @@
 package com.legyver.fenxlib.core.menu.factory;
 
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
-import com.legyver.fenxlib.core.scene.controls.options.MenuItemOptions;
+import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import javafx.scene.control.MenuItem;
 
 /**

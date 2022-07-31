@@ -4,9 +4,8 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.EventTargetFactory;
-import com.legyver.fenxlib.core.scene.controls.options.TreeItemOptions;
+import com.legyver.fenxlib.api.scene.controls.options.TreeItemOptions;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 
 /**
  * Factory to create a tree item

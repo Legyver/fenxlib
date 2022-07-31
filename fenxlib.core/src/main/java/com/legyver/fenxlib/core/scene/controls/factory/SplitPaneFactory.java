@@ -4,7 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.scene.controls.options.SplitPaneOptions;
+import com.legyver.fenxlib.api.scene.controls.options.SplitPaneOptions;
 import com.legyver.fenxlib.core.util.LocationContextOperator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Priority;

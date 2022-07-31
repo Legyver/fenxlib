@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.controls.factory;
 
-import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
+import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import javafx.css.Styleable;
 
 /**

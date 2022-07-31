@@ -4,8 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.core.scene.layout.options.BorderPaneOptions;
+import com.legyver.fenxlib.api.scene.layout.options.BorderPaneOptions;
 import javafx.scene.layout.BorderPane;
 
 /**

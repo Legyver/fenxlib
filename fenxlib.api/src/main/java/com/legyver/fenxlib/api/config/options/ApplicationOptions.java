@@ -2,9 +2,11 @@ package com.legyver.fenxlib.api.config.options;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
+import com.legyver.fenxlib.api.alert.IAlert;
+import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.api.context.ApplicationContext;
-import com.legyver.fenxlib.api.icons.application.ApplicationIconAffiliated;
+import com.legyver.fenxlib.api.context.ResourceScope;
 import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 /**
@@ -28,12 +31,12 @@ public class ApplicationOptions {
 	private final boolean usesAutoSaveConfig;
 	private final String applicationConfigName;
 	private final ApplicationConfigInstantiator appConfigInstantiator;
-	private final List<URL> stylesheetURLs;
+	private final EnumMap<ResourceScope, List<URL>> stylesheetURLs;
 	private final List<ApplicationLifecycleHook> hooksToRegister;
 	private final IconAliasMap iconAliasMap;
+	private final EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions;
 
-
-	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, List<URL> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap) {
+	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions) {
 		this.applicationName = applicationName;
 		this.uiModel = uiModel;
 		this.usesLogging = usesLogging;
@@ -43,6 +46,7 @@ public class ApplicationOptions {
 		this.stylesheetURLs = stylesheetURLs;
 		this.hooksToRegister = hooksToRegister;
 		this.iconAliasMap = iconAliasMap;
+		this.alertLevelTargetRegions = alertLevelTargetRegions;
 	}
 
 	/**
@@ -54,8 +58,10 @@ public class ApplicationOptions {
 	 */
 	public void startup(Application application, Stage primaryStage) throws CoreException {
 		Fenxlib.registerApplication(application);
-		ApplicationContext.setPrimaryStage(primaryStage);
-		ApplicationContext.setStylesheets(stylesheetURLs);
+		ApplicationContext.registerStage(primaryStage);
+		for (ResourceScope resourceScope : stylesheetURLs.keySet()) {
+			ApplicationContext.setStylesheetsForScope(resourceScope, stylesheetURLs.get(resourceScope));
+		}
 		ApplicationContext.setIconAliasMap(iconAliasMap);
 		postInit();
 	}
@@ -155,6 +161,14 @@ public class ApplicationOptions {
 	}
 
 	/**
+	 * Get the default regions to display any application alerts
+	 * @return the application alert region map
+	 */
+	public EnumMap<Level, IAlert.TargetRegion> getAlertLevelTargetRegions() {
+		return alertLevelTargetRegions;
+	}
+
+	/**
 	 * Get any additional application hooks to register.  Does not include the hooks that are instantiated based on boolean flags
 	 * @return the list of application lifecycle hooks to register
 	 */
@@ -200,10 +214,22 @@ public class ApplicationOptions {
 		 */
 		protected boolean rememberOpenedFiles = true;
 
-		private List<URL> stylesheetUrls = new ArrayList<>();
+		private EnumMap<ResourceScope, List<URL>> stylesheetUrls = new EnumMap<>(ResourceScope.class);
+
+		private EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions = new EnumMap<>(Level.class);
 
 		private List<ApplicationLifecycleHook> hooksToRegister = new ArrayList<>();
 		private IconAliasMap iconAliasMap = IconAliasMap.withDefaultAlertIcons().build();
+
+		/**
+		 * Construct a builder.
+		 * By default, application alerts are displayed as popups in the bottom right of the application screen for all levels of alert.
+		 */
+		public Builder() {
+			alertLevelTargetRegions.put(Level.INFO, IAlert.TargetRegion.APPLICATION_BOTTOM_RIGHT);
+			alertLevelTargetRegions.put(Level.ERROR, IAlert.TargetRegion.APPLICATION_BOTTOM_RIGHT);
+			alertLevelTargetRegions.put(Level.WARNING, IAlert.TargetRegion.APPLICATION_BOTTOM_RIGHT);
+		}
 
 		/**
 		 * Build the application options
@@ -213,7 +239,7 @@ public class ApplicationOptions {
 		public ApplicationOptions build() throws CoreException {
 			validate();
 			defaultUnspecified();
-			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, stylesheetUrls, hooksToRegister, iconAliasMap);
+			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, stylesheetUrls, hooksToRegister, iconAliasMap, alertLevelTargetRegions);
 			options.bootstrap();
 			return options;
 		}
@@ -276,10 +302,24 @@ public class ApplicationOptions {
 		/**
 		 * Specify URLs for style sheets
 		 * @param url the URL of the stylesheet to include
+		 * @param resourceScopes the scopes in which to apply the stylesheets
 		 * @return this builder
 		 */
-		public B styleSheetUrl(URL url) {
-			return set(() -> this.stylesheetUrls.add(url));
+		public B styleSheetUrl(URL url, ResourceScope... resourceScopes) {
+			return set(() -> {
+				if (resourceScopes == null || resourceScopes.length == 0) {
+					addScope(ResourceScope.APPLICATION, url);
+				} else {
+					for (ResourceScope resourceScope : resourceScopes) {
+						addScope(resourceScope, url);
+					}
+				}
+			});
+		}
+
+		private void addScope(ResourceScope resourceScope, URL url) {
+			List<URL> urls = stylesheetUrls.computeIfAbsent(resourceScope, x -> new ArrayList<>());
+			urls.add(url);
 		}
 
 		/**
@@ -325,6 +365,16 @@ public class ApplicationOptions {
 				this.iconAliasMap.merge(iconAliasMap);
 			}
 			return (B) this;
+		}
+
+		/**
+		 * Specify where to display alerts for each level
+		 * @param level level of alert
+		 * @param targetRegion where to display the alert, ie: application-top-right, bottom-right, status-bar, etc
+		 * @return this builder
+		 */
+		public B displayAlerts(Level level, IAlert.TargetRegion targetRegion) {
+			return set(() -> this.alertLevelTargetRegions.put(level, targetRegion));
 		}
 
 		/**

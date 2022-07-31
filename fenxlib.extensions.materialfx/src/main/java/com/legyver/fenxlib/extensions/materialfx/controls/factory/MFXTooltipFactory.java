@@ -3,13 +3,8 @@ package com.legyver.fenxlib.extensions.materialfx.controls.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXTooltipOptions;
 import io.github.palexdev.materialfx.controls.MFXTooltip;
-import javafx.scene.Node;
-
-import static java.awt.SystemColor.desktop;
-import static java.awt.SystemColor.text;
 
 /**
  * Factory to produce MFXTooltips

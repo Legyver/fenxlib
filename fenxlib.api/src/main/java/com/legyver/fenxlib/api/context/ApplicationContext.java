@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 /**
@@ -47,6 +49,10 @@ public class ApplicationContext {
 	 */
 	private static Stage primaryStage;
 	/**
+	 * Any stages that should be closed when the primary stage is closed
+	 */
+	private static List<Stage> subsidiaryStages = new ArrayList<>();
+	/**
 	 * The application config file
 	 */
 	private static ApplicationHome applicationHome;
@@ -70,7 +76,7 @@ public class ApplicationContext {
 	 */
 	private static IApplicationLifecycleHookRegistry applicationLifecycleHookRegistry;
 
-	private static List<URL> stylesheets;
+	private static EnumMap<ResourceScope, List<URL>> stylesheets = new EnumMap<>(ResourceScope.class);
 	private static IconAliasMap iconAliasMap;
 
 	/**
@@ -109,19 +115,36 @@ public class ApplicationContext {
 	 * Set the primary stage on the application context
 	 * @param primaryStage the primary stage
 	 */
-	public static void setPrimaryStage(Stage primaryStage) {
+	private static void setPrimaryStage(Stage primaryStage) {
 		ApplicationContext.primaryStage = primaryStage;
-		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
+		if (primaryStage != null) {
+			primaryStage.setOnCloseRequest(event -> {
 				logger.info("Primary stage closing. Executing SHUTDOWN hooks");
 				try {
 					ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(LifecyclePhase.SHUTDOWN);
 				} catch (CoreException e) {
 					logger.error("Error executing shutdown lifecycle hook", e);
 				}
-			}
-		});
+				for (Stage stage : subsidiaryStages) {
+					stage.close();
+				}
+			});
+		}
+	}
+
+	/**
+	 * Register a stage with the application context.
+	 * When the stage is the primary stage, a listener is added to the primary stage close request property to execute the application shutdown
+	 * hooks and close any subsidiary stages.
+	 * When the stage is not the primary stage, the stage is added to the list of subsidiary stages to be closed on application exit.
+	 * @param stage the stage to register
+	 */
+	public static void registerStage(Stage stage) {
+		if (ApplicationContext.primaryStage == null) {
+			setPrimaryStage(stage);
+		} else if (ApplicationContext.primaryStage != stage) {
+			ApplicationContext.subsidiaryStages.add(stage);
+		}
 	}
 
 	/**
@@ -270,11 +293,21 @@ public class ApplicationContext {
 
 	/**
 	 * Set the stylesheets to be used by the application.
-	 * These are automatically added to any new scene when launching a new scene
+	 * These are automatically added to any new scene when launching a new scene.
+	 * @param resourceScope scope in which to apply these stylesheets
 	 * @param stylesheetURLs the urls of the stylesheets
 	 */
-	public static void setStylesheets(List<URL> stylesheetURLs) {
-		ApplicationContext.stylesheets = stylesheetURLs;
+	public static void setStylesheetsForScope(ResourceScope resourceScope, List<URL> stylesheetURLs) {
+		ApplicationContext.stylesheets.put(resourceScope, stylesheetURLs);
+	}
+
+	/**
+	 * Get the stylesheets to be used by the application in a specific scope
+	 * @param resourceScope the scope to get the sylesheets for
+	 * @return the stylesheets
+	 */
+	public static List<URL> getStylesheetsForScope(ResourceScope resourceScope) {
+		return stylesheets.get(resourceScope);
 	}
 
 	/**
@@ -282,7 +315,7 @@ public class ApplicationContext {
 	 * @return the stylesheets
 	 */
 	public static List<URL> getStylesheets() {
-		return stylesheets;
+		return getStylesheetsForScope(ResourceScope.APPLICATION);
 	}
 
 	/**

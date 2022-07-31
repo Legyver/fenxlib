@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.visitor.LocationKeyVisitor;
+import javafx.event.EventTarget;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -32,10 +33,11 @@ public abstract class ComponentQuery {
 
 	/**
 	 * Execute the query
+	 * @param <T> the type of the component being queried
 	 * @return the component
 	 * @throws CoreException if there is an error executing the query
 	 */
-	public abstract Optional execute() throws CoreException;
+	public abstract <T extends EventTarget> Optional<T> execute() throws CoreException;
 
 	private static class NamedComponentQuery extends ComponentQuery implements INamedComponentQuery {
 
@@ -44,7 +46,7 @@ public abstract class ComponentQuery {
 		}
 
 		@Override
-		public Optional execute() throws CoreException {
+		public <T extends EventTarget> Optional<T> execute() throws CoreException {
 			return Optional.ofNullable(registry.get(this));
 		}
 	}
@@ -64,7 +66,7 @@ public abstract class ComponentQuery {
 		}
 
 		@Override
-		public Optional execute() throws CoreException {
+		public <T extends EventTarget> Optional<T> execute() throws CoreException {
 			return Optional.ofNullable(registry.get(this));
 		}
 	}

@@ -1,6 +1,6 @@
 package com.legyver.fenxlib.core.controls.factory;
 
-import com.legyver.fenxlib.core.controls.options.EventTargetControlOptions;
+import com.legyver.fenxlib.api.controls.options.EventTargetControlOptions;
 import javafx.event.EventTarget;
 
 /**

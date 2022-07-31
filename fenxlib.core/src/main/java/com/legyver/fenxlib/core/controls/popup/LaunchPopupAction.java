@@ -4,7 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.query.ComponentQuery;
 import com.legyver.fenxlib.core.controls.factory.SceneFactory;
-import com.legyver.fenxlib.core.layout.Target;
+import com.legyver.fenxlib.api.layout.PopupDimensions;
 import com.legyver.fenxlib.core.menu.options.ShowPopupMenuOption;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +27,7 @@ public class LaunchPopupAction implements EventHandler<ActionEvent> {
 
     private final Popup popup;
     private final ComponentQuery anchorComponentQuery;
-    private final Target target;
+    private final PopupDimensions target;
 
     /**
      * Construct an action to launch a Popup window
@@ -35,7 +35,7 @@ public class LaunchPopupAction implements EventHandler<ActionEvent> {
      * @param anchorComponentQuery the query identifying the component to display the popup over
      * @param target target specifications
      */
-    public LaunchPopupAction(Popup popup, ComponentQuery anchorComponentQuery, Target target) {
+    public LaunchPopupAction(Popup popup, ComponentQuery anchorComponentQuery, PopupDimensions target) {
         this.anchorComponentQuery = anchorComponentQuery;
         this.target = target;
         this.popup = popup;
@@ -50,7 +50,7 @@ public class LaunchPopupAction implements EventHandler<ActionEvent> {
                 .inRegion(SceneFactory.FENXLIB_MAIN_APPLICATION_PANE)
                         .typed(StackPane.class)
                 ,
-                new Target.Builder()
+                new PopupDimensions.Builder()
                         .prefWidth(200.0)
                         .prefHeight(100.0)
                         .centered()
@@ -73,10 +73,10 @@ public class LaunchPopupAction implements EventHandler<ActionEvent> {
         Double upperY = null;
         Double lowerY = null;
 
-        if (target.getAlignment() == Target.Alignment.LEFT) {
+        if (target.getAlignment() == PopupDimensions.Alignment.LEFT) {
             leftX = bounds.getMinX();
             lowerY = bounds.getMinY();
-        } else if (target.getAlignment() == Target.Alignment.RIGHT) {
+        } else if (target.getAlignment() == PopupDimensions.Alignment.RIGHT) {
             leftX = bounds.getMaxX();
             lowerY = bounds.getMinY();
         } else {

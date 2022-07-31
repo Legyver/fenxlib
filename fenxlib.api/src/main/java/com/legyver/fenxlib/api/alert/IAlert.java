@@ -1,6 +1,8 @@
 package com.legyver.fenxlib.api.alert;
 
-import javafx.collections.ObservableList;
+import com.legyver.fenxlib.api.layout.anchor.AlertAnchor;
+import com.legyver.fenxlib.api.layout.anchor.BottomRightAnchor;
+import com.legyver.fenxlib.api.layout.anchor.TopRightAnchor;
 import javafx.css.Styleable;
 
 /**
@@ -13,15 +15,17 @@ public interface IAlert extends Styleable {
      * @return the timeout in milliseconds
      */
     default long getTimeoutInMillis() {
-        return Long.MAX_VALUE;
+        return -1;
     }
 
     /**
-     * Get the region of the application to display the alert over.  By default, this is Top-Right.
+     * Get the region of the application to display the alert over.  By default, this is not specified.
+     * When not specified, the target region will default to the application-wide defaults configured in
+     * {@link com.legyver.fenxlib.api.config.options.ApplicationOptions.Builder#displayAlerts(Level, TargetRegion)}
      * @return the target region
      */
     default TargetRegion getTargetRegion() {
-        return TargetRegion.TOP_RIGHT;
+        return null;
     }
 
     /**
@@ -31,45 +35,48 @@ public interface IAlert extends Styleable {
         /**
          * The top-left of the application
          */
-        TOP_LEFT {
-            @Override
-            public ObservableList<IAlert> getRegionAlerts(IAlertPane alertPane) {
-                return alertPane.getTopLeftAlerts();
-            }
-        },
+        APPLICATION_TOP_LEFT(null),
         /**
          * The top-right of the application
          */
-        TOP_RIGHT {
-            @Override
-            public ObservableList<IAlert> getRegionAlerts(IAlertPane alertPane) {
-                return alertPane.getTopRightAlerts();
-            }
-        },
+        APPLICATION_TOP_RIGHT(new TopRightAnchor()),
         /**
          * The bottom-left of the application
          */
-        BOTTOM_LEFT {
-            @Override
-            public ObservableList<IAlert> getRegionAlerts(IAlertPane alertPane) {
-                return alertPane.getBottomLeftAlerts();
-            }
-        },
+        APPLICATION_BOTTOM_LEFT(null),
         /**
          * The bottom-right of the application
          */
-        BOTTOM_RIGHT {
-            @Override
-            public ObservableList<IAlert> getRegionAlerts(IAlertPane alertPane) {
-                return alertPane.getBottomRightAlerts();
-            }
-        };
+        APPLICATION_BOTTOM_RIGHT(new BottomRightAnchor()),
+        /**
+         * Over a specified component
+         */
+        OVER_COMPONENT(null),
+        /**
+         * In the application status bar
+         */
+        APPLICATION_STATUS_BAR(null);
+
+        private AlertAnchor alertAnchor;
+
+        TargetRegion(AlertAnchor alertAnchor) {
+            this.alertAnchor = alertAnchor;
+        }
 
         /**
-         * Get the alerts for a region
-         * @param alertPane the alert pane
-         * @return the alerts for that region
+         * Get the anchor for the alert region
+         * @return the anchor
          */
-        public abstract ObservableList<IAlert> getRegionAlerts(IAlertPane alertPane);
+        public AlertAnchor getAlertAnchor() {
+            return alertAnchor;
+        }
+
+        /**
+         * Override the default anchor by setting your own with custom insets
+         * @param alertAnchor the custom alert anchor to use
+         */
+        public void setAlertAnchor(AlertAnchor alertAnchor) {
+            this.alertAnchor = alertAnchor;
+        }
     }
 }

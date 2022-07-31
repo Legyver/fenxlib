@@ -4,7 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
-import com.legyver.fenxlib.core.scene.web.options.WebViewOptions;
+import com.legyver.fenxlib.api.scene.web.options.WebViewOptions;
 import javafx.scene.web.WebView;
 
 

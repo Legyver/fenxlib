@@ -6,7 +6,7 @@ import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.scene.controls.options.MenuOptions;
+import com.legyver.fenxlib.api.scene.controls.options.MenuOptions;
 import javafx.scene.control.Menu;
 
 /**

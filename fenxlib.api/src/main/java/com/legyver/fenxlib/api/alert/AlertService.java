@@ -2,6 +2,8 @@ package com.legyver.fenxlib.api.alert;
 
 import com.legyver.fenxlib.api.service.OrderedService;
 
+import java.util.EnumMap;
+
 /**
  * Service to handle the rendering of alerts in the application
  */
@@ -16,8 +18,8 @@ public interface AlertService extends OrderedService<AlertService> {
     void displayAlert(String title, String messages, Level level, Long timeout);
 
     /**
-     * Set the factory to provide the alert widget
-     * @param alertFactory the factory
+     * Set the default location for alerts
+     * @param targetRegionEnumMap map containing default regions
      */
-    void setFactory(AlertFactory<? extends IAlert> alertFactory);
+    void defaultLevelAlertLocations(EnumMap<Level, IAlert.TargetRegion> targetRegionEnumMap);
 }

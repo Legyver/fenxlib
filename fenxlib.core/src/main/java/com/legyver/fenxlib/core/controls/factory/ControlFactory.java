@@ -2,7 +2,7 @@ package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.controls.options.ControlOptions;
+import com.legyver.fenxlib.api.controls.options.ControlOptions;
 
 /**
  * Factory responsible for making a control

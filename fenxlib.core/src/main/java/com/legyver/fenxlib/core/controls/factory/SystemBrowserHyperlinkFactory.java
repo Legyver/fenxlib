@@ -1,10 +1,8 @@
 package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.scene.controls.options.HyperlinkOptions;
-import javafx.application.HostServices;
+import com.legyver.fenxlib.api.scene.controls.options.HyperlinkOptions;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Hyperlink;
 

@@ -3,9 +3,7 @@ package com.legyver.fenxlib.core.scene.controls.factory;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.scene.controls.options.LabelOptions;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.legyver.fenxlib.api.scene.controls.options.LabelOptions;
 import javafx.scene.control.Label;
 
 /**

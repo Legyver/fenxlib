@@ -3,11 +3,7 @@ package com.legyver.fenxlib.core.menu.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.api.locator.LocationContextDecorator;
-import com.legyver.fenxlib.core.scene.controls.options.MenuItemOptions;
-import javafx.css.Styleable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.legyver.fenxlib.api.scene.controls.options.MenuItemOptions;
 import javafx.scene.control.MenuItem;
 
 /**

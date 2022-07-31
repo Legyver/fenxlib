@@ -3,7 +3,7 @@ package com.legyver.fenxlib.core.scene.text.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.scene.text.options.TextFlowOptions;
+import com.legyver.fenxlib.api.scene.text.options.TextFlowOptions;
 import com.legyver.fenxlib.core.util.LocationContextOperator;
 import javafx.scene.Node;
 import javafx.scene.layout.Region;

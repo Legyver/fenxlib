@@ -18,6 +18,7 @@ import javafx.scene.control.Skin;
  */
 public class Snackbar extends Control implements IAlert {
 
+    private final Long timeout;
     /**
      * The message text.  This will be displayed in the body of the alert.
      */
@@ -27,6 +28,18 @@ public class Snackbar extends Control implements IAlert {
      */
     private final ObjectProperty<Level> level = new SimpleObjectProperty<>();
 
+    /**
+     * Construct a snackbar with a timeout
+     * @param timeout the timeout
+     */
+    public Snackbar(Long timeout) {
+        this.timeout = timeout;
+    }
+
+    @Override
+    public long getTimeoutInMillis() {
+        return timeout;
+    }
 
     @Override
     protected Skin<?> createDefaultSkin() {

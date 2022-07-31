@@ -2,15 +2,17 @@ package com.legyver.fenxlib.core.controls.factory;
 
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.context.ResourceScope;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.layout.IApplicationLayout;
+import com.legyver.fenxlib.api.layout.IApplicationLayout;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,22 +30,34 @@ public class SceneFactory<T extends IApplicationLayout> {
      * The Fenxlib Main application stack pane
      */
     public static final String FENXLIB_MAIN_APPLICATION_PANE = "_FENXLIB_MAIN_";
-    /**
-     * The Fenxlib Alert Pane
-     */
-    public static final String FENXLIB_ALERT_PANE = "_FENXLIB_ALERT_PANE_";
+
     /**
      * The Fenxlib Popup Pane
      */
     public static final String FENXLIB_POPUP_PANE = "_FENXLIB_POPUP_PANE_";
 
     private final Stage stage;
+    private final StageStyle stageStyle;
+    private final ResourceScope resourceScope;
+
     /**
-     * Construct a factory to create the scene with the appropriate size/width and load any stylesheets
+     * Construct a factory to create the scene
+     * @param stage the stage for the scene
+     * @param stageStyle the style for the scene.  if null, it will not be set
+     * @param resourceScope the scope to apply stylesheets from
+     */
+    public SceneFactory(Stage stage, StageStyle stageStyle, ResourceScope resourceScope) {
+        this.stage = stage;
+        this.stageStyle = stageStyle;
+        this.resourceScope = resourceScope;
+    }
+
+    /**
+     * Construct a factory to create the scene
      * @param stage the stage for the scene
      */
     public SceneFactory(Stage stage) {
-        this.stage = stage;
+        this(stage, null, ResourceScope.APPLICATION);
     }
 
     /**
@@ -55,7 +69,11 @@ public class SceneFactory<T extends IApplicationLayout> {
         Pane decorator = makeContainer(layout);
         Scene scene = new Scene(decorator, layout.getWidth(), layout.getHeight());
         initStage(scene, layout);
-        List<URL> stylesheetUrls = ApplicationContext.getStylesheets();
+        List<URL> stylesheetUrls = ApplicationContext.getStylesheetsForScope(resourceScope);
+        if (stylesheetUrls == null) {
+            //use the application ones
+            stylesheetUrls = ApplicationContext.getStylesheets();
+        }
         if (stylesheetUrls != null) {
             stylesheetUrls.stream().map(url -> url.toExternalForm())
                     .forEach(styleSheet -> scene.getStylesheets().add(styleSheet));
@@ -64,13 +82,19 @@ public class SceneFactory<T extends IApplicationLayout> {
     }
 
     /**
-     * Set the scene and title properties on the stage
+     * Set the scene and title properties on the stage.  This also registers the stage with the ApplicationContext
      * @param scene the scene
      * @param layout the layout
      */
     protected void initStage(Scene scene, T layout) {
         stage.setScene(scene);
-        stage.titleProperty().bind(layout.titleProperty());
+        if (layout.titleProperty() != null) {
+            stage.titleProperty().bind(layout.titleProperty());
+        }
+        if (stageStyle != null) {
+            stage.initStyle(stageStyle);
+        }
+        ApplicationContext.registerStage(stage);
     }
 
     /**
@@ -89,7 +113,7 @@ public class SceneFactory<T extends IApplicationLayout> {
         Fenxlib.register(mainLocationContext, mainPane);
 
         MenuBar menuBar = layout.getMenuBar();
-        Pane applicationPane = layout.getMainPane();
+        Region applicationPane = layout.getMainPane();
         if (menuBar != null) {
             mainPane.getChildren().add(menuBar);
             double menuBarHeight = menuBar.getHeight();

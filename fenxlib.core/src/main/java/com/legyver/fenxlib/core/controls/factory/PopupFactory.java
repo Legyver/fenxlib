@@ -5,9 +5,7 @@ import com.legyver.fenxlib.core.controls.options.PopupOptions;
 import com.legyver.fenxlib.core.controls.popup.ButtonPopup;
 import com.legyver.fenxlib.core.controls.popup.Popup;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import java.util.Collections;

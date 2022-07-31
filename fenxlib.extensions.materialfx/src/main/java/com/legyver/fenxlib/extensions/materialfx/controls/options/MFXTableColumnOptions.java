@@ -1,9 +1,8 @@
 package com.legyver.fenxlib.extensions.materialfx.controls.options;
 
-import com.legyver.fenxlib.core.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.core.controls.builder.TextMixin;
-import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
-import com.legyver.fenxlib.extensions.materialfx.controls.factory.MFXTableColumnFactory;
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 
 import java.util.Comparator;

@@ -3,9 +3,9 @@ package com.legyver.fenxlib.core.scene.controls.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.core.controls.factory.NodeFactory;
-import com.legyver.fenxlib.core.factory.adapters.BooleanAdapter;
+import com.legyver.fenxlib.api.factory.adapters.BooleanAdapter;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.scene.controls.options.CheckBoxOptions;
+import com.legyver.fenxlib.api.scene.controls.options.CheckBoxOptions;
 import javafx.scene.control.CheckBox;
 
 /**

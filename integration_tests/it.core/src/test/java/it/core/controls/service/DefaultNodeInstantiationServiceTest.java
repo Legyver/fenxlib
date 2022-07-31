@@ -2,9 +2,9 @@ package it.core.controls.service;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
-import com.legyver.fenxlib.core.controls.options.StyleableControlOptions;
+import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
+import com.legyver.fenxlib.api.scene.controls.options.*;
 import com.legyver.fenxlib.core.controls.service.DefaultNodeInstantiationService;
-import com.legyver.fenxlib.core.scene.controls.options.*;
 import com.legyver.fenxlib.tests.base.FenxlibTest;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
