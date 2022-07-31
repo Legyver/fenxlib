@@ -2,6 +2,7 @@ package com.legyver.fenxlib.api.layout.anchor;
 
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.layout.PopupDimensions;
+import com.legyver.fenxlib.api.layout.PopupLayout;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Region;
@@ -17,7 +18,9 @@ public class CenterContentAnchor extends PopupAnchor {
         Stage primaryStage = ApplicationContext.getPrimaryStage();
 
         DoubleProperty widthDiffProperty = new SimpleDoubleProperty();
-        widthDiffProperty.bind(primaryStage.widthProperty().subtract(popupDimensions.getPrefWidth()));
+        widthDiffProperty.bind(primaryStage.widthProperty()
+                .subtract(popupDimensions.getPrefWidth())
+        );
 
         DoubleProperty widthAverageProperty = new SimpleDoubleProperty();
         widthAverageProperty.bind(widthDiffProperty.divide(2.0d));
@@ -25,6 +28,7 @@ public class CenterContentAnchor extends PopupAnchor {
         DoubleProperty doubleProperty = new SimpleDoubleProperty();
         doubleProperty.bind(primaryStage.xProperty()
                 .add(widthAverageProperty)
+                .subtract(PopupLayout.INSET_SIZE)
         );
         return doubleProperty;
     }

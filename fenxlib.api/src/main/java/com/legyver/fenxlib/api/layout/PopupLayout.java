@@ -19,7 +19,10 @@ import org.apache.logging.log4j.Logger;
  */
 public class PopupLayout implements IApplicationLayout {
     private static final Logger logger = LogManager.getLogger(PopupLayout.class);
-    private static final double insetSize = 20d;
+    /**
+     * Inset for the popup content.
+     */
+    public static final double INSET_SIZE = 20d;
 
     private final ScrollPane scrollPane;
     private final StringProperty popupTitle = new SimpleStringProperty();
@@ -37,7 +40,7 @@ public class PopupLayout implements IApplicationLayout {
             pane = ControlsFactory.make(ScrollPane.class, new ScrollPaneOptions()
                     .name(popupName)
                     .content(content));
-            pane.setPadding(new Insets(insetSize));
+            pane.setPadding(new Insets(INSET_SIZE));
             pane.setFitToWidth(true);
             pane.setFitToHeight(true);
         } catch (CoreException exception) {
@@ -70,11 +73,11 @@ public class PopupLayout implements IApplicationLayout {
 
     @Override
     public double getHeight() {
-        return popupDimensions.getPrefHeight() + insetSize * 2;
+        return popupDimensions.getPrefHeight() + INSET_SIZE * 2;
     }
 
     @Override
     public double getWidth() {
-        return popupDimensions.getPrefWidth() + insetSize * 2;
+        return popupDimensions.getPrefWidth() + INSET_SIZE * 2;
     }
 }
