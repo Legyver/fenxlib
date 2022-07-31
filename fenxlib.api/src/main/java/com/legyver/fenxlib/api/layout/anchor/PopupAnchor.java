@@ -27,11 +27,17 @@ public abstract class PopupAnchor implements AlertAnchor {
             }
         });
         DoubleProperty y = calculateY(positionOver, popupDimensions);
-        popupStage.setY(y.getValue());
-        y.addListener(new ChangeListener<>() {
+        popupStage.setY(sumY(y.getValue(), popupDimensions.getOffsetY()));
+        y.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                popupStage.setY(newValue.doubleValue());
+                popupStage.setY(sumY(newValue.doubleValue() , popupDimensions.getOffsetY()));
+            }
+        });
+        popupDimensions.offsetYProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                popupStage.setY(sumY(y.doubleValue() , popupDimensions.getOffsetY()));
             }
         });
     }
@@ -50,4 +56,12 @@ public abstract class PopupAnchor implements AlertAnchor {
      * @return the y value for the stage
      */
     protected abstract DoubleProperty calculateY(Region positionOver, PopupDimensions popupDimensions);
+
+    /**
+     * Sum or difference two doubles depending on the direction of offset
+     * @param boundValue the value bound
+     * @param offsetY the offset in the y position
+     * @return the sum or difference
+     */
+    protected abstract double sumY(Double boundValue, Double offsetY);
 }

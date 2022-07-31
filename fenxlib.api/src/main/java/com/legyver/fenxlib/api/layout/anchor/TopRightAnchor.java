@@ -49,8 +49,12 @@ public class TopRightAnchor extends PopupAnchor {
         Stage primaryStage = ApplicationContext.getPrimaryStage();
         DoubleProperty doubleProperty = new SimpleDoubleProperty();
         doubleProperty.bind(primaryStage.yProperty()
-                .add(popupDimensions.offsetYProperty())
                 .add(insetY));
         return doubleProperty;
+    }
+
+    @Override
+    protected double sumY(Double boundValue, Double offsetY) {
+        return boundValue + offsetY;
     }
 }

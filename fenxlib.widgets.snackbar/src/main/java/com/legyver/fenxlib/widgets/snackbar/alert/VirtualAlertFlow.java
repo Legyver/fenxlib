@@ -58,17 +58,13 @@ public class VirtualAlertFlow extends Control {
         popupAnchor.position(stage, null, popupDimensions);
 
         Runnable removeAlert = () -> {
-            alertList.remove(alert);
-            if (alertFlowDirection == AlertFlowDirection.BOTTOM_UP) {
-                for (int i = index; i < alertList.size(); i++) {
-                    //adjust vertical positioning of all effected popups
-                    popupDimensions
-                            .setOffsetY(index * (control.getPrefHeight() + 10));
-                }
-            }
+            removeAlert(alert, index, popupDimensions, control.getPrefHeight());
         };
+
         //when a popup stage is dismissed, adjust all effected popups
-        stage.setOnCloseRequest(event -> Platform.runLater(removeAlert));
+        stage.setOnCloseRequest(event -> {
+            Platform.runLater(removeAlert);
+        });
 
         if (alert.getTimeoutInMillis() > -1) {
             Runnable closeAndRemoveAlert = () -> {
@@ -85,8 +81,20 @@ public class VirtualAlertFlow extends Control {
                 if (newValue) {
                     //user clicked on 'x'
                     stage.close();
+                    removeAlert.run();
                 }
             });
+        }
+    }
+
+    private void removeAlert(IAlert alert, int index, PopupDimensions popupDimensions, double prefHeight) {
+        alertList.remove(alert);
+        if (alertFlowDirection == AlertFlowDirection.BOTTOM_UP) {
+            for (int i = index; i < alertList.size(); i++) {
+                //adjust vertical positioning of all effected popups
+                popupDimensions
+                        .setOffsetY(index * prefHeight);
+            }
         }
     }
 
@@ -94,7 +102,6 @@ public class VirtualAlertFlow extends Control {
     protected Skin<?> createDefaultSkin() {
         return new VirtualAlertFlowSkin(this);
     }
-
 
     /**
      * Flow of alerts when more than one alert is in the same region

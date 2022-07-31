@@ -39,6 +39,7 @@ public class PopupDimensions {
      * The y-offset of the popup
      */
     private DoubleProperty offsetY = new SimpleDoubleProperty();
+
     private Alignment alignment = Alignment.CENTER;
 
     private PopupDimensions() {

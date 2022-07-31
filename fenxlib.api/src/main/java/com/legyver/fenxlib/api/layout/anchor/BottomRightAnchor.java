@@ -50,8 +50,12 @@ public class BottomRightAnchor extends PopupAnchor {
         doubleProperty.bind(primaryStage.yProperty()
                 .add(primaryStage.heightProperty())
                 .subtract(popupDimensions.getPrefHeight())
-                .subtract(popupDimensions.offsetYProperty())
                 .subtract(insetY));
         return doubleProperty;
+    }
+
+    @Override
+    protected double sumY(Double boundValue, Double offsetY) {
+        return boundValue - offsetY;
     }
 }

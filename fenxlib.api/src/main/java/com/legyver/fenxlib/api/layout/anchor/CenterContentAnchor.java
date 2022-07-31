@@ -47,4 +47,9 @@ public class CenterContentAnchor extends PopupAnchor {
         doubleProperty.bind(primaryStage.yProperty().add(heightAverageProperty));
         return doubleProperty;
     }
+
+    @Override
+    protected double sumY(Double boundValue, Double offsetY) {
+        return boundValue + offsetY;
+    }
 }
