@@ -13,9 +13,9 @@ import java.util.function.BiFunction;
  */
 public class FileTreeRemoveEventHandlerFactory implements BiFunction<FileTreeRegistry, FileTreeItem, EventHandler<ActionEvent>> {
     /**
-     * Name of Menu Item
+     * Name of Menu Item or property for i18n purposes
      */
-    public static final String MENU_ITEM_NAME = "Remove";
+    public static final String MENU_ITEM_NAME = "legyver.defaults.label.filetree.onfile.menu.remove";
     /**
      * Make the remove event handler for top-level entries in the tree.
      * If the item is not a top-level entry, the event handler is null.

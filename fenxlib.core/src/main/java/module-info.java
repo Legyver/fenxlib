@@ -61,7 +61,7 @@ module com.legyver.fenxlib.core {
 	provides com.legyver.fenxlib.api.io.IOService with com.legyver.fenxlib.core.io.DiskFileIoService;
 	provides NodeInstantiationService with com.legyver.fenxlib.core.controls.service.DefaultNodeInstantiationService;
 	provides FileMarshalService with com.legyver.fenxlib.core.files.marshal.contenttype.ApplicationJsonContentTypeFileMarshal;
-
+	provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.core.i18n.ResourceBundleServiceImpl;
 
 	uses com.legyver.fenxlib.api.config.ConfigService;
 	uses NodeInstantiationService;

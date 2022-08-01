@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
  * Annotation to support specifying a custom Fenxlib application configuration.
  * This will load your application config into the Fenxlib framework.
  *
- * Example use:
+ * Example use for using a custom config file:
  * <pre>
- * &#64;FenxlibConfiguration("test_application_config.json")
+ * &#64;FenxlibConfiguration(configFile = "test_application_config.json")
  * public void MyIntegrationTest extends FenxlibTest {
  *    &#64;Test
  *    public void testCase1() {
@@ -19,6 +19,9 @@ import java.lang.annotation.Target;
  *    }
  * }
  * </pre>
+ *
+ * Example use for using a custom resource bundle
+ *
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -29,5 +32,7 @@ public @interface FenxlibConfiguration {
      * Failing this it will attempt to resolve it against a config directory at the root of the classpath (ie: src/test/resources/config/test_application.json)
      * @return the name of the resource to load the config from
      */
-    String value();
+    String configFile() default "";
+
+    String[] resourceBundles() default {};
 }

@@ -1,5 +1,9 @@
 package com.legyver.fenxlib.widgets.about;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.controls.ControlsFactory;
+import com.legyver.fenxlib.api.scene.text.options.TextOptions;
+import com.legyver.fenxlib.core.controls.factory.ControlFactory;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -65,10 +69,23 @@ public class AboutDetailsSkin extends SkinBase<AboutDetails> {
 	private TextFlow getBuildFlow(AboutDetails aboutDetails) {
 		TextFlow buildFlow = new TextFlow();
 		buildFlow.setPrefWidth(Region.USE_COMPUTED_SIZE);
-		buildFlow.getChildren().add(new Text("Build: "));
+		buildFlow.getChildren().add(text("legyver.defaults.label.about.build.version"));
+		buildFlow.getChildren().add(new Text(" "));
 		buildFlow.getChildren().add(new Text(aboutDetails.getVersion()));
-		buildFlow.getChildren().add(new Text(". Built on "));
+		buildFlow.getChildren().add(new Text(". "));
+		buildFlow.getChildren().add(new Text("legyver.defaults.label.about.build.date"));
+		buildFlow.getChildren().add(new Text(" "));
 		buildFlow.getChildren().add(new Text(aboutDetails.getBuildDate()));
 		return buildFlow;
+	}
+
+	private Text text(String label) {
+		Text text;
+		try {
+			text = ControlsFactory.make(Text.class, new TextOptions().text(label));
+		} catch (CoreException coreException) {
+			text = new Text(label);
+		}
+		return text;
 	}
 }

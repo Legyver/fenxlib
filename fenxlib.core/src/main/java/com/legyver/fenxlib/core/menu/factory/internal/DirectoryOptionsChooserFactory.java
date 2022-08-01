@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import javafx.stage.DirectoryChooser;
 
 /**
@@ -23,6 +24,7 @@ public class DirectoryOptionsChooserFactory extends AbstractChooserFactory {
 	 */
 	public DirectoryChooser makeDirectoryChooser(String title) {
 		final DirectoryChooser directoryChooser = new DirectoryChooser();
+		title = ResourceBundleServiceRegistry.getInstance().getMessage(title);
 		directoryChooser.setTitle(title);
 		bindDefaultBrowseLocation(directoryChooser.initialDirectoryProperty());
 		return directoryChooser;

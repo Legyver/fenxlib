@@ -9,7 +9,7 @@ import org.testfx.assertions.api.Assertions;
 
 import java.util.List;
 
-@FenxlibConfiguration("TestApplicationConfig_lastAndRecentlyAdded.json")
+@FenxlibConfiguration(configFile = "TestApplicationConfig_lastAndRecentlyAdded.json")
 public class LastOpenedRecentlyModifiedConfigTest extends BaseJsonConfigFenxlibTest {
 
 	/**

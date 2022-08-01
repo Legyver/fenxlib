@@ -22,13 +22,13 @@ public class AboutPage extends Popup {
 
 	/**
 	 * Construct an About Page
-	 * @param intro the first paragraph
-	 * @param gist the second paragraph
-	 * @param additionalInfo the third paragraph
+	 * @param intro the first paragraph or property containing the first paragraph for i18n purposes
+	 * @param gist the second paragraph or property containing the second paragraph for i18n purposes
+	 * @param additionalInfo the third paragraph or property containing the third paragraph for i18n purposes
 	 * @param version the version of the application
 	 * @param buildDate the build-date of the application
 	 * @param copyright the copyright notice for the application
-	 * @param openSourceTagLine the tagline to display before list of open source libraries
+	 * @param openSourceTagLine the tagline to display before list of open source libraries or property containing the tagline for i18n purposes
 	 * @param licenseProperties properties file containing any additional license information for libraries
 	 */
 	public AboutPage(String intro, String gist, String additionalInfo, String version, String buildDate, String copyright, String openSourceTagLine, Properties licenseProperties) {
@@ -45,16 +45,16 @@ public class AboutPage extends Popup {
 
 	/**
 	 * Construct an about page
-	 * @param intro the first paragraph
-	 * @param gist the second paragraph
-	 * @param additionalInfo the third paragraph
+	 * @param intro the first paragraph or property containing the first paragraph for i18n purposes
+	 * @param gist the second paragraph or property containing the second paragraph for i18n purposes
+	 * @param additionalInfo the third paragraph or property containing the third paragraph for i18n purposes
 	 * @param version the version of the application
 	 * @param buildDate the build-date of the application
 	 * @param copyright the copyright notice for the application
 	 * @param licenseProperties properties file containing any additional license information for libraries
 	 */
 	public AboutPage(String intro, String gist, String additionalInfo, String version, String buildDate, String copyright, Properties licenseProperties) {
-		this(intro, gist, additionalInfo, version, buildDate, copyright, "Powered by open source", licenseProperties);
+		this(intro, gist, additionalInfo, version, buildDate, copyright, "legyver.defaults.label.about.powered.by.clause", licenseProperties);
 	}
 
 	@Override

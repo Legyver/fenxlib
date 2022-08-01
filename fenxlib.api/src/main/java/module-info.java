@@ -1,5 +1,6 @@
 import com.legyver.fenxlib.api.alert.AlertService;
 import com.legyver.fenxlib.api.controls.service.NodeInstantiationService;
+import com.legyver.fenxlib.api.i18n.ResourceBundleService;
 import com.legyver.fenxlib.api.io.IOService;
 
 /**
@@ -61,10 +62,12 @@ module com.legyver.fenxlib.api {
 
     //for reflection in Options Mixins
     opens com.legyver.fenxlib.api.scene.controls.options to org.apache.commons.lang3;
+    exports com.legyver.fenxlib.api.i18n;
 
     uses AlertService;
     uses IOService;
     uses NodeInstantiationService;
+    uses ResourceBundleService;
     uses com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService;
     uses com.legyver.fenxlib.api.config.ConfigService;
 }

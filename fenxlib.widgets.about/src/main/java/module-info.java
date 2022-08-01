@@ -12,5 +12,6 @@ module com.legyver.fenxlib.widgets.about {
 	exports com.legyver.fenxlib.widgets.about;
 	exports com.legyver.fenxlib.widgets.license;
 	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.license.service.LicenseServiceImpl;
+	provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.widgets.about.i18n.ResourceBundleServiceImpl;
 	uses com.legyver.core.license.LicenseService;
 }

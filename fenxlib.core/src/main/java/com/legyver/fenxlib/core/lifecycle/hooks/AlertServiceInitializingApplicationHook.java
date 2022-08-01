@@ -1,9 +1,11 @@
-package com.legyver.fenxlib.api.lifecycle.hooks;
+package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.fenxlib.api.alert.AlertServiceRegistry;
 import com.legyver.fenxlib.api.alert.IAlert;
 import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
+import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
+import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
 
 import java.util.EnumMap;
 

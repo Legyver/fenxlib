@@ -1,13 +1,10 @@
 package com.legyver.fenxlib.widgets.filetree;
 
-import com.legyver.fenxlib.widgets.filetree.factory.FileTreeItemContextMenuFactory;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.scan.IFileWatchHandler;
 import javafx.scene.control.ContextMenu;
-
-import java.io.File;
 
 /**
  * A simple file explorer that just shows the nodes in the tree.

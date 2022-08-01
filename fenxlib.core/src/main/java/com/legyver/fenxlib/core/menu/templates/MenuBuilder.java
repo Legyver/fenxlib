@@ -48,8 +48,8 @@ public class MenuBuilder {
     }
 
     /**
-     * Specify the name of the menu
-     * @param name the name of the menu
+     * Specify the name of the menu.  This can also be the property the name will be associated with.
+     * @param name the name or i18n property for the menu
      * @return this builder
      */
     public MenuBuilder name(String name) {

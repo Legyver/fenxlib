@@ -13,8 +13,9 @@ public class FileExitMenuSection extends AbstractMenuSection implements MenuSect
 
 	/**
 	 * Construct a MenuSection that contains a menu item to exit the application
+	 * The property for the label is "legyver.defaults.label.menu.file.exit"
 	 */
 	public FileExitMenuSection() {
-		super(Arrays.asList(new FileExitMenuOption("Exit")));
+		super(Arrays.asList(new FileExitMenuOption("legyver.defaults.label.menu.file.exit")));
 	}
 }

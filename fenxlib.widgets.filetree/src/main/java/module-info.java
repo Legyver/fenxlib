@@ -23,4 +23,5 @@ module com.legyver.fenxlib.widgets.filetree {
     exports com.legyver.fenxlib.widgets.filetree.tree;
 
     provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.filetree.license.LicenseServiceImpl;
+    provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.widgets.filetree.i18n.ResourceBundleServiceImpl;
 }

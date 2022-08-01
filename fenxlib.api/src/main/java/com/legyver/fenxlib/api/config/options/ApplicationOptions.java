@@ -35,8 +35,9 @@ public class ApplicationOptions {
 	private final List<ApplicationLifecycleHook> hooksToRegister;
 	private final IconAliasMap iconAliasMap;
 	private final EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions;
+	private final List<String> appResourceBundles;
 
-	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions) {
+	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions, List<String> appResourceBundles) {
 		this.applicationName = applicationName;
 		this.uiModel = uiModel;
 		this.usesLogging = usesLogging;
@@ -47,6 +48,7 @@ public class ApplicationOptions {
 		this.hooksToRegister = hooksToRegister;
 		this.iconAliasMap = iconAliasMap;
 		this.alertLevelTargetRegions = alertLevelTargetRegions;
+		this.appResourceBundles = appResourceBundles;
 	}
 
 	/**
@@ -176,6 +178,10 @@ public class ApplicationOptions {
 		return hooksToRegister;
 	}
 
+	public List<String> getAppResourceBundles() {
+		return appResourceBundles;
+	}
+
 	/**
 	 * Builder to specify application options
 	 * @param <B> the subtype of the builder
@@ -201,6 +207,10 @@ public class ApplicationOptions {
 		 * The application config name.  If not specified, it will default to the same as the appName with a .json extension
 		 */
 		protected String appConfigName;
+		/**
+		 * The application resource bundles to read
+		 */
+		protected List<String> appResourceBundles = new ArrayList<>();
 		/**
 		 * Flag to enable autosave of the application config (on by default)
 		 */
@@ -239,7 +249,19 @@ public class ApplicationOptions {
 		public ApplicationOptions build() throws CoreException {
 			validate();
 			defaultUnspecified();
-			ApplicationOptions options = new ApplicationOptions(appName, uiModel, enableLogging, autosaveConfig, appConfigName, appConfigInstantiator, stylesheetUrls, hooksToRegister, iconAliasMap, alertLevelTargetRegions);
+			ApplicationOptions options = new ApplicationOptions(
+					appName,
+					uiModel,
+					enableLogging,
+					autosaveConfig,
+					appConfigName,
+					appConfigInstantiator,
+					stylesheetUrls,
+					hooksToRegister,
+					iconAliasMap,
+					alertLevelTargetRegions,
+					appResourceBundles
+			);
 			options.bootstrap();
 			return options;
 		}
@@ -363,6 +385,18 @@ public class ApplicationOptions {
 		public B mergeIconAliasMap(IconAliasMap iconAliasMap) {
 			if (iconAliasMap != null) {
 				this.iconAliasMap.merge(iconAliasMap);
+			}
+			return (B) this;
+		}
+
+		/**
+		 * Add resource bundles
+		 * @param resourceBundle resource bundle to add
+		 * @return this builder
+		 */
+		public B resourceBundle(String resourceBundle) {
+			if (!appResourceBundles.contains(resourceBundle)) {
+				appResourceBundles.add(resourceBundle);
 			}
 			return (B) this;
 		}

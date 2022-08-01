@@ -1,11 +1,16 @@
 package com.legyver.fenxlib.widgets.filetree.factory;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.controls.ControlsFactory;
+import com.legyver.fenxlib.api.scene.controls.options.MenuItemOptions;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.function.BiFunction;
 
@@ -13,6 +18,7 @@ import java.util.function.BiFunction;
  * Factory to produce a file tree node-specific context menu item
  */
 public class FileTreeItemContextMenuItemFactory implements Comparable<FileTreeItemContextMenuItemFactory> {
+    private static final Logger logger = LogManager.getLogger(FileTreeItemContextMenuItemFactory.class);
     /**
      * Name of the context menu item
      */
@@ -46,10 +52,16 @@ public class FileTreeItemContextMenuItemFactory implements Comparable<FileTreeIt
         Node graphic = fileTreeItem.getGraphic();
         MenuItem menuItem = null;
         if (fileTreeItem.getMenuItemEnabled(name).get()) {
-            menuItem = new MenuItem(name);
-            menuItem.disableProperty().bind(fileTreeItem.getMenuItemEnabled(name).not());
-            EventHandler<ActionEvent> eventHandler = eventHandlerProducer.apply(fileTreeRegistry, fileTreeItem);
-            menuItem.setOnAction(eventHandler);
+            try {
+                //go through the factory so we can leverage i18n
+                menuItem = ControlsFactory.make(MenuItem.class, new MenuItemOptions().text(name));
+                menuItem.disableProperty().bind(fileTreeItem.getMenuItemEnabled(name).not());
+                EventHandler<ActionEvent> eventHandler = eventHandlerProducer.apply(fileTreeRegistry, fileTreeItem);
+                menuItem.setOnAction(eventHandler);
+            } catch (CoreException e) {
+                logger.error(e);
+            }
+
         }
         return menuItem;
     }

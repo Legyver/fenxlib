@@ -1,6 +1,9 @@
 package com.legyver.fenxlib.api.controls.builder;
 
+import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
+
+import java.util.Locale;
 
 /**
  * Mixin to specify the text for a control.
@@ -24,7 +27,9 @@ public interface TextMixin<T extends BaseControlBuilder> extends OptionMixin<T> 
      * @return the text
      */
     default String getText() {
-        return (String) new ReflectionOperator(builder()).getValue("text");
+        String result = (String) new ReflectionOperator(builder()).getValue("text");
+        result = ResourceBundleServiceRegistry.getInstance().getMessage(Locale.getDefault(), result);
+        return result;
     }
 
     /**

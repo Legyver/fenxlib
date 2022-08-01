@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
+import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import com.legyver.fenxlib.core.locator.IPropertyAware;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.search.BinarySearch;
@@ -65,6 +66,10 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
         if (nodeReference != null) {
             nodeReference.setTreeNode(this);
         }
+    }
+
+    protected static String i18n(String label) {
+        return ResourceBundleServiceRegistry.getInstance().getMessage(label);
     }
 
     private void initChildRefresher() {

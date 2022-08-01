@@ -41,8 +41,8 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
      */
     public SimpleFileExplorerOptions() throws CoreException {
         MenuItemOptions addDirectoryOptions = new MenuItemOptions()
-                .text("Add directory")
-                .eventHandler(new OpenDirectoryAction("Select directory", fileOptions -> {
+                .text("legyver.defaults.label.filetree.canvas.menu.add.directory")
+                .eventHandler(new OpenDirectoryAction("legyver.defaults.label.filetree.canvas.browser.select.directory", fileOptions -> {
                         fileTreeRegistry.addToRoot(new FileReference(fileOptions.getFile()));
                     })
                 );

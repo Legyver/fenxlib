@@ -10,7 +10,7 @@ import org.testfx.assertions.api.Assertions;
 import java.io.File;
 import java.util.StringJoiner;
 
-@FenxlibConfiguration("TestApplicationConfig_lastopened.json")
+@FenxlibConfiguration(configFile = "TestApplicationConfig_lastopened.json")
 public class LastOpenedConfigTest extends BaseJsonConfigFenxlibTest {
 
 	@Test

@@ -1,10 +1,8 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
-import com.legyver.fenxlib.api.config.load.ApplicationHome;
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
 import com.legyver.fenxlib.api.context.ApplicationContext;
-import com.legyver.fenxlib.api.lifecycle.hooks.AlertServiceInitializingApplicationHook;
 import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookMap;
 import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService;
 import com.legyver.fenxlib.core.lifecycle.ApplicationLifecycleHookRegistry;
@@ -33,6 +31,9 @@ public class LifecycleHookServiceImpl implements LifecycleHookService {
         });
         lifecycleHookMap.computeIfAbsent(AlertServiceInitializingApplicationHook.class, name -> {
             return new AlertServiceInitializingApplicationHook(applicationOptions.getAlertLevelTargetRegions());
+        });
+        lifecycleHookMap.computeIfAbsent(I18NResourceHook.class, name -> {
+            return new I18NResourceHook(applicationOptions.getAppResourceBundles());
         });
 
         ApplicationConfigInstantiator appConfigInstantiator = applicationOptions.getAppConfigInstantiator();

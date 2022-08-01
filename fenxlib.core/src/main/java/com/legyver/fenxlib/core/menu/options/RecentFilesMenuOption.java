@@ -36,15 +36,16 @@ public class RecentFilesMenuOption extends AbstractMenuItemOption {
     }
 
     /**
-     * Construct a menu option to display a recent files section to facilitate opening recent files using the default text "Recent"
+     * Construct a menu option to display a recent files section to facilitate opening recent files using the default text
+     * specified by the "legyver.defaults.label.menu.file.recent" property
      */
     public RecentFilesMenuOption() {
-        this("Recent");
+        this("legyver.defaults.label.menu.file.recent");
     }
 
     @Override
     public MenuItem makeMenuItem(LocationContext locationContext) throws CoreException {
-        Menu recentMenuItem = ControlsFactory.make(Menu.class, locationContext, new MenuOptions().name(text));
+        Menu recentMenuItem = ControlsFactory.make(Menu.class, locationContext, new MenuOptions().text(text).useTextForName(true));
         ObservableList<MenuItem> items = recentMenuItem.getItems();
 
         List<FileOptions> recentFileList = getRecentFiles();
