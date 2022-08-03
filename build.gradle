@@ -43,4 +43,9 @@ subprojects {
         modules = ['javafx.controls', 'javafx.media', 'javafx.swing', 'javafx.web', 'javafx.fxml']
     }
 
+    compileJava.options.encoding = 'UTF-8'
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
 }

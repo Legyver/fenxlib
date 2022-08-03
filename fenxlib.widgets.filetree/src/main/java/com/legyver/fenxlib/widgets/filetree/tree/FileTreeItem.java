@@ -68,6 +68,12 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
         }
     }
 
+    /**
+     * Retrieve the i18n version of the label.
+     * If the value does not match anything in the resource bundle, the original value is returned.
+     * @param label the label
+     * @return the i18n translation
+     */
     protected static String i18n(String label) {
         return ResourceBundleServiceRegistry.getInstance().getMessage(label);
     }

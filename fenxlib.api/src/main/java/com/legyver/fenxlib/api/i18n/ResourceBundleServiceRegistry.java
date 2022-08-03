@@ -66,15 +66,20 @@ public class ResourceBundleServiceRegistry {
      */
     public String getMessage(Locale locale, String propertyKey, Object...args) {
         String result = null;
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-        for (Iterator<ResourceBundleService> it = orderedServiceDelegator.iterator(); result == null && it.hasNext(); ) {
-            ResourceBundleService resourceBundleService = it.next();
-            result = evaluateBundle(locale, propertyKey, result, resourceBundleService, customBundleBaseNames, args);
-            if (StringUtils.isEmpty(result)) {
-                result = evaluateBundle(locale, propertyKey, result, resourceBundleService, defaultBundleBaseNames, args);
+        if (propertyKey != null) {
+            if (locale == null) {
+                locale = Locale.getDefault();
             }
+            for (Iterator<ResourceBundleService> it = orderedServiceDelegator.iterator(); result == null && it.hasNext(); ) {
+                ResourceBundleService resourceBundleService = it.next();
+                result = evaluateBundle(locale, propertyKey, result, resourceBundleService, customBundleBaseNames, args);
+                if (StringUtils.isEmpty(result)) {
+                    result = evaluateBundle(locale, propertyKey, result, resourceBundleService, defaultBundleBaseNames, args);
+                }
+            }
+        }
+        if (result == null) {
+            result = propertyKey;
         }
         return result;
     }

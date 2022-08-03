@@ -21,7 +21,11 @@ import java.lang.annotation.Target;
  * </pre>
  *
  * Example use for using a custom resource bundle
- *
+ * <pre>
+ *     @FenxlibConfiguration(resourceBundles = {
+ *         "it.core.i18n.test"
+ *     })
+ * </pre>
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -34,5 +38,10 @@ public @interface FenxlibConfiguration {
      */
     String configFile() default "";
 
+    /**
+     * The resource bundles to be loaded by the test config
+     *
+     * @return the resource bundles to load
+     */
     String[] resourceBundles() default {};
 }

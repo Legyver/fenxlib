@@ -19,6 +19,10 @@ public interface ResourceBundleService extends OrderedService<ResourceBundleServ
      */
     ResourceBundle getResourceBundle(String bundleBaseName, Locale locale);
 
+    /**
+     * Get the list of any default resource bundles to load
+     * @return the list of base bundle names required by this module
+     */
     List<String> getAdditionalBundleNames();
 
 }

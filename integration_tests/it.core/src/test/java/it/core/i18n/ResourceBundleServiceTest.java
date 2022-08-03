@@ -3,7 +3,6 @@ package it.core.i18n;
 import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import com.legyver.fenxlib.tests.base.FenxlibTest;
 import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
@@ -47,13 +46,6 @@ public class ResourceBundleServiceTest extends FenxlibTest {
        assertThat(result).isEqualTo("Requires Authorization");
    }
 
-
-    /**
-     * @disabled due to character parsing
-     * expected: "Requiere autorizaciÃ³n"
-     * but was : "Requiere autorización"
-     */
-   @Disabled
    @Test
    public void es() {
        Locale locale = new Locale("es");
