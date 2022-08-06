@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FenxlibConfiguration {
+public @interface FenxlibTestConfiguration {
     /**
      * The application config json to load
      * If the value starts with '/', it will be assumed to be an absolute path as is customary with Java resources

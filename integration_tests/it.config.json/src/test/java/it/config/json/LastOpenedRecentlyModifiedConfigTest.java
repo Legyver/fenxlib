@@ -2,14 +2,14 @@ package it.config.json;
 
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.FileOptions;
-import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
+import com.legyver.fenxlib.tests.base.config.annotation.FenxlibTestConfiguration;
 import com.legyver.fenxlib.tests.base.ui.TestUiModel;
 import org.junit.jupiter.api.Test;
 import org.testfx.assertions.api.Assertions;
 
 import java.util.List;
 
-@FenxlibConfiguration(configFile = "TestApplicationConfig_lastAndRecentlyAdded.json")
+@FenxlibTestConfiguration(configFile = "TestApplicationConfig_lastAndRecentlyAdded.json")
 public class LastOpenedRecentlyModifiedConfigTest extends BaseJsonConfigFenxlibTest {
 
 	/**

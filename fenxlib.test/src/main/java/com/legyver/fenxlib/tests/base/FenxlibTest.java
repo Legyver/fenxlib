@@ -7,7 +7,7 @@ import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.IApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.api.lifecycle.ResettableApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.tests.base.config.TestApplicationOptionsBuilder;
-import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
+import com.legyver.fenxlib.tests.base.config.annotation.FenxlibTestConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -24,7 +24,7 @@ public class FenxlibTest extends ApplicationTest {
      */
     @BeforeEach
     public void fenxlibBeforeEach() throws CoreException {
-        FenxlibConfiguration fenxlibConfiguration = getClass().getAnnotation(FenxlibConfiguration.class);
+        FenxlibTestConfiguration fenxlibConfiguration = getClass().getAnnotation(FenxlibTestConfiguration.class);
         TestApplicationOptionsBuilder builder = TestApplicationOptionsBuilder.defaultBuilder();
         if (fenxlibConfiguration != null) {
             if (validateAnnotatedConfiguration(fenxlibConfiguration.configFile())){

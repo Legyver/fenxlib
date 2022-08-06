@@ -2,14 +2,14 @@ package it.core.i18n;
 
 import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import com.legyver.fenxlib.tests.base.FenxlibTest;
-import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
+import com.legyver.fenxlib.tests.base.config.annotation.FenxlibTestConfiguration;
 import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@FenxlibConfiguration(resourceBundles = {
+@FenxlibTestConfiguration(resourceBundles = {
         "it.core.i18n.test"
 })
 public class ResourceBundleServiceTest extends FenxlibTest {

@@ -3,14 +3,14 @@ package it.config.json;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.DefaultFileBrowseLocation;
 import com.legyver.fenxlib.api.files.FileRegistry;
-import com.legyver.fenxlib.tests.base.config.annotation.FenxlibConfiguration;
+import com.legyver.fenxlib.tests.base.config.annotation.FenxlibTestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.testfx.assertions.api.Assertions;
 
 import java.io.File;
 import java.util.StringJoiner;
 
-@FenxlibConfiguration(configFile = "TestApplicationConfig_lastopened.json")
+@FenxlibTestConfiguration(configFile = "TestApplicationConfig_lastopened.json")
 public class LastOpenedConfigTest extends BaseJsonConfigFenxlibTest {
 
 	@Test
