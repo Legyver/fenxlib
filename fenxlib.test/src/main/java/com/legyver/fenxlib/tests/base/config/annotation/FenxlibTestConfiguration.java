@@ -11,18 +11,18 @@ import java.lang.annotation.Target;
  *
  * Example use for using a custom config file:
  * <pre>
- * &#64;FenxlibConfiguration(configFile = "test_application_config.json")
- * public void MyIntegrationTest extends FenxlibTest {
- *    &#64;Test
+ *  @FenxlibTestConfiguration(configFile = "test_application_config.json")
+ *  public void MyIntegrationTest extends FenxlibTest {
+ *    @Test
  *    public void testCase1() {
  *       //test code
  *    }
- * }
+ *  }
  * </pre>
  *
  * Example use for using a custom resource bundle
  * <pre>
- *     @FenxlibConfiguration(resourceBundles = {
+ *     @FenxlibTestConfiguration(resourceBundles = {
  *         "it.core.i18n.test"
  *     })
  * </pre>
