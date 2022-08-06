@@ -33,6 +33,23 @@ public class ResourceBundleServiceTest extends FenxlibTest {
     }
 
     @Test
+    public void en_unspecified() {
+        //english without a country should pull the general english code
+        String result = ResourceBundleServiceRegistry.getInstance().getMessage(Locale.ENGLISH, "requires.auth");
+        assertThat(result).isEqualTo("Requires Auth");
+
+        //because we don't have an _en_CA override for this property, expect to get the general english one
+        Locale canadianEnglish = Locale.CANADA;
+        result = ResourceBundleServiceRegistry.getInstance().getMessage(canadianEnglish, "requires.auth");
+        assertThat(result).isEqualTo("Requires Auth");
+
+        //because we don't have an _en_IE override for this property, expect to get the general english one
+        Locale irishEnglish = Locale.forLanguageTag("en-IE");
+        result = ResourceBundleServiceRegistry.getInstance().getMessage(irishEnglish, "requires.auth");
+        assertThat(result).isEqualTo("Requires Auth");
+    }
+
+   @Test
     public void en_GB() {
         Locale locale = Locale.forLanguageTag("en-GB");
         String result = ResourceBundleServiceRegistry.getInstance().getMessage(locale, "requires.auth");
