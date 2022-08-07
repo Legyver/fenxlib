@@ -42,11 +42,11 @@ public class AlertServiceImpl implements AlertService {
     }
 
     @Override
-    public void displayAlert(String title, String messages, Level level, Long timeout) {
+    public void displayAlert(AlertTextContent alertTextContent, Level level, Long timeout) {
        if (alertFactory == null) {
             alertFactory = AlertFactoryRegistry.getInstance().getFactoryFromClasspath();
         }
-        IAlert alert = alertFactory.makeAlert(title, messages, level, timeout);
+        IAlert alert = alertFactory.makeAlert(alertTextContent, level, timeout);
 
         try {
             IAlert.TargetRegion targetRegion = alert.getTargetRegion();

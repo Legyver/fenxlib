@@ -2,6 +2,7 @@ package com.legyver.fenxlib.api.context;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.alert.AlertServiceRegistry;
+import com.legyver.fenxlib.api.alert.AlertTextContent;
 import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.config.IApplicationConfig;
 import com.legyver.fenxlib.api.config.load.ApplicationHome;
@@ -14,9 +15,7 @@ import com.legyver.fenxlib.api.logging.LazyLog;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -182,54 +181,49 @@ public class ApplicationContext {
 
 	/**
 	 * Broadcast an informational alert
-	 * @param title the title for the alert
-	 * @param message the message for the alert
+	 * @param alertTextContent the message for the alert
 	 */
-	public static void infoAlert(String title, String message) {
-		infoAlert(title, message, -1L);
+	public static void infoAlert(AlertTextContent alertTextContent) {
+		infoAlert(alertTextContent, -1L);
 	}
 
 	/**
 	 * Broadcast an informational alert
-	 * @param title the title for the alert
-	 * @param message the message for the alert
+	 * @param alertTextContent the message for the alert
 	 * @param timeout the timeout for the alert
 	 */
-	public static void infoAlert(String title, String message, Long timeout) {
-		broadcastAlert(title, message, Level.INFO, timeout);
+	public static void infoAlert(AlertTextContent alertTextContent, Long timeout) {
+		broadcastAlert(alertTextContent, Level.INFO, timeout);
 	}
 
 	/**
 	 * Broadcast a warning alert
-	 * @param title the title for the alert
-	 * @param message the message for the alert
+	 * @param alertTextContent the message for the alert
 	 */
-	public static void warningAlert(String title, String message) {
-		warningAlert(title, message, -1L);
+	public static void warningAlert(AlertTextContent alertTextContent) {
+		warningAlert(alertTextContent, -1L);
 	}
 
 	/**
 	 * Broadcast a warning alert
-	 * @param title the title for the alert
-	 * @param message the message for the alert
+	 * @param alertTextContent the message for the alert
 	 * @param timeout the timeout for the alert
 	 */
-	public static void warningAlert(String title, String message, Long timeout) {
-		broadcastAlert(title, message, Level.WARNING, timeout);
+	public static void warningAlert(AlertTextContent alertTextContent, Long timeout) {
+		broadcastAlert(alertTextContent, Level.WARNING, timeout);
 	}
 
 	/**
 	 * Broadcast an error alert
-	 * @param title the title for the alert
-	 * @param message the message for the alert
+	 * @param alertTextContent the message for the alert
 	 */
-	public static void errorAlert(String title, String message) {
-		broadcastAlert(title, message, Level.ERROR, -1L);
+	public static void errorAlert(AlertTextContent alertTextContent) {
+		broadcastAlert(alertTextContent, Level.ERROR, -1L);
 	}
 
-	private static void broadcastAlert(String title, String message, Level level, Long timeout) {
+	private static void broadcastAlert(AlertTextContent alertTextContent, Level level, Long timeout) {
 		Platform.runLater(() -> {
-			AlertServiceRegistry.getInstance().displayAlert(title, message, level, timeout);
+			AlertServiceRegistry.getInstance().displayAlert(alertTextContent, level, timeout);
 		});
 	}
 

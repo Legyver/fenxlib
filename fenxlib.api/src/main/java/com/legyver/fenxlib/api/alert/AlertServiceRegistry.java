@@ -36,16 +36,14 @@ public class AlertServiceRegistry {
     /**
      * Display an alert by delegating to any alert services on the classpath.
      * If no alert services are present, no alert is dispatched.
-     *
-     * @param title the title of the alert
-     * @param message the message detail of the alert
+     * @param alertTextContent the message detail of the alert
      * @param level the level INFO/WARNING/ERROR of the alert
      * @param timeout an optional parameter that (depending on the alert service) can auto-hide the alert after a period.
      */
-    public void displayAlert(String title, String message, Level level, Long timeout) {
+    public void displayAlert(AlertTextContent alertTextContent, Level level, Long timeout) {
         for (Iterator<AlertService> it = orderedServiceDelegator.iterator(); it.hasNext();) {
             AlertService alertService = it.next();
-            alertService.displayAlert(title, message, level, timeout);
+            alertService.displayAlert(alertTextContent, level, timeout);
         }
     }
 

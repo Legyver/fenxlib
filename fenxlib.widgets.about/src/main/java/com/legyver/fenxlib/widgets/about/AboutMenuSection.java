@@ -23,7 +23,11 @@ public class AboutMenuSection extends AbstractMenuSection implements MenuSection
      */
     public AboutMenuSection(AboutPageOptions aboutPageOptions) {
         super(Arrays.asList(
-                        new ShowPopupMenuOption("About", createAboutPage(aboutPageOptions), initTarget())
+                        new ShowPopupMenuOption("legyver.defaults.menu.label.about",
+                                aboutPageOptions.getTitle(),
+                                createAboutPage(aboutPageOptions),
+                                initTarget()
+                        )
                 )
         );
     }

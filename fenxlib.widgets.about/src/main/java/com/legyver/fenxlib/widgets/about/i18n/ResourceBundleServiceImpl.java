@@ -11,14 +11,11 @@ import java.util.ResourceBundle;
  * Resource bundle service for loading resources for the about page
  */
 public class ResourceBundleServiceImpl implements ResourceBundleService {
-    @Override
-    public ResourceBundle getResourceBundle(String bundleBaseName, Locale locale) {
-        return ResourceBundle.getBundle(bundleBaseName, locale);
-    }
 
     @Override
-    public List<String> getAdditionalBundleNames() {
-        return Arrays.asList("com.legyver.fenxlib.widgets.about.i18n.legyver-defaults");
+    public List<ResourceBundle> getResourceBundles(Locale locale) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("com.legyver.fenxlib.widgets.about.i18n.legyver-defaults", locale);
+        return Arrays.asList(resourceBundle);
     }
 
     @Override

@@ -53,8 +53,8 @@ module com.legyver.fenxlib.core {
 	exports com.legyver.fenxlib.core.scene.text.factory;
 	exports com.legyver.fenxlib.core.scene.web.factory;
 	exports com.legyver.fenxlib.core.util;
-    exports com.legyver.fenxlib.core.web;
 	exports com.legyver.fenxlib.core.util.map;
+	exports com.legyver.fenxlib.core.web;
 
 	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;

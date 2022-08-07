@@ -29,6 +29,7 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.context;
     exports com.legyver.fenxlib.api.controls;
     exports com.legyver.fenxlib.api.controls.builder;
+    exports com.legyver.fenxlib.api.controls.factory;
     exports com.legyver.fenxlib.api.controls.options;
     exports com.legyver.fenxlib.api.controls.service;
     exports com.legyver.fenxlib.api.factory.adapters;
@@ -38,6 +39,7 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.files.marshal.exception;
     exports com.legyver.fenxlib.api.files.marshal.extension;
     exports com.legyver.fenxlib.api.files.util;
+    exports com.legyver.fenxlib.api.i18n;
     exports com.legyver.fenxlib.api.icons.application;
     exports com.legyver.fenxlib.api.icons.exception;
     exports com.legyver.fenxlib.api.icons.fonts;
@@ -62,7 +64,11 @@ module com.legyver.fenxlib.api {
 
     //for reflection in Options Mixins
     opens com.legyver.fenxlib.api.scene.controls.options to org.apache.commons.lang3;
-    exports com.legyver.fenxlib.api.i18n;
+    opens com.legyver.fenxlib.api.scene.layout.options to org.apache.commons.lang3;
+    opens com.legyver.fenxlib.api.scene.text.options to org.apache.commons.lang3;
+    opens com.legyver.fenxlib.api.scene.web.options to org.apache.commons.lang3;
+
+    provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.api.i18n.ApplicationOptionsResourceBundleServiceImpl;
 
     uses AlertService;
     uses IOService;

@@ -18,16 +18,16 @@ public class ShowPopupMenuOption extends AbstractMenuItemOption {
 
     /**
      * Construct a menu item to launch a popup in a specified position and modality.
-     *
      * @param text the text to display on the menu option.
+     * @param popupTitle the title of the popup
      * @param contentToShow the content to show in a popup
      * @param modality the modality of the window
      * @param popupAnchor supplier of x,y offsets with respect to application window x,y position
      * @param popupDimensions the popupDimensions region to display the popup
      */
-    public ShowPopupMenuOption(String text, Parent contentToShow, Modality modality, PopupAnchor popupAnchor, PopupDimensions popupDimensions) {
+    public ShowPopupMenuOption(String text, String popupTitle, Parent contentToShow, Modality modality, PopupAnchor popupAnchor, PopupDimensions popupDimensions) {
         super(text, event -> {
-            PopupLayout popupLayout = new PopupLayout(contentToShow, text, popupDimensions);
+            PopupLayout popupLayout = new PopupLayout(contentToShow, popupTitle, popupDimensions);
             Stage stage = new Stage();
             SceneFactory sceneFactory = new SceneFactory(stage, null, ResourceScope.POPUPS);
             Scene scene = sceneFactory.makeScene(popupLayout);
@@ -43,22 +43,24 @@ public class ShowPopupMenuOption extends AbstractMenuItemOption {
     /**
      * Construct an option to show a popup over the center of the application
      * @param text the text for the menu options
+     * @param popupTitle the title of the popup
      * @param contentToShow the content to show in the popup
      * @param modality the modality of the popup
      * @param popupDimensions dimensions of the popup
      */
-    public ShowPopupMenuOption(String text, Parent contentToShow, Modality modality, PopupDimensions popupDimensions) {
-        this(text, contentToShow, modality, new CenterContentAnchor(), popupDimensions);
+    public ShowPopupMenuOption(String text, String popupTitle, Parent contentToShow, Modality modality, PopupDimensions popupDimensions) {
+        this(text, popupTitle, contentToShow, modality, new CenterContentAnchor(), popupDimensions);
     }
 
     /**
      * Construct a menu item to launch a popup in a specified position.
      * This will specify the {@link Modality#APPLICATION_MODAL} modality.
      * @param text         the text to display on the menu option
+     * @param popupTitle the title of the popup
      * @param contentToShow the content to show in a popup
      * @param target the target region to display the popup
      */
-    public ShowPopupMenuOption(String text, Parent contentToShow, PopupDimensions target) {
-        this(text, contentToShow, Modality.APPLICATION_MODAL, target);
+    public ShowPopupMenuOption(String text, String popupTitle, Parent contentToShow, PopupDimensions target) {
+        this(text, popupTitle, contentToShow, Modality.APPLICATION_MODAL, target);
     }
 }

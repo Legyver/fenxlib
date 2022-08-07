@@ -2,6 +2,8 @@ package com.legyver.fenxlib.api.i18n;
 
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -10,21 +12,16 @@ import java.util.*;
  * Registry for Resource Bundles to scan for property keys
  */
 public class ResourceBundleServiceRegistry {
+    private static final Logger logger = LogManager.getLogger(ResourceBundleServiceRegistry.class);
+
     private final OrderedServiceDelegator<ResourceBundleService> orderedServiceDelegator;
     private static ResourceBundleServiceRegistry instance;
-    private final List<String> defaultBundleBaseNames = new ArrayList<>();
     private List<String> customBundleBaseNames;
+    private boolean firstPass = true;
 
     private ResourceBundleServiceRegistry() {
         ServiceLoader<ResourceBundleService> alertServiceServiceLoader = ServiceLoader.load(ResourceBundleService.class);
         orderedServiceDelegator = new OrderedServiceDelegator<>(alertServiceServiceLoader);
-        for (Iterator<ResourceBundleService> it = orderedServiceDelegator.iterator(); it.hasNext(); ) {
-            ResourceBundleService resourceBundleService = it.next();
-            List<String> bundleNames = resourceBundleService.getAdditionalBundleNames();
-            if (bundleNames != null) {
-                defaultBundleBaseNames.addAll(bundleNames);
-            }
-        }
     }
 
     /**
@@ -62,6 +59,7 @@ public class ResourceBundleServiceRegistry {
      *
      * @param locale the locale
      * @param propertyKey the property key
+     * @param args any arguments that need to be resolved
      * @return the message or the unresolved property key
      */
     public String getMessage(Locale locale, String propertyKey, Object...args) {
@@ -70,12 +68,19 @@ public class ResourceBundleServiceRegistry {
             if (locale == null) {
                 locale = Locale.getDefault();
             }
+            boolean setFirstPass = false;
             for (Iterator<ResourceBundleService> it = orderedServiceDelegator.iterator(); result == null && it.hasNext(); ) {
                 ResourceBundleService resourceBundleService = it.next();
-                result = evaluateBundle(locale, propertyKey, result, resourceBundleService, customBundleBaseNames, args);
-                if (StringUtils.isEmpty(result)) {
-                    result = evaluateBundle(locale, propertyKey, result, resourceBundleService, defaultBundleBaseNames, args);
+                if (firstPass && resourceBundleService instanceof ApplicationOptionsResourceBundleServiceImpl) {
+                    ((ApplicationOptionsResourceBundleServiceImpl) resourceBundleService).setBundlesToScan(customBundleBaseNames);
+                    setFirstPass = true;
                 }
+                result = evaluateBundle(locale, propertyKey, result, resourceBundleService, args);
+            }
+            if (setFirstPass) {
+                //we do this so if there are more than one ApplicationOptionsResourceBundleServiceImpl (as in, the dev supplied their own),
+                //they are all processed
+                firstPass = false;
             }
         }
         if (result == null) {
@@ -84,17 +89,19 @@ public class ResourceBundleServiceRegistry {
         return result;
     }
 
-    private String evaluateBundle(Locale locale, String propertyKey, String result, ResourceBundleService resourceBundleService, List<String> bundleBaseNames, Object[] args) {
-        for (String bundleBaseName : bundleBaseNames) {
-            ResourceBundle resourceBundle = resourceBundleService.getResourceBundle(bundleBaseName, locale);
-            if (resourceBundle != null && resourceBundle.containsKey(propertyKey)) {
-                result = resourceBundle.getString(propertyKey);
-                if (StringUtils.isNotEmpty(result)) {
-                    if (args != null) {
-                        result = MessageFormat.format(result, args);
+    private String evaluateBundle(Locale locale, String propertyKey, String result, ResourceBundleService resourceBundleService, Object[] args) {
+            List<ResourceBundle> resourceBundles = resourceBundleService.getResourceBundles(locale);
+            if (resourceBundles != null) {
+                for (ResourceBundle resourceBundle : resourceBundles) {
+                    if (resourceBundle.containsKey(propertyKey)) {
+                        result = resourceBundle.getString(propertyKey);
+                        if (StringUtils.isNotEmpty(result)) {
+                            if (args != null && args.length > 0) {
+                                result = MessageFormat.format(result, args);
+                            }
+                            break;
+                        }
                     }
-                    break;
-                }
             }
         }
         return result;

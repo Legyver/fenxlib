@@ -31,14 +31,14 @@ public class PopupLayout implements IApplicationLayout {
     /**
      * Construct a PopupLayout to present the content
      * @param content the content to display in the popup
-     * @param popupName the name of the popup content for querying
+     * @param popupTitle the name of the popup content for querying
      * @param popupDimensions dimensions for the popup
      */
-    public PopupLayout(Node content, String popupName, PopupDimensions popupDimensions) {
+    public PopupLayout(Node content, String popupTitle, PopupDimensions popupDimensions) {
         ScrollPane pane = null;
         try {
             pane = ControlsFactory.make(ScrollPane.class, new ScrollPaneOptions()
-                    .name(popupName)
+                    .name(popupTitle)
                     .content(content));
             pane.setPadding(new Insets(INSET_SIZE));
             pane.setFitToWidth(true);
@@ -47,7 +47,7 @@ public class PopupLayout implements IApplicationLayout {
             logger.error(exception);
         }
         this.scrollPane = pane;
-        this.popupTitle.set(popupName);
+        this.popupTitle.set(popupTitle);
         this.popupDimensions = popupDimensions;
     }
 

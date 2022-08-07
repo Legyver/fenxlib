@@ -3,9 +3,13 @@ package com.legyver.fenxlib.core.controls.factory;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.context.ResourceScope;
+import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.layout.IApplicationLayout;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.Pane;
@@ -18,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Factory to create a Fenxlib Application Scene.
@@ -89,12 +94,22 @@ public class SceneFactory<T extends IApplicationLayout> {
     protected void initStage(Scene scene, T layout) {
         stage.setScene(scene);
         if (layout.titleProperty() != null) {
-            stage.titleProperty().bind(layout.titleProperty());
+            //set initial value
+            setI18NTitleOnStage(layout.getTitle());
+            //update if it changes
+            layout.titleProperty().addListener((observable, oldValue, newValue) -> {
+                setI18NTitleOnStage(newValue);
+            });
         }
         if (stageStyle != null) {
             stage.initStyle(stageStyle);
         }
         ApplicationContext.registerStage(stage);
+    }
+
+    private void setI18NTitleOnStage(String value) {
+        String i18nMessage = ResourceBundleServiceRegistry.getInstance().getMessage(Locale.getDefault(), value);
+        stage.setTitle(i18nMessage);
     }
 
     /**

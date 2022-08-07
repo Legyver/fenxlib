@@ -10,12 +10,11 @@ import java.util.EnumMap;
 public interface AlertService extends OrderedService<AlertService> {
     /**
      * Display the alert
-     * @param title the title of the alert
-     * @param messages the message for the alert body
+     * @param alertTextContent the text for the alert body (can also be the property key for an i18n message)
      * @param level the level of the alert
      * @param timeout the (optional) timeout for the alert.
      */
-    void displayAlert(String title, String messages, Level level, Long timeout);
+    void displayAlert(AlertTextContent alertTextContent, Level level, Long timeout);
 
     /**
      * Set the default location for alerts

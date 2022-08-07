@@ -94,7 +94,7 @@ public class AboutPageOptions extends BaseControlBuilder<AboutPageOptions> imple
 	 * Builder for specifying AboutPage options
 	 */
 	public static class Builder {
-		private String title;
+		private String title = "legyver.defaults.window.title.about";
 		private String intro;
 		private String gist;
 		private String additionalInfo;

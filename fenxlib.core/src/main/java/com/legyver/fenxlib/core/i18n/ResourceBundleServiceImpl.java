@@ -8,17 +8,13 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * ResourceBundleServiceImpl for the core module defaults and any bundles loaded via
+ * ResourceBundleServiceImpl for the core module defaults
  */
 public class ResourceBundleServiceImpl implements ResourceBundleService {
     @Override
-    public ResourceBundle getResourceBundle(String bundleBaseName, Locale locale) {
-        return ResourceBundle.getBundle(bundleBaseName, locale);
-    }
-
-    @Override
-    public List<String> getAdditionalBundleNames() {
-        return Arrays.asList("com.legyver.fenxlib.core.i18n.legyver-defaults");
+    public List<ResourceBundle> getResourceBundles(Locale locale) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("com.legyver.fenxlib.core.i18n.legyver-defaults", locale);
+        return Arrays.asList(resourceBundle);
     }
 
     @Override

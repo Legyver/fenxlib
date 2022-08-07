@@ -76,4 +76,23 @@ public class ResourceBundleServiceTest extends FenxlibTest {
        assertThat(result).isEqualTo("Erforderliche Zulassung");
    }
 
+   @Test
+   public void enWithParams() {
+       String result = ResourceBundleServiceRegistry.getInstance().getMessage(Locale.ENGLISH, "small.right.triangle", 3,4, 5);
+       assertThat(result).isEqualTo("The sides of the right triangle are 3, 4 and 5");
+   }
+
+   @Test
+   public void esWithParams() {
+       Locale locale = new Locale("es");
+       String result = ResourceBundleServiceRegistry.getInstance().getMessage(locale, "small.right.triangle", 3,4, 5);
+       assertThat(result).isEqualTo("Los lados del triángulo rectángulo son 3, 4 y 5");
+   }
+
+   @Test
+   public void germanyWithParams() {
+       String result = ResourceBundleServiceRegistry.getInstance().getMessage(Locale.GERMANY, "small.right.triangle", 3,4,5);
+       assertThat(result).isEqualTo("Die Seiten des rechtwinkligen Dreiecks sind 3, 4 und 5");
+   }
+
 }

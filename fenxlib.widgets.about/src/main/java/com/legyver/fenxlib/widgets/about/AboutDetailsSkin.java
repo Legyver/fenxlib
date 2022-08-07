@@ -1,9 +1,6 @@
 package com.legyver.fenxlib.widgets.about;
 
-import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.controls.ControlsFactory;
-import com.legyver.fenxlib.api.scene.text.options.TextOptions;
-import com.legyver.fenxlib.core.controls.factory.ControlFactory;
+import com.legyver.fenxlib.api.controls.factory.TextFactoryMixin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -15,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Skin for the AboutDetails widget
  */
-public class AboutDetailsSkin extends SkinBase<AboutDetails> {
+public class AboutDetailsSkin extends SkinBase<AboutDetails> implements TextFactoryMixin {
 	private final StackPane buildStack;
 	private final StackPane openSourceTaglineStack;
 
@@ -48,44 +45,22 @@ public class AboutDetailsSkin extends SkinBase<AboutDetails> {
 
 	private TextFlow getPowerFlow(AboutDetails aboutDetails) {
 		String poweredByClause = aboutDetails.getOpenSourceTagLine();
-		Text textPoweredBy = new Text(poweredByClause);
+		Text textPoweredBy = getText(poweredByClause);
 		textPoweredBy.setId("powered-by");
 //		textPoweredBy.setStyle("-fx-font-style: italic");
 		return new TextFlow(textPoweredBy);
 	}
 
-	private TextFlow getGenericFlow(String text) {
-		TextFlow flow = new TextFlow(new Text(text));
-		flow.setPrefWidth(Region.USE_COMPUTED_SIZE);
-		return flow;
-	}
-
-	private StackPane style(String cssClass, TextFlow text) {
-		StackPane styledPane = new StackPane(text);
-		styledPane.getStyleClass().add(cssClass);
-		return styledPane;
-	}
-
 	private TextFlow getBuildFlow(AboutDetails aboutDetails) {
 		TextFlow buildFlow = new TextFlow();
 		buildFlow.setPrefWidth(Region.USE_COMPUTED_SIZE);
-		buildFlow.getChildren().add(text("legyver.defaults.label.about.build.version"));
+		buildFlow.getChildren().add(getText("legyver.defaults.label.about.build.version"));
 		buildFlow.getChildren().add(new Text(" "));
 		buildFlow.getChildren().add(new Text(aboutDetails.getVersion()));
 		buildFlow.getChildren().add(new Text(". "));
-		buildFlow.getChildren().add(new Text("legyver.defaults.label.about.build.date"));
+		buildFlow.getChildren().add(getText("legyver.defaults.label.about.build.date"));
 		buildFlow.getChildren().add(new Text(" "));
 		buildFlow.getChildren().add(new Text(aboutDetails.getBuildDate()));
 		return buildFlow;
-	}
-
-	private Text text(String label) {
-		Text text;
-		try {
-			text = ControlsFactory.make(Text.class, new TextOptions().text(label));
-		} catch (CoreException coreException) {
-			text = new Text(label);
-		}
-		return text;
 	}
 }

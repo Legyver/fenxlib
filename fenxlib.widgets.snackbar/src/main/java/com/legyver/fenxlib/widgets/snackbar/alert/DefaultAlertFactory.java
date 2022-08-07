@@ -1,10 +1,14 @@
 package com.legyver.fenxlib.widgets.snackbar.alert;
 
 import com.legyver.fenxlib.api.alert.AlertFactory;
+import com.legyver.fenxlib.api.alert.AlertTextContent;
 import com.legyver.fenxlib.api.alert.IAlert;
 import com.legyver.fenxlib.api.alert.Level;
+import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import com.legyver.fenxlib.widgets.snackbar.CloseableSnackbar;
 import com.legyver.fenxlib.widgets.snackbar.Snackbar;
+
+import java.util.Locale;
 
 /**
  * Default alert factory.  This creates an alert based on the {@link Snackbar}
@@ -12,7 +16,7 @@ import com.legyver.fenxlib.widgets.snackbar.Snackbar;
 public class DefaultAlertFactory implements AlertFactory<IAlert> {
 
     @Override
-    public IAlert makeAlert(String title, String messages, Level level, Long timeout) {
+    public IAlert makeAlert(AlertTextContent alertTextContent, Level level, Long timeout) {
         Snackbar snackbar;
         if (decorateWithCloseHeader(level, timeout)) {
             snackbar = new CloseableSnackbar(timeout);
@@ -21,7 +25,8 @@ public class DefaultAlertFactory implements AlertFactory<IAlert> {
             snackbar = new Snackbar(timeout);
             snackbar.setPrefHeight(30);
         }
-        snackbar.setMessage(messages);
+        String resolvedMessage = ResourceBundleServiceRegistry.getInstance().getMessage(Locale.getDefault(), alertTextContent.getMessage(), alertTextContent.getArgs());
+        snackbar.setMessage(resolvedMessage);
         snackbar.setLevel(level);
         snackbar.setPrefWidth(150);
 

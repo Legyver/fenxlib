@@ -178,6 +178,10 @@ public class ApplicationOptions {
 		return hooksToRegister;
 	}
 
+	/**
+	 * Get the resources bundles for the application.
+	 * @return the resource bundles.
+	 */
 	public List<String> getAppResourceBundles() {
 		return appResourceBundles;
 	}

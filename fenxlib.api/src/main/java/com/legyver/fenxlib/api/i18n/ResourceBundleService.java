@@ -11,18 +11,11 @@ import java.util.ResourceBundle;
  */
 public interface ResourceBundleService extends OrderedService<ResourceBundleService> {
     /**
-     * Get the resource bundle for the specified locale
+     * Get the resource bundles for the specified locale
      *
-     * @param bundleBaseName the base name
      * @param locale the locale
      * @return the resource bundle
      */
-    ResourceBundle getResourceBundle(String bundleBaseName, Locale locale);
-
-    /**
-     * Get the list of any default resource bundles to load
-     * @return the list of base bundle names required by this module
-     */
-    List<String> getAdditionalBundleNames();
+    List<ResourceBundle> getResourceBundles(Locale locale);
 
 }

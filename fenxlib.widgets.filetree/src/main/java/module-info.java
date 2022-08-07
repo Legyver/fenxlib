@@ -15,6 +15,7 @@ module com.legyver.fenxlib.widgets.filetree {
     requires com.legyver.tuktukfx;
 
     exports com.legyver.fenxlib.widgets.filetree;
+    exports com.legyver.fenxlib.widgets.filetree.i18n;
     exports com.legyver.fenxlib.widgets.filetree.factory;
     exports com.legyver.fenxlib.widgets.filetree.nodes;
     exports com.legyver.fenxlib.widgets.filetree.registry;
