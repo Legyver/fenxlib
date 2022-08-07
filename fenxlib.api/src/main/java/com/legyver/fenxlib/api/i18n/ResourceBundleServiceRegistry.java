@@ -2,8 +2,6 @@ package com.legyver.fenxlib.api.i18n;
 
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -12,7 +10,6 @@ import java.util.*;
  * Registry for Resource Bundles to scan for property keys
  */
 public class ResourceBundleServiceRegistry {
-    private static final Logger logger = LogManager.getLogger(ResourceBundleServiceRegistry.class);
 
     private final OrderedServiceDelegator<ResourceBundleService> orderedServiceDelegator;
     private static ResourceBundleServiceRegistry instance;
