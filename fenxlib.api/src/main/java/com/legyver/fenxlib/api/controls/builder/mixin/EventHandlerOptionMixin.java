@@ -1,5 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 import javafx.event.EventHandler;
 
@@ -8,7 +9,7 @@ import javafx.event.EventHandler;
  * To use this mixin, the builder must have field of type EventHandler called "eventHandler"
  * @param <T> the type of the builder using this mixin
  */
-public interface EventHandlerMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface EventHandlerOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
 
     /**
      * Specify the event handler

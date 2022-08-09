@@ -30,7 +30,11 @@ public class ReflectionOperator {
     public void setValue(String fieldName, Object value) {
         try {
             Field field = FieldUtils.getField(object.getClass(), fieldName, true);
-            FieldUtils.writeField(field, object, value, true);
+            if (field != null) {
+                FieldUtils.writeField(field, object, value, true);
+            } else {
+                logger.error("Unable to set value on field because the field does not exits on class: " + object.getClass());
+            }
         } catch (IllegalAccessException e) {
            logger.error(e);
         }
@@ -44,7 +48,11 @@ public class ReflectionOperator {
     public Object getValue(String fieldName) {
         try {
             Field field = FieldUtils.getField(object.getClass(), fieldName, true);
-            return FieldUtils.readField(field, object, true);
+            if (field != null) {
+                return FieldUtils.readField(field, object, true);
+            } else {
+                logger.error("Unable to get value of field because the field does not exits on class: " + object.getClass());
+            }
         } catch (IllegalAccessException e) {
             logger.error(e);
         }

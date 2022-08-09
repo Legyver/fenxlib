@@ -2,7 +2,7 @@ package com.legyver.fenxlib.extensions.materialfx.controls.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.api.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.extensions.materialfx.controls.options.MFXTooltipOptions;
 import io.github.palexdev.materialfx.controls.MFXTooltip;
 

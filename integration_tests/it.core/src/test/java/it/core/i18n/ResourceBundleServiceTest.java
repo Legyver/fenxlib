@@ -9,6 +9,10 @@ import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * If this test fails when running gradle test, make sure you use the --no-daemon option
+ * Ex: gradlew --no-daemon test
+ */
 @FenxlibTestConfiguration(resourceBundles = {
         "it.core.i18n.test"
 })

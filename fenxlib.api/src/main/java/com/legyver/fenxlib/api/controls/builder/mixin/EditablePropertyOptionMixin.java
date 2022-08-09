@@ -1,5 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 import javafx.beans.property.BooleanProperty;
 
@@ -8,7 +9,7 @@ import javafx.beans.property.BooleanProperty;
  * To use this mixin, the builder must have a field of type BooleanProperty called "editableProperty"
  * @param <T> the type of the builder using this mixin.
  */
-public interface EditablePropertyMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface EditablePropertyOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
     /**
      * Specify the property to bind the control's editable state to.
      * @param editableProperty the boolean property

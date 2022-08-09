@@ -1,10 +1,10 @@
 package com.legyver.fenxlib.api.scene.controls.options;
 
-import com.legyver.fenxlib.api.controls.builder.GraphicMixin;
-import com.legyver.fenxlib.api.controls.builder.ToolTipTextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.GraphicOptionMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.ToolTipTextOptionMixin;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
@@ -12,10 +12,11 @@ import javafx.scene.control.Button;
  * Options for a JavaFX Button
  */
 public class ButtonOptions extends BaseControlBuilder<ButtonOptions> implements StyleableControlOptions<Button>,
-        TextMixin<ButtonOptions>,
-        ToolTipTextMixin<ButtonOptions>,
-        GraphicMixin<ButtonOptions> {
+        TextOptionMixin<ButtonOptions>,
+        ToolTipTextOptionMixin<ButtonOptions>,
+        GraphicOptionMixin<ButtonOptions> {
     private String text;
+    private Object[] textArgs;
     private String toolTipText;
     private Node graphic;
     private Boolean cancelButton;

@@ -64,7 +64,7 @@ Since version 2.0.0.0, this library has been made module-friendly, and hence the
 The main functionality of this library is in the fenxlib.core.impl module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '3.0.0-beta.1'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
@@ -73,12 +73,12 @@ There are several extensions, widgets and skins available as well as independent
 - [fenxlib.extensions.materialfx](fenxlib.extensions.materialfx/README.MD)
     - an extension for MaterialFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.materialfx', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.materialfx', version: '3.0.0-beta.1'
 ```
 - [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx/README.MD)
     - an extension for TukTukFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '3.0.0-beta.1'
 ```
 
 ### Widgets
@@ -88,22 +88,22 @@ All widgets are combinations of widgets created via the fenxlib.factories.api, s
   - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.0-beta.1'
 ```
 - [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
   - a pre-made form that lays out form-fields on a grid
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '3.0.0-beta.1'
 ```
 - [fenxlib.widgets.filetree](fenxlib.widgets.filetree/README.md)
   - a pre-made, customizable and extendable file explorer that monitors the filesystem for file operations on added files/folders.
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-beta.1'
 ```
 - [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar/README.md)
   - a notification widget that displays info/warning/error notifications in a snackbar
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-beta.1'
 ```
 ### Skins
 - [fenxlib.skins.number](fenxlib.skins.number/README.MD)
@@ -111,14 +111,14 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: 
     - currency
     - percentages
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-beta.1'
 ```
 
 ### Controls
 - [fenxlib.controls.icon](fenxlib.controls.icon/README.md)
   - Control that attaches an action to an icon
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-alpha.10'
+implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.1'
 ```
 
 ## Samples

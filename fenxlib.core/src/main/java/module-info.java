@@ -55,8 +55,9 @@ module com.legyver.fenxlib.core {
 	exports com.legyver.fenxlib.core.util;
 	exports com.legyver.fenxlib.core.util.map;
 	exports com.legyver.fenxlib.core.web;
+    exports com.legyver.fenxlib.api.menu.factory;
 
-	provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
+    provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.core.license.LicenseServiceImpl;
 	provides com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService with com.legyver.fenxlib.core.lifecycle.hooks.LifecycleHookServiceImpl;
 	provides com.legyver.fenxlib.api.io.IOService with com.legyver.fenxlib.core.io.DiskFileIoService;
 	provides NodeInstantiationService with com.legyver.fenxlib.core.controls.service.DefaultNodeInstantiationService;

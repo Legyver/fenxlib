@@ -18,8 +18,8 @@ subprojects {
 
     ext {
         //legyver dependencies
-        legyverCoreVersion = '2.0.0-alpha.1'
-        legyverUtilsVersion = '3.0.0-alpha.1'
+        legyverCoreVersion = '2.0.0'
+        legyverUtilsVersion = '3.0.0'
         //apache dependencies
         commonsLogVersion = '2.17.1'
         commonsIoVersion = '2.7'
@@ -33,7 +33,6 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
     }
 
     apply plugin: 'org.openjfx.javafxplugin'

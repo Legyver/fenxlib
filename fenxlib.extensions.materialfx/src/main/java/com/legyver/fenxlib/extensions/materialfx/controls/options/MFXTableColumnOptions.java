@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.extensions.materialfx.controls.options;
 
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 
@@ -11,8 +11,9 @@ import java.util.Comparator;
  * Options for a MFXTableColumn control
  */
 public class MFXTableColumnOptions extends BaseControlBuilder<MFXTableColumnOptions> implements StyleableControlOptions<MFXTableColumn>,
-        TextMixin<MFXTableColumnOptions> {
+        TextOptionMixin<MFXTableColumnOptions> {
     private String text;
+    private Object[] textArgs;
     private Boolean resizable;
     private Comparator comparator;
 

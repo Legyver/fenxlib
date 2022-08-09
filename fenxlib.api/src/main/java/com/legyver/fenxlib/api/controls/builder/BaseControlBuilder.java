@@ -1,5 +1,7 @@
 package com.legyver.fenxlib.api.controls.builder;
 
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
+
 /**
  * Base builder for specifying options for JavaFX components
  * @param <B> type of the sub-classing builder
@@ -42,8 +44,8 @@ public abstract class BaseControlBuilder<B extends BaseControlBuilder> {
      * @return the name
      */
     public String getName() {
-        if (this instanceof TextMixin && useTextForName) {
-            return ((TextMixin) this).getText();
+        if (this instanceof TextOptionMixin && useTextForName) {
+            return ((TextOptionMixin) this).getText();
         }
         return name;
     }

@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.api.scene.text.options;
 
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import javafx.scene.Node;
 import javafx.scene.text.TextFlow;
@@ -12,8 +12,9 @@ import java.util.List;
  * Options for a JavaFX TextFlow
  */
 public class TextFlowOptions extends BaseControlBuilder<TextFlowOptions> implements StyleableControlOptions<TextFlow>,
-        TextMixin<TextFlowOptions> {
+        TextOptionMixin<TextFlowOptions> {
     private String text;
+    private Object[] textArgs;
     private List<Node> children;
 
     /**

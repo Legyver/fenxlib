@@ -1,5 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 import javafx.beans.property.StringProperty;
 
@@ -8,7 +9,7 @@ import javafx.beans.property.StringProperty;
  * To use this mixin, the builder must have a field of type StringProperty called "textProperty"
  * @param <T> the type of the builder using this mixin.
  */
-public interface TextPropertyMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface TextPropertyOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
     /**
      * Specify the property the text value should be bound to
      * @param textProperty the text property

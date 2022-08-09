@@ -1,15 +1,16 @@
 package com.legyver.fenxlib.extensions.materialfx.controls.options;
 
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 
 /**
  * Options for a MFXPasswordField control
  */
-public class MFXPasswordFieldOptions extends BaseControlBuilder<MFXPasswordFieldOptions> implements StyleableControlOptions<MFXPasswordField>, TextMixin<MFXPasswordFieldOptions> {
+public class MFXPasswordFieldOptions extends BaseControlBuilder<MFXPasswordFieldOptions> implements StyleableControlOptions<MFXPasswordField>, TextOptionMixin<MFXPasswordFieldOptions> {
     private String text;
+    private Object[] textArgs;
     private String promptText;
     private String floatingText;
 

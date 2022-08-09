@@ -1,6 +1,7 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
-import com.legyver.fenxlib.api.factory.adapters.ItemsAdapter;
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.api.controls.factory.adapters.ItemsAdapter;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * You must have a field called 'items' in your *Options builder to use this mixin
  * @param <T> the type of the options
  */
-public interface ItemsMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface ItemsOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
 
     /**
      * Specify items to be used.

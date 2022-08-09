@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.widgets.about;
 
-import com.legyver.fenxlib.api.controls.factory.TextFactoryMixin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -9,10 +8,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.apache.commons.lang3.StringUtils;
 
+import static com.legyver.fenxlib.api.controls.utils.TextFactoryUtils.getText;
+
 /**
  * Skin for the AboutDetails widget
  */
-public class AboutDetailsSkin extends SkinBase<AboutDetails> implements TextFactoryMixin {
+public class AboutDetailsSkin extends SkinBase<AboutDetails> {
 	private final StackPane buildStack;
 	private final StackPane openSourceTaglineStack;
 
@@ -54,13 +55,7 @@ public class AboutDetailsSkin extends SkinBase<AboutDetails> implements TextFact
 	private TextFlow getBuildFlow(AboutDetails aboutDetails) {
 		TextFlow buildFlow = new TextFlow();
 		buildFlow.setPrefWidth(Region.USE_COMPUTED_SIZE);
-		buildFlow.getChildren().add(getText("legyver.defaults.label.about.build.version"));
-		buildFlow.getChildren().add(new Text(" "));
-		buildFlow.getChildren().add(new Text(aboutDetails.getVersion()));
-		buildFlow.getChildren().add(new Text(". "));
-		buildFlow.getChildren().add(getText("legyver.defaults.label.about.build.date"));
-		buildFlow.getChildren().add(new Text(" "));
-		buildFlow.getChildren().add(new Text(aboutDetails.getBuildDate()));
+		buildFlow.getChildren().add(getText("legyver.defaults.label.about.build.message", aboutDetails.getVersion(), aboutDetails.getBuildDate()));
 		return buildFlow;
 	}
 }

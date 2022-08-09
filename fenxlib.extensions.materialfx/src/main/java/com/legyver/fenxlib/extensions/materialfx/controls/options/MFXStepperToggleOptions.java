@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.extensions.materialfx.controls.options;
 
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.NodeContentMixin;
-import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.NodeContentOptionMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXStepperToggle;
 import javafx.scene.Node;
@@ -11,9 +11,10 @@ import javafx.scene.Node;
  * Options for a MFXStepperToggle control
  */
 public class MFXStepperToggleOptions extends BaseControlBuilder<MFXStepperToggleOptions> implements StyleableControlOptions<MFXStepperToggle>,
-        TextMixin<MFXStepperToggleOptions>,
-        NodeContentMixin<MFXStepperToggleOptions> {
+        TextOptionMixin<MFXStepperToggleOptions>,
+        NodeContentOptionMixin<MFXStepperToggleOptions> {
     private String text;
+    private Object[] textArgs;
     private Node icon;
     private Node content;
 

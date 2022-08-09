@@ -29,10 +29,12 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.context;
     exports com.legyver.fenxlib.api.controls;
     exports com.legyver.fenxlib.api.controls.builder;
+    exports com.legyver.fenxlib.api.controls.builder.mixin;
     exports com.legyver.fenxlib.api.controls.factory;
+    exports com.legyver.fenxlib.api.controls.factory.adapters;
     exports com.legyver.fenxlib.api.controls.options;
     exports com.legyver.fenxlib.api.controls.service;
-    exports com.legyver.fenxlib.api.factory.adapters;
+    exports com.legyver.fenxlib.api.controls.utils;
     exports com.legyver.fenxlib.api.files;
     exports com.legyver.fenxlib.api.files.marshal;
     exports com.legyver.fenxlib.api.files.marshal.contenttype;

@@ -2,7 +2,7 @@ package com.legyver.fenxlib.api.scene.controls.options;
 
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.ChildrenRegionsMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.ChildrenRegionsOptionMixin;
 import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Region;
@@ -13,7 +13,7 @@ import java.util.List;
  * Options for a JavaFX SplitPane
  */
 public class SplitPaneOptions extends BaseControlBuilder<SplitPaneOptions> implements StyleableControlOptions<SplitPane>,
-        ChildrenRegionsMixin<SplitPaneOptions> {
+        ChildrenRegionsOptionMixin<SplitPaneOptions> {
     private Double splitPercentage;
     private Orientation orientation;
     private List<Region> children;

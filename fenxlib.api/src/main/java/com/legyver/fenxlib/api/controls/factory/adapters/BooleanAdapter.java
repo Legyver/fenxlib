@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.api.factory.adapters;
+package com.legyver.fenxlib.api.controls.factory.adapters;
 
 /**
  * Null-safe adapter for boolean values

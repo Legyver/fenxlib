@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.api.factory.adapters;
+package com.legyver.fenxlib.api.controls.factory.adapters;
 
 import java.util.function.Consumer;
 

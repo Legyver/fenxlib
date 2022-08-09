@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  * ResourceBundleServiceImpl for any resource bundles specified by ApplicationOptions
  * i18n properties loaded by this resource bundle service will supersede any of the core or other default values shipped.
  * This is done so that devs can override the out-of-the-box values supplied with the fenxlib library.
- * See the icon sample for a demonstration of this (overrides the File > "Exit" text to read "Quit")
+ * See the icon sample for a demonstration of this (overrides the File {@literal >} "Exit" text to read "Quit")
  */
 public class ApplicationOptionsResourceBundleServiceImpl implements ResourceBundleService {
     private List<String> bundlesToScan;

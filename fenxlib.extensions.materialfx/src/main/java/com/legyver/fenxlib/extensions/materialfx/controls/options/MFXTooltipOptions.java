@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.extensions.materialfx.controls.options;
 
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
-import com.legyver.fenxlib.api.controls.builder.TextMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import io.github.palexdev.materialfx.controls.MFXTooltip;
 import javafx.scene.Node;
@@ -10,9 +10,10 @@ import javafx.scene.Node;
  * Options for a MFXTooltip control
  */
 public class MFXTooltipOptions extends BaseControlBuilder<MFXTooltipOptions> implements StyleableControlOptions<MFXTooltip>,
-        TextMixin<MFXTooltipOptions> {
+        TextOptionMixin<MFXTooltipOptions> {
     private Node owner;
     private String text;
+    private Object[] textArgs;
 
     /**
      * Specify the node to install the tooltip on

@@ -5,7 +5,7 @@ import com.legyver.fenxlib.api.controls.ControlsFactory;
 import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.core.files.action.OpenRecentFileAction;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.core.menu.factory.IMenuItemFactory;
+import com.legyver.fenxlib.api.menu.factory.IMenuItemFactory;
 import com.legyver.fenxlib.api.scene.controls.options.MenuItemOptions;
 import javafx.scene.control.MenuItem;
 

@@ -1,6 +1,7 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
-import com.legyver.fenxlib.api.factory.adapters.BooleanAdapter;
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.api.controls.factory.adapters.BooleanAdapter;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 
 /**
@@ -8,7 +9,7 @@ import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
  * To use this mixin, the builder must have a field of type Boolean called "selected"
  * @param <T> the type of the builder using this mixin
  */
-public interface SelectedMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface SelectedOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
     /**
      * Specify if the control is selected by default
      * @param selected true if the control is selected

@@ -1,6 +1,7 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
-import com.legyver.fenxlib.api.factory.adapters.DoubleAdapter;
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
+import com.legyver.fenxlib.api.controls.factory.adapters.DoubleAdapter;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 
 /**
@@ -8,7 +9,7 @@ import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
  * To use this mixin, the builder must have a field of type Double called "max"
  * @param <T> the type of the builder using this mixin
  */
-public interface DoubleMaxMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface DoubleMaxOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
 
     /**
      * Speficy the max value for the control

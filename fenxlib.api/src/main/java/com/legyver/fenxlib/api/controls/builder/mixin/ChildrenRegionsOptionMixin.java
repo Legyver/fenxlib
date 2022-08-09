@@ -1,5 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 import javafx.scene.layout.Region;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * To use this mixin, the builder must have a "children" field of type List&lt;Region&gt;
  * @param <T> the type of the builder using this mixin
  */
-public interface ChildrenRegionsMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface ChildrenRegionsOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
 
     /**
      * Specify any children

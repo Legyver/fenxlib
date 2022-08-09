@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.api.factory.adapters;
+package com.legyver.fenxlib.api.controls.factory.adapters;
 
 /**
  * Adapter to set a Double value only if it is not null

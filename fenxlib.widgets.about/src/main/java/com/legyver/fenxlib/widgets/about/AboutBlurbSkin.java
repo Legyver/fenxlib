@@ -1,16 +1,17 @@
 package com.legyver.fenxlib.widgets.about;
 
-import com.legyver.fenxlib.api.controls.factory.TextFactoryMixin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import org.apache.commons.lang3.StringUtils;
 
+import static com.legyver.fenxlib.api.controls.utils.TextFactoryUtils.getText;
+
 /**
  * The skin for the AboutBlurb widget
  */
-public class AboutBlurbSkin extends SkinBase<AboutBlurb> implements TextFactoryMixin {
+public class AboutBlurbSkin extends SkinBase<AboutBlurb> {
 
 	private final StackPane intro;
 	private final StackPane gist;

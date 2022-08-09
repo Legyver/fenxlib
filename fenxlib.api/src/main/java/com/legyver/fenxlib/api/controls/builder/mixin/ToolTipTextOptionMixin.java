@@ -1,5 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 
 /**
@@ -7,7 +8,7 @@ import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
  * To use this mixin, the builder must have a field of type String called "toolTipText".
  * @param <T> the type of the builder using this mixin
  */
-public interface ToolTipTextMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface ToolTipTextOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
     /**
      * Specify the tooltip text
      * @param text the text for the tooltip

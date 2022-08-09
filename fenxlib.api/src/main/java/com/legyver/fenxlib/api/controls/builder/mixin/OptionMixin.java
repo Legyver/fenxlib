@@ -1,4 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
+
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 
 /**
  * Generic mixin

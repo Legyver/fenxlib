@@ -1,5 +1,6 @@
-package com.legyver.fenxlib.api.controls.builder;
+package com.legyver.fenxlib.api.controls.builder.mixin;
 
+import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.util.reflection.ReflectionOperator;
 import javafx.scene.Node;
 
@@ -9,7 +10,7 @@ import javafx.scene.Node;
  *
  * @param <T> the type of the using builder
  */
-public interface NodeContentMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
+public interface NodeContentOptionMixin<T extends BaseControlBuilder> extends OptionMixin<T> {
     /**
      * Specify content to use.
      * @param content the content to use

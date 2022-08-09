@@ -1,4 +1,4 @@
-package com.legyver.fenxlib.api.factory.adapters;
+package com.legyver.fenxlib.api.controls.factory.adapters;
 
 /**
  * Adapter to set the value of an integer only if the value is not null

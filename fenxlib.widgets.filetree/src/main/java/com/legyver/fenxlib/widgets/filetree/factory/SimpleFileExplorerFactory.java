@@ -3,7 +3,7 @@ package com.legyver.fenxlib.widgets.filetree.factory;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.icons.application.IconAliasMap;
-import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.api.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.widgets.filetree.SimpleFileExplorer;

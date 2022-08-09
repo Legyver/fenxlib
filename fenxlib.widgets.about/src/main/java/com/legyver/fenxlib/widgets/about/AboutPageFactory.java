@@ -1,14 +1,13 @@
 package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.core.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.controls.factory.StyleableFactory;
 import com.legyver.utils.graphrunner.PropertyMap;
 import com.legyver.utils.propcross.PropertyGraph;
 import com.legyver.utils.propcross.SlelOperationContext;
 
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Factory to create an AboutPage
