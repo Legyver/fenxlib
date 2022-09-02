@@ -1,6 +1,7 @@
 description = 'About Page widget for Fenxlib projects'
 
 apply from: publishBuildScript
+apply plugin: 'com.legyver.resource-bundle-i18n'
 
 dependencies {
     //exception
@@ -21,4 +22,10 @@ test {
 
 java {
     modularity.inferModulePath = true
+}
+
+resourceBundleI18n {
+    translationUrl = libreTranslateUrl
+    targetLanguages = translateToLanguages
+    bundleName = 'com.legyver.fenxlib.widgets.about.i18n.legyver-defaults'
 }

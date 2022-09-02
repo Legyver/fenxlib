@@ -3,6 +3,7 @@ plugins {
     id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'com.legyver.update-readme-version' version '1.0.0' apply false
     id 'net.nemerosa.versioning' version '3.0.0' apply false
+    id 'com.legyver.resource-bundle-i18n' version '1.0.0' apply false
 }
 
 allprojects {
@@ -26,6 +27,9 @@ subprojects {
         commonsLangVersion = '3.11'
         //JavaFX
         javaFxVersion ='17.0.2'
+        //i18n
+        libreTranslateUrl = 'http://localhost:5000'
+        translateToLanguages = ['en', 'en_US', 'en_GB', "es", "de", "fr"]
         //publishing
         publishBuildScript = 'https://raw.githubusercontent.com/Legyver/common-build/1.7.1/publishLibraryModule.gradle' //java 9+ multi-module
     }

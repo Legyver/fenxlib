@@ -1,6 +1,7 @@
 description = 'Core implementation of Fenxlib library'
 
 apply from: publishBuildScript
+apply plugin: 'com.legyver.resource-bundle-i18n'
 
 dependencies {
     //exception
@@ -28,4 +29,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+resourceBundleI18n {
+    translationUrl = libreTranslateUrl
+    targetLanguages = translateToLanguages
+    bundleName = 'com.legyver.fenxlib.core.i18n.legyver-defaults'
 }

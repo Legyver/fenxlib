@@ -1,6 +1,7 @@
 description = 'FileTree widget for Fenxlib projects'
 
 apply from: publishBuildScript
+apply plugin: 'com.legyver.resource-bundle-i18n'
 
 dependencies {
     //exception
@@ -20,6 +21,12 @@ test {
 
 java {
     modularity.inferModulePath = true
+}
+
+resourceBundleI18n {
+    translationUrl = libreTranslateUrl
+    targetLanguages = translateToLanguages
+    bundleName = 'com.legyver.fenxlib.widgets.filetree.i18n.legyver-defaults'
 }
 
 tasks.withType(JavaCompile) {
