@@ -2,59 +2,37 @@ package com.legyver.fenxlib.widgets.license;
 
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Render list of libraries used
  */
 public class OpenSourceReferenceList extends Control {
+	private static final Logger logger = LogManager.getLogger(OpenSourceReferenceList.class);
+
 	private static final String PROPERTY_LINK = ".link.\\d$";
 	private static final Pattern linkPattern = Pattern.compile(PROPERTY_LINK);
-	private final List<Item> items = new ArrayList<>();
+	private final List<DependencyData> items;
+
 
 	/**
 	 * Construct and Open source reference list based on some properties
 	 * @param openSourceProperties properties including license information
 	 */
 	public OpenSourceReferenceList(Properties openSourceProperties) {
-		parseItems(openSourceProperties);
+		List<DependencyData> items1;
+		try {
+			items1 = new LicensePropertyParser(openSourceProperties).parseItems();
+		} catch (UnknownLicenseMetadataException e) {
+			logger.error("Error parsing license properties", e);
+			items1 = Collections.EMPTY_LIST;
+		}
+		items = items1;
 		getStyleClass().add("open-source-reference-list");
-	}
-
-	private void parseItems(Properties licenseProperties) {
-		Item item = null;
-		Comparator<String> comparator = (s, t1) -> s.compareTo(t1);
-		SortedSet<String> propertyNames = new TreeSet<>(comparator);
-		propertyNames.addAll(licenseProperties.stringPropertyNames());
-
-		for (String propertyName : propertyNames) {
-			String propertyValue = licenseProperties.getProperty(propertyName);
-			Matcher m = linkPattern.matcher(propertyName);
-			if (m.find()) {
-				item.licenseLinks.add(propertyValue);
-			} else {
-				if (item != null) {
-					items.add(item);
-				}
-				item = new Item(propertyName);
-				if (propertyValue.contains("/")) {//dual licenses ex: GPL/CC BY 4.0
-					String[] licenses = propertyValue.split("/");
-					for (String license : licenses) {
-						item.licenseNames.add(license);
-					}
-				} else {
-					item.licenseNames.add(propertyValue);
-				}
-			}
-		}
-		//add last item constructed (since we're otherwise only adding the previous item when the following one is found)
-		if (item != null) {
-			items.add(item);
-		}
-
 	}
 
 	@Override
@@ -71,7 +49,7 @@ public class OpenSourceReferenceList extends Control {
 	 * Get items to render on the open source reference list
 	 * @return the items
 	 */
-	public List<Item> getItems() {
+	public List<DependencyData> getItems() {
 		return items;
 	}
 
@@ -114,5 +92,6 @@ public class OpenSourceReferenceList extends Control {
 		public String getArtifact() {
 			return artifact;
 		}
+
 	}
 }

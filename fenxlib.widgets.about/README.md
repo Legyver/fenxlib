@@ -92,6 +92,7 @@ AboutPageOptions aboutPageOptions = new AboutPageOptions.Builder(getClass())
         .dependenciesFile("license.properties")
 		
 ```
+#### v1
 In a property file, for any opensource library used by your application:
 1. Create a property with of the library name with its license
 1. Create a property with the same prefix appended by **.link.0** which has the link to the license
@@ -115,6 +116,47 @@ io.icomoon=GPL/CC BY 4.0
 io.icomoon.link.0=http://www.gnu.org/licenses/gpl.html
 io.icomoon.link.1=http://creativecommons.org/licenses/by/4.0/
 ```
+#### v2
+More complete license information available
+
+- Properties are grouped by the ***.license.metadata.*** prefix
+  - In the example below this would be **ico.icomoon**
+- Data thereafter is indicated by property
+  - values ('name', 'retrieved')
+  - lists of strings ('changes')
+  - lists of hyperlinked text ('author', 'title', 'disclaimer', 'copyright')
+  
+example:
+```properties
+io.icomoon.license.metadata.name=IcoMoon
+io.icomoon.license.metadata.retrieved=2022-04-16
+io.icomoon.license.metadata.author[0].text=IcoMoon
+io.icomoon.license.metadata.author[0].link=https://icomoon.io/
+io.icomoon.license.metadata.title[0].text=IcoMoon - Free
+io.icomoon.license.metadata.title[0].link=https://icomoon.io/#icons-icomoon
+io.icomoon.license.metadata.disclaimer[0].text=Not a real disclaimer.
+io.icomoon.license.metadata.copyright[0].text=GPL
+io.icomoon.license.metadata.copyright[0].link=http://www.gnu.org/licenses/gpl.html
+io.icomoon.license.metadata.copyright[1].text=CC BY 4.0
+io.icomoon.license.metadata.copyright[1].link=http://creativecommons.org/licenses/by/4.0/
+io.icomoon.license.metadata.change[0]=No change.
+```
+
+| Metadata property | Format | Description |
+| ----------------- | ------ | ----------- |
+| name | *{group}*.license.metadata.name | the name of the library |
+| retrieved | *{group}*.license.metadata.retrieved | the date the license was retrieved |
+| author.text | *{group}*.license.metadata.author\[*{index}*\].text | authors of the library |
+| author.link | *{group}*.license.metadata.author\[{index}\].link | link to authors of the library |
+| title.text | *{group}*.license.metadata.title\[*{index}*\].text | the title of the library |
+| title.link | *{group}*.license.metadata.title\[*{index}*\].link | link to the library homepage |
+| disclaimer.text | *{group}*.license.metadata.disclaimer\[*{index}*\].text | any disclaimers |
+| disclaimer.link | *{group}*.license.metadata.disclaimer\[*{index}*\].link | link to any disclaimers |
+| copyright.text | *{group}*.license.metadata.copyright\[*{index}*\].text | any copyright notices |
+| copyright.link | *{group}*.license.metadata.copyright\[*{index}*\].link | link to any copyright notices |
+| change | *{group}*.license.metadata.change\[*{index}*\] | any changes made to the library |
+
+
 ### Implementing the LicenseService
 The license service is a transitive dependency for the fenxlib library so there is no additional import.
 

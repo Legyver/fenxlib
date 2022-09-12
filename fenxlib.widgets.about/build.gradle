@@ -14,6 +14,10 @@ dependencies {
     api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
     //Expression language for conditional validation
     api group: 'com.legyver', name: 'utils.slel', version: legyverUtilsVersion
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
 }
 
 test {

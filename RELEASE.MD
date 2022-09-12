@@ -29,7 +29,8 @@ From 3.0.0-alpha.1 we are switching to [Semantic Versioning](https://semver.org/
 - fenxlib.icons.standard
   - IcoMoon-Free icons
   - This is a separate module because of licensing.  Licensing should only include IcoMoon if you're using them.
-
+- fenxlib.widgets.about
+  - Support for v2 license property format for more complete license information 
 ### Testing
 - IntegrationTests are now moved out of the individual modules and into their own top-level directory ([integration_tests](integration_tests/README.md)).
 - Unit tests that do not require JavaFX or the Fenxlib framework, can remain in the test directory of the relevant project.
