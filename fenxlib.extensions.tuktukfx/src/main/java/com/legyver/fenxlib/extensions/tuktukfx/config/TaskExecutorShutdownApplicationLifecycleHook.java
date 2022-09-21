@@ -14,7 +14,7 @@ import javafx.application.Platform;
  */
 public class TaskExecutorShutdownApplicationLifecycleHook implements ApplicationLifecycleHook {
 	private static final LazyLog logger = new LazyLog(TaskExecutorShutdownApplicationLifecycleHook.class);
-	private final long delayInMillis;
+	private long delayInMillis;
 
 	/**
 	 * Construct an application lifecycle hook to shut down the {@link TaskExecutor} after a given delay
@@ -44,6 +44,14 @@ public class TaskExecutorShutdownApplicationLifecycleHook implements Application
 		};
 	}
 
+	/**
+	 * Set the delay to wait before shutting down the thread pool
+	 * @param delayInMillis the period to wait in milliseconds
+	 */
+	public void setDelayInMillis(long delayInMillis) {
+		this.delayInMillis = delayInMillis;
+	}
+
 	@Override
 	public String getName() {
 		return TaskExecutorShutdownApplicationLifecycleHook.class.getName();
@@ -71,7 +79,7 @@ public class TaskExecutorShutdownApplicationLifecycleHook implements Application
 						Platform.runLater(this);
 					} else if (tangoInMillis < System.currentTimeMillis()) {
 						logger.info("Executing delayed shutdown of thread pool");
-						TaskExecutor.INSTANCE.shutdownNow();
+						TaskExecutor.getInstance().shutdownNow();
 						logger.info("Thread pool shutdown complete");
 						executed = true;
 					} else {

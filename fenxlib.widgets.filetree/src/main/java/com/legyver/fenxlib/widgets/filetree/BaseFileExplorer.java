@@ -114,7 +114,10 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
 
         setContextMenu(areaContextMenu);
         JavaFxAdapter adapter = FileSystemWatchTaskFactory.createScanTask(context);
-        TaskExecutor.INSTANCE.submitTask(adapter);
+        //since we're using a thread pool to monitor the filesystem, shut down the thread pool on application exit
+        //we use a delay matching the tryAcquire timeout in FileSystemWatchTaskProcessor#runUntilAbort() so we don't get an interrupted exception in the latter
+        TaskExecutor.getInstance().configure().delayShutdown(2000);
+        TaskExecutor.getInstance().submitTask(adapter);
     }
 
     private String getExplorerGuid() {
