@@ -5,14 +5,17 @@ import com.legyver.fenxlib.widgets.filetree.factory.TreeItemChildFactory;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
-import com.legyver.fenxlib.widgets.filetree.tree.TreeFile;
 import com.legyver.fenxlib.widgets.filetree.tree.internal.TreeRoot;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.application.Platform;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Handle filesystem CREATE events triggered when a watched folder has a directory or file created under it.
  */
 public class FileSystemCreateEventHandler implements FileSystemEventHandler {
+    private static final Logger logger = LogManager.getLogger(FileSystemCreateEventHandler.class);
+
     private TreeItemChildFactory childFactory;
 
     /**
@@ -24,11 +27,20 @@ public class FileSystemCreateEventHandler implements FileSystemEventHandler {
     @Override
     public void handle(FileTreeRegistry fileTreeRegistry, FileSystemEvent fileSystemEvent) {
         IFileReference parentFileReference = fileSystemEvent.getParentFileReference();
-        IFileReference createdChildFileReference = fileSystemEvent.getFileReference();
-        FileTreeItem fileTreeItem = childFactory.makeNode(fileTreeRegistry, parentFileReference.getTreeNode(), createdChildFileReference);
         FileTreeItem parentFileTreeItem = parentFileReference.getTreeNode();
+        IFileReference createdChildFileReference = fileSystemEvent.getFileReference();
+        FileTreeItem fileTreeItem = childFactory.makeNode(fileTreeRegistry, parentFileTreeItem, createdChildFileReference);
         parentFileTreeItem.addChild(fileTreeItem);
         parentFileTreeItem.refresh();
+
+        if (!fileTreeItem.isExpanded() && parentFileTreeItem instanceof TreeRoot) {
+            Platform.runLater(
+                    () -> {
+                        logger.debug("Auto expanding added node: {}", fileTreeItem.getName());
+                        fileTreeItem.setExpanded(true);
+                    }
+            );
+        }
     }
 
     /**

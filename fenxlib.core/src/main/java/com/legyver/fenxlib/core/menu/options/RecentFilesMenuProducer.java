@@ -24,14 +24,14 @@ import java.util.*;
 /**
  * Menu option to display a recent files section to facilitate opening recent files
  */
-public class RecentFilesMenuOption extends AbstractMenuItemOption {
-    private static final Logger logger = LogManager.getLogger(RecentFilesMenuOption.class);
+public class RecentFilesMenuProducer extends AbstractMenuItemProducer {
+    private static final Logger logger = LogManager.getLogger(RecentFilesMenuProducer.class);
 
     /**
      * Construct a menu option to display a recent files section to facilitate opening recent files
      * @param text the text for the menu option
      */
-    public RecentFilesMenuOption(String text) {
+    public RecentFilesMenuProducer(String text) {
         super(text, null);
     }
 
@@ -39,17 +39,22 @@ public class RecentFilesMenuOption extends AbstractMenuItemOption {
      * Construct a menu option to display a recent files section to facilitate opening recent files using the default text
      * specified by the "legyver.defaults.label.menu.file.recent" property
      */
-    public RecentFilesMenuOption() {
+    public RecentFilesMenuProducer() {
         this("legyver.defaults.label.menu.file.recent");
     }
 
-    @Override
+    /**
+     * Make the menu item to display recent files
+     * @param locationContext the location context for the menu item
+     * @return the produced menu item
+     * @throws CoreException if there is an error during construction of components
+     */
     public MenuItem makeMenuItem(LocationContext locationContext) throws CoreException {
         Menu recentMenuItem = ControlsFactory.make(Menu.class, locationContext, new MenuOptions().text(text).useTextForName(true));
         ObservableList<MenuItem> items = recentMenuItem.getItems();
 
         List<FileOptions> recentFileList = getRecentFiles();
-        Collections.sort(recentFileList, Comparator.comparing(FileOptions::getFileName));
+        recentFileList.sort(Comparator.comparing(FileOptions::getFileName));
         ObservableList<FileOptions> recentFiles = FXCollections.observableArrayList(recentFileList);
         recentFiles.addListener((ListChangeListener<FileOptions>) c -> {
             if (c.next()) {
@@ -71,7 +76,7 @@ public class RecentFilesMenuOption extends AbstractMenuItemOption {
     }
 
     private List<FileOptions> getRecentFiles() throws CoreException {
-        IRecentlyModified recentlyModified = ApplicationContext.getApplicationConfig().getRecentlyModified();
+        IRecentlyModified<IRecentlyViewedFile> recentlyModified = ApplicationContext.getApplicationConfig().getRecentlyModified();
         List<IRecentlyViewedFile> recentlyViewedFiles = recentlyModified.getValues();
         List<FileOptions> recentFileList = new ArrayList<>();
         for (IRecentlyViewedFile recentlyViewedFile : recentlyViewedFiles) {

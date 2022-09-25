@@ -16,6 +16,7 @@ module com.legyver.fenxlib.widgets.filetree {
 
     exports com.legyver.fenxlib.widgets.filetree;
     exports com.legyver.fenxlib.widgets.filetree.factory;
+    exports com.legyver.fenxlib.widgets.filetree.menu;
     exports com.legyver.fenxlib.widgets.filetree.nodes;
     exports com.legyver.fenxlib.widgets.filetree.registry;
     exports com.legyver.fenxlib.widgets.filetree.scan;

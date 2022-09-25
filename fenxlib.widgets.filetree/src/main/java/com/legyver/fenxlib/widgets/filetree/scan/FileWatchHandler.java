@@ -93,18 +93,6 @@ public class FileWatchHandler implements IFileWatchHandler {
         }
 
         /**
-         * Add a factory for a context menu item to display of a tree node.
-         * @param fileTreeItemContextMenuItemFactory the factory to use to construct the menu item
-         * @deprecated Use {@link #childFactory(TreeItemChildFactory)} to specify any custom menu items
-         * @return this builder
-         */
-        @Deprecated
-        public final Builder contextMenuItemFactory(FileTreeItemContextMenuItemFactory fileTreeItemContextMenuItemFactory) {
-            this.fileTreeItemContextMenuFactory.addMenuItemFactory(fileTreeItemContextMenuItemFactory);
-            return this;
-        }
-
-        /**
          * Provide a child factory to produce child-nodes as files/directories (and extended entries) are added/discovered
          * @param childFactory factory to use to produce the child tree node
          * @return this builder

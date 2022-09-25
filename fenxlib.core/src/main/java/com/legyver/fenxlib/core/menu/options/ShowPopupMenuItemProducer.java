@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 /**
  * Option for a Menu Item that launches content in a popup.
  */
-public class ShowPopupMenuOption extends AbstractMenuItemOption {
+public class ShowPopupMenuItemProducer extends AbstractMenuItemProducer {
 
     /**
      * Construct a menu item to launch a popup in a specified position and modality.
@@ -25,7 +25,7 @@ public class ShowPopupMenuOption extends AbstractMenuItemOption {
      * @param popupAnchor supplier of x,y offsets with respect to application window x,y position
      * @param popupDimensions the popupDimensions region to display the popup
      */
-    public ShowPopupMenuOption(String text, String popupTitle, Parent contentToShow, Modality modality, PopupAnchor popupAnchor, PopupDimensions popupDimensions) {
+    public ShowPopupMenuItemProducer(String text, String popupTitle, Parent contentToShow, Modality modality, PopupAnchor popupAnchor, PopupDimensions popupDimensions) {
         super(text, event -> {
             PopupLayout popupLayout = new PopupLayout(contentToShow, popupTitle, popupDimensions);
             Stage stage = new Stage();
@@ -48,19 +48,19 @@ public class ShowPopupMenuOption extends AbstractMenuItemOption {
      * @param modality the modality of the popup
      * @param popupDimensions dimensions of the popup
      */
-    public ShowPopupMenuOption(String text, String popupTitle, Parent contentToShow, Modality modality, PopupDimensions popupDimensions) {
+    public ShowPopupMenuItemProducer(String text, String popupTitle, Parent contentToShow, Modality modality, PopupDimensions popupDimensions) {
         this(text, popupTitle, contentToShow, modality, new CenterContentAnchor(), popupDimensions);
     }
 
     /**
      * Construct a menu item to launch a popup in a specified position.
      * This will specify the {@link Modality#APPLICATION_MODAL} modality.
-     * @param text         the text to display on the menu option
+     * @param text the text to display on the menu option
      * @param popupTitle the title of the popup
      * @param contentToShow the content to show in a popup
      * @param target the target region to display the popup
      */
-    public ShowPopupMenuOption(String text, String popupTitle, Parent contentToShow, PopupDimensions target) {
+    public ShowPopupMenuItemProducer(String text, String popupTitle, Parent contentToShow, PopupDimensions target) {
         this(text, popupTitle, contentToShow, Modality.APPLICATION_MODAL, target);
     }
 }

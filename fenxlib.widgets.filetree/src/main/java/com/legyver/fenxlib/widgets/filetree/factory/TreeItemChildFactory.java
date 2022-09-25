@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.widgets.filetree.factory;
 
 import com.legyver.fenxlib.core.event.handlers.ShowContextMenuEventHandler;
+import com.legyver.fenxlib.core.event.handlers.ShowContextMenuOnRightClick;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
@@ -10,6 +11,7 @@ import com.legyver.fenxlib.widgets.filetree.tree.TreeFolder;
 import com.legyver.fenxlib.widgets.filetree.tree.internal.TreeRoot;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.input.MouseEvent;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
 import java.io.File;
@@ -22,7 +24,7 @@ import java.util.List;
  * This is the main mechanism to customize and extend trees to non-filesystem things.
  */
 public class TreeItemChildFactory {
-    private List<FileFilter> fileFilters = new ArrayList<>();
+    private final List<FileFilter> fileFilters = new ArrayList<>();
     /**
      * Factory to create the Context Menu to display when an item in the tree is selected
      */
@@ -56,6 +58,9 @@ public class TreeItemChildFactory {
      */
     @SuppressWarnings("unchecked")
     public FileTreeItem makeNode(FileTreeRegistry fileTreeRegistry, FileTreeItem parentFileTreeItem, INodeReference nodeReference) {
+        if (fileTreeRegistry != null) {
+            this.fileTreeItemContextMenuFactory.setFileTreeRegistry(fileTreeRegistry);
+        }
         FileTreeItem treeItem;
         if (nodeReference instanceof FileReference) {
             File file = ((FileReference) nodeReference).getFile();
@@ -91,9 +96,11 @@ public class TreeItemChildFactory {
         return treeItem;
     }
 
+    @SuppressWarnings("unchecked")
     private void initContextMenu(FileTreeItem treeItem) {
         ContextMenu contextMenu = fileTreeItemContextMenuFactory.makeContextMenu(treeItem);
         treeItem.getGraphic().setOnContextMenuRequested(new ShowContextMenuEventHandler(treeItem.getGraphic(), contextMenu));
+        treeItem.addEventHandler(MouseEvent.MOUSE_CLICKED, new ShowContextMenuOnRightClick(treeItem.getGraphic(), contextMenu));
     }
 
     private void addFileNode(FileTreeRegistry fileTreeRegistry, FileTreeItem parentTreeItem, File file) {

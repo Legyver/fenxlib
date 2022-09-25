@@ -5,17 +5,20 @@ import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Factory to produce a context menu for a node in a file tree
  */
 public class FileTreeItemContextMenuFactory {
+    private static final Logger logger = LogManager.getLogger(FileTreeItemContextMenuFactory.class);
+
     /**
      * Factories to provide the individual items in the context menu
      */
@@ -67,6 +70,15 @@ public class FileTreeItemContextMenuFactory {
      * @param fileTreeRegistry the file tree registry
      */
     public void setFileTreeRegistry(FileTreeRegistry fileTreeRegistry) {
-        this.fileTreeRegistry = fileTreeRegistry;
+        if (this.fileTreeRegistry == null && fileTreeRegistry != null) {
+            logger.debug("Setting FileTreeRegistry on context menu factory: {}", fileTreeRegistry);
+            this.fileTreeRegistry = fileTreeRegistry;
+        } else if (this.fileTreeRegistry != null && fileTreeRegistry != null && this.fileTreeRegistry != fileTreeRegistry) {
+            logger.debug("Replacing FileTreeRegistry [{}] with: {}", this.fileTreeRegistry, fileTreeRegistry);
+            this.fileTreeRegistry = fileTreeRegistry;
+        } else if (this.fileTreeRegistry != null && this.fileTreeRegistry == fileTreeRegistry) {
+            logger.debug("FileTreeRegistry [{}] already set", this.fileTreeRegistry);
+        }
+
     }
 }

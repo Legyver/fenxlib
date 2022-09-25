@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Section of a menu.
  */
-public interface MenuSection extends IMenuable {
+public interface MenuSection {
 
 	/**
 	 * Return the list of factories for all menu items that will be contained in this section.

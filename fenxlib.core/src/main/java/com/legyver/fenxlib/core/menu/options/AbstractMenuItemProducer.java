@@ -11,7 +11,7 @@ import javafx.scene.control.MenuItem;
 /**
  * Super class for a description of a menu item to produced
  */
-public class AbstractMenuItemOption {
+public class AbstractMenuItemProducer {
     /**
      * The text for the menu item
      */
@@ -23,7 +23,7 @@ public class AbstractMenuItemOption {
      * @param text the text to display on the menu option
      * @param eventHandler the handler that fires when the menu item is selected
      */
-    protected AbstractMenuItemOption(String text, EventHandler<ActionEvent> eventHandler) {
+    protected AbstractMenuItemProducer(String text, EventHandler<ActionEvent> eventHandler) {
         this.text = text;
         this.eventHandler = eventHandler;
     }
@@ -35,10 +35,9 @@ public class AbstractMenuItemOption {
      * @throws CoreException if there is an error producing the menu item
      */
     public MenuItem makeMenuItem(LocationContext locationContext) throws CoreException {
-        MenuItem menuItem = ControlsFactory.make(MenuItem.class, locationContext, new MenuItemOptions()
+        return ControlsFactory.make(MenuItem.class, locationContext, new MenuItemOptions()
                 .text(text)
                 .eventHandler(eventHandler)
         );
-        return menuItem;
     }
 }

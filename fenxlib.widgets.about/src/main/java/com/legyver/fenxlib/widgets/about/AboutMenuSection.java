@@ -2,7 +2,7 @@ package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.layout.PopupDimensions;
-import com.legyver.fenxlib.core.menu.options.ShowPopupMenuOption;
+import com.legyver.fenxlib.core.menu.options.ShowPopupMenuItemProducer;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
 import com.legyver.fenxlib.core.menu.templates.section.AbstractMenuSection;
 import javafx.scene.Parent;
@@ -23,7 +23,7 @@ public class AboutMenuSection extends AbstractMenuSection implements MenuSection
      */
     public AboutMenuSection(AboutPageOptions aboutPageOptions) {
         super(Arrays.asList(
-                        new ShowPopupMenuOption("legyver.defaults.menu.label.about",
+                        new ShowPopupMenuItemProducer("legyver.defaults.menu.label.about",
                                 aboutPageOptions.getTitle(),
                                 createAboutPage(aboutPageOptions),
                                 initTarget()

@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.menu.templates.section;
 
+import com.legyver.fenxlib.core.menu.options.FileExitMenuProducer;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
 import com.legyver.fenxlib.core.menu.templates.ExitMenuItemAction;
-import com.legyver.fenxlib.core.menu.options.FileExitMenuOption;
 
 import java.util.Arrays;
 
@@ -16,6 +16,6 @@ public class FileExitMenuSection extends AbstractMenuSection implements MenuSect
 	 * The property for the label is "legyver.defaults.label.menu.file.exit"
 	 */
 	public FileExitMenuSection() {
-		super(Arrays.asList(new FileExitMenuOption("legyver.defaults.label.menu.file.exit")));
+		super(Arrays.asList(new FileExitMenuProducer("legyver.defaults.label.menu.file.exit")));
 	}
 }
