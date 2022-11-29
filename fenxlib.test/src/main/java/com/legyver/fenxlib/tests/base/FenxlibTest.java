@@ -1,7 +1,6 @@
 package com.legyver.fenxlib.tests.base;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.IApplicationLifecycleHookRegistry;
@@ -29,9 +28,9 @@ public class FenxlibTest extends ApplicationTest {
         if (fenxlibConfiguration != null) {
             if (validateAnnotatedConfiguration(fenxlibConfiguration.configFile())){
                 builder.appConfigName(fenxlibConfiguration.configFile());
-                ApplicationConfigInstantiator applicationConfigInstantiator = getCustomInstantiator();
-                if (applicationConfigInstantiator != null) {
-                    builder.customAppConfigInstantiator(applicationConfigInstantiator);
+                Class applicationConfigClass = getConfigClass();
+                if (applicationConfigClass != null) {
+                    builder.applicationConfigClass(applicationConfigClass);
                 }
             }
             if (validateAnnotatedConfiguration(fenxlibConfiguration.resourceBundles())) {
@@ -56,7 +55,7 @@ public class FenxlibTest extends ApplicationTest {
      * Hook to override the application config instantiator
      * @return the instantiator for the application config
      */
-    protected ApplicationConfigInstantiator getCustomInstantiator() {
+    protected Class getConfigClass() {
         return null;
     }
 

@@ -15,6 +15,7 @@ module com.legyver.fenxlib.widgets.filetree {
     requires com.legyver.tuktukfx;
 
     exports com.legyver.fenxlib.widgets.filetree;
+    exports com.legyver.fenxlib.widgets.filetree.config;
     exports com.legyver.fenxlib.widgets.filetree.factory;
     exports com.legyver.fenxlib.widgets.filetree.menu;
     exports com.legyver.fenxlib.widgets.filetree.nodes;
@@ -22,6 +23,11 @@ module com.legyver.fenxlib.widgets.filetree {
     exports com.legyver.fenxlib.widgets.filetree.scan;
     exports com.legyver.fenxlib.widgets.filetree.task;
     exports com.legyver.fenxlib.widgets.filetree.tree;
+
+    /**
+     *
+     */
+//    opens com.legyver.fenxlib.widgets.filetree.config to org.apache.commons.lang3;
 
     provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.widgets.filetree.license.LicenseServiceImpl;
     provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.widgets.filetree.i18n.ResourceBundleServiceImpl;

@@ -28,6 +28,12 @@ import java.util.List;
 public class ApplicationContext {
 	private static final LazyLog logger = new LazyLog(ApplicationContext.class);
 
+
+	/**
+	 * The application version
+	 */
+	private static String applicationVersion;
+
 	/**
 	 * Any file that is opened within the application has a reference placed here
 	 */
@@ -77,6 +83,23 @@ public class ApplicationContext {
 
 	private static EnumMap<ResourceScope, List<URL>> stylesheets = new EnumMap<>(ResourceScope.class);
 	private static IconAliasMap iconAliasMap;
+
+	/**
+	 *  This can either be specified manually by {@link com.legyver.fenxlib.api.config.options.ApplicationOptions}
+	 * 	or, if using fenxlib.widgets.about, can be read from the property file supplying the version to that widget.
+	 * @return the application version specified in one of the two aforementioned sources
+	 */
+	public static String getApplicationVersion() {
+		return applicationVersion;
+	}
+
+	/**
+	 * Set the application version
+	 * @param applicationVersion the application version
+	 */
+	public static void setApplicationVersion(String applicationVersion) {
+		ApplicationContext.applicationVersion = applicationVersion;
+	}
 
 	/**
 	 * Get the registry of files opened by the application

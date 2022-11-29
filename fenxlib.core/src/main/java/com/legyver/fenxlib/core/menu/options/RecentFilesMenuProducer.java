@@ -1,13 +1,16 @@
 package com.legyver.fenxlib.core.menu.options;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.config.parts.IRecentlyModified;
-import com.legyver.fenxlib.api.config.parts.IRecentlyViewedFile;
+import com.legyver.fenxlib.api.config.IApplicationConfig;
+import com.legyver.fenxlib.api.config.parts.RecentFile;
+import com.legyver.fenxlib.api.config.parts.RecentFiles;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.DefaultFileOptions;
 import com.legyver.fenxlib.api.files.FileOptions;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.controls.ControlsFactory;
+import com.legyver.fenxlib.core.config.ICoreApplicationConfig;
+import com.legyver.fenxlib.core.config.CoreConfigSection;
 import com.legyver.fenxlib.core.menu.templates.file.OpenRecentFileFactory;
 import com.legyver.fenxlib.api.scene.controls.options.MenuItemOptions;
 import com.legyver.fenxlib.api.scene.controls.options.MenuOptions;
@@ -76,14 +79,18 @@ public class RecentFilesMenuProducer extends AbstractMenuItemProducer {
     }
 
     private List<FileOptions> getRecentFiles() throws CoreException {
-        IRecentlyModified<IRecentlyViewedFile> recentlyModified = ApplicationContext.getApplicationConfig().getRecentlyModified();
-        List<IRecentlyViewedFile> recentlyViewedFiles = recentlyModified.getValues();
         List<FileOptions> recentFileList = new ArrayList<>();
-        for (IRecentlyViewedFile recentlyViewedFile : recentlyViewedFiles) {
-            FileOptions fileOptions = new DefaultFileOptions();
-            fileOptions.setFileName(recentlyViewedFile.getName());
-            fileOptions.setFilePath(recentlyViewedFile.getPath());
-            recentFileList.add(fileOptions);
+        IApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
+        if (applicationConfig instanceof ICoreApplicationConfig) {
+            CoreConfigSection configSection = ((ICoreApplicationConfig) applicationConfig).getCoreConfig();
+            RecentFiles recentFiles = configSection.getRecentFiles();
+            List<RecentFile> recentlyViewedFiles = recentFiles.getValues();
+            for (RecentFile recentlyViewedFile : recentlyViewedFiles) {
+                FileOptions fileOptions = new DefaultFileOptions();
+                fileOptions.setFileName(recentlyViewedFile.getName());
+                fileOptions.setFilePath(recentlyViewedFile.getPath());
+                recentFileList.add(fileOptions);
+            }
         }
         return recentFileList;
     }

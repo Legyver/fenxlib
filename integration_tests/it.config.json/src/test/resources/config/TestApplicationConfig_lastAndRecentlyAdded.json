@@ -1,17 +1,24 @@
 {
-    "lastOpened": {
-        "lastFile": "/temp/tmp/Name 1.ext"
-    },
-    "recentlyModified" : {
-      "limit" : 5,
-      "values" : [ {
-        "lastAccessed" : "2018-07-14T17:10:57",
-        "name" : "Name 1",
-        "path" : "/temp/tmp/Name 1.ext"
-      }, {
-        "lastAccessed" : "2018-07-14T13:10:57",
-        "name" : "Name 2",
-        "path" : "/temp/tmp/Name 2.ext"
-      } ]
+  "sections": {
+    "com.legyver.fenxlib.core": {
+      "version": "3.0.0",
+      "config": {
+        "lastOpened": {
+          "filePath": "/temp/tmp/Name 1.ext"
+        },
+        "recentFiles" : {
+          "limit" : 5,
+          "values" : [ {
+            "lastAccessed" : "2018-07-14T17:10:57",
+            "name" : "Name 1",
+            "path" : "/temp/tmp/Name 1.ext"
+          }, {
+            "lastAccessed" : "2018-07-14T13:10:57",
+            "name" : "Name 2",
+            "path" : "/temp/tmp/Name 2.ext"
+          } ]
+        }
+      }
     }
+  }
 }

@@ -1,19 +1,18 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.config.ApplicationConfig;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
 import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
-import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 
 /**
  * Lifecycle hook to sync aspects of application state from the application config to the UI model when the application starts
- * @param <T> the type of the application config
  * @param <U> the type of the UI model
  */
-public class UiModelConfigInitializer<T extends FileAwareApplicationConfig, U extends IUiModel> implements ApplicationLifecycleHook {
+public class UiModelConfigInitializer<U extends IUiModel> implements ApplicationLifecycleHook {
 	@Override
 	public LifecyclePhase getLifecyclePhase() {
 		return LifecyclePhase.INIT;
@@ -22,7 +21,7 @@ public class UiModelConfigInitializer<T extends FileAwareApplicationConfig, U ex
 	@Override
 	public ExecutableHook getExecutableHook() {
 		return () -> {
-			T applicationConfig = (T) ApplicationContext.getApplicationConfig();
+			ApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
 			U applicationUIModel = (U) ApplicationContext.getUiModel();
 			syncToUiModel(applicationConfig, applicationUIModel);
 		};
@@ -39,7 +38,7 @@ public class UiModelConfigInitializer<T extends FileAwareApplicationConfig, U ex
 	 * @param uiModel the ui model
 	 * @throws CoreException if an error is raised by your sync code
 	 */
-	protected void syncToUiModel(T applicationConfig, U uiModel) throws CoreException {
+	protected void syncToUiModel(ApplicationConfig applicationConfig, U uiModel) throws CoreException {
 		//template
 	}
 }

@@ -1,5 +1,12 @@
 {
-  "lastOpened": {
-    "lastFile": "/temp/tmp/test.doc"
+  "sections" : {
+    "com.legyver.fenxlib.core": {
+      "version": "3.0.0",
+      "config": {
+        "lastOpened": {
+          "filePath": "/temp/tmp/test.doc"
+        }
+      }
+    }
   }
 }

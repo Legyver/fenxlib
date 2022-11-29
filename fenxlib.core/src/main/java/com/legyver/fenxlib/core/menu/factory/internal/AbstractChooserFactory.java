@@ -1,9 +1,12 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.config.parts.ILastOpened;
+import com.legyver.fenxlib.api.config.IApplicationConfig;
+import com.legyver.fenxlib.api.config.parts.LastOpened;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.DefaultFileBrowseLocation;
+import com.legyver.fenxlib.core.config.CoreConfigSection;
+import com.legyver.fenxlib.core.config.ICoreApplicationConfig;
 import javafx.beans.property.ObjectProperty;
 
 import java.io.File;
@@ -51,11 +54,17 @@ public class AbstractChooserFactory {
 	}
 
 	private static File getLastOpenedFileLocation() throws CoreException {
-		ILastOpened lastOpened = ApplicationContext.getApplicationConfig().getLastOpened();
-		String lastFileName = lastOpened.getLastFile();
 		File lastFile = null;
-		if (lastFileName != null) {
-			lastFile = new File(lastFileName);
+
+		IApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
+		if (applicationConfig instanceof ICoreApplicationConfig) {
+			CoreConfigSection configSection = ((ICoreApplicationConfig) applicationConfig).getCoreConfig();
+			LastOpened lastOpened = configSection.getLastOpened();
+			String lastFileName = lastOpened.getFilePath();
+
+			if (lastFileName != null) {
+				lastFile = new File(lastFileName);
+			}
 		}
 		return lastFile;
 	}

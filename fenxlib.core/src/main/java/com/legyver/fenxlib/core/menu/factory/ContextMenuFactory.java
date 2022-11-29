@@ -4,16 +4,13 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.locator.LocationContextDecorator;
-import com.legyver.fenxlib.api.menu.factory.IMenuItemFactory;
+import com.legyver.fenxlib.api.menu.IMenuItemFactory;
 import com.legyver.fenxlib.api.scene.controls.options.MenuItemOptions;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.legyver.core.exception.CoreException.unwrap;
-import static com.legyver.core.exception.CoreException.wrap;
 
 /**
  * Factory to create a menu

@@ -1,7 +1,7 @@
 package com.legyver.fenxlib.tests.base.config;
 
 import com.legyver.fenxlib.api.config.options.ApplicationOptions;
-import com.legyver.fenxlib.api.lifecycle.hooks.RecentFilesApplicationLifecycleHook;
+import com.legyver.fenxlib.core.lifecycle.hooks.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.tests.base.ui.TestUiModel;
 
 import java.io.File;
@@ -18,7 +18,7 @@ public class TestApplicationOptionsBuilder extends ApplicationOptions.Builder<Te
 	 * @return this builder
 	 */
 	public TestApplicationOptionsBuilder customRecentFilesMixin(RecentFilesApplicationLifecycleHook recentFilesMixin) {
-		return set(() -> this.recentFilesHook = recentFilesMixin);
+		return registerLifecycleHook(recentFilesMixin);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class TestApplicationOptionsBuilder extends ApplicationOptions.Builder<Te
 	public static TestApplicationOptionsBuilder defaultBuilder() {
 		return new TestApplicationOptionsBuilder()
 				.appName("Test")
-				.customAppConfigInstantiator(map -> new TestConfig())
+				.applicationConfigClass(TestConfig.class)
 				.uiModel(new TestUiModel())
 				.customRecentFilesMixin(new RecentFilesApplicationLifecycleHook() {
 					@Override

@@ -72,6 +72,7 @@ public class ImportMenuItemFactory {
      * @return the event handler
      * @throws CoreException if there is an error producing the file browser
      */
+    @SuppressWarnings("unchecked")
     public EventHandler importDirectoryEventHandler(FileTreeRegistry fileTreeRegistry) throws CoreException {
         return new OpenDirectoryAction(selectDirectoryText, new ImportDirectoryConsumer(fileTreeRegistry));
     }

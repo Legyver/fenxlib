@@ -1,9 +1,7 @@
 package com.legyver.fenxlib.api.config;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.config.adapter.ConfigAdapterPartType;
-import com.legyver.fenxlib.api.config.adapter.IConfigAdapter;
-import com.legyver.fenxlib.api.config.parts.IRecentlyViewedFile;
+import com.legyver.fenxlib.api.config.parts.RecentFile;
 import com.legyver.fenxlib.api.service.OrderedServiceDelegator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,20 +55,19 @@ public class ConfigServiceRegistry {
 
 	/**
 	 * Load the config from the first {@link ConfigService} that returns a non-null result.
-	 * @param <T> the type of the config file
 	 * @param appName the name of the application
 	 * @param filename the filename
 	 * @return the config
 	 */
-	public <T extends IApplicationConfig> T loadConfig(String appName, String filename) {
+	public IApplicationConfig loadConfig(String appName, String filename) {
 		if (!initialized) {
 			initialize();
 		}
-		T result = null;
+		ApplicationConfig result = null;
 		for (Iterator<ConfigService> it = orderedServiceDelegator.iterator(); result == null && it.hasNext(); ) {
 			ConfigService next = it.next();
 			try {
-				result = (T) next.loadConfig(appName, filename);
+				result = (ApplicationConfig) next.loadConfig(appName, filename);
 			} catch (CoreException e) {
 				logger.error("Unable to read file[" + filename + "] with " + next.getClass(), e);
 			}
@@ -105,14 +102,13 @@ public class ConfigServiceRegistry {
 
 	/**
 	 * Adapt a recently-viewed file to a format appropriate for the config
-	 * @param file teh file to adapt
-	 * @param <T> the class of the recently-viewed reference object
+	 * @param file the file to adapt
 	 * @return the reference object for the recently-viewed file
 	 * @throws CoreException if there is an error adapting the file
 	 */
-	public <T extends IRecentlyViewedFile> T adaptRecentlyViewedFile(File file) throws CoreException {
-		IConfigAdapter<File, IRecentlyViewedFile> adapter = orderedServiceDelegator.getDelegate().getAdapter(ConfigAdapterPartType.RECENTLY_VIEWED_FILE.name());
-		return (T) adapter.adapt(file);
+	public RecentFile adaptRecentlyViewedFile(File file) throws CoreException {
+		RecentFile recentFile = new RecentFile(file);
+		return recentFile;
 	}
 
 	/**

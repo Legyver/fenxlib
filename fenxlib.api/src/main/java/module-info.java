@@ -21,11 +21,11 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api;
     exports com.legyver.fenxlib.api.alert;
     exports com.legyver.fenxlib.api.config;
-    exports com.legyver.fenxlib.api.config.adapter;
     exports com.legyver.fenxlib.api.config.load;
     exports com.legyver.fenxlib.api.config.options;
     exports com.legyver.fenxlib.api.config.parts;
     exports com.legyver.fenxlib.api.config.parts.util;
+    exports com.legyver.fenxlib.api.config.section;
     exports com.legyver.fenxlib.api.context;
     exports com.legyver.fenxlib.api.controls;
     exports com.legyver.fenxlib.api.controls.builder;
@@ -56,6 +56,7 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.locator.query;
     exports com.legyver.fenxlib.api.locator.visitor;
     exports com.legyver.fenxlib.api.logging;
+    exports com.legyver.fenxlib.api.menu;
     exports com.legyver.fenxlib.api.regions;
     exports com.legyver.fenxlib.api.scene.controls.options;
     exports com.legyver.fenxlib.api.scene.layout.options;
@@ -63,6 +64,8 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.scene.web.options;
     exports com.legyver.fenxlib.api.service;
     exports com.legyver.fenxlib.api.uimodel;
+    exports com.legyver.fenxlib.api.util.reflection;
+    exports com.legyver.fenxlib.api.version;
 
     //for reflection in Options Mixins
     opens com.legyver.fenxlib.api.scene.controls.options to org.apache.commons.lang3;
@@ -78,4 +81,5 @@ module com.legyver.fenxlib.api {
     uses ResourceBundleService;
     uses com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookService;
     uses com.legyver.fenxlib.api.config.ConfigService;
+    uses com.legyver.fenxlib.api.version.ModuleVersionService;
 }

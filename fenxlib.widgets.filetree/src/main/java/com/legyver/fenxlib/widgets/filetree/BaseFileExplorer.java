@@ -1,9 +1,19 @@
 package com.legyver.fenxlib.widgets.filetree;
 
+import com.legyver.fenxlib.api.config.ConfigServiceRegistry;
+import com.legyver.fenxlib.api.config.IApplicationConfig;
+import com.legyver.fenxlib.api.config.parts.RecentFile;
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.files.DefaultFileOptions;
+import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.locator.IComponentRegistry;
 import com.legyver.fenxlib.core.util.GuidUtil;
 import com.legyver.fenxlib.extensions.tuktukfx.task.adapter.JavaFxAdapter;
 import com.legyver.fenxlib.extensions.tuktukfx.task.exec.TaskExecutor;
+import com.legyver.fenxlib.widgets.filetree.config.FileTreeConfigAware;
+import com.legyver.fenxlib.widgets.filetree.config.FileTreeConfigSection;
+import com.legyver.fenxlib.widgets.filetree.config.WorkingFileSet;
+import com.legyver.fenxlib.widgets.filetree.event.ImportDirectoryConsumer;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
@@ -27,6 +37,7 @@ import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.stream.Collectors;
 
 /**
@@ -118,6 +129,33 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
         //we use a delay matching the tryAcquire timeout in FileSystemWatchTaskProcessor#runUntilAbort() so we don't get an interrupted exception in the latter
         TaskExecutor.getInstance().configure().delayShutdown(2000);
         TaskExecutor.getInstance().submitTask(adapter);
+
+        reloadTreeAndSetupConfigSync(fileTreeRegistry);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void reloadTreeAndSetupConfigSync(U fileTreeRegistry) {
+        IApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
+        if (applicationConfig instanceof FileTreeConfigAware) {
+            FileTreeConfigAware fileTreeConfigAware = (FileTreeConfigAware) applicationConfig;
+            FileTreeConfigSection fileTreeConfigSection = fileTreeConfigAware.getFileTreeConfig();
+            WorkingFileSet workingFileSet = fileTreeConfigSection.getWorkingFileSet();
+
+            ImportDirectoryConsumer importDirectoryConsumer = new ImportDirectoryConsumer((FileTreeRegistry<IFileReference>) fileTreeRegistry);
+            for (RecentFile fileReference : workingFileSet.getValues()) {
+                File file = new File(fileReference.getPath());
+                if (file.exists()) {
+                    importDirectoryConsumer.accept(new DefaultFileOptions(file, false));
+                }
+            }
+            ApplicationContext.getApplicationLifecycleHookRegistry().registerHook(LifecyclePhase.PRE_SHUTDOWN, () -> {
+                workingFileSet.getValues().clear();
+                for (IFileReference fileReference : fileTreeRegistry.getRoots()) {
+                    RecentFile recentlyViewedFile = ConfigServiceRegistry.getInstance().adaptRecentlyViewedFile(fileReference.getFile());
+                    workingFileSet.getValues().add(recentlyViewedFile);
+                }
+            }, -10);
+        }
     }
 
     private String getExplorerGuid() {

@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.config.ApplicationConfig;
 import com.legyver.fenxlib.api.config.ConfigServiceRegistry;
-import com.legyver.fenxlib.api.config.FileAwareApplicationConfig;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
@@ -44,13 +44,13 @@ public class AutoSaveConfigApplicationLifecycleHook implements ApplicationLifecy
 	@Override
 	public ExecutableHook getExecutableHook() {
 		return () -> {
-			FileAwareApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
+			ApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
 			saveFile(applicationConfig);
 			return;
 		};
 	}
 
-	private void saveFile(FileAwareApplicationConfig applicationConfig) throws CoreException {
+	private void saveFile(ApplicationConfig applicationConfig) throws CoreException {
 		ConfigServiceRegistry.getInstance().saveConfig(appConfigFileName, applicationConfig);
 	}
 

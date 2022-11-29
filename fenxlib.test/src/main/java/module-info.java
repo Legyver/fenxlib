@@ -13,6 +13,7 @@ module com.legyver.fenxlib.tests.base {
     requires com.legyver.core;
     requires com.legyver.utils.mapqua;
     requires javafx.graphics;
+    requires com.legyver.fenxlib.core;
 
     provides com.legyver.fenxlib.api.io.IOService with com.legyver.fenxlib.tests.base.io.ClasspathIOService;
 }

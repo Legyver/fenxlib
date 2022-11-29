@@ -1,34 +1,35 @@
 package com.legyver.fenxlib.config.json;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.config.ApplicationConfig;
 import com.legyver.fenxlib.api.config.ConfigService;
-import com.legyver.fenxlib.api.config.adapter.ConfigAdapterMap;
-import com.legyver.fenxlib.api.config.adapter.ConfigAdapterPartType;
-import com.legyver.fenxlib.api.config.adapter.IConfigAdapter;
-import com.legyver.fenxlib.api.files.util.ConfigInstantiator;
+import com.legyver.fenxlib.api.config.section.ConfigPersisted;
+import com.legyver.fenxlib.api.config.section.ConfigSection;
 import com.legyver.fenxlib.api.io.IOServiceRegistry;
 import com.legyver.fenxlib.api.io.content.StringContentWrapper;
-import com.legyver.fenxlib.config.json.adapter.ConfigFileJsonAdapter;
-import com.legyver.fenxlib.config.json.adapter.RecentlyViewedFileJsonAdapter;
-import com.legyver.fenxlib.config.json.util.JsonConfigInstantiator;
 import com.legyver.utils.adaptex.ExceptionToCoreExceptionActionDecorator;
 import com.legyver.utils.jackiso.JacksonObjectMapper;
+import com.legyver.utils.jsonmigration.adapter.JSONPathInputAdapter;
+import com.legyver.utils.ruffles.SetByMethod;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Loads the application config from file.
  * This was moved to a service to make tests more sensible.
  */
-public class JsonConfigService<T extends JsonApplicationConfig> implements ConfigService<T> {
+@SuppressWarnings("unchecked")
+public class JsonConfigService<T extends ApplicationConfig> implements ConfigService<T> {
 
-	private static final ConfigAdapterMap adapters = new ConfigAdapterMap();
-	static {
-		adapters.put(ConfigAdapterPartType.FULL_FILE, new ConfigFileJsonAdapter());
-		adapters.put(ConfigAdapterPartType.RECENTLY_VIEWED_FILE, new RecentlyViewedFileJsonAdapter());
-	}
+	private Class<T> applicationConfigType;
 
 	@Override
 	public T loadConfig(String appName, String filename) throws CoreException {
@@ -37,8 +38,8 @@ public class JsonConfigService<T extends JsonApplicationConfig> implements Confi
 			if (temp != null) {
 				try (InputStream inputStream = temp;
 					 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
-					Map configAsMap = JacksonObjectMapper.INSTANCE.readValue(bufferedInputStream, Map.class);
-					return (T) adapters.get(ConfigAdapterPartType.FULL_FILE).adapt(configAsMap);
+					JsonConfig jsonConfig = JacksonObjectMapper.INSTANCE.readValue(bufferedInputStream, JsonConfig.class);
+					return (T) adapt(jsonConfig);
 				}
 			}
 			return null;
@@ -46,21 +47,66 @@ public class JsonConfigService<T extends JsonApplicationConfig> implements Confi
 	}
 
 	@Override
-	public boolean saveConfig(String filename, JsonApplicationConfig config) throws CoreException {
-		config.sync();
-		Map map = config.getRawMap();
-		String json = JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(map);
+	public boolean saveConfig(String filename, ApplicationConfig config) throws CoreException {
+		JsonConfig jsonConfig = new JsonConfig();
+		for (Field field : FieldUtils.getFieldsWithAnnotation(applicationConfigType, ConfigPersisted.class)) {
+			try {
+				ConfigSection configSection;
+				String getterName = "get" + StringUtils.capitalize(field.getName());
+				try {
+					configSection = (ConfigSection) MethodUtils.invokeMethod(config, getterName);
+				} catch (NoSuchMethodException|InvocationTargetException exception) {
+					configSection = (ConfigSection) FieldUtils.readField(field, config, true);
+				}
+				if (configSection != null) {
+					String configSectionAsString = JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(configSection);
+					Map<String, Object> configSectionAsMap = JacksonObjectMapper.INSTANCE.readValue(configSectionAsString, Map.class);
+
+					String configSectionName = configSection.getSectionName();
+					String configSectionVersion = configSection.getVersion();
+					Map<String, Object> values = new HashMap<>();
+					for (String entry : configSectionAsMap.keySet()) {
+						if (!"sectionName".equals(entry) && !"version".equals(entry)) {
+							values.put(entry, configSectionAsMap.get(entry));
+						}
+					}
+					JsonConfigSection jsonConfigSection = new JsonConfigSection();
+					jsonConfigSection.sectionName = configSectionName;
+					jsonConfigSection.version = configSectionVersion;
+					jsonConfigSection.config = values;
+
+					jsonConfigSection.config.put(configSectionName, configSectionAsMap);
+					jsonConfig.sections.put(configSectionName, jsonConfigSection);
+				}
+			} catch (IllegalAccessException e) {
+				throw new CoreException(e);
+			}
+		}
+		String json = JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(jsonConfig);
 		return IOServiceRegistry.getInstance().save(new StringContentWrapper(json), filename, true);
 	}
 
-	@Override
-	public IConfigAdapter getAdapter(String forName) {
-		return adapters.get(forName);
-	}
-
-	@Override
-	public IConfigAdapter getAdapter(ConfigAdapterPartType partType) {
-		return adapters.get(partType);
+	private ApplicationConfig adapt(JsonConfigService.JsonConfig jsonConfig) throws CoreException {
+		ApplicationConfig config;
+		try {
+			config = applicationConfigType.getDeclaredConstructor().newInstance();
+			for (Field field : FieldUtils.getFieldsWithAnnotation(applicationConfigType, ConfigPersisted.class)) {
+				ConfigSection configSection = (ConfigSection) field.getType().getDeclaredConstructor().newInstance();
+				String sectionName = configSection.getSectionName();
+				JsonConfigService.JsonConfigSection value = jsonConfig.sections.get(sectionName);
+				if (value != null) {
+					String version = value.getVersion();
+					Map<String, Object> data = value.config;
+					Object configSectionImpl = new JSONPathInputAdapter<>(field.getType()).adapt(version, data);
+					new SetByMethod(field).set(config, configSectionImpl);
+				}
+			}
+			return config;
+		} catch (CoreException coreException) {
+			throw coreException;
+		} catch (Exception ex) {
+			throw new CoreException(ex);
+		}
 	}
 
 	@Override
@@ -69,19 +115,67 @@ public class JsonConfigService<T extends JsonApplicationConfig> implements Confi
 	}
 
 	@Override
-	public void init(ConfigInstantiator initializer) {
-		JsonConfigInstantiator<JsonApplicationConfig> jsonConfigInstantiator;
-		if (initializer instanceof JsonConfigInstantiator) {
-			jsonConfigInstantiator = (JsonConfigInstantiator) initializer;
-		} else {
-			jsonConfigInstantiator = map -> {
-				Object o = initializer.init(map);
-				return o instanceof JsonApplicationConfig ? (JsonApplicationConfig) o : null;
-			};
+	public void init(Class<T> applicationConfigType) {
+		this.applicationConfigType = applicationConfigType;
+	}
+
+	/**
+	 * JSON defined configuration
+	 * Example {
+	 *     "fenxlib.core": {
+	 *         //loaded by fenxlib.core
+	 *     },
+	 *     "fenxlib.widgets.filetree":" {
+	 *         //loaded by fenxlib.widgets.filetree
+	 *     },
+	 *     "my-application" : {
+	 *         //loaded by your application
+	 *
+	 *     }
+	 * }
+	 */
+	public static class JsonConfig {
+		/**
+		 * Sections of the configuration
+		 */
+		public Map<String, JsonConfigSection> sections = new HashMap<>();
+	}
+
+	/**
+	 * JSON defined configuration section.
+	 * Example:
+	 * {
+	 *     "version": "1.0.0",
+	 *     "config": {
+	 *   		"lastOpened" : {
+	 *     			"lastFile" : "C:\\data\\xml\\courses\\clean"
+	 *   		}
+	 *     }
+	 * }
+	 */
+	public static class JsonConfigSection implements ConfigSection {
+		/**
+		 * The name of the section.
+		 * By convention this should be your application name or library module
+		 */
+		public String sectionName;
+		/**
+		 * Version of section written to the configuration.
+		 */
+		public String version;
+		/**
+		 * The configuration map
+		 */
+		public Map<String, Object> config = new HashMap<>();
+		@Override
+		public String getVersion() {
+			return version;
 		}
-		IConfigAdapter adapter = adapters.get(ConfigAdapterPartType.FULL_FILE);
-		if (adapter instanceof ConfigFileJsonAdapter) {
-			((ConfigFileJsonAdapter) adapter).setJsonConfigInstantiator(jsonConfigInstantiator);
+
+		@Override
+		public String getSectionName() {
+			return sectionName;
 		}
+
 	}
 }

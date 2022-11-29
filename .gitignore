@@ -5,6 +5,8 @@
 build/**
 private/**
 /build/
+/**/version/version.properties
+/buildSrc/build/
 /fenxlib.api/build/
 /fenxlib.config.json/build/
 /fenxlib.controls.icon/build/

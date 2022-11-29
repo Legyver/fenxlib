@@ -4,14 +4,13 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.alert.IAlert;
 import com.legyver.fenxlib.api.alert.Level;
-import com.legyver.fenxlib.api.config.ApplicationConfigInstantiator;
+import com.legyver.fenxlib.api.config.ApplicationConfig;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.context.ResourceScope;
 import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
 import com.legyver.fenxlib.api.lifecycle.hooks.LifecycleHookServiceRegistry;
-import com.legyver.fenxlib.api.lifecycle.hooks.RecentFilesApplicationLifecycleHook;
 import com.legyver.fenxlib.api.uimodel.IUiModel;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,24 +25,26 @@ import java.util.List;
  */
 public class ApplicationOptions {
 	private final String applicationName;
+	private final String applicationVersion;
 	private final IUiModel uiModel;
 	private final boolean usesLogging;
 	private final boolean usesAutoSaveConfig;
 	private final String applicationConfigName;
-	private final ApplicationConfigInstantiator appConfigInstantiator;
+	private final Class applicationConfigType;
 	private final EnumMap<ResourceScope, List<URL>> stylesheetURLs;
 	private final List<ApplicationLifecycleHook> hooksToRegister;
 	private final IconAliasMap iconAliasMap;
 	private final EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions;
 	private final List<String> appResourceBundles;
 
-	private ApplicationOptions(String applicationName, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, ApplicationConfigInstantiator appConfigInstantiator, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions, List<String> appResourceBundles) {
+	private ApplicationOptions(String applicationName, String applicationVersion, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, Class applicationConfigType, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions, List<String> appResourceBundles) {
 		this.applicationName = applicationName;
+		this.applicationVersion = applicationVersion;
 		this.uiModel = uiModel;
 		this.usesLogging = usesLogging;
 		this.usesAutoSaveConfig = usesAutoSaveConfig;
 		this.applicationConfigName = appConfigName;
-		this.appConfigInstantiator = appConfigInstantiator;
+		this.applicationConfigType = applicationConfigType;
 		this.stylesheetURLs = stylesheetURLs;
 		this.hooksToRegister = hooksToRegister;
 		this.iconAliasMap = iconAliasMap;
@@ -77,6 +78,7 @@ public class ApplicationOptions {
 	 */
 	protected void bootstrap() throws CoreException {
 		ApplicationContext.setUiModel(uiModel);
+		ApplicationContext.setApplicationVersion(applicationVersion);
 		LifecycleHookServiceRegistry.getInstance().loadLifecycleHooks(this);
 		executePhase(LifecyclePhase.BOOTSTRAP);
 	}
@@ -140,10 +142,11 @@ public class ApplicationOptions {
 
 	/**
 	 * Get the instantiator responsible for instantiating the application config
+	 *
 	 * @return the application config instantiator
 	 */
-	public ApplicationConfigInstantiator getAppConfigInstantiator() {
-		return appConfigInstantiator;
+	public Class getApplicationConfigType() {
+		return applicationConfigType;
 	}
 
 	/**
@@ -196,13 +199,9 @@ public class ApplicationOptions {
 		 */
 		protected IUiModel uiModel;
 		/**
-		 * Instantiator for the application config
+		 * The class of the application config
 		 */
-		protected ApplicationConfigInstantiator appConfigInstantiator;
-		/**
-		 * Hook for loading recent files
-		 */
-		protected RecentFilesApplicationLifecycleHook recentFilesHook;
+		protected Class applicationConfigType = ApplicationConfig.class;
 		/**
 		 * The application name.  This is the directory name that all config and log files specific to the application will be saved in
 		 */
@@ -211,6 +210,11 @@ public class ApplicationOptions {
 		 * The application config name.  If not specified, it will default to the same as the appName with a .json extension
 		 */
 		protected String appConfigName;
+		/**
+		 * The application version
+		 */
+		protected String applicationVersion;
+
 		/**
 		 * The application resource bundles to read
 		 */
@@ -255,11 +259,11 @@ public class ApplicationOptions {
 			defaultUnspecified();
 			ApplicationOptions options = new ApplicationOptions(
 					appName,
-					uiModel,
+					applicationVersion, uiModel,
 					enableLogging,
 					autosaveConfig,
 					appConfigName,
-					appConfigInstantiator,
+					applicationConfigType,
 					stylesheetUrls,
 					hooksToRegister,
 					iconAliasMap,
@@ -278,24 +282,16 @@ public class ApplicationOptions {
 			if (appName == null) {
 				throw new CoreException("Application name is required");
 			}
-			if (appConfigInstantiator == null) {
-				throw new CoreException("An ApplicationConfigInstantiator is required");
-			}
 		}
 
 		/**
 		 * Default unspecified values
 		 * - if the appConfigName has not been set, default it to the appName + .json file extension
-		 * - populate the recent files menu via the default {@link RecentFilesApplicationLifecycleHook} if no other mechanism RecentFilesApplicationLifecycleHook
 		 */
 		protected void defaultUnspecified() {
 			if (appConfigName == null) {
 				appConfigName = appName + ".json";
 			}
-			if (recentFilesHook == null) {
-				recentFilesHook = new RecentFilesApplicationLifecycleHook();
-			}
-			hooksToRegister.add(recentFilesHook);
 		}
 
 		/**
@@ -323,6 +319,15 @@ public class ApplicationOptions {
 		 */
 		public B appConfigName(String appConfigName) {
 			return set(() -> this.appConfigName = appConfigName);
+		}
+
+		/**
+		 * Soecify the version of the application
+		 * @param applicationVersion the version of the application
+		 * @return the application version
+		 */
+		public B appVersion(String applicationVersion) {
+			return set(() -> this.applicationVersion = applicationVersion);
 		}
 
 		/**
@@ -374,11 +379,11 @@ public class ApplicationOptions {
 
 		/**
 		 * Specify the AppConfig instantiator to use when initializing an application config file
-		 * @param appConfigInstantiator the instantiator to use
+		 * @param applicationConfigType the class of the application config
 		 * @return this builder
 		 */
-		public B customAppConfigInstantiator(ApplicationConfigInstantiator appConfigInstantiator) {
-			return set(() -> this.appConfigInstantiator = appConfigInstantiator);
+		public B applicationConfigClass(Class applicationConfigType) {
+			return set(() -> this.applicationConfigType = applicationConfigType);
 		}
 
 		/**

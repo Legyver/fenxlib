@@ -2,6 +2,7 @@ description = 'Core implementation of Fenxlib library'
 
 apply from: publishBuildScript
 apply plugin: 'com.legyver.resource-bundle-i18n'
+apply plugin: 'fenxlib-copy-build-version'
 
 dependencies {
     //exception
