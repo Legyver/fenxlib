@@ -13,4 +13,12 @@ public interface ApplicationVersionedConfigSection extends ConfigSection {
     default String getVersion() {
         return ApplicationContext.getApplicationVersion();
     }
+
+    /**
+     * Get the application name
+     * @return the application name
+     */
+    default String getSectionName() {
+        return ApplicationContext.getApplicationHome().getAppName();
+    }
 }

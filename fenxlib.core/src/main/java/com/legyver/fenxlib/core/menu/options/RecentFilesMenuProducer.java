@@ -83,6 +83,10 @@ public class RecentFilesMenuProducer extends AbstractMenuItemProducer {
         IApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
         if (applicationConfig instanceof ICoreApplicationConfig) {
             CoreConfigSection configSection = ((ICoreApplicationConfig) applicationConfig).getCoreConfig();
+            if (configSection == null) {
+                configSection = new CoreConfigSection();
+                ((ICoreApplicationConfig) applicationConfig).setCoreConfig(configSection);
+            }
             RecentFiles recentFiles = configSection.getRecentFiles();
             List<RecentFile> recentlyViewedFiles = recentFiles.getValues();
             for (RecentFile recentlyViewedFile : recentlyViewedFiles) {

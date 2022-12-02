@@ -29,6 +29,7 @@ public class ApplicationHome {
 	private final LazyCreateDirectoryWrapper cacheDirectory;
 	private final LazyCreateDirectoryWrapper configDirectory;
 	private final LazyCreateDirectoryWrapper logDirectory;
+	private final String appName;
 
 	/**
 	 * Construct an Application Home based on the provided app name.
@@ -38,6 +39,7 @@ public class ApplicationHome {
 	 * @param appName the name of the application.
 	 */
 	public ApplicationHome(String appName) {
+		this.appName = appName;
 		String osName = System.getProperty("os.name");
 		String appDir;
 		if (osName != null && osName.startsWith("Windows")) {
@@ -50,6 +52,14 @@ public class ApplicationHome {
 		cacheDirectory = new LazyCreateDirectoryWrapper(new File(appHome.getAbsolutePath() + File.separator + "cache"));
 		configDirectory = new LazyCreateDirectoryWrapper(new File(appHome.getAbsolutePath() + File.separator + "config"));
 		logDirectory = new LazyCreateDirectoryWrapper(new File(appHome.getAbsolutePath() + File.separator + "logs"));
+	}
+
+	/**
+	 * Get the application name specified in ApplicationOptions
+	 * @return the application name
+	 */
+	public String getAppName() {
+		return appName;
 	}
 
 	/**

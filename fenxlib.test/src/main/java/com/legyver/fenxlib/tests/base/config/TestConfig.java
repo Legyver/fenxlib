@@ -1,8 +1,6 @@
 package com.legyver.fenxlib.tests.base.config;
 
 import com.legyver.fenxlib.api.config.ApplicationConfig;
-import com.legyver.fenxlib.api.config.parts.LastOpened;
-import com.legyver.fenxlib.api.config.parts.RecentFiles;
 import com.legyver.fenxlib.core.config.CoreConfigSection;
 import com.legyver.fenxlib.core.config.ICoreApplicationConfig;
 
@@ -11,22 +9,16 @@ import com.legyver.fenxlib.core.config.ICoreApplicationConfig;
  */
 public class TestConfig extends ApplicationConfig implements ICoreApplicationConfig {
 
-	private RecentFiles recentFiles = new RecentFiles();
-	private LastOpened lastOpened = new LastOpened();
-
-	private CoreConfigSection configSection = new CoreConfigSection();
-
-	/**
-	 * Test configuration that loads in-memory versus from file
-	 */
-	public TestConfig() {
-		configSection.setLastOpened(lastOpened);
-		configSection.setRecentFiles(recentFiles);
-	}
+	private CoreConfigSection coreConfig = new CoreConfigSection();
 
 	@Override
 	public CoreConfigSection getCoreConfig() {
-		return configSection;
+		return coreConfig;
+	}
+
+	@Override
+	public void setCoreConfig(CoreConfigSection coreConfig) {
+		this.coreConfig = new CoreConfigSection();
 	}
 
 }

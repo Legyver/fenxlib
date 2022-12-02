@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
-import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.files.DefaultFileBrowseLocation;
 import javafx.beans.property.StringProperty;
 import javafx.stage.FileChooser;
@@ -17,9 +16,8 @@ public class FileOptionsChooserFactory extends AbstractChooserFactory {
 	/**
 	 * Construct a factory for File/Directory choosers
 	 * @param initialFileName the initial file name
-	 * @throws CoreException if an error is encountered loading the recently-opened files
 	 */
-	public FileOptionsChooserFactory(StringProperty initialFileName) throws CoreException {
+	public FileOptionsChooserFactory(StringProperty initialFileName) {
 		super();
 		this.initialFileName = initialFileName;
 	}
@@ -35,9 +33,8 @@ public class FileOptionsChooserFactory extends AbstractChooserFactory {
 
 	/**
 	 * Construct a factory to create a FileChooser based on the initial file name
-	 * @throws CoreException if there is an error in the super constructor
 	 */
-	public FileOptionsChooserFactory() throws CoreException {
+	public FileOptionsChooserFactory() {
 		super();
 		this.initialFileName = defaultFileBrowseLocation.initialFileName();
 	}

@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
-import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.config.IApplicationConfig;
 import com.legyver.fenxlib.api.config.parts.LastOpened;
 import com.legyver.fenxlib.api.context.ApplicationContext;
@@ -32,18 +31,16 @@ public class AbstractChooserFactory {
 	/**
 	 * Construct an AbstractChooserFactory using the default file browse location as read from the config file.
 	 * If the config file does not specify a last-opened location the location is not set which results in using the Java file/directory chooser default location.
-	 * @throws CoreException if an error is raised reading the last opened location from the config file.
 	 */
-	protected AbstractChooserFactory() throws CoreException {
+	protected AbstractChooserFactory() {
 		this(getDefaultFileBrowseLocation());
 	}
 
 	/**
 	 * Get the default browse default file browse location as read from the config file.
 	 * @return If the config file does not specify a last-opened location the location is not set which results in using the Java file/directory chooser default location.
-	 * @throws CoreException if an error is raised reading the last opened location from the config file.
 	 */
-	protected static DefaultFileBrowseLocation getDefaultFileBrowseLocation() throws CoreException {
+	protected static DefaultFileBrowseLocation getDefaultFileBrowseLocation() {
 		DefaultFileBrowseLocation defaultFileBrowseLocation = new DefaultFileBrowseLocation();
 		File lastOpenedFileLocation = getLastOpenedFileLocation();
 		if (lastOpenedFileLocation != null && lastOpenedFileLocation.exists()) {
@@ -53,12 +50,16 @@ public class AbstractChooserFactory {
 		return defaultFileBrowseLocation;
 	}
 
-	private static File getLastOpenedFileLocation() throws CoreException {
+	private static File getLastOpenedFileLocation() {
 		File lastFile = null;
 
 		IApplicationConfig applicationConfig = ApplicationContext.getApplicationConfig();
 		if (applicationConfig instanceof ICoreApplicationConfig) {
 			CoreConfigSection configSection = ((ICoreApplicationConfig) applicationConfig).getCoreConfig();
+			if (configSection == null) {
+				configSection = new CoreConfigSection();
+				((ICoreApplicationConfig) applicationConfig).setCoreConfig(configSection);
+			}
 			LastOpened lastOpened = configSection.getLastOpened();
 			String lastFileName = lastOpened.getFilePath();
 

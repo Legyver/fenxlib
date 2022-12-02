@@ -1,6 +1,5 @@
 package com.legyver.fenxlib.core.menu.factory.internal;
 
-import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
 import javafx.stage.DirectoryChooser;
 
@@ -11,9 +10,8 @@ public class DirectoryOptionsChooserFactory extends AbstractChooserFactory {
 
 	/**
 	 * Construct a directory chooser with the initial directory of the last-opened file as loaded from config
-	 * @throws CoreException if an error is encountered reading the last-opened file from the config
 	 */
-	public DirectoryOptionsChooserFactory() throws CoreException {
+	public DirectoryOptionsChooserFactory() {
 		super();
 	}
 

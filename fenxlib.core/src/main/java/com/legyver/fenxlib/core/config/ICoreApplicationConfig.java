@@ -14,4 +14,10 @@ public interface ICoreApplicationConfig extends IApplicationConfig {
      */
     CoreConfigSection getCoreConfig();
 
+    /**
+     * Set the core config section
+     * @param coreConfig the core config section
+     */
+    void setCoreConfig(CoreConfigSection coreConfig);
+
 }

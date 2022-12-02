@@ -16,13 +16,14 @@ module com.legyver.fenxlib.core {
 	requires transitive com.legyver.core;
 	requires transitive com.legyver.utils.adaptex;
 	requires transitive com.legyver.utils.graphrunner;
-	requires transitive com.legyver.utils.mapqua;
 	requires transitive com.legyver.utils.nippe;
 	requires transitive com.legyver.fenxlib.api;
     requires com.legyver.utils.mapadapt;
     requires org.apache.commons.lang3;
+	requires com.legyver.utils.jackiso;
+	requires com.legyver.utils.mapqua;
 
-    exports com.legyver.fenxlib.core.context;
+	exports com.legyver.fenxlib.core.context;
 	exports com.legyver.fenxlib.core.controls.factory;
 	exports com.legyver.fenxlib.core.controls.options;
 	exports com.legyver.fenxlib.core.controls.popup;

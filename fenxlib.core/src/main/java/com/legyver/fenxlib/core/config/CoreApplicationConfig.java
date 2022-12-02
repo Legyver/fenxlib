@@ -17,10 +17,7 @@ public class CoreApplicationConfig extends ApplicationConfig implements ICoreApp
         return coreConfig;
     }
 
-    /**
-     * Set the core config
-     * @param coreConfig the core config
-     */
+    @Override
     public void setCoreConfig(CoreConfigSection coreConfig) {
         this.coreConfig = coreConfig;
     }

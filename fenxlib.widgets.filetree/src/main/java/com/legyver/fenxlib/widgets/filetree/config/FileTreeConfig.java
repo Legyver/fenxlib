@@ -17,10 +17,7 @@ public class FileTreeConfig extends CoreApplicationConfig implements FileTreeCon
         return fileTreeConfig;
     }
 
-    /**
-     * Set the file tree config
-     * @param fileTreeConfig the config to set
-     */
+    @Override
     public void setFileTreeConfig(FileTreeConfigSection fileTreeConfig) {
         this.fileTreeConfig = fileTreeConfig;
     }

@@ -57,6 +57,11 @@ public class PreShutdownConfigSyncLifecycleHook implements ApplicationLifecycleH
 		if (!openFiles.isEmpty()) {
 			if (applicationConfig instanceof ICoreApplicationConfig) {
 				CoreConfigSection configSection = ((ICoreApplicationConfig) applicationConfig).getCoreConfig();
+				if (configSection == null) {
+					configSection = new CoreConfigSection();
+					((ICoreApplicationConfig) applicationConfig).setCoreConfig(configSection);
+				}
+
 				LastOpened lastOpened = configSection.getLastOpened();
 				FileOptions mostRecent = openFiles.get(openFiles.size() -1);
 				lastOpened.setFilePath(mostRecent.getFilePath());

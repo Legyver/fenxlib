@@ -10,7 +10,7 @@ module com.legyver.fenxlib.config.json {
     requires com.legyver.core;
     requires com.legyver.utils.adaptex;
     requires com.legyver.utils.jsonmigration;
-    requires com.legyver.utils.mapqua;
+    requires com.legyver.utils.jackiso;
     requires com.legyver.utils.ruffles;
     //third party dependencies
     requires org.apache.commons.io;

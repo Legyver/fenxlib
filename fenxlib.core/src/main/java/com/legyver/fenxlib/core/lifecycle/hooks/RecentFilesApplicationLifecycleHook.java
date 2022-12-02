@@ -63,6 +63,10 @@ public class RecentFilesApplicationLifecycleHook implements ApplicationLifecycle
 		IUiModel uiModel = ApplicationContext.getUiModel();
 		if (applicationConfig instanceof ICoreApplicationConfig) {
 			CoreConfigSection configSection = ((ICoreApplicationConfig) applicationConfig).getCoreConfig();
+			if (configSection == null) {
+				configSection = new CoreConfigSection();
+				((ICoreApplicationConfig) applicationConfig).setCoreConfig(configSection);
+			}
 			openingFileUpdatesConfig(configSection);
 			initializeDefaultFileBrowseLocation(configSection);
 			if (uiModel instanceof RecentFileAware) {

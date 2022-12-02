@@ -13,7 +13,6 @@ module com.legyver.fenxlib.api {
     requires com.legyver.core;
     requires com.legyver.utils.nippe;
     requires javafx.controls;
-    requires com.legyver.utils.mapqua;
     requires org.apache.logging.log4j;
     requires org.apache.commons.lang3;
     requires javafx.web;

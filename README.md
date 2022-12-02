@@ -18,17 +18,18 @@ To tie into this framework add an META-INF/services for file for the Service you
 TBD
 
 ### Services
-| Service | Description | Defining module | Implementing Modules | Description |
-| ------- | ----------- | --------------- | -------------------- | ----------- |
-| IOService | Loads/saves files | fenxlib.api | fenxlib.core | Loads/saves files from disk |
-| | | | fenxlib.test | Loads test resources from classpath |
+| Service | Description                               | Defining module | Implementing Modules | Description |
+| ------- |-------------------------------------------| --------------- |--------------| ----------- |
+| IOService | Loads/saves files                         | fenxlib.api | fenxlib.core | Loads/saves files from disk |
+| |                                           | | fenxlib.test | Loads test resources from classpath |
 | FileMarshalService | Marshals Objects to/from appropriate format | fenxlib.api | fenxlib.core | Supports application/json|
-| ConfigService | Provides the application configuration | fenxlib.api | fenxlib.config.json | Saves in directory in appropriate location for filesystem
+| ConfigService | Provides the application configuration    | fenxlib.api | fenxlib.config.json | Saves in directory in appropriate location for filesystem
+| ModuleVersionService | Provides the deployed version of a module | fenxlib.api | fenxlib.core | Sets the version of the fenxlib library from proprties at runtime
 | LifecycleHookService | Initializes the application lifecycle hooks | fenxlib.api | fenxlib.core | Initializes the application lifecycle registry and hooks based on the configured application options
-| AlertService | Handles application alerts | fenxlib.api | fenxlib.core | Displays alerts in a popup over the defined location |
-| IconLoaderService | Loads TTF Icons | fenxlib.core | fenxlib.icons.standard | Provides default IcoMoon-Free icons
+| AlertService | Handles application alerts                | fenxlib.api | fenxlib.core | Displays alerts in a popup over the defined location |
+| IconLoaderService | Loads TTF Icons                           | fenxlib.core | fenxlib.icons.standard | Provides default IcoMoon-Free icons
 | NodeInstantiationService | Instantiates controls for types of controls in javafx.controls module | fenxlib.core | fenxlib.core | Instantiates JavaFX controls 
-| | |  | fenxlib.extensions.materialfx | Instantiates MaterialFX controls 
+| |                                           |  | fenxlib.extensions.materialfx | Instantiates MaterialFX controls 
 
 #### examples
 ##### ControlsFactory
@@ -61,13 +62,110 @@ The default ConfigService loads/saves files in JSON in the appropriate place for
 ## Usage
 Since version 2.0.0.0, this library has been made module-friendly, and hence the artifacts use dots as separators instead of traditional dashes.
 
-The main functionality of this library is in the fenxlib.core.impl module.
+The main functionality of this library is in the fenxlib.core module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core.impl', version: '3.0.0-beta.6'
+implementation group: 'com.legyver', name: 'fenxlib.core', version: '3.0.0-beta.6'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
+
+### i18n
+When using the factories to construct components you can specify text or a resource key.
+
+In the case of a resource key if there are property files registered it will be resolved for the locale.
+
+```java
+public class MyApplication extends Application {
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    ApplicationOptions applicationOptions = new ApplicationOptions.Builder<>()
+            //...
+            //Step 1. declare your resource bundle as below
+            .resourceBundle("com.legyver.fenxlib.samples.icon.demo")
+            .build();
+
+    //Step 2.  Use property keys for text
+    BorderPaneApplicationLayout borderPaneApplicationLayout = new BorderPaneApplicationLayout.BorderPaneBuilder()
+            .title("fenxlib.demo.title")//this will be internationalized
+            .build();
+
+    Menu fileMenu = new MenuBuilder()
+            .name("fenxlib.demo.menu.label.file")//this will be internationalized
+            .menuSection(new FileExitMenuSection())//the exit menu section is internationalized by default
+            .build();
+
+    Text text = ControlsFactory.make(Text.class, new TextOptions()
+            .text("my.i18n.text"));//this will be internationalized
+  }
+}
+```
+
+### Configuration persistence
+Config files are built into the framework to automatically remember things like last-opened files and recent files.
+
+To leverage you must
+* Have a configuration module on the classpath like [fenxlib.config.json](fenxlib.config.json/README.md).
+* Extend a ApplicationConfig bean like
+  * CoreApplicationConfig which
+    * Backs up recent file browsing
+  * FileTreeConfig which
+    * extends CoreApplicationConfig
+    * Backs up the files/directories displayed in the file tree
+
+Additionally, you can provide your own ConfigSection
+```java
+import com.legyver.fenxlib.api.config.ApplicationConfig;
+import com.legyver.fenxlib.api.config.section.ConfigPersisted;
+
+public class MyConfigSection implements ApplicationVersionedConfigSection {
+  private String myValue;
+  /**
+   * Below required for the application config.
+   * Version must be <a href="https://semver.org/spec/v1.0.0.html">SemVer 1.0</a> compatible
+   */
+  private String version;
+  private String sectionName = "MyApplication";
+
+  //generated getters/setters
+  // Note: Don't override getVersion() if you want to use the Application version for your version.
+  // The default implementation of getVersion() in ApplicationVersionedConfigSection
+  // gets it from the application version
+  // Where it is either set in ApplicationOptions or read from your AboutPage info
+  // if you're using the fenxlib.about.widget
+  // Note 2:  You can similarly not override getSectionName() if you're okay with using the application name
+  // as set in ApplicationOptions as the name of your configuration.  This does mean that if you change
+  // the name of your application, the configuration of previous versions will not be migrated
+}
+```
+and inject it into the ApplicationConfig like
+
+```java
+import com.legyver.fenxlib.api.config.section.ConfigPersisted;
+
+public class MyConfig extends ApplicationConfig {
+  @ConfigPersisted
+  private MyConfigSection myConfigSection;
+
+  //generated getters/setters
+}
+```
+The ConfigSection implementation can be versioned with  [JSONPath](https://github.com/json-path/JsonPath) migration
+
+```java
+import com.legyver.utils.jsonmigration.annotation.Migration;
+
+public class Spec3 {
+  private String version = "3.0.0";
+  private Data3 data;
+}
+
+public class Data3 {
+  @Migration(pre = "3.0.0", path = "$.renamed")
+  @Migration(pre = "2.0.0", path = "$.named")
+  private String name;
+}
+```
 
 ### Extensions
 - [fenxlib.extensions.materialfx](fenxlib.extensions.materialfx/README.MD)

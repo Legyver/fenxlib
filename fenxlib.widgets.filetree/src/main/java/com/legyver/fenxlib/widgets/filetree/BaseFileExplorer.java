@@ -139,6 +139,10 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
         if (applicationConfig instanceof FileTreeConfigAware) {
             FileTreeConfigAware fileTreeConfigAware = (FileTreeConfigAware) applicationConfig;
             FileTreeConfigSection fileTreeConfigSection = fileTreeConfigAware.getFileTreeConfig();
+            if (fileTreeConfigSection == null) {
+                fileTreeConfigSection = new FileTreeConfigSection();
+                fileTreeConfigAware.setFileTreeConfig(fileTreeConfigSection);
+            }
             WorkingFileSet workingFileSet = fileTreeConfigSection.getWorkingFileSet();
 
             ImportDirectoryConsumer importDirectoryConsumer = new ImportDirectoryConsumer((FileTreeRegistry<IFileReference>) fileTreeRegistry);

@@ -11,14 +11,16 @@ dependencies {
     api group: 'com.legyver', name:'utils.adaptex', version: legyverUtilsVersion
     //typed map conversion
     api group: 'com.legyver', name:'utils.mapadapt', version: legyverUtilsVersion
-    //file-based config
+    //json files
+    api group: 'com.legyver', name:'utils.jackiso', version: legyverUtilsVersion
     api group: 'com.legyver', name:'utils.mapqua', version: legyverUtilsVersion
     //lifecycle graph
     api group: 'com.legyver', name:'utils.graphrunner', version: legyverUtilsVersion
     //logging
     api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
-    //file-based config
+    //file-based marshalling
     api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+    //string manipulation
     api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 
     api project(':fenxlib.api')

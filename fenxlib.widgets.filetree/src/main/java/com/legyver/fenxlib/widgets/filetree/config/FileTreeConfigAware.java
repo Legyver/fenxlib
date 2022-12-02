@@ -12,4 +12,10 @@ public interface FileTreeConfigAware extends IApplicationConfig {
      * @return the file tree configuration section
      */
     FileTreeConfigSection getFileTreeConfig();
+
+    /**
+     * Set the file tree config
+     * @param fileTreeConfig the config to set
+     */
+    void setFileTreeConfig(FileTreeConfigSection fileTreeConfig);
 }
