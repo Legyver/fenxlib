@@ -7,14 +7,15 @@ import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.ApplicationLifecycleHook;
 import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
-import org.apache.commons.lang3.reflect.FieldUtils;
-
-import java.lang.reflect.InvocationTargetException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Lifecycle hook to load the application config from file on startup
  */
 public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleHook {
+	private static final Logger logger = LogManager.getLogger(LoadConfigApplicationLifecycleHook.class);
+
 	private final Class applicationConfigClass;
 	private final String appName;
 	private final String applicationConfigFileName;
@@ -46,6 +47,7 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 				try {
 					applicationConfig = (IApplicationConfig) applicationConfigClass.getDeclaredConstructor().newInstance();
 				} catch (Exception e) {
+					logger.error(e);
 					throw new CoreException(e);
 				}
 			}

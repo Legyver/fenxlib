@@ -14,6 +14,8 @@ import com.legyver.utils.ruffles.SetByMethod;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -28,17 +30,21 @@ import java.util.Map;
  */
 @SuppressWarnings("unchecked")
 public class JsonConfigService<T extends ApplicationConfig> implements ConfigService<T> {
-
+	private static final Logger logger = LogManager.getLogger(JsonConfigService.class);
 	private Class<T> applicationConfigType;
 
 	@Override
 	public T loadConfig(String appName, String filename) throws CoreException {
 		return (T) new ExceptionToCoreExceptionActionDecorator<T>( () -> {
 			InputStream temp = IOServiceRegistry.getInstance().loadInputStream(appName, filename, true);
-			if (temp != null) {
+			if (temp == null) {
+				logger.warn("Config file not found: {}", filename);
+			} else {
 				try (InputStream inputStream = temp;
 					 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
+					logger.debug("Loading config file: {}", filename);
 					JsonConfig jsonConfig = JacksonObjectMapper.INSTANCE.readValue(bufferedInputStream, JsonConfig.class);
+					logger.debug("Config file [{}] loaded", filename);
 					return (T) adapt(jsonConfig);
 				}
 			}
@@ -51,15 +57,24 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 		JsonConfig jsonConfig = new JsonConfig();
 		for (Field field : FieldUtils.getFieldsWithAnnotation(applicationConfigType, ConfigPersisted.class)) {
 			try {
+				logger.debug("Persisting field: {} {} on class {}", field.getType(), field.getName(), field.getDeclaringClass());
 				ConfigSection configSection;
 				String getterName = "get" + StringUtils.capitalize(field.getName());
 				try {
+					logger.debug("Attempting to get value with getter: {}", getterName);
 					configSection = (ConfigSection) MethodUtils.invokeMethod(config, getterName);
 				} catch (NoSuchMethodException|InvocationTargetException exception) {
+					logger.debug("{} unsuccessful. Attempting to get value via reflection", getterName);
 					configSection = (ConfigSection) FieldUtils.readField(field, config, true);
 				}
-				if (configSection != null) {
+				if (configSection == null) {
+					logger.warn("Field [{}] has no data", field);
+				} else {
 					String configSectionAsString = JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(configSection);
+					if (logger.isDebugEnabled()) {
+						String logMe = JacksonObjectMapper.INSTANCE.writeValueAsString(configSection);
+						logger.debug("Config section data: {}", logMe);
+					}
 					Map<String, Object> configSectionAsMap = JacksonObjectMapper.INSTANCE.readValue(configSectionAsString, Map.class);
 
 					String configSectionName = configSection.getSectionName();
@@ -83,6 +98,10 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 			}
 		}
 		String json = JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(jsonConfig);
+		if (logger.isDebugEnabled()) {
+			String logMe = JacksonObjectMapper.INSTANCE.writeValueAsString(jsonConfig);
+			logger.debug("Full config: {}", logMe);
+		}
 		return IOServiceRegistry.getInstance().save(new StringContentWrapper(json), filename, true);
 	}
 
@@ -91,14 +110,27 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 		try {
 			config = applicationConfigType.getDeclaredConstructor().newInstance();
 			for (Field field : FieldUtils.getFieldsWithAnnotation(applicationConfigType, ConfigPersisted.class)) {
+				logger.debug("processing field: {} {} on class {}", field.getType(), field.getName(), field.getDeclaringClass());
 				ConfigSection configSection = (ConfigSection) field.getType().getDeclaredConstructor().newInstance();
+				logger.debug("ConfigSection instantiated: {}", configSection);
+
 				String sectionName = configSection.getSectionName();
+				logger.debug("Config section name: {}, version: {}", configSection.getSectionName(), configSection.getVersion());
 				JsonConfigService.JsonConfigSection value = jsonConfig.sections.get(sectionName);
-				if (value != null) {
+				if (value == null) {
+					logger.warn("Config section [{}] has no data", sectionName);
+				} else {
 					String version = value.getVersion();
+					logger.info("Persisted version: {}", version);
 					Map<String, Object> data = value.config;
+					if (logger.isDebugEnabled()) {
+						String sectionContent = JacksonObjectMapper.INSTANCE.writeValueAsString(data);
+						logger.debug("Section content: {}" ,sectionContent);
+					}
 					Object configSectionImpl = new JSONPathInputAdapter<>(field.getType()).adapt(version, data);
+					logger.debug("Successfully adapted to {}", configSectionImpl);
 					new SetByMethod(field).set(config, configSectionImpl);
+					logger.debug("Successfully set value [{}] on field: {}", configSectionImpl, field);
 				}
 			}
 			return config;

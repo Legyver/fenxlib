@@ -30,22 +30,37 @@ public class DiskFileIoService implements IOService {
 
     @Override
     public InputStream loadInputStream(String appName, String name, boolean relativeToApplicationHome) throws CoreException {
+        File file = getFile(appName, name, relativeToApplicationHome);
+        return new ExceptionToCoreExceptionActionDecorator<InputStream>(
+                () -> {
+                    if (file.exists()) {
+                        logger.info("Loading file: {}", file.toString());
+                        return FileUtils.openInputStream(file);
+                    } else {
+                        logger.warn("File not found: {}", file.toString());
+                        return null;
+                    }
+                }
+        ).execute();
+    }
+
+    private File getFile(String appName, String name, boolean relativeToApplicationHome) {
+        File file;
         if (relativeToApplicationHome) {
             ApplicationHome applicationHome = ApplicationContext.getApplicationHome();
             if (applicationHome == null) {
                 applicationHome = new ApplicationHome(appName);
                 ApplicationContext.setApplicationHome(applicationHome);
+                logger.info("Application Home initialized to {}", applicationHome.getAppHome().toString());
             }
             File appHomeDir = applicationHome.getAppHome();
             Path homeDirPath = appHomeDir.toPath();
             Path filePath = homeDirPath.resolve(name);
-            File file = filePath.toFile();
-
-            return new ExceptionToCoreExceptionActionDecorator<InputStream>(
-                    () -> file.exists() ? FileUtils.openInputStream(file) : null
-            ).execute();
+            file = filePath.toFile();
+        } else {
+            file = new File(name);
         }
-        return null;
+        return file;
     }
 
     @Override
