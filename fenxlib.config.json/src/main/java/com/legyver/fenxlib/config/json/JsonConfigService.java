@@ -7,6 +7,7 @@ import com.legyver.fenxlib.api.config.section.ConfigPersisted;
 import com.legyver.fenxlib.api.config.section.ConfigSection;
 import com.legyver.fenxlib.api.io.IOServiceRegistry;
 import com.legyver.fenxlib.api.io.content.StringContentWrapper;
+import com.legyver.fenxlib.api.logging.LazyLog;
 import com.legyver.utils.adaptex.ExceptionToCoreExceptionActionDecorator;
 import com.legyver.utils.jackiso.JacksonObjectMapper;
 import com.legyver.utils.jsonmigration.adapter.JSONPathInputAdapter;
@@ -14,8 +15,6 @@ import com.legyver.utils.ruffles.SetByMethod;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -30,7 +29,7 @@ import java.util.Map;
  */
 @SuppressWarnings("unchecked")
 public class JsonConfigService<T extends ApplicationConfig> implements ConfigService<T> {
-	private static final Logger logger = LogManager.getLogger(JsonConfigService.class);
+	private static final LazyLog logger = new LazyLog(JsonConfigService.class);
 	private Class<T> applicationConfigType;
 
 	@Override
@@ -38,7 +37,7 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 		return (T) new ExceptionToCoreExceptionActionDecorator<T>( () -> {
 			InputStream temp = IOServiceRegistry.getInstance().loadInputStream(appName, filename, true);
 			if (temp == null) {
-				logger.warn("Config file not found: {}", filename);
+				logger.warn("Config file not found: " + filename);
 			} else {
 				try (InputStream inputStream = temp;
 					 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
@@ -68,7 +67,7 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 					configSection = (ConfigSection) FieldUtils.readField(field, config, true);
 				}
 				if (configSection == null) {
-					logger.warn("Field [{}] has no data", field);
+					logger.warn("Field [" + field + "] has no data");
 				} else {
 					String configSectionAsString = JacksonObjectMapper.INSTANCE.writeValueAsStringWithPrettyPrint(configSection);
 					if (logger.isDebugEnabled()) {
@@ -118,10 +117,10 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 				logger.debug("Config section name: {}, version: {}", configSection.getSectionName(), configSection.getVersion());
 				JsonConfigService.JsonConfigSection value = jsonConfig.sections.get(sectionName);
 				if (value == null) {
-					logger.warn("Config section [{}] has no data", sectionName);
+					logger.warn("Config section [" + sectionName + "] has no data");
 				} else {
 					String version = value.getVersion();
-					logger.info("Persisted version: {}", version);
+					logger.info("Persisted version: " + version);
 					Map<String, Object> data = value.config;
 					if (logger.isDebugEnabled()) {
 						String sectionContent = JacksonObjectMapper.INSTANCE.writeValueAsString(data);

@@ -54,6 +54,8 @@ public class LazyLog {
 		}
 	}
 
+
+
 	/**
 	 * Log at level all
 	 * @param message the message
@@ -190,5 +192,34 @@ public class LazyLog {
 	 */
 	public void off(String message, Throwable t) {
 		log(Level.OFF, message, t);
+	}
+
+	/**
+	 * Check if a logger is enabled for a particular level.  If the application is not bootstrapped, this will return false
+	 * regardless of the logging level
+	 * @param level the level to check
+	 * @return true if the application is bootstrapped and the logger is set to log that level
+	 */
+	public boolean isEnabled(Level level) {
+		if (logger == null) {
+			return false;
+		}
+		return logger.isEnabled(level);
+	}
+
+	/**
+	 * Check if a logger is debug enabled.
+	 * @return true if the application is bootstrapped and the logger is set to log debug messages
+	 */
+	public boolean isDebugEnabled() {
+		return isEnabled(Level.DEBUG);
+	}
+
+	/**
+	 * Check if a logger is trace enabled.
+	 * @return true if the application is bootstrapped and the logger is set to log trace messages
+	 */
+	public boolean isTraceEnabled() {
+		return isEnabled(Level.TRACE);
 	}
 }
