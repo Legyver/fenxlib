@@ -14,12 +14,12 @@ import com.legyver.utils.jsonmigration.adapter.JSONPathInputAdapter;
 import com.legyver.utils.ruffles.SetByMethod;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,11 +57,14 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 		for (Field field : FieldUtils.getFieldsWithAnnotation(applicationConfigType, ConfigPersisted.class)) {
 			try {
 				logger.debug("Persisting field: {} {} on class {}", field.getType(), field.getName(), field.getDeclaringClass());
-				ConfigSection configSection;
+				ConfigSection configSection = null;
 				String getterName = "get" + StringUtils.capitalize(field.getName());
 				try {
 					logger.debug("Attempting to get value with getter: {}", getterName);
-					configSection = (ConfigSection) MethodUtils.invokeMethod(config, getterName);
+					Method publicGetterMethod = config.getClass().getMethod(getterName);
+					if (publicGetterMethod.canAccess(config)) {
+						configSection = (ConfigSection) publicGetterMethod.invoke(config);
+					}
 				} catch (NoSuchMethodException|InvocationTargetException exception) {
 					logger.debug("{} unsuccessful. Attempting to get value via reflection", getterName);
 					configSection = (ConfigSection) FieldUtils.readField(field, config, true);
