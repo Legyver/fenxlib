@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.widgets.about;
 
 import com.legyver.core.exception.CoreException;
-import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.controls.factory.StyleableFactory;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.utils.graphrunner.PropertyMap;
 import com.legyver.utils.propcross.PropertyGraph;
 import com.legyver.utils.propcross.SlelOperationContext;

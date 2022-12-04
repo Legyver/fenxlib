@@ -5,6 +5,7 @@ import com.legyver.fenxlib.api.Fenxlib;
 import com.legyver.fenxlib.api.alert.IAlert;
 import com.legyver.fenxlib.api.alert.Level;
 import com.legyver.fenxlib.api.config.ApplicationConfig;
+import com.legyver.fenxlib.api.config.VersionAdapter;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.context.ResourceScope;
 import com.legyver.fenxlib.api.icons.application.IconAliasMap;
@@ -19,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Options for the application
@@ -37,7 +39,9 @@ public class ApplicationOptions {
 	private final EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions;
 	private final List<String> appResourceBundles;
 
-	private ApplicationOptions(String applicationName, String applicationVersion, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, Class applicationConfigType, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions, List<String> appResourceBundles) {
+	private final Properties buildProperties;
+
+	private ApplicationOptions(String applicationName, String applicationVersion, IUiModel uiModel, boolean usesLogging, boolean usesAutoSaveConfig, String appConfigName, Class applicationConfigType, EnumMap<ResourceScope, List<URL>> stylesheetURLs, List<ApplicationLifecycleHook> hooksToRegister, IconAliasMap iconAliasMap, EnumMap<Level, IAlert.TargetRegion> alertLevelTargetRegions, List<String> appResourceBundles, Properties buildProperties) {
 		this.applicationName = applicationName;
 		this.applicationVersion = applicationVersion;
 		this.uiModel = uiModel;
@@ -50,6 +54,7 @@ public class ApplicationOptions {
 		this.iconAliasMap = iconAliasMap;
 		this.alertLevelTargetRegions = alertLevelTargetRegions;
 		this.appResourceBundles = appResourceBundles;
+		this.buildProperties = buildProperties;
 	}
 
 	/**
@@ -78,7 +83,14 @@ public class ApplicationOptions {
 	 */
 	protected void bootstrap() throws CoreException {
 		ApplicationContext.setUiModel(uiModel);
-		ApplicationContext.setApplicationVersion(applicationVersion);
+
+		String appVersion = applicationVersion;
+		if (appVersion == null) {
+			appVersion = buildProperties.getProperty("build.version");
+		}
+		String semver1Version = new VersionAdapter(appVersion).adaptSemver1();
+		ApplicationContext.setApplicationVersion(semver1Version);
+
 		LifecycleHookServiceRegistry.getInstance().loadLifecycleHooks(this);
 		executePhase(LifecyclePhase.BOOTSTRAP);
 	}
@@ -214,6 +226,10 @@ public class ApplicationOptions {
 		 * The application version
 		 */
 		protected String applicationVersion;
+		/**
+		 * Any build properties to process.
+		 */
+		protected Properties buildProperties;
 
 		/**
 		 * The application resource bundles to read
@@ -259,7 +275,8 @@ public class ApplicationOptions {
 			defaultUnspecified();
 			ApplicationOptions options = new ApplicationOptions(
 					appName,
-					applicationVersion, uiModel,
+					applicationVersion,
+					uiModel,
 					enableLogging,
 					autosaveConfig,
 					appConfigName,
@@ -268,7 +285,8 @@ public class ApplicationOptions {
 					hooksToRegister,
 					iconAliasMap,
 					alertLevelTargetRegions,
-					appResourceBundles
+					appResourceBundles,
+					buildProperties
 			);
 			options.bootstrap();
 			return options;
@@ -324,10 +342,21 @@ public class ApplicationOptions {
 		/**
 		 * Soecify the version of the application
 		 * @param applicationVersion the version of the application
-		 * @return the application version
+		 * @return this builder
 		 */
 		public B appVersion(String applicationVersion) {
 			return set(() -> this.applicationVersion = applicationVersion);
+		}
+
+		/**
+		 * Specify properties to read build data from.
+		 * Currently only the following values are supported
+		 * - "build.version" which gets used as the application version if that has not been manually specified
+		 * @param buildProperties properties to read build information from
+		 * @return this builder
+		 */
+		public B buildProperties(Properties buildProperties) {
+			return set(() -> this.buildProperties = buildProperties);
 		}
 
 		/**

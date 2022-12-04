@@ -71,6 +71,8 @@ module com.legyver.fenxlib.api {
     opens com.legyver.fenxlib.api.scene.layout.options to org.apache.commons.lang3;
     opens com.legyver.fenxlib.api.scene.text.options to org.apache.commons.lang3;
     opens com.legyver.fenxlib.api.scene.web.options to org.apache.commons.lang3;
+    //for reflection in config parts
+    opens com.legyver.fenxlib.api.config.parts to org.apache.commons.lang3;
 
     provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.api.i18n.ApplicationOptionsResourceBundleServiceImpl;
 

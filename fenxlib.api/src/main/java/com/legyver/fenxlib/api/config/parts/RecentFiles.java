@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class RecentFiles {
     private List<RecentFile> values = new ArrayList<>();
-    private int limit = 10;
+    private Integer limit = 10;
 
     /**
      * Add a recentFile reference
@@ -22,7 +22,7 @@ public class RecentFiles {
      * Get the limit
      * @return the limit
      */
-    public int getLimit() {
+    public Integer getLimit() {
         return limit;
     }
 
@@ -38,7 +38,7 @@ public class RecentFiles {
      * Set the limit for files to display
      * @param limit the limit
      */
-    public void setLimit(int limit) {
+    public void setLimit(Integer limit) {
         this.limit = limit;
     }
 

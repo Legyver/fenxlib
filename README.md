@@ -131,8 +131,7 @@ public class MyConfigSection implements ApplicationVersionedConfigSection {
   // Note: Don't override getVersion() if you want to use the Application version for your version.
   // The default implementation of getVersion() in ApplicationVersionedConfigSection
   // gets it from the application version
-  // Where it is either set in ApplicationOptions or read from your AboutPage info
-  // if you're using the fenxlib.about.widget
+  // Where it is set from the ApplicationOptions-specified version or property file
   // Note 2:  You can similarly not override getSectionName() if you're okay with using the application name
   // as set in ApplicationOptions as the name of your configuration.  This does mean that if you change
   // the name of your application, the configuration of previous versions will not be migrated

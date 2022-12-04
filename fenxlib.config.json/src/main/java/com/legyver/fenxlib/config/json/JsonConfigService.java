@@ -7,13 +7,14 @@ import com.legyver.fenxlib.api.config.section.ConfigPersisted;
 import com.legyver.fenxlib.api.config.section.ConfigSection;
 import com.legyver.fenxlib.api.io.IOServiceRegistry;
 import com.legyver.fenxlib.api.io.content.StringContentWrapper;
-import com.legyver.fenxlib.api.logging.LazyLog;
 import com.legyver.utils.adaptex.ExceptionToCoreExceptionActionDecorator;
 import com.legyver.utils.jackiso.JacksonObjectMapper;
 import com.legyver.utils.jsonmigration.adapter.JSONPathInputAdapter;
 import com.legyver.utils.ruffles.SetByMethod;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -29,7 +30,7 @@ import java.util.Map;
  */
 @SuppressWarnings("unchecked")
 public class JsonConfigService<T extends ApplicationConfig> implements ConfigService<T> {
-	private static final LazyLog logger = new LazyLog(JsonConfigService.class);
+	private static final Logger logger = LogManager.getLogger(JsonConfigService.class);
 	private Class<T> applicationConfigType;
 
 	@Override
@@ -91,8 +92,6 @@ public class JsonConfigService<T extends ApplicationConfig> implements ConfigSer
 					jsonConfigSection.sectionName = configSectionName;
 					jsonConfigSection.version = configSectionVersion;
 					jsonConfigSection.config = values;
-
-					jsonConfigSection.config.put(configSectionName, configSectionAsMap);
 					jsonConfig.sections.put(configSectionName, jsonConfigSection);
 				}
 			} catch (IllegalAccessException e) {
