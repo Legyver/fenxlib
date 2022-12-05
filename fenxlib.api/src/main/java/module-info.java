@@ -12,6 +12,7 @@ module com.legyver.fenxlib.api {
     requires javafx.graphics;
     requires com.legyver.core;
     requires com.legyver.utils.nippe;
+    requires com.legyver.utils.ruffles;
     requires javafx.controls;
     requires org.apache.logging.log4j;
     requires org.apache.commons.lang3;

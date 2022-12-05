@@ -22,8 +22,9 @@ module com.legyver.fenxlib.core {
     requires org.apache.commons.lang3;
 	requires com.legyver.utils.jackiso;
 	requires com.legyver.utils.mapqua;
+    requires com.legyver.utils.ruffles;
 
-	exports com.legyver.fenxlib.core.context;
+    exports com.legyver.fenxlib.core.context;
 	exports com.legyver.fenxlib.core.controls.factory;
 	exports com.legyver.fenxlib.core.controls.options;
 	exports com.legyver.fenxlib.core.controls.popup;

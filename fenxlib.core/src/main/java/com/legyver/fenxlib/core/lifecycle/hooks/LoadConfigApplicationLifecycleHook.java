@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.core.lifecycle.hooks;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.utils.ruffles.ClassInstantiator;
 import com.legyver.fenxlib.api.config.ConfigServiceRegistry;
 import com.legyver.fenxlib.api.config.IApplicationConfig;
 import com.legyver.fenxlib.api.context.ApplicationContext;
@@ -43,12 +44,7 @@ public class LoadConfigApplicationLifecycleHook implements ApplicationLifecycleH
 			ConfigServiceRegistry.getInstance().setConfigServiceInitializer(configService -> configService.init(applicationConfigClass));
 			IApplicationConfig applicationConfig = ConfigServiceRegistry.getInstance().loadConfig(appName, applicationConfigFileName);
 			if (applicationConfig == null) {
-				try {
-					applicationConfig = (IApplicationConfig) applicationConfigClass.getDeclaredConstructor().newInstance();
-				} catch (Exception e) {
-					logger.error("Error instantiating the application config", e);
-					throw new CoreException(e);
-				}
+				applicationConfig = (IApplicationConfig) new ClassInstantiator(applicationConfigClass).getNewInstance();
 			}
 			ApplicationContext.setApplicationConfig(applicationConfig);
 		};

@@ -7,6 +7,7 @@ dependencies {
     api group: 'com.legyver', name: 'core', version: legyverCoreVersion
     //not-null sugar
     api group: 'com.legyver', name:'utils.nippe', version: legyverUtilsVersion
+    api group: 'com.legyver', name:'utils.ruffles', version: legyverUtilsVersion
     //logging
     api group: 'org.apache.logging.log4j', name: 'log4j-api', version: commonsLogVersion
 
