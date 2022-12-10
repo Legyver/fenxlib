@@ -2,6 +2,7 @@ package com.legyver.fenxlib.widgets.filetree.factory;
 
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.controls.ControlsFactory;
 import com.legyver.fenxlib.api.icons.application.IconAliasMap;
 import com.legyver.fenxlib.api.controls.factory.StyleableFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
@@ -38,12 +39,14 @@ public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExp
      */
     @Override
     public SimpleFileExplorer makeNode(LocationContext locationContext, SimpleFileExplorerOptions options) throws CoreException {
-        ContextMenu areaContextMenu = options.getAreaContextMenuFactory().makeMenu(locationContext);
+        ContextMenu areaContextMenu = ControlsFactory.make(ContextMenu.class, locationContext, options.getAreaContextMenuOptions());
         LocationContext decoratedLocationContext = new LocationContextDecorator(locationContext);
         decoratedLocationContext.setName(options.getName());
 
         SimpleFileExplorer simpleFileExplorer = new SimpleFileExplorer(options.getFileTreeRegistry(), options.getFileWatchHandler(), areaContextMenu);
         ApplicationContext.getComponentRegistry().register(decoratedLocationContext, simpleFileExplorer);
+        options.getFileTreeRegistry().setFileExplorerLocation(decoratedLocationContext);
+
         return simpleFileExplorer;
     }
 

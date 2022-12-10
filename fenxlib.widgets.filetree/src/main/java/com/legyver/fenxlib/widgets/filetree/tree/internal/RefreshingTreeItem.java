@@ -14,7 +14,7 @@ public class RefreshingTreeItem extends FileTreeItem {
      * @param message the message to display
      */
     public RefreshingTreeItem(String message) {
-        super(i18n(message), null, null);
+        super(null, i18n(message), null, null);
     }
 
     /**

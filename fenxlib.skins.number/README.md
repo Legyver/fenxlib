@@ -4,5 +4,5 @@ Standalone skins for JavaFX text fields backed by an ObjectProperty<BigDecimal>
 - PercentageFieldSkin
 
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-beta.6'
+    implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-beta.7'
 ```

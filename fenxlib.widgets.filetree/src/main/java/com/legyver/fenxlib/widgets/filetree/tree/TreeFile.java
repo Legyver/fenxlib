@@ -6,6 +6,7 @@ import com.legyver.fenxlib.controls.icon.IconControl;
 import com.legyver.fenxlib.api.icons.options.IconOptions;
 import com.legyver.fenxlib.widgets.filetree.icons.TreeNodeType;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
+import javafx.scene.control.TreeView;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,29 +19,35 @@ public class TreeFile extends FileTreeItem {
 
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
-     * @param name the name to display on the TreeItem
-     * @param file the file to represent
+     *
+     * @param treeView
+     * @param name        the name to display on the TreeItem
      * @param controlIcon the control icon to use
+     * @param file        the file to represent
      */
-    public TreeFile(String name, IconControl controlIcon, FileReference file) {
-        super(name, controlIcon, file);
+    public TreeFile(TreeView treeView, String name, IconControl controlIcon, FileReference file) {
+        super(treeView, name, controlIcon, file);
     }
 
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
-     * @param file the file to represent
+     *
+     * @param treeView
+     * @param file        the file to represent
      * @param controlIcon the control icon to use
      */
-    public TreeFile(FileReference file, IconControl controlIcon) {
-        this(file.getFile().getName(), controlIcon, file);
+    public TreeFile(TreeView treeView, FileReference file, IconControl controlIcon) {
+        this(treeView, file.getFile().getName(), controlIcon, file);
     }
 
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
-     * @param file the file to represent
+     *
+     * @param treeView
+     * @param file     the file to represent
      */
-    public TreeFile(FileReference file) {
-        this(file, new IconControl());
+    public TreeFile(TreeView treeView, FileReference file) {
+        this(treeView, file, new IconControl());
         IconControl graphic = (IconControl) getGraphic();
         if (graphic != null) {
             IconAliasMap iconAliasMap = ApplicationContext.getIconAliasMap();

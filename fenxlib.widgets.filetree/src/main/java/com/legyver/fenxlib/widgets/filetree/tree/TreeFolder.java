@@ -9,6 +9,7 @@ import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.TreeView;
 import javafx.scene.paint.Paint;
 
 import java.util.Collection;
@@ -24,8 +25,8 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      */
     private final ObjectProperty<Paint> color = new SimpleObjectProperty<>();
 
-    private TreeFolder(String label, IconToggleControl graphic, IFileReference fileReference) {
-        super(label, graphic, fileReference);
+    private TreeFolder(TreeView treeView, String label, IconToggleControl graphic, IFileReference fileReference) {
+        super(treeView, label, graphic, fileReference);
         if (graphic != null) {
             IconAliasMap iconAliasMap = ApplicationContext.getIconAliasMap();
 
@@ -46,8 +47,8 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      * @param label the label for the tree folder
      * @param fileReference the filesystem folder reference
      */
-    public TreeFolder(String label, IFileReference fileReference) {
-        this(label, new IconToggleControl(), fileReference);
+    public TreeFolder(TreeView treeView, String label, IFileReference fileReference) {
+        this(treeView, label, new IconToggleControl(), fileReference);
     }
 
     /**
@@ -56,8 +57,8 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
      *
      * @param fileReference the filesystem folder reference
      */
-    public TreeFolder(FileReference fileReference) {
-        this(fileReference.getFile().getName(), fileReference);
+    public TreeFolder(TreeView treeView, FileReference fileReference) {
+        this(treeView, fileReference.getFile().getName(), fileReference);
     }
 
     /**

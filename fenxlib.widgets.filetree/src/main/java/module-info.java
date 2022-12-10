@@ -6,6 +6,7 @@ module com.legyver.fenxlib.widgets.filetree {
     requires javafx.controls;
 
     requires org.apache.commons.io;
+    requires org.apache.commons.lang3;
     requires org.apache.logging.log4j;
 
     requires com.legyver.core;

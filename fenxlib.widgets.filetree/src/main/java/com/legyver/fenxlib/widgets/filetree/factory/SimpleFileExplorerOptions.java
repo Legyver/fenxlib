@@ -2,7 +2,7 @@ package com.legyver.fenxlib.widgets.filetree.factory;
 
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
-import com.legyver.fenxlib.core.menu.factory.ContextMenuFactory;
+import com.legyver.fenxlib.api.scene.controls.options.ContextMenuOptions;
 import com.legyver.fenxlib.widgets.filetree.SimpleFileExplorer;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
@@ -27,7 +27,7 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
     /**
      * Factory to create the Context Menu to display when a blank area of the explorer is right-clicked
      */
-    private ContextMenuFactory areaContextMenuFactory;
+    private ContextMenuOptions areaContextMenuOptions;
 
     /**
      * Add a file watch handler
@@ -46,7 +46,7 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
      */
     public SimpleFileExplorerOptions fileTreeRegistry(FileTreeRegistry<FileReference> fileTreeRegistry) {
         this.fileTreeRegistry = fileTreeRegistry;
-        areaContextMenuFactory = new ContextMenuFactory("area");
+        areaContextMenuOptions = new ContextMenuOptions().name("area");
         return me();
     }
 
@@ -55,8 +55,8 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
      * @param areaContextMenuFactory the factory to use to produce context menus
      * @return this builder
      */
-    public SimpleFileExplorerOptions areaContextMenuFactory(ContextMenuFactory areaContextMenuFactory) {
-        this.areaContextMenuFactory = areaContextMenuFactory;
+    public SimpleFileExplorerOptions areaContextMenuFactory(ContextMenuOptions areaContextMenuFactory) {
+        this.areaContextMenuOptions = areaContextMenuFactory;
         return me();
     }
 
@@ -80,8 +80,8 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
      * Get the factory to produce context menus
      * @return the factory
      */
-    public ContextMenuFactory getAreaContextMenuFactory() {
-        return areaContextMenuFactory;
+    public ContextMenuOptions getAreaContextMenuOptions() {
+        return areaContextMenuOptions;
     }
 
 }

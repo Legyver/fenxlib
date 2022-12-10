@@ -1,6 +1,7 @@
 package com.legyver.fenxlib.widgets.filetree.tree;
 
 import com.legyver.fenxlib.api.i18n.ResourceBundleServiceRegistry;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.locator.IPropertyAware;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.search.BinarySearch;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,6 +45,11 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
     protected final INodeReference nodeReference;
 
     /**
+     * The tree this node is assigned to
+     */
+    protected TreeView treeView;
+
+    /**
      * Flag for this child to be removed from parent
      */
     protected boolean canBeRemoved;
@@ -51,13 +58,16 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
 
     /**
      * Construct a FileTreeItem with the provided label, graphic, and associated file reference
-     * @param label the label to display on the node
-     * @param graphic the graphic to display on the node
+     *
+     * @param treeView
+     * @param label         the label to display on the node
+     * @param graphic       the graphic to display on the node
      * @param nodeReference the file or other attribute the FileTreeItem represents
      */
     @SuppressWarnings("unchecked")
-    public FileTreeItem(String label, Node graphic, INodeReference nodeReference) {
+    public FileTreeItem(TreeView treeView, String label, Node graphic, INodeReference nodeReference) {
         super(label, graphic);
+        this.treeView = treeView;
         this.nodeReference = nodeReference;
         initChildRefresher();
         addFauxChild();
@@ -220,5 +230,8 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
         canBeRemoved = true;
     }
 
+    public TreeView getTreeView() {
+        return treeView;
+    }
 
 }

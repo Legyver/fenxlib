@@ -1,10 +1,8 @@
 package com.legyver.fenxlib.widgets.filetree.tree.internal;
 
-import com.legyver.fenxlib.widgets.filetree.factory.FileTreeRemoveEventHandlerFactory;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
 import com.legyver.fenxlib.widgets.filetree.tree.TreeFolder;
-import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -16,10 +14,11 @@ public class TreeRoot extends TreeFolder {
 
     /**
      * Construct a Tree root node that files/folders can be associated with
+     *
      * @param fileReference the pseudo-reference
      */
 	public TreeRoot(FileReference fileReference) {
-        super("", fileReference);
+        super(null, "", fileReference);
     }
 
     /**

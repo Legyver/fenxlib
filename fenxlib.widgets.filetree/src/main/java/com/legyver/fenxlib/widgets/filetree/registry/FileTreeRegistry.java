@@ -1,5 +1,6 @@
 package com.legyver.fenxlib.widgets.filetree.registry;
 
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import javafx.collections.FXCollections;
@@ -26,6 +27,8 @@ public class FileTreeRegistry<T extends INodeReference> {
     private final ObservableList<IFileReference> roots = FXCollections.observableArrayList();
 
     private final Map<String, T> fileMapByFilePath = new HashMap<>();
+
+    private LocationContext fileExplorerLocation;
 
     /**
      * Register a node with {@link #items}.
@@ -106,5 +109,26 @@ public class FileTreeRegistry<T extends INodeReference> {
      */
     public ObservableList<IFileReference> getRoots() {
         return roots;
+    }
+
+    /**
+     * Set the FileExplorer location
+     * @param fileExplorerLocation the location context of the FileExplorer
+     */
+    public void setFileExplorerLocation(LocationContext fileExplorerLocation) {
+        this.fileExplorerLocation = fileExplorerLocation;
+    }
+
+    /**
+     * Get the FileExplorer location.
+     * This is used to retrieve the TreeView associated with the registry when processing events.
+     *
+     * Not the {@link com.legyver.fenxlib.widgets.filetree.factory.SimpleFileExplorerFactory} sets this automatically.
+     * If not using the {@link com.legyver.fenxlib.widgets.filetree.factory.SimpleFileExplorerFactory}, then set it yourself
+     * using {@link #setFileExplorerLocation(LocationContext)}
+     * @return the file explorer location
+     */
+    public LocationContext getFileExplorerLocation() {
+        return fileExplorerLocation;
     }
 }

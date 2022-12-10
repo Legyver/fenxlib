@@ -1,7 +1,13 @@
 package com.legyver.fenxlib.widgets.filetree.factory;
 
+import com.legyver.core.exception.CoreException;
+import com.legyver.fenxlib.api.controls.ControlsFactory;
+import com.legyver.fenxlib.api.locator.LocationContext;
+import com.legyver.fenxlib.api.locator.query.ComponentQuery;
+import com.legyver.fenxlib.api.scene.controls.options.TextFieldOptions;
 import com.legyver.fenxlib.core.event.handlers.ShowContextMenuEventHandler;
 import com.legyver.fenxlib.core.event.handlers.ShowContextMenuOnRightClick;
+import com.legyver.fenxlib.widgets.filetree.BaseFileExplorer;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
@@ -11,8 +17,12 @@ import com.legyver.fenxlib.widgets.filetree.tree.TreeFolder;
 import com.legyver.fenxlib.widgets.filetree.tree.internal.TreeRoot;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -24,11 +34,15 @@ import java.util.List;
  * This is the main mechanism to customize and extend trees to non-filesystem things.
  */
 public class TreeItemChildFactory {
+    private static final Logger logger = LogManager.getLogger(TreeItemChildFactory.class);
+
     private final List<FileFilter> fileFilters = new ArrayList<>();
     /**
      * Factory to create the Context Menu to display when an item in the tree is selected
      */
     private final FileTreeItemContextMenuFactory fileTreeItemContextMenuFactory;
+
+    private TreeView treeView = null;
 
     /**
      * Construct a factory to create a tree item child
@@ -60,6 +74,16 @@ public class TreeItemChildFactory {
     public FileTreeItem makeNode(FileTreeRegistry fileTreeRegistry, FileTreeItem parentFileTreeItem, INodeReference nodeReference) {
         if (fileTreeRegistry != null) {
             this.fileTreeItemContextMenuFactory.setFileTreeRegistry(fileTreeRegistry);
+            if (treeView == null) {
+                try {
+                    LocationContext fileExplorerLocation = fileTreeRegistry.getFileExplorerLocation();
+                    treeView = (TreeView) new ComponentQuery.QueryBuilder()
+                            .fromLocation(fileExplorerLocation)
+                            .named(BaseFileExplorer.LOCATION_TREEVIEW).execute().get();
+                } catch (CoreException coreException) {
+                    logger.error(coreException);
+                }
+            }
         }
         FileTreeItem treeItem;
         if (nodeReference instanceof FileReference) {
@@ -128,19 +152,20 @@ public class TreeItemChildFactory {
      * @return the new tree folder
      */
     protected TreeFolder makeTreeFolder(FileTreeItem parentFileTreeItem, FileReference fileReference) {
-        TreeFolder treeFolder = new TreeFolder(fileReference);
+        TreeFolder treeFolder = new TreeFolder(treeView, fileReference);
         initializeContextMenuItemEnabledProperties(parentFileTreeItem, treeFolder);
         return treeFolder;
     }
 
     /**
      * Instantiate a tree file
+     *
      * @param parentFileTreeItem the parent node in the tree
-     * @param fileReference the file the tree item will represent
+     * @param fileReference      the file the tree item will represent
      * @return the new tree file
      */
     protected TreeFile makeTreeFile(FileTreeItem parentFileTreeItem, FileReference fileReference) {
-        TreeFile treeFile = new TreeFile(fileReference);
+        TreeFile treeFile = new TreeFile(treeView, fileReference);
         initializeContextMenuItemEnabledProperties(parentFileTreeItem, treeFile);
         return treeFile;
     }

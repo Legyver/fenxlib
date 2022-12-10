@@ -48,11 +48,13 @@ import java.util.stream.Collectors;
  * @param <U> type of the registry associated with the file explorer instance
  */
 public abstract class BaseFileExplorer<T extends INodeReference, U extends FileTreeRegistry<T>> extends Control {
+    public static final String LOCATION_TREEVIEW = "_TREEVIEW_";
     private static final Logger logger = LogManager.getLogger(BaseFileExplorer.class);
     /**
      * The root node in the tree all root folders will be children of
      */
     private final TreeRoot pseudoRoot;
+
     /**
      * A special case reference for the root node's association.
      * This is essentially to simplify how tree icons are associated with an {@link INodeReference}
@@ -194,7 +196,6 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
     protected Skin<?> createDefaultSkin() {
         return new FileExplorerSkin(this);
     }
-
 
     private static class PseudoReference extends FileReference {
 

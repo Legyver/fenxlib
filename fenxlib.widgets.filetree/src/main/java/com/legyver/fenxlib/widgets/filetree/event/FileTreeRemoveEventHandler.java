@@ -2,8 +2,15 @@ package com.legyver.fenxlib.widgets.filetree.event;
 
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.control.TreeView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * EventHandler to remove the selected item from the file tree
@@ -24,9 +31,22 @@ public class FileTreeRemoveEventHandler implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        fileTreeRegistry.remove(fileTreeItem.getUniqueIdentifier());
-        fileTreeItem.flagForRemoval();
-        FileTreeItem parent = (FileTreeItem) fileTreeItem.getParent();
-        parent.refresh();
+        TreeView treeView = fileTreeItem.getTreeView();
+        MultipleSelectionModel selectionModel = treeView.getSelectionModel();
+        @SuppressWarnings("unchecked")
+        ObservableList<FileTreeItem> selectedItems = selectionModel.getSelectedItems();
+
+        //parent instance uniqueness
+        Set<FileTreeItem> parents = new HashSet<>();
+        for (FileTreeItem selectedItem : selectedItems) {
+            fileTreeRegistry.remove(selectedItem.getUniqueIdentifier());
+            selectedItem.flagForRemoval();
+            FileTreeItem parent = (FileTreeItem) fileTreeItem.getParent();
+            parents.add(parent);
+        }
+        //delayed refresh so we don't double-dip on parents
+        for (FileTreeItem parent : parents) {
+            parent.refresh();
+        }
     }
 }

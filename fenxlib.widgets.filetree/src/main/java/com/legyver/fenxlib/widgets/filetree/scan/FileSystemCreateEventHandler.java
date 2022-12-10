@@ -7,6 +7,7 @@ import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
 import com.legyver.fenxlib.widgets.filetree.tree.internal.TreeRoot;
 import javafx.application.Platform;
+import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

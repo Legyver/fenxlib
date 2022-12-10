@@ -88,6 +88,7 @@ public class FileWatchHandler implements IFileWatchHandler {
             }
             fileTreeItemContextMenuFactory.setFileTreeRegistry(fileTreeRegistry);
             FileSystemCreateEventHandler createEventHandler = (FileSystemCreateEventHandler) handlerMap.get(FileWatcherEventConstants.ENTRY_CREATE_NAME);
+
             createEventHandler.setChildFactory(childFactory);
             return new FileWatchHandler(fileTreeRegistry, handlerMap);
         }

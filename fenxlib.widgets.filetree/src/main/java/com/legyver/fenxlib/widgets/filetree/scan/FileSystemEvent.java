@@ -24,8 +24,8 @@ public class FileSystemEvent {
     /**
      * Create a FileSystemEvent with the given parent and file references along with the original filesystem watch triggered
      * @param parentFileReference the parent file
-     * @param fileReference the changed/modified/deleted file/directory
-     * @param event the watch event triggered
+     * @param fileReference       the changed/modified/deleted file/directory
+     * @param event               the watch event triggered
      */
     public FileSystemEvent(IFileReference parentFileReference, IFileReference fileReference, WatchEvent<?> event) {
         this.parentFileReference = parentFileReference;

@@ -3,13 +3,13 @@ package com.legyver.fenxlib.widgets.filetree.task;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.IFileReference;
 import com.legyver.fenxlib.widgets.filetree.scan.FileSystemEvent;
-import com.legyver.fenxlib.widgets.filetree.scan.FileWatchHandler;
 import com.legyver.fenxlib.widgets.filetree.scan.IFileWatchHandler;
 import com.legyver.tuktukfx.adapter.AbortableTaskStatusAdapter;
 import com.legyver.tuktukfx.processor.TaskProcessor;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,6 +54,8 @@ public class FileSystemWatchTaskProcessor implements TaskProcessor<AbortableTask
     private final Semaphore trackedValuesCountingSemaphore = new Semaphore(0);
     //block when updating the internal maps
     private final Semaphore iterationMutex = new Semaphore(1);
+
+    private TreeView treeView;
 
     /**
      * Construct a task processor to process watches on the filesystem
@@ -296,6 +298,14 @@ public class FileSystemWatchTaskProcessor implements TaskProcessor<AbortableTask
         for (IFileReference fileReference : references) {
             logger.trace(message, fileReference.getUniqueIdentifier());
         }
+    }
+
+    public TreeView getTreeView() {
+        return treeView;
+    }
+
+    public void setTreeView(TreeView treeView) {
+        this.treeView = treeView;
     }
 
     private class WatchReference {

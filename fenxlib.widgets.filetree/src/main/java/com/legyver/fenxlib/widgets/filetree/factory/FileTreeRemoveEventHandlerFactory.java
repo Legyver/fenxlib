@@ -5,6 +5,8 @@ import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.MultipleSelectionModel;
+import org.apache.commons.lang3.function.TriFunction;
 
 import java.util.function.BiFunction;
 
