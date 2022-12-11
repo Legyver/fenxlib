@@ -23,6 +23,7 @@ public class TextAreaFactory implements NodeFactory<TextArea, TextAreaOptions> {
     @Override
     public TextArea makeNode(LocationContext locationContext, TextAreaOptions options) throws CoreException {
         TextArea textControl = makeTextArea();
+        textControl.setPromptText(options.getPromptText());
 
         ApplicationContext.getComponentRegistry().register(locationContext, textControl);
         if (options.getEditableProperty() != null) {

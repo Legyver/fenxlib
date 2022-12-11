@@ -4,14 +4,11 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.controls.ControlsFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.scene.controls.options.TreeViewOptions;
+import com.legyver.fenxlib.core.util.LocationContextOperator;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Map;
-
-import static com.legyver.fenxlib.api.locator.IComponentRegistry.LOCATION_CONTEXT_PROPERTY;
 
 /**
  * Skin for the {@link BaseFileExplorer}
@@ -28,8 +25,7 @@ public class FileExplorerSkin extends SkinBase<BaseFileExplorer> {
     public FileExplorerSkin(BaseFileExplorer fileExplorer) {
         super(fileExplorer);
         try {
-            Map<Object, Object> fileExplorerProperties = fileExplorer.getProperties();
-            LocationContext fileExplorerLocation = (LocationContext) fileExplorerProperties.get(LOCATION_CONTEXT_PROPERTY);
+            LocationContext fileExplorerLocation = new LocationContextOperator(fileExplorer).getLocationContext();
             TreeViewOptions treeViewOptions = fileExplorer.getTreeViewOptions();
             if (treeViewOptions.getName() == null) {
                 treeViewOptions.name(BaseFileExplorer.LOCATION_TREEVIEW);

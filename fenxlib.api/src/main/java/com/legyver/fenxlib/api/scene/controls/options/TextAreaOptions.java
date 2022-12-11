@@ -1,10 +1,7 @@
 package com.legyver.fenxlib.api.scene.controls.options;
 
 import com.legyver.fenxlib.api.controls.builder.*;
-import com.legyver.fenxlib.api.controls.builder.mixin.EditableOptionMixin;
-import com.legyver.fenxlib.api.controls.builder.mixin.EditablePropertyOptionMixin;
-import com.legyver.fenxlib.api.controls.builder.mixin.TextOptionMixin;
-import com.legyver.fenxlib.api.controls.builder.mixin.TextPropertyOptionMixin;
+import com.legyver.fenxlib.api.controls.builder.mixin.*;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
@@ -15,6 +12,7 @@ import javafx.scene.control.TextArea;
  */
 public class TextAreaOptions extends BaseControlBuilder<TextAreaOptions> implements StyleableControlOptions<TextArea>,
         TextOptionMixin<TextAreaOptions>,
+        PromptTextMixin<TextAreaOptions>,
         TextPropertyOptionMixin<TextAreaOptions>,
         EditableOptionMixin<TextAreaOptions>,
         EditablePropertyOptionMixin<TextAreaOptions> {
@@ -23,5 +21,6 @@ public class TextAreaOptions extends BaseControlBuilder<TextAreaOptions> impleme
     private StringProperty textProperty;
     private Boolean editable;
     private BooleanProperty editableProperty;
+    private String promptText;
 
 }

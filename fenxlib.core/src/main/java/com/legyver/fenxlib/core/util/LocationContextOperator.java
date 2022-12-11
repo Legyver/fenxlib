@@ -34,7 +34,7 @@ public class LocationContextOperator {
      * @param fallbackSimpleName the simple name to use if the control does not have a simple name already set on its property map.
      */
     public void reRegister(LocationContext parentContext, String fallbackSimpleName) {
-        LocationContext previouslyRegisteredAs = (LocationContext) propertyMap.get(LOCATION_CONTEXT_PROPERTY);
+        LocationContext previouslyRegisteredAs = getLocationContext();
         if (previouslyRegisteredAs != null) {
             Fenxlib.deregister(previouslyRegisteredAs);
         }
@@ -46,5 +46,13 @@ public class LocationContextOperator {
             regionLC = parentContext.decorateWith(fallbackSimpleName);
         }
         Fenxlib.register(regionLC, eventTarget);
+    }
+
+    /**
+     * Get the location context from the control
+     * @return the location context as extracted from its property map
+     */
+    public LocationContext getLocationContext() {
+        return (LocationContext) propertyMap.get(LOCATION_CONTEXT_PROPERTY);
     }
 }

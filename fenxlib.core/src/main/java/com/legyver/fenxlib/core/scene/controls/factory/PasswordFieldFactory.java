@@ -15,6 +15,7 @@ public class PasswordFieldFactory implements NodeFactory<PasswordField, Password
     @Override
     public PasswordField makeNode(LocationContext locationContext, PasswordFieldOptions options) throws CoreException {
         PasswordField passwordField = makePasswordField();
+        passwordField.setPromptText(options.getPromptText());
         Fenxlib.register(locationContext.decorateWith(options.getName()), passwordField);
         return passwordField;
     }

@@ -15,6 +15,7 @@ public class TextFieldFactory implements NodeFactory<TextField, TextFieldOptions
 	@Override
 	public TextField makeNode(LocationContext locationContext, TextFieldOptions options) throws CoreException {
 		TextField textControl = makeTextField();
+		textControl.setPromptText(options.getPromptText());
 
 		ApplicationContext.getComponentRegistry().register(locationContext, textControl);
 		if (options.getEditableProperty() != null) {

@@ -3,17 +3,19 @@ package com.legyver.fenxlib.core.menu.templates;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.controls.ControlsFactory;
 import com.legyver.fenxlib.api.locator.DefaultLocationContext;
-import com.legyver.fenxlib.api.locator.IComponentRegistry;
 import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.api.regions.ApplicationRegions;
 import com.legyver.fenxlib.api.scene.controls.options.MenuOptions;
 import com.legyver.fenxlib.core.menu.section.MenuSection;
-import com.legyver.fenxlib.core.util.PropertyMapExtractor;
+import com.legyver.fenxlib.core.util.LocationContextOperator;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Builder to create a menu
@@ -32,8 +34,7 @@ public class MenuBuilder {
         LocationContext menuContext = new DefaultLocationContext(ApplicationRegions.MENUS.getName());
         Menu menu = ControlsFactory.make(Menu.class, menuContext, new MenuOptions()
                 .text(name));
-        Map<Object, Object> menuProperties = new PropertyMapExtractor(menu).get();
-        LocationContext locationContext = (LocationContext) menuProperties.get(IComponentRegistry.LOCATION_CONTEXT_PROPERTY);
+        LocationContext locationContext = new LocationContextOperator(menu).getLocationContext();
         for (MenuSectionOptions menuSectionBuilder: sections) {
             List<MenuItem> menuItems = menuSectionBuilder.build(locationContext);
             menu.getItems().addAll(menuItems);

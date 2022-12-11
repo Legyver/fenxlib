@@ -19,3 +19,14 @@ legacyJavaModuleInfo {
     automaticModule('accessors-smart-2.4.7.jar', 'net.minidev.accessors')
 }
 ```
+
+**Note:**
+You will need to additionally either expose your config class to com.legyver.utils.ruffles, or org.apache.commons.lang3
+```java
+module example {
+    requires com.legyver.fenxlib.config.json;
+
+    exports com.legyver.selexml.app.config to com.fasterxml.jackson.databind, com.legyver.utils.ruffles;
+    opens com.legyver.selexml.app.config to com.legyver.fenxlib.config.json;
+}
+```
