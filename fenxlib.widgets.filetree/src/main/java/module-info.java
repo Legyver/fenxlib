@@ -24,6 +24,7 @@ module com.legyver.fenxlib.widgets.filetree {
     exports com.legyver.fenxlib.widgets.filetree.scan;
     exports com.legyver.fenxlib.widgets.filetree.task;
     exports com.legyver.fenxlib.widgets.filetree.tree;
+    exports com.legyver.fenxlib.widgets.filetree.utils;
 
     opens com.legyver.fenxlib.widgets.filetree.config to org.apache.commons.lang3;
 

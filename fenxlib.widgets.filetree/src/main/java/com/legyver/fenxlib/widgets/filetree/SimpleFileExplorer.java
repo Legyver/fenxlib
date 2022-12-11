@@ -1,9 +1,9 @@
 package com.legyver.fenxlib.widgets.filetree;
 
+import com.legyver.fenxlib.widgets.filetree.factory.SimpleFileExplorerOptions;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.nodes.INodeReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
-import com.legyver.fenxlib.widgets.filetree.scan.IFileWatchHandler;
 import javafx.scene.control.ContextMenu;
 
 /**
@@ -20,13 +20,12 @@ public class SimpleFileExplorer extends BaseFileExplorer<FileReference, FileTree
 
     /**
      * Construct a SimpleFileExplorer
-     * @param fileTreeRegistry the registry all files under this will be registered with
-     * @param fileWatchHandler the handler to handle any created/deleted/modified files
+     * @param simpleFileExplorerOptions options for constructing the FileExplorer
      * @param areaContextMenu the context menu to display on the explorer pane
      */
-    public SimpleFileExplorer(FileTreeRegistry<FileReference> fileTreeRegistry, IFileWatchHandler fileWatchHandler,
+    public SimpleFileExplorer(SimpleFileExplorerOptions simpleFileExplorerOptions,
                               ContextMenu areaContextMenu) {
-        super(fileTreeRegistry, fileWatchHandler, areaContextMenu);
+        super(simpleFileExplorerOptions.getFileTreeRegistry(), simpleFileExplorerOptions.getFileWatchHandler(), simpleFileExplorerOptions.getTreeViewOptions(), areaContextMenu);
     }
 
 }

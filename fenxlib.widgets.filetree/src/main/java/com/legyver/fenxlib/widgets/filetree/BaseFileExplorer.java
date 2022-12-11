@@ -7,6 +7,7 @@ import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.files.DefaultFileOptions;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.locator.IComponentRegistry;
+import com.legyver.fenxlib.api.scene.controls.options.TreeViewOptions;
 import com.legyver.fenxlib.core.util.GuidUtil;
 import com.legyver.fenxlib.extensions.tuktukfx.task.adapter.JavaFxAdapter;
 import com.legyver.fenxlib.extensions.tuktukfx.task.exec.TaskExecutor;
@@ -23,17 +24,13 @@ import com.legyver.fenxlib.widgets.filetree.scan.FileWatcherEventConstants;
 import com.legyver.fenxlib.widgets.filetree.scan.IFileWatchHandler;
 import com.legyver.fenxlib.widgets.filetree.task.FileSystemWatchTaskContext;
 import com.legyver.fenxlib.widgets.filetree.task.FileSystemWatchTaskFactory;
-import com.legyver.fenxlib.widgets.filetree.tree.TreeFolder;
 import com.legyver.fenxlib.widgets.filetree.tree.internal.TreeRoot;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,12 +45,19 @@ import java.util.stream.Collectors;
  * @param <U> type of the registry associated with the file explorer instance
  */
 public abstract class BaseFileExplorer<T extends INodeReference, U extends FileTreeRegistry<T>> extends Control {
+    /**
+     * The name of the tree view if not otherwise specified in the {@link #treeViewOptions}
+     */
     public static final String LOCATION_TREEVIEW = "_TREEVIEW_";
     private static final Logger logger = LogManager.getLogger(BaseFileExplorer.class);
     /**
      * The root node in the tree all root folders will be children of
      */
     private final TreeRoot pseudoRoot;
+    private final TreeViewOptions treeViewOptions;
+
+    //the tree view rendering the tree (set from the FileExplorerSkin)
+    private TreeView treeView;
 
     /**
      * A special case reference for the root node's association.
@@ -73,11 +77,13 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
      * - Adds a listener to the root files of the registry associated with this file explorer.
      * --  use the {@link FileTreeRegistry#addToRoot(INodeReference)} method when adding root-level folders.
      * - Creates a task to watch the filesystem and sync all changes in files/folders represented in this tree.
+     *
      * @param fileTreeRegistry the registry that all nodes associated with the explorer tree will be registered with
      * @param fileWatchHandler the handler that is notified whenever the node associated with a tree item is removed/added/renamed on the filesystem
-     * @param areaContextMenu the context menu displayed when clicking on blank area of explorer
+     * @param treeViewOptions the options for constructing the {@link TreeView}
+     * @param areaContextMenu  the context menu displayed when clicking on blank area of explorer
      */
-    protected BaseFileExplorer(U fileTreeRegistry, IFileWatchHandler fileWatchHandler, ContextMenu areaContextMenu) {
+    protected BaseFileExplorer(U fileTreeRegistry, IFileWatchHandler fileWatchHandler, TreeViewOptions treeViewOptions, ContextMenu areaContextMenu) {
         this.pseudoRootFileReference = new PseudoReference() {
             @Override
             public String getUniqueIdentifier() {
@@ -87,6 +93,8 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
             }
         };
         this.pseudoRoot = new TreeRoot(pseudoRootFileReference);
+        this.treeViewOptions = treeViewOptions;
+        treeViewOptions.root(pseudoRoot);
 
         FileSystemWatchTaskContext context = new FileSystemWatchTaskContext(fileTreeRegistry.getFiles(), fileWatchHandler);
 
@@ -147,13 +155,9 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
             }
             WorkingFileSet workingFileSet = fileTreeConfigSection.getWorkingFileSet();
 
-            ImportDirectoryConsumer importDirectoryConsumer = new ImportDirectoryConsumer((FileTreeRegistry<IFileReference>) fileTreeRegistry);
-            for (RecentFile fileReference : workingFileSet.getValues()) {
-                File file = new File(fileReference.getPath());
-                if (file.exists()) {
-                    importDirectoryConsumer.accept(new DefaultFileOptions(file, false));
-                }
-            }
+            //we don't have the FileTree until the FileExplorer is skinned
+            Platform.runLater(new InitialTreeLoader(fileTreeRegistry, workingFileSet));
+
             ApplicationContext.getApplicationLifecycleHookRegistry().registerHook(LifecyclePhase.PRE_SHUTDOWN, () -> {
                 workingFileSet.getValues().clear();
                 for (IFileReference fileReference : fileTreeRegistry.getRoots()) {
@@ -169,32 +173,56 @@ public abstract class BaseFileExplorer<T extends INodeReference, U extends FileT
     }
 
     /**
-     * Refresh the entire tree
+     * Get the tree view
+     * @return the tree view
      */
-    public void refresh() {
-        pseudoRoot.refresh();
+    public TreeView getTreeView() {
+        return treeView;
     }
 
     //below methods package-private because it should only be used by the Skin
-    TreeFolder getPseudoRoot() {
-        return pseudoRoot;
-    }
-
-    boolean isRefreshPulse() {
-        return refreshPulse.get();
-    }
-
     BooleanProperty refreshPulseProperty() {
         return refreshPulse;
     }
 
-    void setRefreshPulse(boolean refreshPulse) {
-        this.refreshPulse.set(refreshPulse);
+    void setTreeView(TreeView treeView) {
+        this.treeView = treeView;
     }
+
+    TreeViewOptions getTreeViewOptions() {
+        return treeViewOptions;
+    }
+
 
     @Override
     protected Skin<?> createDefaultSkin() {
         return new FileExplorerSkin(this);
+    }
+
+    private static class InitialTreeLoader implements Runnable {
+        private final FileTreeRegistry fileTreeRegistry;
+        private final WorkingFileSet workingFileSet;
+
+        private InitialTreeLoader(FileTreeRegistry fileTreeRegistry, WorkingFileSet workingFileSet) {
+            this.fileTreeRegistry = fileTreeRegistry;
+            this.workingFileSet = workingFileSet;
+        }
+
+        @Override
+        public void run() {
+            if (fileTreeRegistry.getFileExplorerLocation() == null) {
+                Platform.runLater(this);
+            } else {
+                @SuppressWarnings("unchecked")
+                ImportDirectoryConsumer importDirectoryConsumer = new ImportDirectoryConsumer((FileTreeRegistry<IFileReference>) fileTreeRegistry);
+                for (RecentFile fileReference : workingFileSet.getValues()) {
+                    File file = new File(fileReference.getPath());
+                    if (file.exists()) {
+                        importDirectoryConsumer.accept(new DefaultFileOptions(file, false));
+                    }
+                }
+            }
+        }
     }
 
     private static class PseudoReference extends FileReference {

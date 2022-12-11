@@ -17,6 +17,7 @@ public class TreeViewFactory implements NodeFactory<TreeView, TreeViewOptions> {
     public TreeView makeNode(LocationContext locationContext, TreeViewOptions options) throws CoreException {
         TreeView treeView = makeTreeView();
         treeView.setRoot(options.getRoot());
+        treeView.getSelectionModel().setSelectionMode(options.getSelectionMode());
         Fenxlib.register(locationContext.decorateWith(options.getName()), treeView);
         return treeView;
     }

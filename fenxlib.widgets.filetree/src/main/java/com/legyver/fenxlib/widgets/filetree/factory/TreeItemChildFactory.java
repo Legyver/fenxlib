@@ -15,6 +15,7 @@ import com.legyver.fenxlib.widgets.filetree.tree.FileTreeItem;
 import com.legyver.fenxlib.widgets.filetree.tree.TreeFile;
 import com.legyver.fenxlib.widgets.filetree.tree.TreeFolder;
 import com.legyver.fenxlib.widgets.filetree.tree.internal.TreeRoot;
+import com.legyver.fenxlib.widgets.filetree.utils.LocationUtils;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TextField;
@@ -28,6 +29,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Factory to create child nodes in the tree.
@@ -77,9 +79,7 @@ public class TreeItemChildFactory {
             if (treeView == null) {
                 try {
                     LocationContext fileExplorerLocation = fileTreeRegistry.getFileExplorerLocation();
-                    treeView = (TreeView) new ComponentQuery.QueryBuilder()
-                            .fromLocation(fileExplorerLocation)
-                            .named(BaseFileExplorer.LOCATION_TREEVIEW).execute().get();
+                    treeView = LocationUtils.findTreeViewForFileExplorer(fileExplorerLocation);
                 } catch (CoreException coreException) {
                     logger.error(coreException);
                 }

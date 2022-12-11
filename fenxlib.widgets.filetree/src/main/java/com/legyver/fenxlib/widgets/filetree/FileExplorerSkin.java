@@ -3,9 +3,7 @@ package com.legyver.fenxlib.widgets.filetree;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.controls.ControlsFactory;
 import com.legyver.fenxlib.api.locator.LocationContext;
-import com.legyver.fenxlib.api.locator.LocationContextDecorator;
 import com.legyver.fenxlib.api.scene.controls.options.TreeViewOptions;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
@@ -31,13 +29,14 @@ public class FileExplorerSkin extends SkinBase<BaseFileExplorer> {
         super(fileExplorer);
         try {
             Map<Object, Object> fileExplorerProperties = fileExplorer.getProperties();
-            LocationContext locationContext = (LocationContext) fileExplorerProperties.get(LOCATION_CONTEXT_PROPERTY);
-            LocationContext treeViewLocation = locationContext.decorateWith(BaseFileExplorer.LOCATION_TREEVIEW);
-            treeView = ControlsFactory.make(TreeView.class, treeViewLocation, new TreeViewOptions()
-                    .root(fileExplorer.getPseudoRoot())
-            );
+            LocationContext fileExplorerLocation = (LocationContext) fileExplorerProperties.get(LOCATION_CONTEXT_PROPERTY);
+            TreeViewOptions treeViewOptions = fileExplorer.getTreeViewOptions();
+            if (treeViewOptions.getName() == null) {
+                treeViewOptions.name(BaseFileExplorer.LOCATION_TREEVIEW);
+            }
+            treeView = ControlsFactory.make(TreeView.class, fileExplorerLocation, treeViewOptions);
             treeView.setShowRoot(false);
-
+            fileExplorer.setTreeView(treeView);
 
             fileExplorer.refreshPulseProperty().addListener((observable, oldValue, newValue) -> treeView.refresh());
             getChildren().add(treeView);

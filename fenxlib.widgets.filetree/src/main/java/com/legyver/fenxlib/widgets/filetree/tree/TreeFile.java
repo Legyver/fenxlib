@@ -20,7 +20,7 @@ public class TreeFile extends FileTreeItem {
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
      *
-     * @param treeView
+     * @param treeView the tree view the tree file belongs to
      * @param name        the name to display on the TreeItem
      * @param controlIcon the control icon to use
      * @param file        the file to represent
@@ -32,7 +32,7 @@ public class TreeFile extends FileTreeItem {
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
      *
-     * @param treeView
+     * @param treeView the tree view the tree file belongs to
      * @param file        the file to represent
      * @param controlIcon the control icon to use
      */
@@ -43,7 +43,7 @@ public class TreeFile extends FileTreeItem {
     /**
      * Construct a TreeFile to represent a filesystem file in the FileTree
      *
-     * @param treeView
+     * @param treeView the tree view the tree file belongs to
      * @param file     the file to represent
      */
     public TreeFile(TreeView treeView, FileReference file) {

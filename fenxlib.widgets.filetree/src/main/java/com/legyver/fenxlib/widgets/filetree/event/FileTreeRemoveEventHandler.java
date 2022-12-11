@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TreeView;
 
 import java.util.HashSet;

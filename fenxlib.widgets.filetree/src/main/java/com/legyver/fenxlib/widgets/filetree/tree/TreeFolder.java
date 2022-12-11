@@ -44,6 +44,7 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
 
     /**
      * Construct a TreeItem for a filesystem folder
+     * @param treeView  the tree view the tree file belongs to
      * @param label the label for the tree folder
      * @param fileReference the filesystem folder reference
      */
@@ -54,7 +55,7 @@ public class TreeFolder extends FileTreeItem<IFileReference> {
     /**
      * Construct a TreeItem for a filesystem folder.
      * Uses the file's simple name for the label.
-     *
+     * @param treeView the tree view the tree file belongs to
      * @param fileReference the filesystem folder reference
      */
     public TreeFolder(TreeView treeView, FileReference fileReference) {

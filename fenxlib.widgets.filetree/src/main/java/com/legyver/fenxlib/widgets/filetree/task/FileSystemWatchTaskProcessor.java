@@ -300,14 +300,6 @@ public class FileSystemWatchTaskProcessor implements TaskProcessor<AbortableTask
         }
     }
 
-    public TreeView getTreeView() {
-        return treeView;
-    }
-
-    public void setTreeView(TreeView treeView) {
-        this.treeView = treeView;
-    }
-
     private class WatchReference {
         private final WatchService watchService;
         private final IFileReference fileReference;

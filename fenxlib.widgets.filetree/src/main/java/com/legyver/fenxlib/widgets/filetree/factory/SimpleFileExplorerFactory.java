@@ -43,7 +43,7 @@ public class SimpleFileExplorerFactory implements StyleableFactory<SimpleFileExp
         LocationContext decoratedLocationContext = new LocationContextDecorator(locationContext);
         decoratedLocationContext.setName(options.getName());
 
-        SimpleFileExplorer simpleFileExplorer = new SimpleFileExplorer(options.getFileTreeRegistry(), options.getFileWatchHandler(), areaContextMenu);
+        SimpleFileExplorer simpleFileExplorer = new SimpleFileExplorer(options, areaContextMenu);
         ApplicationContext.getComponentRegistry().register(decoratedLocationContext, simpleFileExplorer);
         options.getFileTreeRegistry().setFileExplorerLocation(decoratedLocationContext);
 

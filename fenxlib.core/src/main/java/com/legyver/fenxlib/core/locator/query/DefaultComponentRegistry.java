@@ -14,7 +14,6 @@ import com.legyver.utils.nippe.Step;
 import javafx.collections.ObservableMap;
 import javafx.event.EventTarget;
 import javafx.scene.Node;
-import javafx.scene.control.MenuItem;
 
 import java.util.*;
 
@@ -67,35 +66,12 @@ public class DefaultComponentRegistry implements QueryableComponentRegistry {
 	}
 
 	/**
-	 * Register a node with a UUID
-	 * @param guid the uuid to use
-	 * @param node the node to register
-	 * @deprecated Use {@link #register(String, Node)} instead
-	 */
-	@Deprecated
-	public void register(UUID guid, Node node) {
-		nodes.put(guid.toString(), node);
-	}
-
-	/**
 	 * Register a node with a GUID
 	 * @param guid the uuid to use
 	 * @param node the node to register
 	 */
 	public void register(String guid, Node node) {
 		nodes.put(guid, node);
-	}
-
-	/**
-	 * Get the node registered under a UUID
-	 * @param guid the uuid to reference
-	 * @param <T> the type of the JavaFX Component
-	 * @return the node registered with the uuid
-	 * @deprecated Use {@link #get(String)} instead
-	 */
-	@Deprecated
-	public <T extends EventTarget>  T get(UUID guid) {
-		return (T) nodes.get(guid.toString());
 	}
 
 	/**

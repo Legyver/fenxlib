@@ -3,10 +3,14 @@ package com.legyver.fenxlib.widgets.filetree.factory;
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
 import com.legyver.fenxlib.api.scene.controls.options.ContextMenuOptions;
+import com.legyver.fenxlib.api.scene.controls.options.TreeViewOptions;
 import com.legyver.fenxlib.widgets.filetree.SimpleFileExplorer;
 import com.legyver.fenxlib.widgets.filetree.nodes.FileReference;
 import com.legyver.fenxlib.widgets.filetree.registry.FileTreeRegistry;
 import com.legyver.fenxlib.widgets.filetree.scan.FileWatchHandler;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SelectionModel;
 
 /**
  * Options for a file explorer specifying
@@ -28,6 +32,8 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
      * Factory to create the Context Menu to display when a blank area of the explorer is right-clicked
      */
     private ContextMenuOptions areaContextMenuOptions;
+
+    private TreeViewOptions treeViewOptions = new TreeViewOptions();
 
     /**
      * Add a file watch handler
@@ -61,6 +67,16 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
     }
 
     /**
+     * Specify options for the {@link javafx.scene.control.TreeView}
+     * @param treeViewOptions options for the tree view
+     * @return this builder
+     */
+    public SimpleFileExplorerOptions treeViewOptions(TreeViewOptions treeViewOptions) {
+        this.treeViewOptions = treeViewOptions;
+        return me();
+    }
+
+    /**
      * Get the file watch handler
      * @return the file watch handler
      */
@@ -84,4 +100,11 @@ public class SimpleFileExplorerOptions extends BaseControlBuilder<SimpleFileExpl
         return areaContextMenuOptions;
     }
 
+    /**
+     * Get the {@link TreeViewOptions} options.
+     * @return the TreeView options
+     */
+    public TreeViewOptions getTreeViewOptions() {
+        return treeViewOptions;
+    }
 }

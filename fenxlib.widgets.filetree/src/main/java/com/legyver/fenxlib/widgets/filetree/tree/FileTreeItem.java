@@ -59,7 +59,7 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
     /**
      * Construct a FileTreeItem with the provided label, graphic, and associated file reference
      *
-     * @param treeView
+     * @param treeView the tree view the tree file belongs to
      * @param label         the label to display on the node
      * @param graphic       the graphic to display on the node
      * @param nodeReference the file or other attribute the FileTreeItem represents
@@ -230,6 +230,10 @@ public abstract class FileTreeItem<T extends INodeReference> extends TreeItem im
         canBeRemoved = true;
     }
 
+    /**
+     * Get the tree view this FileTreeItem belongs to
+     * @return the parent tree view
+     */
     public TreeView getTreeView() {
         return treeView;
     }
