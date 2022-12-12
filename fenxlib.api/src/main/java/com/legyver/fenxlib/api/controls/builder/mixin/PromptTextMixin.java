@@ -26,6 +26,7 @@ public interface PromptTextMixin<T extends BaseControlBuilder> extends OptionMix
     /**
      * Set the prompt text
      * @param promptText the prompt text
+     * @return this builder
      */
     default T promptText(String promptText) {
         new ReflectionOperator(builder()).setValue("promptText", promptText);

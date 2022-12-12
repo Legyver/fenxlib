@@ -85,7 +85,7 @@ public class ApplicationOptions {
 		ApplicationContext.setUiModel(uiModel);
 
 		String appVersion = applicationVersion;
-		if (appVersion == null) {
+		if (appVersion == null && buildProperties != null) {
 			appVersion = buildProperties.getProperty("build.version");
 		}
 		String semver1Version = new VersionAdapter(appVersion).adaptSemver1();

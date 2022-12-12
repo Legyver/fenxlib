@@ -87,18 +87,18 @@ public class ResourceBundleServiceRegistry {
     }
 
     private String evaluateBundle(Locale locale, String propertyKey, String result, ResourceBundleService resourceBundleService, Object[] args) {
-            List<ResourceBundle> resourceBundles = resourceBundleService.getResourceBundles(locale);
-            if (resourceBundles != null) {
-                for (ResourceBundle resourceBundle : resourceBundles) {
-                    if (resourceBundle.containsKey(propertyKey)) {
-                        result = resourceBundle.getString(propertyKey);
-                        if (StringUtils.isNotEmpty(result)) {
-                            if (args != null && args.length > 0) {
-                                result = MessageFormat.format(result, args);
-                            }
-                            break;
+        List<ResourceBundle> resourceBundles = resourceBundleService.getResourceBundles(locale);
+        if (resourceBundles != null) {
+            for (ResourceBundle resourceBundle : resourceBundles) {
+                if (resourceBundle.containsKey(propertyKey)) {
+                    result = resourceBundle.getString(propertyKey);
+                    if (StringUtils.isNotEmpty(result)) {
+                        if (args != null && args.length > 0) {
+                            result = MessageFormat.format(result, args);
                         }
+                        break;
                     }
+                }
             }
         }
         return result;
