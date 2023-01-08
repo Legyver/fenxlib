@@ -19,10 +19,6 @@ test {
     useJUnitPlatform()
 }
 
-java {
-    modularity.inferModulePath = true
-}
-
 resourceBundleI18n {
     translationUrl = libreTranslateUrl
     targetLanguages = translateToLanguages
@@ -32,4 +28,13 @@ resourceBundleI18n {
 tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:unchecked'
     options.deprecation = true
+}
+
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/widgets/filetree/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.fenxlib'
+    ]
 }

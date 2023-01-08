@@ -16,6 +16,12 @@ test {
     useJUnit()
 }
 
-java {
-    modularity.inferModulePath = true
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/controls/icon/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.fenxlib',
+            'org.apache.logging.log4j'
+    ]
 }

@@ -12,13 +12,16 @@ dependencies {
     //file-based config
     api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
     api group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.19.0'
-
 }
 
-test {
-    useJUnitPlatform()
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/icons/standard/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.fenxlib',
+            'org.apache.commons.io',
+            'org.apache.commons.lang3',
+            'org.apache.logging.log4j'
+    ]
 }

@@ -1,3 +1,12 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            name = 'localPluginRepository'
+            url = 'C:/dev/local-plugin-repository'
+        }
+    }
+}
 rootProject.name = 'fenxlib'
 
 include 'fenxlib.api'

@@ -2,17 +2,10 @@
 ## Usage
 ### Dependency
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-beta.8'
+    implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-beta.9'
 ```
 ## Code
 ```java
- Supplier<StackPane> centerContentReference = () -> {
-    Optional<StackPane> center = new ComponentQuery.QueryBuilder()
-    .inRegion(BorderPaneInitializationOptions.REGION_CENTER)
-    .type(StackPane.class).execute();
-    return center.get();
-};
-
 AlertGeneratingForm alertGeneratingForm = new AlertGeneratingForm();
 alertGeneratingForm.valueProperty().addListener((observable, oldValue, newValue) -> {
     if (NumberUtils.isDigits(newValue)) {

@@ -1,5 +1,5 @@
 .about-page {
-    -fx-text-fill: rgba(0, 0, 0, 0.87);
+    -fx-text-fill: #060138;
 }
 
 .about-page > VBox {

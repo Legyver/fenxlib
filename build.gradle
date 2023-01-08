@@ -2,6 +2,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13' apply false
     id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'com.legyver.update-readme-version' version '1.0.0' apply false
+    id 'com.legyver.legyver-license-data' version '1.0.0' apply false
     id 'net.nemerosa.versioning' version '3.0.0' apply false
     id 'com.legyver.resource-bundle-i18n' version '1.0.2' apply false
     id 'fenxlib-copy-build-version' apply false
@@ -17,11 +18,12 @@ allprojects {
 }
 
 subprojects {
+    apply plugin: 'com.legyver.legyver-license-data'
 
     ext {
         //legyver dependencies
-        legyverCoreVersion = '2.0.0'
-        legyverUtilsVersion = '3.4.0'
+        legyverCoreVersion = '2.1.0'
+        legyverUtilsVersion = '3.4.1'
         //apache dependencies
         commonsLogVersion = '2.19.0'
         commonsIoVersion = '2.11.0'
@@ -29,7 +31,7 @@ subprojects {
         //JavaFX
         javaFxVersion ='17.0.2'
         //i18n
-        libreTranslateUrl = 'http://localhost:5000'
+        libreTranslateUrl = 'https://translate.argosopentech.com/'
         translateToLanguages = ['en', 'en_US', 'en_GB', "es", "de", "fr"]
         //publishing
         publishBuildScript = 'https://raw.githubusercontent.com/Legyver/common-build/1.7.1/publishLibraryModule.gradle' //java 9+ multi-module

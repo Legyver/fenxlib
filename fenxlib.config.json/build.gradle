@@ -11,3 +11,13 @@ dependencies {
     api group: 'commons-io', name: 'commons-io', version: commonsIoVersion
 }
 
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/config/json/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.utils',
+            'com.legyver.fenxlib',
+            'org.apache.commons.io'
+    ]
+}

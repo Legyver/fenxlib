@@ -1,7 +1,5 @@
 package com.legyver.fenxlib.widgets.license;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -69,7 +67,7 @@ public class LicensePropertyParser {
     private void processV1Value(Map<String, DependencyData> items, String propertyName, String propertyValue) {
         DependencyData dependencyData = items.computeIfAbsent(propertyName, x -> new DependencyData());
         dependencyData.setName(propertyName);
-        DependencyData.TextLink metadata = dependencyData.getCopyright(0);
+        DependencyData.TextLink metadata = dependencyData.getLicense(0);
         metadata.setText(propertyValue);
     }
 
@@ -77,7 +75,7 @@ public class LicensePropertyParser {
         String name = v1Link.group(2);
         String index = v1Link.group(5);
         DependencyData dependencyData = items.computeIfAbsent(name, x -> new DependencyData());
-        DependencyData.TextLink metadata = dependencyData.getCopyright(Integer.valueOf(index));
+        DependencyData.TextLink metadata = dependencyData.getLicense(Integer.valueOf(index));
         metadata.setLink(propertyValue);
     }
 
@@ -119,11 +117,8 @@ public class LicensePropertyParser {
             case "title":
                 metadata = dependencyData.getTitle(Integer.valueOf(index));
                 break;
-            case "disclaimer":
-                metadata =  dependencyData.getDisclaimer(Integer.valueOf(index));
-                break;
             case "copyright":
-                metadata = dependencyData.getCopyright(Integer.valueOf(index));
+                metadata = dependencyData.getLicense(Integer.valueOf(index));
                 break;
             case "change":
                 metadata = dependencyData.getChange(Integer.valueOf(index));

@@ -15,7 +15,6 @@ import static com.legyver.fenxlib.api.controls.utils.TextFactoryUtils.getText;
  */
 public class AboutDetailsSkin extends SkinBase<AboutDetails> {
 	private final StackPane buildStack;
-	private final StackPane openSourceTaglineStack;
 
 	/**
 	 * Construct a skin for the about details
@@ -36,20 +35,7 @@ public class AboutDetailsSkin extends SkinBase<AboutDetails> {
 		AboutBlurb aboutBlurb = new AboutBlurb(aboutDetails.getIntro(), aboutDetails.getGist(), aboutDetails.getAdditionalInfo());
 		vBox.getChildren().add(aboutBlurb);
 
-		openSourceTaglineStack = new StackPane();
-		openSourceTaglineStack.getStyleClass().add("open-source-tagline");
-		openSourceTaglineStack.getChildren().add(getPowerFlow(aboutDetails));
-		vBox.getChildren().add(openSourceTaglineStack);
-		
 		getChildren().add(vBox);
-	}
-
-	private TextFlow getPowerFlow(AboutDetails aboutDetails) {
-		String poweredByClause = aboutDetails.getOpenSourceTagLine();
-		Text textPoweredBy = getText(poweredByClause);
-		textPoweredBy.setId("powered-by");
-//		textPoweredBy.setStyle("-fx-font-style: italic");
-		return new TextFlow(textPoweredBy);
 	}
 
 	private TextFlow getBuildFlow(AboutDetails aboutDetails) {

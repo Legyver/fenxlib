@@ -23,14 +23,27 @@ public class AboutPageFactory implements StyleableFactory<AboutPage, AboutPageOp
 		String buildDate = (String) map.get("build.date");
 		String version = (String) map.get("build.version");
 		String copyright = (String) map.get("copyright");
+		String poweredByClause = (String) map.get("open.source.thankyou.message");
 
-		return new AboutPage(
-				aboutPageOptions.getIntro(),
-				aboutPageOptions.getGist(),
-				aboutPageOptions.getAdditionalInfo(),
-				version, buildDate, copyright,
-				aboutPageOptions.getLicenseProperties()
-		);
+		AboutPage aboutPage;
+		if (poweredByClause == null) {
+			aboutPage = new AboutPage(
+					aboutPageOptions.getIntro(),
+					aboutPageOptions.getGist(),
+					aboutPageOptions.getAdditionalInfo(),
+					version, buildDate, copyright,
+					aboutPageOptions.getLicenseProperties()
+			);
+		} else {
+			aboutPage = new AboutPage(
+					aboutPageOptions.getIntro(),
+					aboutPageOptions.getGist(),
+					aboutPageOptions.getAdditionalInfo(),
+					version, buildDate, copyright, poweredByClause,
+					aboutPageOptions.getLicenseProperties()
+			);
+		}
+		return aboutPage;
 	}
 
 	@Override

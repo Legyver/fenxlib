@@ -14,7 +14,7 @@ public class DependencyData {
     private final Map<Integer, TextLink> authors = new HashMap<>();
     private final Map<Integer, TextLink> titles = new HashMap<>();
     private final Map<Integer, TextLink> disclaimers = new HashMap<>();
-    private final Map<Integer, TextLink> copyrights = new HashMap<>();
+    private final Map<Integer, TextLink> licenses = new HashMap<>();
     private final Map<Integer, OrderedText> changes = new HashMap<>();
 
     /**
@@ -82,19 +82,11 @@ public class DependencyData {
     }
 
     /**
-     * Get the list of disclaimers
-     * @return the list of disclaimers
-     */
-    public List<TextLink> getDisclaimers() {
-        return sortedList(disclaimers);
-    }
-
-    /**
      * Get the copyrights
      * @return the copyrights
      */
-    public List<TextLink> getCopyrights() {
-        return sortedList(copyrights);
+    public List<TextLink> getLicenses() {
+        return sortedList(licenses);
     }
 
     private <T extends OrderedText> List<T> sortedList(Map<Integer, T> textLinkMap) {
@@ -137,23 +129,13 @@ public class DependencyData {
     }
 
     /**
-     * Get the disclaimer at the index.
-     * If there is no existing disclaimer one will be created for you and added to the collection.
+     * Get a particular license at an index.
+     * If there is no existing license at that index, one will be created for you and added to the collection.
      * @param index the index
-     * @return the existing or new disclaimer
+     * @return the existing or new license data
      */
-    public TextLink getDisclaimer(Integer index) {
-        return getOrDefault(index, disclaimers);
-    }
-
-    /**
-     * Get the author copyright the index.
-     * If there is no existing copyright one will be created for you and added to the collection.
-     * @param index the index
-     * @return the existing or new copyright
-     */
-    public TextLink getCopyright(Integer index) {
-        return getOrDefault(index, copyrights);
+    public TextLink getLicense(Integer index) {
+        return getOrDefault(index, licenses);
     }
 
     /**
@@ -275,7 +257,7 @@ public class DependencyData {
                     for (int i = 0; i < parts.length; i++) {
                         String part = parts[i];
                         int dest = i + orderedText.order;
-                        TextLink textLink = dependencyData.getCopyright(dest);
+                        TextLink textLink = dependencyData.getLicense(dest);
                         textLink.text = part;
                     }
                 } else {

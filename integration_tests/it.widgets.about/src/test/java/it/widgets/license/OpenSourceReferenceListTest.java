@@ -33,16 +33,16 @@ public class OpenSourceReferenceListTest extends FenxlibTest {
 
 	private void assertItem(DependencyData dependencyData, String library, String license, String licenseLink) {
 		assertThat(dependencyData.getName()).isEqualTo(library);
-		List<String> copyrightNames = dependencyData.getCopyrights().stream().map(textLink -> textLink.getText()).collect(Collectors.toList());
-		List<String> copyrightLinks = dependencyData.getCopyrights().stream().map(textLink -> textLink.getLink()).collect(Collectors.toList());
+		List<String> copyrightNames = dependencyData.getLicenses().stream().map(textLink -> textLink.getText()).collect(Collectors.toList());
+		List<String> copyrightLinks = dependencyData.getLicenses().stream().map(textLink -> textLink.getLink()).collect(Collectors.toList());
 		assertThat(copyrightNames).containsExactlyInAnyOrder(license);
 		assertThat(copyrightLinks).containsExactlyInAnyOrder(licenseLink);
 	}
 
 	private void assertItem(DependencyData dependencyData, String library, String license1, String license2, String licenseLink1, String licenseLInk2) {
 		assertThat(dependencyData.getName()).isEqualTo(library);
-		List<String> copyrightNames = dependencyData.getCopyrights().stream().map(textLink -> textLink.getText()).collect(Collectors.toList());
-		List<String> copyrightLinks = dependencyData.getCopyrights().stream().map(textLink -> textLink.getLink()).collect(Collectors.toList());
+		List<String> copyrightNames = dependencyData.getLicenses().stream().map(textLink -> textLink.getText()).collect(Collectors.toList());
+		List<String> copyrightLinks = dependencyData.getLicenses().stream().map(textLink -> textLink.getLink()).collect(Collectors.toList());
 
 		assertThat(copyrightNames).containsExactlyInAnyOrder(license1, license2);
 		assertThat(copyrightLinks).containsExactlyInAnyOrder(licenseLink1, licenseLInk2);

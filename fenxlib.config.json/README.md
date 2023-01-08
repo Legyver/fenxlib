@@ -1,7 +1,7 @@
 # fenxlib.config.json
 Support for JSON config files for fenxlib applications
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.config.json', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.config.json', version: '3.0.0-beta.9'
 ```
 
 **Note:** If your consuming application is modular, you will need to provide automatic modules for several legacy dependencies.

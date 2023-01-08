@@ -1,8 +1,8 @@
 package com.legyver.fenxlib.widgets.about;
 
+import com.legyver.core.license.LicenseServiceRegistry;
 import com.legyver.fenxlib.api.controls.builder.BaseControlBuilder;
 import com.legyver.fenxlib.api.controls.options.StyleableControlOptions;
-import com.legyver.fenxlib.widgets.license.service.LicenseServiceRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

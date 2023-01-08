@@ -28,12 +28,14 @@ public class OpenSourceReferenceListSkin extends SkinBase<OpenSourceReferenceLis
 		VBox list = new VBox();
 		list.setPadding(new Insets(10));
 		hBox.getChildren().add(list);
-		HBox.setHgrow(list, Priority.ALWAYS);
+		HBox.setHgrow(list, Priority.SOMETIMES);
 		LicensePortal licensePortal = new LicensePortal();
 		hBox.getChildren().add(licensePortal);
+		HBox.setHgrow(licensePortal, Priority.ALWAYS);
 
 		StackPane contentStack = new StackPane(hBox);
 		contentStack.getStyleClass().add("content");
+		contentStack.setId("license-data");
 
 		List<DependencyData> items = openSourceReferenceList.getItems();
 

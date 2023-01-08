@@ -14,7 +14,6 @@ public class AboutDetails extends Control {
 	private final String gist;
 	private final String additionalInfo;
 
-	private final String openSourceTagLine;
 
 	/**
 	 * Construct an AboutDetails widget
@@ -23,16 +22,14 @@ public class AboutDetails extends Control {
 	 * @param intro the first paragraph for the about section
 	 * @param gist the second paragraph for the about section
 	 * @param additionalInfo the third paragraph for the about section
-	 * @param openSourceTagLine the header to use (ex: 'Powered by open-source')
 	 */
-	public AboutDetails(String version, String buildDate, String intro, String gist, String additionalInfo, String openSourceTagLine) {
+	public AboutDetails(String version, String buildDate, String intro, String gist, String additionalInfo) {
 		this.version = version;
 		this.buildDate = buildDate;
 		this.intro = intro;
 		this.gist = gist;
 		this.additionalInfo = additionalInfo;
-		this.openSourceTagLine = openSourceTagLine;
-//		getStyleClass().add("about-details");
+		getStyleClass().add("about-details");
 	}
 
 	/**
@@ -75,18 +72,10 @@ public class AboutDetails extends Control {
 		return additionalInfo;
 	}
 
-	/**
-	 * Get the tagline to precede the open source library list
-	 * @return the tagline
-	 */
-	public String getOpenSourceTagLine() {
-		return openSourceTagLine;
+	@Override
+	public String getUserAgentStylesheet() {
+		return AboutDetails.class.getResource("aboutdetails.css").toExternalForm();
 	}
-//
-//	@Override
-//	public String getUserAgentStylesheet() {
-//		return AboutDetails.class.getResource("aboutdetails.css").toExternalForm();
-//	}
 
 	@Override
 	protected Skin<?> createDefaultSkin() {

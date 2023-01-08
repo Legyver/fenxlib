@@ -6,7 +6,7 @@ Standalone control for turning an icon into a control
 
 ## Usage
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.8'
+    implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.9'
 ```
 
 You will also need to provide an Icon font library.
@@ -19,8 +19,8 @@ Note: In the below example, the free IcoMoon IconFont provided by adding the fen
 **build.gradle**
 ```groovy
 dependencies {
-  implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.8'
-  implementation group: 'com.legyver', name: 'fenxlib.icons.standard', version: '3.0.0-beta.8'
+  implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.9'
+  implementation group: 'com.legyver', name: 'fenxlib.icons.standard', version: '3.0.0-beta.9'
 }
 ```
 

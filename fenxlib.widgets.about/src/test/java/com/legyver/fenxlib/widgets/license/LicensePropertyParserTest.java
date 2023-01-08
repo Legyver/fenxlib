@@ -34,11 +34,11 @@ public class LicensePropertyParserTest {
         assertThat(dependencyData.getTitle(0).getText()).isEqualTo("IcoMoon - Free");
         assertThat(dependencyData.getTitle(0).getLink()).isEqualTo("https://icomoon.io/#icons-icomoon");
 
-        assertThat(dependencyData.getCopyright(0).getText()).isEqualTo("GPL");
-        assertThat(dependencyData.getCopyright(0).getLink()).isEqualTo("http://www.gnu.org/licenses/gpl.html");
+        assertThat(dependencyData.getLicense(0).getText()).isEqualTo("GPL");
+        assertThat(dependencyData.getLicense(0).getLink()).isEqualTo("http://www.gnu.org/licenses/gpl.html");
 
-        assertThat(dependencyData.getCopyright(1).getText()).isEqualTo("CC BY 4.0");
-        assertThat(dependencyData.getCopyright(1).getLink()).isEqualTo("http://creativecommons.org/licenses/by/4.0/");
+        assertThat(dependencyData.getLicense(1).getText()).isEqualTo("CC BY 4.0");
+        assertThat(dependencyData.getLicense(1).getLink()).isEqualTo("http://creativecommons.org/licenses/by/4.0/");
     }
 
     @Test
@@ -69,22 +69,22 @@ public class LicensePropertyParserTest {
     private void assertIcoMoon(DependencyData dependencyData) {
         assertThat(dependencyData.getName()).isEqualTo("io.icomoon");
 
-        assertThat(dependencyData.getCopyright(0).getText()).isEqualTo("GPL");
-        assertThat(dependencyData.getCopyright(0).getLink()).isEqualTo("http://www.gnu.org/licenses/gpl.html");
+        assertThat(dependencyData.getLicense(0).getText()).isEqualTo("GPL");
+        assertThat(dependencyData.getLicense(0).getLink()).isEqualTo("http://www.gnu.org/licenses/gpl.html");
 
-        assertThat(dependencyData.getCopyright(1).getText()).isEqualTo("CC BY 4.0");
-        assertThat(dependencyData.getCopyright(1).getLink()).isEqualTo("http://creativecommons.org/licenses/by/4.0/");
+        assertThat(dependencyData.getLicense(1).getText()).isEqualTo("CC BY 4.0");
+        assertThat(dependencyData.getLicense(1).getLink()).isEqualTo("http://creativecommons.org/licenses/by/4.0/");
     }
 
     private void assertLegyverUtils(DependencyData dependencyData) {
         assertThat(dependencyData.getName()).isEqualTo("com.legyver.utils");
-        assertThat(dependencyData.getCopyright(0).getText()).isEqualTo("Apache License 2.0");
-        assertThat(dependencyData.getCopyright(0).getLink()).isEqualTo("https://github.com/Legyver/utils/blob/master/LICENSE");
+        assertThat(dependencyData.getLicense(0).getText()).isEqualTo("Apache License 2.0");
+        assertThat(dependencyData.getLicense(0).getLink()).isEqualTo("https://github.com/Legyver/utils/blob/master/LICENSE");
     }
 
     private void assertCommonsLang(DependencyData dependencyData) {
         assertThat(dependencyData.getName()).isEqualTo("commons-lang3");
-        assertThat(dependencyData.getCopyright(0).getText()).isEqualTo("Apache License 2.0");
-        assertThat(dependencyData.getCopyright(0).getLink()).isEqualTo("https://github.com/apache/commons-lang/blob/master/LICENSE.txt");
+        assertThat(dependencyData.getLicense(0).getText()).isEqualTo("Apache License 2.0");
+        assertThat(dependencyData.getLicense(0).getLink()).isEqualTo("https://github.com/apache/commons-lang/blob/master/LICENSE.txt");
     }
 }

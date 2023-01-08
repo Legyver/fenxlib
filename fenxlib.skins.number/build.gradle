@@ -19,11 +19,16 @@ test {
     useJUnitPlatform()
 }
 
-java {
-    modularity.inferModulePath = true
-}
-
 tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:unchecked'
     options.deprecation = true
+}
+
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/skins/number/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.fenxlib'
+    ]
 }

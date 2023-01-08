@@ -2,7 +2,7 @@
 ## Usage
 ### Dependency
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-beta.8'
+    implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-beta.9'
 ```
 ## Code
 ```java

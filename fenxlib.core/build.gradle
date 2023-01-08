@@ -39,3 +39,16 @@ resourceBundleI18n {
     targetLanguages = translateToLanguages
     bundleName = 'com.legyver.fenxlib.core.i18n.legyver-defaults'
 }
+
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/core/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.utils',
+            'com.legyver.fenxlib',
+            'org.apache.commons.io',
+            'org.apache.commons.lang3',
+            'org.apache.logging.log4j'
+    ]
+}

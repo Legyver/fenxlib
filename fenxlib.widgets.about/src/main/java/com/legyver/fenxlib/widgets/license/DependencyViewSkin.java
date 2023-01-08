@@ -3,16 +3,17 @@ package com.legyver.fenxlib.widgets.license;
 import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.controls.ControlsFactory;
 import com.legyver.fenxlib.api.scene.controls.options.LabelOptions;
-import com.legyver.fenxlib.api.scene.controls.options.TextAreaOptions;
+import com.legyver.fenxlib.api.scene.text.options.TextOptions;
 import com.legyver.fenxlib.core.web.DesktopWeblink;
 import javafx.geometry.HPos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -67,15 +68,9 @@ public class DependencyViewSkin extends SkinBase<DependencyView> {
             }
             rowCursor += titles.size();
 
-            List<DependencyData.TextLink> disclaimers = dependencyData.getDisclaimers();
-            if (!disclaimers.isEmpty()) {
-                layoutListSpan(disclaimers, "legyver.defaults.label.about.opensource.disclaimers", ++rowCursor);
-            }
-            rowCursor += disclaimers.size();
-
-            List<DependencyData.TextLink> copyrights = dependencyData.getCopyrights();
+            List<DependencyData.TextLink> copyrights = dependencyData.getLicenses();
             if (!copyrights.isEmpty()) {
-                layoutListSpan(copyrights, "legyver.defaults.label.about.opensource.copyrights", ++rowCursor);
+                layoutListSpan(copyrights, "legyver.defaults.label.about.opensource.license", ++rowCursor);
             }
             rowCursor += copyrights.size();
 
@@ -86,11 +81,12 @@ public class DependencyViewSkin extends SkinBase<DependencyView> {
                 gridPane.add(label, 0, ++rowCursor, 2, 1);
 
                 for (DependencyData.OrderedText orderedText : changes) {
-                    TextArea textArea = ControlsFactory.make(TextArea.class, new TextAreaOptions()
+                    TextFlow flow = ControlsFactory.make(TextFlow.class);
+                    Text change = ControlsFactory.make(Text.class, new TextOptions()
                             .text(orderedText.getText())
-                            .editable(false)
                     );
-                    gridPane.add(textArea, 1, ++rowCursor);
+                    flow.getChildren().add(change);
+                    gridPane.add(flow, 1, rowCursor++);
                 }
             }
         } catch (CoreException coreException) {
@@ -112,6 +108,7 @@ public class DependencyViewSkin extends SkinBase<DependencyView> {
         int offset = 0;
         for (DependencyData.TextLink data : values) {
             Hyperlink link = new DesktopWeblink(data.getText(), data.getLink());
+            link.getStyleClass().add("license-link");
             gridPane.add(link, 1, start + offset);
             offset++;
         }

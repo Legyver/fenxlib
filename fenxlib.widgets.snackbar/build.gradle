@@ -5,22 +5,17 @@ apply from: publishBuildScript
 dependencies {
     //exception
     api project(':fenxlib.core')
-
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
-    testImplementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-java {
-    modularity.inferModulePath = true
 }
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:unchecked'
     options.deprecation = true
+}
+
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/widgets/snackbar/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.fenxlib'
+    ]
 }

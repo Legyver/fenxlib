@@ -7,3 +7,11 @@ dependencies {
     api group: 'io.github.palexdev', name: 'materialfx', version: '11.13.5'
 }
 
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/extensions/materialfx/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'MaterialFX'
+    ]
+}

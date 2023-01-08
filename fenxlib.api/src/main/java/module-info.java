@@ -76,6 +76,7 @@ module com.legyver.fenxlib.api {
     opens com.legyver.fenxlib.api.config.parts to org.apache.commons.lang3;
 
     provides com.legyver.fenxlib.api.i18n.ResourceBundleService with com.legyver.fenxlib.api.i18n.ApplicationOptionsResourceBundleServiceImpl;
+    provides com.legyver.core.license.LicenseService with com.legyver.fenxlib.api.license.LicenseServiceImpl;
 
     uses AlertService;
     uses IOService;

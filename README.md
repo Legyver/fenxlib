@@ -10,8 +10,10 @@ The roots of this library are in the intersection of two ideas:
 
 ```java
 public class MyForm {
+  
     @TextField
     String name;
+  
     @SelectField({
             "Red",
             "Green",
@@ -23,7 +25,7 @@ public class MyForm {
 
 The first take on this idea can be seen over on [fenxui](https://github.com/fenxui).  That however ran into problems with complexity.  As more and more functionality was added in, the more unmanageable it became.
 
-The idea became to develop the wiring first.  This functionality could possibly be able to be leveraged in a new generation of the fenxui framework, thus the name fenx(ui)lib
+The idea became to develop the wiring first.  This functionality could possibly be able to be leveraged in a new generation of the fenxui framework, thus the name ***fenx***(ui)***lib***
 
 The key factor in the growing complexity was enabling various widgets to be able to retrieve the values of other widgets not necessarily in the same form.
 In Fenxlib, the factories register the constructed controls with a registry.  These can then be queried
@@ -34,7 +36,7 @@ Since version 2.0.0.0, this library has been made module-friendly, and hence the
 The main functionality of this library is in the fenxlib.core module.
 
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.core', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.core', version: '3.0.0-beta.9'
 ```
 
 There are several extensions, widgets and skins available as well as independent dependencies
@@ -57,11 +59,11 @@ Label label = ControlsFactory.make(Label.class, headerLocation, new LabelOptions
         .name("currentUser"));
 hbox.getChildren().add(label);
 ```
-Constructing a control via ControlsFactory accomplishes two things
+Constructing a control via ControlsFactory accomplishes several things
 - Automatically registers the component with the component registry
+- i18n translation of text/labels when using resource keys
 - Allows for NodeInstantiationServices to be swapped out.  For example, we ship pure JavaFX controls by default. However, you can add the materialfx extension to have MaterialFX widgets used instead without having to change your code*.
-
-(*) for controls that are one-to-one substitutions. This is not always possible as some MaterialFX controls do not extend the pure JavaFX class, or implement its interface.  
+  - (*) for controls that are one-to-one substitutions. This is not always possible as some MaterialFX controls do not extend the pure JavaFX class, or implement its interface.  
 
 ### Querying controls
 Controls can be queried using the location and name/type of the control
@@ -205,6 +207,25 @@ Alerts are fired by calling various level methods on ApplicationContext
 
 These then hand them off to the AlertService implementation
 
+```java
+public class MyApplication extends Application {
+  //..
+  private AlertGeneratingForm alertGeneratingForm() {
+    AlertGeneratingForm alertGeneratingForm = new AlertGeneratingForm();
+    alertGeneratingForm.valueProperty().addListener((observable, oldValue, newValue) -> {
+      if (NumberUtils.isDigits(newValue)) {
+        ApplicationContext.infoAlert(new AlertTextContent("fenxlib.demo.ok.message", newValue), 1000L);//timeout of 1 second
+      } else if (NumberUtils.isParsable(newValue)) {
+        ApplicationContext.warningAlert(new AlertTextContent("fenxlib.demo.warning.message", newValue), 2000L);//timeout of two seconds
+      } else {
+        ApplicationContext.errorAlert(new AlertTextContent("fenxlib.demo.error.message", newValue));//no timeout.  User must manually dismiss error
+      }
+    });
+    return alertGeneratingForm;
+  }
+}
+```
+
 The [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar) extension provides an AlertService implementation, displaying alerts over the specified region of the screen.
 
 You can also provide your own AlertService to handle this.
@@ -278,12 +299,12 @@ public class Data3 {
 - [fenxlib.extensions.materialfx](fenxlib.extensions.materialfx/README.MD)
     - an extension for MaterialFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.materialfx', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.materialfx', version: '3.0.0-beta.9'
 ```
 - [fenxlib.extensions.tuktukfx](fenxlib.extensions.tuktukfx/README.MD)
     - an extension for TukTukFx support
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.extensions.tuktukfx', version: '3.0.0-beta.9'
 ```
 
 ### Widgets
@@ -293,22 +314,17 @@ All widgets are combinations of widgets created via the fenxlib.factories.api, s
   - an "About Page" widget that pre-populates license information upstream of any Legyver library
   - additional license information can also be added via a properties file
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.0-beta.8'
-```
-- [fenxlib.widgets.blade](fenxlib.widgets.blade/README.md)
-  - a pre-made form that lays out form-fields on a grid
-```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.blade', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.0-beta.9'
 ```
 - [fenxlib.widgets.filetree](fenxlib.widgets.filetree/README.md)
   - a pre-made, customizable and extendable file explorer that monitors the filesystem for file operations on added files/folders.
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.filetree', version: '3.0.0-beta.9'
 ```
 - [fenxlib.widgets.snackbar](fenxlib.widgets.snackbar/README.md)
   - a notification widget that displays info/warning/error notifications in a snackbar
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: '3.0.0-beta.9'
 ```
 ### Skins
 - [fenxlib.skins.number](fenxlib.skins.number/README.MD)
@@ -316,14 +332,14 @@ implementation group: 'com.legyver', name: 'fenxlib.widgets.snackbar', version: 
     - currency
     - percentages
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.skins.number', version: '3.0.0-beta.9'
 ```
 
 ### Controls
 - [fenxlib.controls.icon](fenxlib.controls.icon/README.md)
   - Control that attaches an action to an icon
 ```gradle
-implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.8'
+implementation group: 'com.legyver', name: 'fenxlib.controls.icon', version: '3.0.0-beta.9'
 ```
 
 ## Samples

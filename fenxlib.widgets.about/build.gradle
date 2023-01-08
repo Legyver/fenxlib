@@ -24,12 +24,19 @@ test {
     useJUnitPlatform()
 }
 
-java {
-    modularity.inferModulePath = true
-}
-
 resourceBundleI18n {
     translationUrl = libreTranslateUrl
     targetLanguages = translateToLanguages
     bundleName = 'com.legyver.fenxlib.widgets.about.i18n.legyver-defaults'
+}
+
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/widgets/license/service/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.utils',
+            'com.legyver.fenxlib',
+            'org.apache.commons.lang3',
+    ]
 }

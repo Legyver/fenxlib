@@ -1,17 +1,17 @@
 package com.legyver.fenxlib.widgets.about;
 
-import com.legyver.fenxlib.widgets.license.OpenSourceReferenceList;
 import javafx.scene.control.SkinBase;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
  * Skin for an AboutPage
  */
 public class AboutPageSkin extends SkinBase<AboutPage> {
-	private final StackPane aboutDetailStack;
-	private final StackPane referenceListStack;
-	private final StackPane copyrightStack;
+	private final AboutDetails aboutDetails;
+	private final OpenSourceAcknowledgements openSourceAcknowledgements;
+	private final CopyrightNotice copyrightNotice;
+
+	private final VBox layout;
 
 	/**
 	 * Construct a skin for the about page
@@ -19,19 +19,12 @@ public class AboutPageSkin extends SkinBase<AboutPage> {
 	 */
 	public AboutPageSkin(AboutPage aboutPage) {
 		super(aboutPage);
-		aboutDetailStack = new StackPane();
-		aboutDetailStack.getStyleClass().add("about-detail");
-		referenceListStack = new StackPane();
-		referenceListStack.getStyleClass().add("reference-list");
-		copyrightStack = new StackPane();
-		copyrightStack.getStyleClass().add("copyright");
 
-		VBox layout = new VBox();
-		layout.getChildren().addAll(aboutDetailStack, referenceListStack, copyrightStack);
+		aboutDetails = new AboutDetails(aboutPage.getVersion(), aboutPage.getBuildDate(), aboutPage.getIntro(), aboutPage.getGist(), aboutPage.getAdditionalInfo());
+		openSourceAcknowledgements = new OpenSourceAcknowledgements(aboutPage.getOpenSourceTagLine(), aboutPage.getLicenseProperties());
+		copyrightNotice = new CopyrightNotice(aboutPage.getCopyright());
 
-		aboutDetailStack.getChildren().add(new AboutDetails(aboutPage.getVersion(), aboutPage.getBuildDate(), aboutPage.getIntro(), aboutPage.getGist(), aboutPage.getAdditionalInfo(), aboutPage.getOpenSourceTagLine()));
-		referenceListStack.getChildren().add(new OpenSourceReferenceList(aboutPage.getLicenseProperties()));
-		copyrightStack.getChildren().add(new CopyrightNotice(aboutPage.getCopyright()));
+		layout = new VBox(aboutDetails, openSourceAcknowledgements, copyrightNotice);
 		getChildren().setAll(layout);
 	}
 

@@ -21,3 +21,14 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+legyverLicenseData {
+    targetFile = 'com/legyver/fenxlib/api/license/license.properties'
+    //below must be globally-unique module names to avoid conflicts
+    applyV2LicenseDataForModules = [
+            'com.legyver.core',
+            'com.legyver.utils',
+            'org.apache.logging.log4j',
+            'org.apache.commons.lang3'
+    ]
+}
