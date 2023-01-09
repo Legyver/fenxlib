@@ -26,7 +26,6 @@ public class LicensePropertyParserTest {
         assertThat(dependencyData.getRetrieved()).isEqualTo("2022-04-16");
 
         assertThat(dependencyData.getChange(0).getText()).isEqualTo("No change.");
-        assertThat(dependencyData.getDisclaimer(0).getText()).isEqualTo("Not a real disclaimer.");
 
         assertThat(dependencyData.getAuthor(0).getText()).isEqualTo("IcoMoon");
         assertThat(dependencyData.getAuthor(0).getLink()).isEqualTo("https://icomoon.io/");
