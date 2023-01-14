@@ -2,7 +2,7 @@
 Standard icon font for the fenxlib library.  This is based on IcoMoon
 ## Usage
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.icons.standard', version: '3.0.0'
+    implementation group: 'com.legyver', name: 'fenxlib.icons.standard', version: '3.0.1'
 ```
 
 ## Example

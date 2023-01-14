@@ -3,7 +3,7 @@ The core implementation of the fenxlib library
 
 ## Usage
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.core', version: '3.0.0'
+    implementation group: 'com.legyver', name: 'fenxlib.core', version: '3.0.1'
 ```
 
 ## Example
