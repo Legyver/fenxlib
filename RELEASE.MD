@@ -1,4 +1,9 @@
 # Releases
+## 3.0.1
+### Bug fixes
+- fenxlib.core
+  - Bug: Calling File > Exit should shut down the application gracefully when using a shutdown delay.
+
 ## 3.0.0
 Since this introduces MaterialFX as an alternative to JFoenix (dropped from support as it does not appear to be actively maintained), and the non-trivial ways these frameworks handle fonts, this is going to be a milestone release versus a breaking release, to give merit to the resourceScope of the changes. Not the least of this will be how factories are handled.
 

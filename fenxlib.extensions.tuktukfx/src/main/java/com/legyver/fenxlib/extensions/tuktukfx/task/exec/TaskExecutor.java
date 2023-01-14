@@ -85,7 +85,7 @@ public class TaskExecutor {
 		 * @return this configuration
 		 */
 		public TaskExecutorConfiguration delayShutdown(long millis) {
-			hook.setDelayInMillis(millis);
+			ApplicationContext.getApplicationLifecycleHookRegistry().delayShutdown(millis);
 			return this;
 		}
 	}

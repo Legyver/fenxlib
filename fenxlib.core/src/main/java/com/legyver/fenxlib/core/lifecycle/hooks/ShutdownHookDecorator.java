@@ -7,7 +7,9 @@ import javafx.event.ActionEvent;
 
 /**
  * Decorates an executable hook with a call to Platform.exit()
+ * @deprecated  This is no longer needed as it is now handled by the {@link com.legyver.fenxlib.core.lifecycle.ApplicationLifecycleHookRegistry}
  */
+@Deprecated
 public class ShutdownHookDecorator extends HookExecutionDecorator {
 
 	/**

@@ -6,6 +6,9 @@ import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.ResettableApplicationLifecycleHookRegistry;
 import com.legyver.fenxlib.core.context.ApplicationStateMachine;
 import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -19,6 +22,8 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 	private final EnumMap<LifecyclePhase, TreeMap<Integer, ExecutableHook>> lifecycleHooks = new EnumMap<>(LifecyclePhase.class);
 	private final ApplicationStateMachine applicationStateMachine = new ApplicationStateMachine();
 
+	private long delayInMillis = -1;
+
 	/**
 	 * Construct an application lifecycle hook registry to keep track of all lifecycle hooks and the application current state
 	 */
@@ -29,7 +34,9 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 	/**
 	 * Startup the application by running through the lifecycle to {@link LifecyclePhase#POST_INIT}
 	 * @throws CoreException if there is an error raised by any of the associated hooks
+	 * @deprecated Use {@link com.legyver.fenxlib.api.config.options.ApplicationOptions#startup(Application, Stage)}
 	 */
+	@Deprecated
 	@Override
 	public void startup() throws CoreException {
 		executeHook(LifecyclePhase.POST_INIT);
@@ -43,6 +50,16 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 	@Override
 	public void executeHook(LifecyclePhase hook) throws CoreException {
 		applicationStateMachine.run(hook, phase -> {
+			if (phase == LifecyclePhase.SHUTDOWN) {
+				ApplicationContext.getAppState().setShuttingDown(true);
+				if (delayInMillis > 0) {
+					try {
+						Thread.sleep(delayInMillis);
+					} catch (InterruptedException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			}
 			TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.get(phase);
 			if (executableHooks != null) {
 				for (Iterator<Integer> it = executableHooks.navigableKeySet().iterator(); it.hasNext(); ) {
@@ -50,6 +67,9 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 					ExecutableHook executableHook = executableHooks.get(currentPriority);
 					executableHook.execute();
 				}
+			}
+			if (phase == LifecyclePhase.SHUTDOWN) {
+				Platform.exit();
 			}
 		});
 	}
@@ -76,6 +96,13 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 				}
 			}
 			executableHooks.put(nextAvailable, executableHook);
+		}
+	}
+
+	@Override
+	public void delayShutdown(long delayInMillis) {
+		if (delayInMillis > this.delayInMillis) {
+			this.delayInMillis = delayInMillis;
 		}
 	}
 

@@ -3,7 +3,6 @@ package com.legyver.fenxlib.core.menu.templates;
 import com.legyver.fenxlib.core.event.correlation.CorrelatingEventHandlerFactory;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.hooks.HookExecutingAction;
-import com.legyver.fenxlib.core.lifecycle.hooks.ShutdownHookDecorator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -23,7 +22,7 @@ public class ExitMenuItemAction implements EventHandler<ActionEvent> {
 	 */
 	public ExitMenuItemAction() {
 		eventHandler = CorrelatingEventHandlerFactory.wrapIfNecessary(
-				new ShutdownHookDecorator(new HookExecutingAction(LifecyclePhase.SHUTDOWN))::execute);
+				x -> new HookExecutingAction(LifecyclePhase.SHUTDOWN).execute());
 	}
 
 	@Override

@@ -143,7 +143,7 @@ public class ApplicationContext {
 			primaryStage.setOnCloseRequest(event -> {
 				logger.info("Primary stage closing. Executing SHUTDOWN hooks");
 				try {
-					ApplicationContext.getApplicationLifecycleHookRegistry().executeHook(LifecyclePhase.SHUTDOWN);
+					applicationLifecycleHookRegistry.executeHook(LifecyclePhase.SHUTDOWN);
 				} catch (CoreException e) {
 					logger.error("Error executing shutdown lifecycle hook", e);
 				}
