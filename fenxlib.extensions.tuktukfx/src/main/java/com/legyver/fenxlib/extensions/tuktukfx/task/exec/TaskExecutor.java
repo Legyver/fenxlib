@@ -53,7 +53,7 @@ public class TaskExecutor {
 	/**
 	 * Shuts down the internal thread pool
 	 */
-	public void shutdownNow() {
+	public synchronized void shutdownNow() {
 		if (!shutdownInitiated) {
 			pool.shutdownNow();
 			shutdownInitiated = true;

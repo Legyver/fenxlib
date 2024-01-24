@@ -4,20 +4,23 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.fenxlib.api.context.ApplicationContext;
 import com.legyver.fenxlib.api.lifecycle.LifecyclePhase;
 import com.legyver.fenxlib.api.lifecycle.ResettableApplicationLifecycleHookRegistry;
-import com.legyver.fenxlib.core.context.ApplicationStateMachine;
 import com.legyver.fenxlib.api.lifecycle.hooks.ExecutableHook;
+import com.legyver.fenxlib.api.logging.LazyLog;
+import com.legyver.fenxlib.core.context.ApplicationStateMachine;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.util.EnumMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * An application lifecycle hook registry to keep track of all lifecycle hooks and the application current state
  */
 public class ApplicationLifecycleHookRegistry implements ResettableApplicationLifecycleHookRegistry {
+	private static final LazyLog lazyLog = new LazyLog(ApplicationLifecycleHookRegistry.class);
 
 	private final EnumMap<LifecyclePhase, TreeMap<Integer, ExecutableHook>> lifecycleHooks = new EnumMap<>(LifecyclePhase.class);
 	private final ApplicationStateMachine applicationStateMachine = new ApplicationStateMachine();
@@ -36,7 +39,7 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 	 * @throws CoreException if there is an error raised by any of the associated hooks
 	 * @deprecated Use {@link com.legyver.fenxlib.api.config.options.ApplicationOptions#startup(Application, Stage)}
 	 */
-	@Deprecated
+	@Deprecated(since = "3.0.1")
 	@Override
 	public void startup() throws CoreException {
 		executeHook(LifecyclePhase.POST_INIT);
@@ -51,27 +54,47 @@ public class ApplicationLifecycleHookRegistry implements ResettableApplicationLi
 	public void executeHook(LifecyclePhase hook) throws CoreException {
 		applicationStateMachine.run(hook, phase -> {
 			if (phase == LifecyclePhase.SHUTDOWN) {
+				lazyLog.trace("Setting shutdown flag");
 				ApplicationContext.getAppState().setShuttingDown(true);
 				if (delayInMillis > 0) {
 					try {
 						Thread.sleep(delayInMillis);
+						lazyLog.trace("Setting shutdown flag: done");
 					} catch (InterruptedException e) {
-						throw new RuntimeException(e);
+						lazyLog.error("Error setting shutdown hook", e);
+						Thread.currentThread().interrupt();
 					}
 				}
 			}
-			TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.get(phase);
-			if (executableHooks != null) {
-				for (Iterator<Integer> it = executableHooks.navigableKeySet().iterator(); it.hasNext(); ) {
-					Integer currentPriority = it.next();
-					ExecutableHook executableHook = executableHooks.get(currentPriority);
-					executableHook.execute();
-				}
-			}
+
+			executePhaseHooks(phase);
+
 			if (phase == LifecyclePhase.SHUTDOWN) {
+				lazyLog.trace("Shutting down platform");
 				Platform.exit();
 			}
 		});
+	}
+
+	private synchronized void executePhaseHooks(LifecyclePhase phase) throws CoreException {
+		lazyLog.trace("Executing lifecycle hooks for phase: {}", phase);
+		TreeMap<Integer, ExecutableHook> executableHooks = lifecycleHooks.get(phase);
+		if (executableHooks != null) {
+			List<Integer> keys = executableHooks.navigableKeySet().stream().collect(Collectors.toUnmodifiableList());
+			if (lazyLog.isTraceEnabled()) {
+				lazyLog.trace("{} lifecycle hooks found for phase: {}", executableHooks.size(), keys.stream()
+						.map(Object::toString)
+						.collect(Collectors.joining(","))
+				);
+			}
+			for (Integer currentPriority : keys) {
+				lazyLog.trace("Executing lifecycle hook for priority: {}", currentPriority);
+				ExecutableHook executableHook = executableHooks.get(currentPriority);
+				lazyLog.trace("Executing lifecycle hook class [{}}]", executableHook.getClass());
+				executableHook.execute();
+				lazyLog.trace("Lifecycle hook [{}] executed", executableHook.getClass());
+			}
+		}
 	}
 
 	/**
