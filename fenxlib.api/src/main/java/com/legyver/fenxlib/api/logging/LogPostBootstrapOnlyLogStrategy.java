@@ -30,6 +30,6 @@ public class LogPostBootstrapOnlyLogStrategy extends BaseLogStrategy implements 
 
 	@Override
 	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t, Object...args) {
-		logMessage(logger, level, message, t);
+		logMessage(logger, level, message, t, args);
 	}
 }

@@ -3,6 +3,8 @@ package com.legyver.fenxlib.api.logging;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Objects;
+
 /**
  * Strategy that throws a RuntimeException if receiving a log request of a level less than a specified threshold
  * before the logging system has been initiated.
@@ -14,18 +16,14 @@ public class RuntimeExceptionLogStrategy extends BaseLogStrategy implements LogH
 
 	/**
 	 * Construct a RuntimeExceptionLogStrategy that decorates another {@link LogHandlingStrategy}.
-	 * The decorated strategy will be evaluated first..
+	 * The decorated strategy will be evaluated first.
 	 * If no threshold is specified, the default value will be FATAL
 	 * @param decoratedStrategy strategy to decorate
 	 * @param threshold the maximum threshold at which to throw a RuntimeException.
 	 */
 	public RuntimeExceptionLogStrategy(LogHandlingStrategy decoratedStrategy, Level threshold) {
 		super(decoratedStrategy);
-		if (threshold == null) {
-			this.threshold = threshold.FATAL;
-		} else {
-			this.threshold = threshold;
-		}
+		this.threshold = Objects.requireNonNullElse(threshold, Level.FATAL);
 	}
 
 	/**
@@ -47,12 +45,12 @@ public class RuntimeExceptionLogStrategy extends BaseLogStrategy implements LogH
 	public void handlePreBootstrap(Level level, String message, Throwable t, Object...args) {
 		super.handlePreBootstrap(level, message, t);
 		if (level.intLevel() > Level.OFF.intLevel() && (level.intLevel() <= threshold.intLevel())) {
-			throw new RuntimeException("Error received before logging application bootstrapped: " + message, t);
+			throw new UnloggableErrorException("Error received before logging application bootstrapped: " + message, t);
 		}
 	}
 
 	@Override
 	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t, Object...args) {
-		super.handlePostBootstrap(logger, level, message, t);
+		super.handlePostBootstrap(logger, level, message, t, args);
 	}
 }

@@ -75,14 +75,14 @@ public class BaseLogStrategy implements LogHandlingStrategy {
 	@Override
 	public void handlePreBootstrap(Level level, String message, Throwable t, Object...args) {
 		if (decoratedStrategy != null) {
-			decoratedStrategy.handlePreBootstrap(level, message, t);
+			decoratedStrategy.handlePreBootstrap(level, message, t, args);
 		}
 	}
 
 	@Override
 	public void handlePostBootstrap(Logger logger, Level level, String message, Throwable t, Object...args) {
 		if (decoratedStrategy != null) {
-			decoratedStrategy.handlePostBootstrap(logger, level, message, t);
+			decoratedStrategy.handlePostBootstrap(logger, level, message, t, args);
 		}
 	}
 }

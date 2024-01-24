@@ -36,21 +36,17 @@ public class LazyLog {
 	}
 
 	private void log(Level level, String message, Throwable t, Object... args) {
-		if (logger == null) {
-			synchronized (this) {
-				if (logger == null) {
-					if (ApplicationContext.getAppState().isBootstrapped()) {
-						logger = LogManager.getLogger(klass);
-						strategy.handlePostBootstrap(logger, level, message, t, args);
-					} else {
-						strategy.handlePreBootstrap(level, message, t, args);
-					}
-				} else {
+		synchronized (this) {
+			if (logger == null) {
+				if (ApplicationContext.getAppState().isBootstrapped()) {
+					logger = LogManager.getLogger(klass);
 					strategy.handlePostBootstrap(logger, level, message, t, args);
+				} else {
+					strategy.handlePreBootstrap(level, message, t, args);
 				}
+			} else {
+				strategy.handlePostBootstrap(logger, level, message, t, args);
 			}
-		} else {
-			strategy.handlePostBootstrap(logger, level, message, t, args);
 		}
 	}
 
@@ -76,18 +72,20 @@ public class LazyLog {
 	/**
 	 * Log at level trace
 	 * @param message the message
+	 * @param args arguments for the message
 	 */
-	public void trace(String message) {
-		trace(message, null);
+	public void trace(String message, Object ...args) {
+		trace(message, null, args);
 	}
 
 	/**
 	 * Log at level trace
 	 * @param message the message
 	 * @param t the throwable
+	 * @param args arguments for the message
 	 */
-	public void trace(String message, Throwable t) {
-		log(Level.TRACE, message, t);
+	public void trace(String message, Throwable t, Object ...args) {
+		log(Level.TRACE, message, t, args);
 	}
 
 	/**
