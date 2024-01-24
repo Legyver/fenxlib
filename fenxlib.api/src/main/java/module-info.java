@@ -68,6 +68,7 @@ module com.legyver.fenxlib.api {
     exports com.legyver.fenxlib.api.version;
 
     //for reflection in Options Mixins
+    opens com.legyver.fenxlib.api.controls.builder to org.apache.commons.lang3;
     opens com.legyver.fenxlib.api.scene.controls.options to org.apache.commons.lang3;
     opens com.legyver.fenxlib.api.scene.layout.options to org.apache.commons.lang3;
     opens com.legyver.fenxlib.api.scene.text.options to org.apache.commons.lang3;
