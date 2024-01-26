@@ -3,7 +3,7 @@ An extension to supply MaterialFX wigets
 
 ## Usage
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.extensions.materialfx', version: '3.0.1'
+    implementation group: 'com.legyver', name: 'fenxlib.extensions.materialfx', version: '3.0.2'
 ```
 
 ## Notes

@@ -1,4 +1,14 @@
 # Releases
+## 3.0.2
+### Bug fixes
+- fenxlib.core
+  - Bug: Closing the window should shut down the application gracefully.
+  - Bug: Lazy log messages should include passed arguments
+### Vulnerability
+- fenxlib.config.json
+  - Update json-path to 2.9.0
+  - Automatic modules replace module-info insertion in dependencies
+
 ## 3.0.1
 ### Bug fixes
 - fenxlib.core

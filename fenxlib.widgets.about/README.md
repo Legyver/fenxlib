@@ -13,7 +13,7 @@ Display an about page with the following customizable elements (listed from top-
 ## Usage
 ### Dependency
 ```gradle
-    implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.1'
+    implementation group: 'com.legyver', name: 'fenxlib.widgets.about', version: '3.0.2'
 ```
 ### Coding
 ```java
