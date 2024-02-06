@@ -1,33 +1,45 @@
 package com.legyver.fenxlib.core.layout.options;
 
+import com.legyver.fenxlib.core.layout.BorderPaneApplicationLayout;
+
 /**
  * Options describing the default layout of a fenxlib application.
  * This layout corresponds to the five sections of a BorderPane
  * @deprecated Use {@link com.legyver.fenxlib.core.layout.BorderPaneApplicationLayout}
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class BorderPaneInitializationOptions {
 
 	/**
 	 * The name of the top region of the application layout
+	 * @deprecated Use {@link BorderPaneApplicationLayout#TOP}
 	 */
-	public static final String REGION_TOP = "top";
+	@Deprecated
+	public static final String REGION_TOP = BorderPaneApplicationLayout.TOP;
 	/**
 	 * The name of the bottom region of the application layout
+	 * @deprecated Use {@link BorderPaneApplicationLayout#BOTTOM}
 	 */
-	public static final String REGION_BOTTOM = "bottom";
+	@Deprecated
+	public static final String REGION_BOTTOM = BorderPaneApplicationLayout.BOTTOM;
 	/**
 	 * The name of the left region of the application layout
+	 * @deprecated Use {@link BorderPaneApplicationLayout#LEFT}
 	 */
-	public static final String REGION_LEFT = "left";
+	@Deprecated
+	public static final String REGION_LEFT = BorderPaneApplicationLayout.LEFT;
 	/**
 	 * The name of the right region of the application layout
+	 * @deprecated Use {@link BorderPaneApplicationLayout#RIGHT}
 	 */
-	public static final String REGION_RIGHT = "right";
+	@Deprecated
+	public static final String REGION_RIGHT = BorderPaneApplicationLayout.RIGHT;
 	/**
 	 * The name of the center region of the application layout
+	 * @deprecated Use {@link BorderPaneApplicationLayout#CENTER}
 	 */
-	public static final String REGION_CENTER = "center";
+	@Deprecated
+	public static final String REGION_CENTER = BorderPaneApplicationLayout.CENTER;
 
 	private final RegionInitializationOptions centerOptions;
 	private final RegionInitializationOptions leftOptions;

@@ -41,4 +41,18 @@ public interface LocationContext {
 		locationContextDecorator.setName(name != null ? name : UUID.randomUUID().toString());
 		return locationContextDecorator;
 	}
+
+	/**
+	 * Decorate a location context
+	 * @param locationContext the child locationContext.  This will be moved under the parent
+	 * @return the decorated location context
+	 */
+	default LocationContext decorateWith(LocationContext locationContext) {
+		if (this.getName() == null || this.getName().isEmpty() || this.getName().isBlank()) {
+			return locationContext;
+		}
+		LocationContextDecorator locationContextDecorator = new LocationContextDecorator(this);
+		locationContextDecorator.setName(locationContext.getName());
+		return locationContextDecorator;
+	}
 }

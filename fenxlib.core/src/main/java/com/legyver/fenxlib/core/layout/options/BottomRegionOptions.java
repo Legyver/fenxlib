@@ -5,7 +5,7 @@ import javafx.scene.Node;
 /**
  * Default BottomRegionOptions
  */
-public class BottomRegionOptions extends PreconstructedRegionOptions implements IBottomRegionOptions {
+public class BottomRegionOptions extends PreconstructedRegionOptions<BottomRegionOptions> implements IBottomRegionOptions {
     /**
      * Construct a region with the specified content
      * @param content the content to display in this region of the application layout

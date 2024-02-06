@@ -1,6 +1,12 @@
 package com.legyver.fenxlib.core.layout;
 
+import com.legyver.fenxlib.api.context.ApplicationContext;
+import com.legyver.fenxlib.api.locator.DefaultLocationContext;
+import com.legyver.fenxlib.api.locator.IComponentRegistry;
+import com.legyver.fenxlib.api.locator.LocationContext;
 import com.legyver.fenxlib.core.layout.options.*;
+import com.legyver.fenxlib.core.util.PropertyMapExtractor;
+import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
@@ -16,6 +22,27 @@ import java.util.function.Consumer;
  * If using the {@link BorderPaneBuilder}, the left, right and bottom regions can support a control that can hide/show the region.
  */
 public class BorderPaneApplicationLayout extends BaseApplicationLayout {
+
+    /**
+     * The name of the top region of the application layout
+     */
+    public static final String TOP = "top";
+    /**
+     * The name of the center region of the application layout
+     */
+    public static final String CENTER = "center";
+    /**
+     * The name of the right region of the application layout
+     */
+    public static final String RIGHT = "right";
+    /**
+     * The name of the left region of the application layout
+     */
+    public static final String LEFT = "left";
+    /**
+     * The name of the bottom region of the application layout
+     */
+    public static final String BOTTOM = "bottom";
 
     /**
      * Construct an application layout in a border pane
@@ -44,18 +71,35 @@ public class BorderPaneApplicationLayout extends BaseApplicationLayout {
         public BorderPaneApplicationLayout buildInternal() {
             BorderPane borderPane = new BorderPane();
             if (topRegionOptions != null) {
-                borderPane.setTop(topRegionOptions.getContent());
+                borderPane.setTop(reRegister(topRegionOptions, TOP));
             }
             if (centerRegionOptions != null) {
-                borderPane.setCenter(centerRegionOptions.getContent());
+                borderPane.setCenter(reRegister(centerRegionOptions, CENTER));
             }
             RegionControl regionControl = new RegionControl();
-            regionControl.setupControl(rightRegionControlOptions, rightRegionOptions, content -> borderPane.setRight(content));
-            regionControl.setupControl(leftRegionControlOptions, leftRegionOptions, content -> borderPane.setLeft(content));
-            regionControl.setupControl(bottomRegionControlOptions, bottomRegionOptions, content -> borderPane.setBottom(content));
+            regionControl.setupControl(rightRegionControlOptions, rightRegionOptions, RIGHT, content -> borderPane.setRight(content));
+            regionControl.setupControl(leftRegionControlOptions, leftRegionOptions, LEFT, content -> borderPane.setLeft(content));
+            regionControl.setupControl(bottomRegionControlOptions, bottomRegionOptions, BOTTOM, content -> borderPane.setBottom(content));
 
-            BorderPaneApplicationLayout layout = new BorderPaneApplicationLayout(borderPane);
-            return layout;
+            return new BorderPaneApplicationLayout(borderPane);
+        }
+
+        private static Node reRegister(IRegionOptions regionOptions, String regionName) {
+            Node content = null;
+            if (regionOptions != null) {
+                content = regionOptions.getContent();
+
+                if (regionOptions.isReRegisterComponents()) {
+                    LocationContext regionLocationContext = new DefaultLocationContext(regionName);
+                    ObservableMap<Object, Object> propertyMap = new PropertyMapExtractor(content).get();
+                    LocationContext orginalLocationContext = (LocationContext) propertyMap.get(IComponentRegistry.LOCATION_CONTEXT_PROPERTY);
+                    LocationContext newLocationContext = regionLocationContext.decorateWith(orginalLocationContext);
+                    IComponentRegistry componentRegistry = ApplicationContext.getComponentRegistry();
+                    componentRegistry.deregister(orginalLocationContext);
+                    componentRegistry.register(newLocationContext, content);
+                }
+            }
+            return content;
         }
 
         /**
@@ -141,16 +185,17 @@ public class BorderPaneApplicationLayout extends BaseApplicationLayout {
 
     private static class RegionControl {
 
-        private void setupControl(IRegionControl control, IRegionOptions options, Consumer<Node> setter) {
+        private void setupControl(IRegionControl control, IRegionOptions options, String regionName, Consumer<Node> setter) {
+            Node content = BorderPaneBuilder.reRegister(options, regionName);
             control.showRegionProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue && options != null) {
-                    setter.accept(options.getContent());
+                    setter.accept(content);
                 } else {
                     setter.accept(null);
                 }
             });
             if (control.isShowRegion() && options != null) {
-                setter.accept(options.getContent());
+                setter.accept(content);
             }
         }
     }

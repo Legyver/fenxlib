@@ -5,8 +5,9 @@ import javafx.scene.Node;
 /**
  * Options to specify the region content when it is preconstructed
  */
-public class PreconstructedRegionOptions implements IRegionOptions {
+public class PreconstructedRegionOptions<T extends PreconstructedRegionOptions> implements IRegionOptions {
     private Node content;
+    private boolean reRegisterComponents;
 
     /**
      * Construct a region with the specified content
@@ -37,5 +38,21 @@ public class PreconstructedRegionOptions implements IRegionOptions {
      */
     public void setContent(Node content) {
         this.content = content;
+    }
+
+    @Override
+    public boolean isReRegisterComponents() {
+        return reRegisterComponents;
+    }
+
+    /**
+     * Builder-type method for specifying if the region content should be re-registered under the region.
+     * If specified this will result in the top-most component in a region being re-registered with the name of the region as a parent location context.
+     * @param reRegisterComponents flag determining if components should be re-registered
+     * @return the extending Options
+     */
+    public T reRegisterComponents(boolean reRegisterComponents) {
+        this.reRegisterComponents = reRegisterComponents;
+        return (T) this;
     }
 }

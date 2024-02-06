@@ -5,7 +5,7 @@ import javafx.scene.Node;
 /**
  * Region options for the right of the application
  */
-public class RightRegionOptions extends PreconstructedRegionOptions implements IRightRegionOptions {
+public class RightRegionOptions extends PreconstructedRegionOptions<RightRegionOptions> implements IRightRegionOptions {
     /**
      * Construct a region with the specified content
      * @param content the content to display in this region of the application layout

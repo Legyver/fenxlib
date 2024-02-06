@@ -11,4 +11,13 @@ public interface IRegionOptions {
      * @return the content
      */
     Node getContent();
+
+    /**
+     * Check if region components should be re-registered under the region name.
+     * By default, this is false
+     * @return true or false
+     */
+    default boolean isReRegisterComponents() {
+        return false;
+    }
 }

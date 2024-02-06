@@ -7,7 +7,7 @@ import javafx.scene.Node;
  * The menu bar is not part of the layout as that is specified separately in the {@link com.legyver.fenxlib.core.layout.BaseApplicationLayout}
  * and is rendered specific to the operating system via standard mechanism.
  */
-public class TopRegionOptions extends PreconstructedRegionOptions implements ITopRegionOptions {
+public class TopRegionOptions extends PreconstructedRegionOptions<TopRegionOptions> implements ITopRegionOptions {
 
     /**
      * Construct a top region with the specified content

@@ -5,7 +5,7 @@ import javafx.scene.Node;
 /**
  * Region options for the left side of the application
  */
-public class LeftRegionOptions extends PreconstructedRegionOptions implements ILeftRegionOptions {
+public class LeftRegionOptions extends PreconstructedRegionOptions<LeftRegionOptions> implements ILeftRegionOptions {
 
     /**
      * Construct a region with the specified content
